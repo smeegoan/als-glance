@@ -1,0 +1,142 @@
+﻿@model int
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#details" data-toggle="tab">Details</a></li>
+    <li><a href="#results" data-toggle="tab">Results</a></li>
+</ul>
+<br />
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade active in" id="details">
+        <div class="container">
+
+            <div class="row">
+                <div id="yearly-bubble-chart" class="dc-chart">
+                    <p>
+                        <strong>Measurements by Time Of Day</strong> (radius: average AUC * 10000)
+                        <a class="reset" href="javascript:timeOfDayBubbleChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                    </p>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 20px">
+                <div id="gain-loss-chart" class="dc-chart">
+                    <strong>Muscle</strong>
+                    <a class="reset" href="javascript:gainOrLossChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                    <div class="clearfix"></div>
+                </div>
+                <div id="quarter-chart" class="dc-chart">
+                    <strong>Quarter</strong>
+                    <a class="reset" href="javascript:quarterChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                    <div class="clearfix"></div>
+                </div>
+                <div id="day-of-week-chart" class="dc-chart" style="margin-left: 50px">
+                    <strong>Day of Week</strong>
+                    <a class="reset" href="javascript:dayOfWeekChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                    <div class="clearfix"></div>
+                </div>
+
+            </div>
+            <div class="row" style="margin-top: 20px">
+                <div id="fluctuation-chart" class="dc-chart">
+                    <strong>Measurements by Hour</strong>
+                    <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                    <a class="reset" href="javascript:fluctuationChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                    <div class="clearfix"></div>
+                </div><div class='dc-chart' id='dc-line-chart'>
+                    <strong>Average Hourly AUC</strong>
+                    <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                    <a class="reset" href="javascript:lineChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="monthly-move-chart" class="dc-chart">
+                    <strong>Average Monthly AUC</strong>
+                    <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                    <a class="reset" href="javascript:moveChart.filterAll();volumeChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                    <div class="clearfix"></div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div id="monthly-volume-chart" class="dc-chart">
+                </div>
+                <p class="muted pull-right" style="margin-right: 15px;">select a time range to zoom in</p>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="tab-pane fade" id="results">
+        <div class="container">
+            <div class="row">
+                <div>
+                    <div class="dc-data-count dc-chart">All records selected. Please click on the graph to apply filters.</div>
+                </div>
+                <table class="table table-hover dc-data-table" style="margin-top: 60px"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @*@if (Request.IsAuthenticated)*@
+    @Scripts.Render("~/Home/ApiAuth")
+    @Scripts.Render("~/bundles/dc")
+    <script>
+        (function () {
+
+            var apiClient = new my.ApiClient({
+                baseUri: my.baseUri,
+                authToken: my.authToken,
+                onAuthFail: function () {
+                    $(".error").show();
+                }
+            });
+            $.when(apiClient.get("Fact?$expand=Time,Date,Patient,Muscle&$filter=Patient/Id eq " + @Model))
+                .then(function(data) {
+                    var muscles = [];
+
+                    data =JSON.flatten(data);
+                    data.forEach(function(entry) {
+                        if (muscles[entry.MuscleAbbreviation] == null)
+                            muscles[entry.MuscleAbbreviation]=[];
+                        if (muscles[entry.MuscleAbbreviation][entry.TimeTimeOfDay] == null)
+                            muscles[entry.MuscleAbbreviation][entry.TimeTimeOfDay]=[];
+                        muscles[entry.MuscleAbbreviation][entry.TimeTimeOfDay].push([new Date(entry.DateDate).getTime(),  entry.AUC,entry.DateMonth,entry.DateYear]);
+                    });
+                    for (var muscle in muscles) {
+                        for (var timeOfDay in muscles[muscle]) {
+                            var measurements = muscles[muscle][timeOfDay];
+                            var equation = regression('linear', measurements).equation;
+                            var startDate = moment(measurements[0][0]);
+                            for (var i = 1; i < 36; i++) {
+                                startDate = startDate.add(1,"months");
+                                var ticks = startDate.valueOf();
+                                console.log(measurements);
+                                data.push({DateDate:startDate.format("YYYY-MM-DD HH:mm"),
+                                    AUC: equation[0]*ticks+equation[1],
+                                    DateMonthName:startDate.format("MMMM"),
+                                    DateMonth:startDate.format("M"),
+                                    DateYear:startDate.format("YYYY"),
+                                    PatientName: "Prediction",
+                                    DateDayOfWeek:startDate.format("dddd"),
+                                    TimeTimeOfDay: timeOfDay,
+                                    MuscleName:muscle,
+                                    MuscleAbbreviation:muscle});
+                            }
+                        };
+                    };
+                    my.LoadPatientData(data);
+
+                });
+
+        })();
+    </script>
+}
+
+
