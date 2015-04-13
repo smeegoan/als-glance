@@ -43,7 +43,7 @@ namespace ALS.Glance.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/ALS.Glance.Api/odata/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://als-glance-api.apphb.com/odata/")]
         public string ApiUrl {
             get {
                 return ((string)(this["ApiUrl"]));
