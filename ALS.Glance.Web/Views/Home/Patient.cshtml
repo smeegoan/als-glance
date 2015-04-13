@@ -117,7 +117,6 @@
                             for (var i = 1; i < 36; i++) {
                                 startDate = startDate.add(1,"months");
                                 var ticks = startDate.valueOf();
-                                console.log(measurements);
                                 data.push({DateDate:startDate.format("YYYY-MM-DD HH:mm"),
                                     AUC: equation[0]*ticks+equation[1],
                                     DateMonthName:startDate.format("MMMM"),
