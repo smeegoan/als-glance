@@ -97,7 +97,7 @@
                     $(".error").show();
                 }
             });
-            $.when(apiClient.get("Fact?$expand=Time,Date,Patient,Muscle&$filter=Patient/Id eq " + @Model))
+            $.when(apiClient.get("Fact?$select=AUC&$expand=Time($select=Hour,TimeOfDay),Date($select=DayOfWeek,Weekday,Date,MonthName,Quarter),Patient,Muscle($select=Name,Abbreviation)&$filter=Patient/Id eq " + @Model))
                 .then(function(data) {
                     var muscles = [];
 
