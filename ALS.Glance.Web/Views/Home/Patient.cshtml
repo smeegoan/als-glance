@@ -5,12 +5,12 @@
 }
 
 <ul class="nav nav-tabs">
-    <li class="active"><a href="#details" data-toggle="tab">Details</a></li>
-    <li><a href="#results" data-toggle="tab">Results</a></li>
+    <li class="active"><a href="#results" data-toggle="tab">Results</a></li>
+    <li><a href="#details" data-toggle="tab">Details</a></li>
 </ul>
 <br />
 <div id="myTabContent" class="tab-content">
-    <div class="tab-pane fade active in" id="details">
+    <div class="tab-pane fade active in" id="results">
         <div class="container">
 
             <div class="row">
@@ -71,7 +71,7 @@
 
         </div>
     </div>
-    <div class="tab-pane fade" id="results">
+    <div class="tab-pane fade" id="details">
         <div class="container">
             <div class="row">
                 <div>
@@ -97,7 +97,7 @@
                     $(".error").show();
                 }
             });
-            $.when(apiClient.get("Fact?$select=AUC&$expand=Time($select=Hour,TimeOfDay),Date($select=DayOfWeek,Weekday,Date,MonthName,Quarter),Patient,Muscle($select=Name,Abbreviation)&$filter=Patient/Id eq " + @Model))
+            $.when(apiClient.get("Fact?$select=AUC&$expand=Time($select=Hour,TimeOfDay),Date($select=DayOfWeek,Weekday,Date,Year,MonthName,Quarter),Patient,Muscle($select=Name,Abbreviation)&$filter=Patient/Id eq " + @Model))
                 .then(function(data) {
                     var muscles = [];
 
@@ -107,7 +107,7 @@
                             muscles[entry.MuscleAbbreviation]=[];
                         if (muscles[entry.MuscleAbbreviation][entry.TimeTimeOfDay] == null)
                             muscles[entry.MuscleAbbreviation][entry.TimeTimeOfDay]=[];
-                        muscles[entry.MuscleAbbreviation][entry.TimeTimeOfDay].push([new Date(entry.DateDate).getTime(),  entry.AUC,entry.DateMonth,entry.DateYear]);
+                        muscles[entry.MuscleAbbreviation][entry.TimeTimeOfDay].push([new Date(entry.DateDate).getTime(),  entry.AUC]);
                     });
                     for (var muscle in muscles) {
                         for (var timeOfDay in muscles[muscle]) {

@@ -63,10 +63,11 @@ var helper = function (data) {
             var isEmpty = true;
             for (var p in cur) {
                 isEmpty = false;
-                if (p != "Id")
-                    recurse(cur[p], prop ? prop + p : p);
+                //if (p != "Id")
+                recurse(cur[p], prop ? prop + p : p);
             }
-            if (isEmpty && prop) result[prop] = {};
+            if (isEmpty && prop)
+                result[prop] = {};
         }
     }
     recurse(data, "");
