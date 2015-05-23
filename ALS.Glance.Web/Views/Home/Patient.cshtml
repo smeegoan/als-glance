@@ -1,4 +1,4 @@
-﻿@model int
+﻿@model ALS.Glance.Web.Models.PatientViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -11,61 +11,189 @@
 <br />
 <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade active in" id="results">
+
+
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="chart-wrapper">
+                        <div class="chart-stage">
+                            <fieldset>
+                                <legend>&nbsp;Muscles</legend>
+                                <div class="form-group">
+                                    <div id="muscles" class="col-md-10">
+                                        @foreach (var item in Model.Muscles)
+                                        {
+                                            var muscleChecked = item.Item3 ? "checked=\"checked\"" : string.Empty;
+
+                                            <div class="radio">
+                                                <label>
+                                                    <input id="@item.Item1" type="radio" @muscleChecked name="style-0">
+                                                    <span>@item.Item2</span>
+                                                </label>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend>&nbsp;Years</legend>
+                                <div class="form-group">
+                                    <div id="years" class="col-md-10">
+                                        @foreach (var item in Model.Years)
+                                        {
+                                            var yearChecked = item.Item2 ? "checked=\"checked\"" : string.Empty;
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input id="@item.Item1" type="checkbox" @yearChecked>
+                                                    @item.Item1
+                                                </label>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend>&nbsp;Color Schemes</legend>
+                                <div id="scheme1" class="col-md-offset-1">
+                                    <div id="ramps"></div>
+                                </div> <!--end scheme1 div-->
+                            </fieldset>
+                            <fieldset>
+                                <legend>&nbsp;Filters</legend>
+                                <div class="form-group">
+                                    <div class="col-md-offset-1">
+                                        <div id="reset" class="btn btn-default" ><i class="fa fa-remove"></i>&nbsp;Reset</div>
+                                        <a class="btn btn-default" href="#"><i class="fa fa-save"></i>&nbsp;Save</a>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="chart-notes">
+                            Notes about this chart
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="chart-wrapper">
+                                <div class="chart-title">
+                                    <strong>AUC</strong>
+                                    <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                                    <a class="reset" href="javascript:predictionSeriesChart.filterAll();volumeChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                                </div>
+                                <div class="chart-stage">
+                                    <div id="predictionSeriesChart" class="dc-chart">
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div id="dateRangeChart" class="dc-chart">
+                                    </div>
+                                </div>
+                                <div class="chart-notes">
+                                    Select a time range to zoom in
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="chart-wrapper">
+                                <div class="chart-title">
+                                    <strong>Quarter</strong>
+                                    <a class="reset" href="javascript:quarterChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                                </div>
+                                <div class="chart-stage">
+                                    <div id="quarterChart" class="dc-chart">
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <div class="chart-notes">
+                                    Notes about this chart
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="chart-wrapper">
+                                <div class="chart-title">
+                                    <strong>Weekday</strong>
+                                    <a class="reset" href="javascript:dayOfWeekChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                                </div>
+                                <div class="chart-stage">
+                                    <div id="day-of-week-chart" class="dc-chart" style="margin-left: 50px">
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <div class="chart-notes">
+                                    Notes about this chart
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="chart-wrapper">
+                                <div class="chart-title">
+                                    <strong>Measurements by Hour</strong>
+                                    <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                                    <a class="reset" href="javascript:timeHourChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                                </div>
+                                <div class="chart-stage">
+                                    <div id="timeHourChart" class="dc-chart">
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <div class="chart-notes">
+                                    Notes about this chart
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="chart-wrapper">
+                                <div class="chart-title">
+                                    <strong>Average Hourly AUC</strong>
+                                    <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                                    <a class="reset" href="javascript:lineChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                                </div>
+                                <div class="chart-stage">
+                                    <div class='dc-chart' id='dc-line-chart'>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <div class="chart-notes">
+                                    Notes about this chart
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="chart-wrapper">
+                                <div class="chart-title">
+                                    <strong>Measurements by Time Of Day</strong> (radius: average AUC * 10000)
+                                    <a class="reset" href="javascript:timeOfDayBubbleChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                                </div>
+                                <div class="chart-stage">
+                                    <div id="yearly-bubble-chart" class="dc-chart">
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <div class="chart-notes">
+                                    Notes about this chart
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="container">
-
             <div class="row">
-                <div id="yearly-bubble-chart" class="dc-chart">
-                    <p>
-                        <strong>Measurements by Time Of Day</strong> (radius: average AUC * 10000)
-                        <a class="reset" href="javascript:timeOfDayBubbleChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                    </p>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-            <div class="row" style="margin-top: 20px">
-                <div id="gain-loss-chart" class="dc-chart">
-                    <strong>Muscle</strong>
-                    <a class="reset" href="javascript:gainOrLossChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                    <div class="clearfix"></div>
-                </div>
-                <div id="quarter-chart" class="dc-chart">
-                    <strong>Quarter</strong>
-                    <a class="reset" href="javascript:quarterChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                    <div class="clearfix"></div>
-                </div>
-                <div id="day-of-week-chart" class="dc-chart" style="margin-left: 50px">
-                    <strong>Day of Week</strong>
-                    <a class="reset" href="javascript:dayOfWeekChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                    <div class="clearfix"></div>
-                </div>
 
             </div>
             <div class="row" style="margin-top: 20px">
-                <div id="fluctuation-chart" class="dc-chart">
-                    <strong>Measurements by Hour</strong>
-                    <span class="reset" style="display: none;">range: <span class="filter"></span></span>
-                    <a class="reset" href="javascript:fluctuationChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                    <div class="clearfix"></div>
-                </div><div class='dc-chart' id='dc-line-chart'>
-                    <strong>Average Hourly AUC</strong>
-                    <span class="reset" style="display: none;">range: <span class="filter"></span></span>
-                    <a class="reset" href="javascript:lineChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div id="monthly-move-chart" class="dc-chart">
-                    <strong>Average Monthly AUC</strong>
-                    <span class="reset" style="display: none;">range: <span class="filter"></span></span>
-                    <a class="reset" href="javascript:moveChart.filterAll();volumeChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                    <div class="clearfix"></div>
-                </div>
 
             </div>
-            <div class="row">
-                <div id="monthly-volume-chart" class="dc-chart">
-                </div>
-                <p class="muted pull-right" style="margin-right: 15px;">select a time range to zoom in</p>
+            <div class="row" style="margin-top: 20px">
             </div>
 
 
@@ -86,7 +214,8 @@
 @section Scripts {
     @*@if (Request.IsAuthenticated)*@
     @Scripts.Render("~/Home/ApiAuth")
-    @Scripts.Render("~/bundles/dc")
+    @Scripts.Render("~/bundles/dcjs")
+    @Scripts.Render("~/bundles/keenjs")
     <script>
         (function () {
 
@@ -97,7 +226,7 @@
                     $(".error").show();
                 }
             });
-            $.when(apiClient.get("Fact?$select=AUC&$expand=Time($select=Hour,TimeOfDay),Date($select=DayOfWeek,Weekday,Date,Year,MonthName,Quarter),Patient,Muscle($select=Name,Abbreviation)&$filter=Patient/Id eq " + @Model))
+            $.when(apiClient.get("Fact?$select=AUC&$expand=Time($select=Hour,TimeOfDay),Date($select=DayOfWeek,Weekday,Date,Year,MonthName,Quarter),Patient,Muscle($select=Name,Abbreviation)&$filter=Patient/Id eq " + @Model.Id))
                 .then(function(data) {
                     var muscles = [];
 
@@ -121,7 +250,8 @@
                                     AUC: equation[0]*ticks+equation[1],
                                     DateMonthName:startDate.format("MMMM"),
                                     DateMonth:startDate.format("M"),
-                                    DateYear:startDate.format("YYYY"),
+                                    DateYear:parseInt(startDate.format("YYYY")),
+                                    DateQuarter:startDate.quarter(),
                                     PatientName: "Prediction",
                                     DateDayOfWeek:startDate.format("dddd"),
                                     TimeTimeOfDay: timeOfDay,
@@ -131,7 +261,7 @@
                         };
                     };
                     my.LoadPatientData(data);
-
+                    init();
                 });
 
         })();

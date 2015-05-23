@@ -1,5 +1,5 @@
 ﻿@using ALS.Glance.DataAgents.ALS.Glance.Models
-@model IEnumerable<ALS.Glance.DataAgents.ALS.Glance.Models.DPatient>
+@model IEnumerable<DPatient>
 
 @{
     ViewBag.Title = "Patients";
@@ -29,7 +29,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (DPatient item in Model)
+        @foreach (var item in Model)
         {
             <tr>
                 <td>
@@ -48,14 +48,14 @@
                     @Html.DisplayFor(modelItem => item.Sex)
                 </td>
                 <td>
-                    <a href="@Url.Action("Patients", "Home", new { id = item.Id }, null)"> <span class="glyphicon glyphicon-eye-open"></span></a>
+                    <a href="@Url.Action("Patients", "Home", new { id = item.Id }, null)"> <span class="fa fa-eye"></span></a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 @section Scripts {
-    @Scripts.Render("~/bundles/datatable")
+    @Scripts.Render("~/bundles/datatablejs")
     <script>
         $(document).ready(function () {
             $('#patients').dataTable();

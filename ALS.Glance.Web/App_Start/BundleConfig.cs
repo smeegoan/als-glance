@@ -19,7 +19,7 @@ namespace ALS.Glance.Web
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/dc").Include(
+            bundles.Add(new ScriptBundle("~/bundles/dcjs").Include(
                       "~/Scripts/CrossFilter/crossfilter.js",
                       "~/Scripts/d3.v3.js",
                       "~/Scripts/DC/dc.js",
@@ -27,20 +27,31 @@ namespace ALS.Glance.Web
                       "~/Scripts/regression.js",
                       "~/Scripts/moment.js",
                       "~/Scripts/colorbrewer.js",
+                      "~/Scripts/colorbrewer_schemes.js",
                       "~/Scripts/alsglance.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+            bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/datatable").Include(
+            bundles.Add(new ScriptBundle("~/bundles/keenjs").Include(
+                "~/Scripts/holder.js",
+                "~/Scripts/meta.js",
+                "~/Scripts/keen.min.js"));
+
+
+            bundles.Add(new ScriptBundle("~/bundles/datatablejs").Include(
                       "~/Scripts/jquery.dataTables.js",
                       "~/Scripts/dataTables.bootstrap.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new StyleBundle("~/Content/misccss").Include(
                 "~/Content/dc.css",
+                "~/Content/colorbrewer.css",
                 "~/Content/bootstrap.css",
-                "~/Content/site.css"));
+                "~/Content/font-awesome.min.css",
+                "~/Content/keen-dashboards.css",
+                "~/Content/site.css")); 
+
         }
     }
 }

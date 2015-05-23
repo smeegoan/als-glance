@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using ALS.Glance.DataAgents.ALS.Glance.Models;
@@ -10,5 +11,9 @@ namespace ALS.Glance.DataAgents.Interfaces
     public interface IALSGlanceDA : IDataAgent
     {
         Task<IEnumerable<DPatient>> GetPatientsAsync(WebApiCredentials credentials, CancellationToken ct);
+
+        Task<IEnumerable<int>> GetFactYearsAsync(WebApiCredentials credentials, long patientId, CancellationToken ct);
+
+        Task<IEnumerable<Tuple<string,string>>> GetMusclesAsync(WebApiCredentials credentials, long patientId, CancellationToken ct);
     }
 }

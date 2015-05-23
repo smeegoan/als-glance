@@ -54,7 +54,7 @@ namespace ALS.Glance.DataAgents
         {
             return new WebApiODataContainer(
                 new Uri(url),
-                servicesWebApiCredentials.ApplicationToken,
+                servicesWebApiCredentials.ApplicationId,
                 servicesWebApiCredentials.UserName,
                 servicesWebApiCredentials.Password);
         }
@@ -101,7 +101,7 @@ namespace ALS.Glance.DataAgents
         {
             try
             {
-               // await AuthenticateAsync(cancellationToken);
+               await AuthenticateAsync(cancellationToken);
 
                 return await action(this);
             }
@@ -420,7 +420,9 @@ namespace ALS.Glance.DataAgents
 
         private async Task<AuthorizationInfo> AuthenticateAsync(CancellationToken ct)
         {
-            return await Task<AuthorizationInfo>.Factory.StartNew(Authenticate, ct);
+            return null;
+#warning repor
+            //return await Task<AuthorizationInfo>.Factory.StartNew(Authenticate, ct);
         }
 
         private class AuthorizationInfo

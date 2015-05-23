@@ -152,6 +152,7 @@
     <Compile Include="Controllers\ApplicationSettingsController.cs" />
     <Compile Include="Controllers\AuthorizationRefreshController.cs" />
     <Compile Include="Controllers\AuthorizationRequestController.cs" />
+    <Compile Include="Controllers\DDateController.cs" />
     <Compile Include="Controllers\DPatientController.cs" />
     <Compile Include="Controllers\FactController.cs" />
     <Compile Include="Controllers\ODataInterfaces.cs" />
@@ -185,6 +186,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\Producao.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

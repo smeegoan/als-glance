@@ -35,6 +35,7 @@ namespace ALS.Glance.Web.Ioc.Installers
                             var s = k.Resolve<Settings>();
                             d["UserName"] = s.User;
                             d["Password"] = s.Password;
+                            d["ApplicationId"] = s.ApplicationId;
                         })
                     .LifestyleSingleton()
                 );

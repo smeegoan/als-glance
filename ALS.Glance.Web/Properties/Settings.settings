@@ -9,7 +9,10 @@
       <Value Profile="(Default)">Password</Value>
     </Setting>
     <Setting Name="ApiUrl" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://als-glance-api.apphb.com/odata/</Value>
+      <Value Profile="(Default)">http://localhost/ALS.Glance.Api/odata/</Value>
+    </Setting>
+    <Setting Name="ApplicationId" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">QUxTIEdsYW5jZQ==</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -74,6 +74,16 @@ var helper = function (data) {
     return result;
 };
 
+function groupBy(items, propertyName) {
+    var result = [];
+    $.each(items, function (index, item) {
+        if ($.inArray(item[propertyName], result) == -1) {
+            result.push(item[propertyName]);
+        }
+    });
+    return result;
+}
+
 JSON.flatten = function (data) {
     var res = [];
     for (var p in data) {
@@ -83,7 +93,7 @@ JSON.flatten = function (data) {
             }
         }
     }
-    res.pop(); // the last element is an empty object
+   //review this res.pop(); // the last element is an empty object
     return res;
 };
 

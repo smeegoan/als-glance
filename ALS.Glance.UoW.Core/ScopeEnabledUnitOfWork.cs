@@ -9,8 +9,6 @@ namespace ALS.Glance.UoW.Core
     public abstract class ScopeEnabledUnitOfWork : IUnitOfWork
     {
         private int _currentScope;
-        // ReSharper disable once UnusedMember.Local
-        private readonly Guid _privateId = Guid.NewGuid();
 
         public void Begin()
         {

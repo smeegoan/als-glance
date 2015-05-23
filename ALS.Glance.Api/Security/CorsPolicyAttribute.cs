@@ -23,7 +23,7 @@ namespace ALS.Glance.Api.Security
 
             // Add allowed origins.
             _policy.Origins.Add("http://localhost:53130");
-            _policy.Origins.Add("http://als-glance-web.apphb.com");
+            _policy.Origins.Add("http://pmcchp.com/als-glance");
         }
 
         public Task<CorsPolicy> GetCorsPolicyAsync(HttpRequestMessage request,CancellationToken ct)

@@ -14,7 +14,7 @@ namespace ALS.Glance.DataAgents.Implementations
     {
         private readonly string _apiUrl;
 
-        public ALSGlanceDA( string apiUrl)
+        public ALSGlanceDA(string apiUrl)
         {
             _apiUrl = apiUrl;
         }
@@ -27,12 +27,42 @@ namespace ALS.Glance.DataAgents.Implementations
                     async container =>
                     {
                         ct.ThrowIfCancellationRequested();
-                        var pharmacyCardQuery = container.DPatient;
+                        var query = container.DPatient;
 
-                        var pharmacyCard = await pharmacyCardQuery.GetAllPagesAsync();
-
-                        return pharmacyCard;
+                        return await query.GetAllPagesAsync();
                     },
+                   ct);
+        }
+
+
+        public async Task<IEnumerable<int>> GetFactYearsAsync(WebApiCredentials credentials, long patientId, CancellationToken ct)
+        {
+            ct.ThrowIfCancellationRequested();
+            return await WebApiODataContainer.Using(_apiUrl, credentials)
+               .ExecuteAuthenticated(
+                     container =>
+                     {
+                         ct.ThrowIfCancellationRequested();
+                         var years = container.Fact.Expand(e => e.Date).Where(f => f.Patient.Id == patientId);
+
+                         return years.ToArray().Select(e => (int)e.Date.Year).Distinct();
+                     },
+                   ct);
+        }
+
+
+        public async Task<IEnumerable<Tuple<string, string>>> GetMusclesAsync(WebApiCredentials credentials, long patientId, CancellationToken ct)
+        {
+            ct.ThrowIfCancellationRequested();
+            return await WebApiODataContainer.Using(_apiUrl, credentials)
+               .ExecuteAuthenticated(
+                     container =>
+                     {
+                         ct.ThrowIfCancellationRequested();
+                         var facts = container.Fact.Expand(e => e.Muscle).Where(f => f.Patient.Id == patientId);
+
+                         return facts.ToArray().Select(e => new Tuple<string, string>(e.Muscle.Abbreviation, e.Muscle.Name)).Distinct();
+                     },
                    ct);
         }
     }

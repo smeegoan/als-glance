@@ -23,7 +23,7 @@ textarea {
     max-width: 280px;
 }
 
-#monthly-volume-chart g.y {
+#dateRangeChart g.y {
     display: none;
 }
 
