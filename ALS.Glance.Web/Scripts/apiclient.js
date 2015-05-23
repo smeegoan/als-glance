@@ -1,4 +1,4 @@
-﻿my.ApiClient = function (config) {
+﻿als_glance.ApiClient = function (config) {
     var authToken = config.authToken,
         baseUri = config.baseUri,
         configureRequest = function (xhr) {

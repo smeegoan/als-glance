@@ -10,37 +10,37 @@ namespace ALS.Glance.Models
             public decimal AUC { get; set; } // AUC
 
 
-            public DateTime Date { get; set; } // date
+            public DateTime DateDate { get; set; } // date
 
 
-            public byte Day { get; set; } // Day
+            public byte DateDay { get; set; } // Day
 
 
-            public string DayInMonth { get; set; } // DayInMonth
+            public string DateDayInMonth { get; set; } // DayInMonth
 
 
-            public byte Month { get; set; } // Month
+            public byte DateMonth { get; set; } // Month
 
 
-            public string MonthName { get; set; } // MonthName
+            public string DateMonthName { get; set; } // MonthName
 
 
-            public short Year { get; set; } // Year
+            public short DateYear { get; set; } // Year
 
 
-            public string DayOfWeek { get; set; } // DayOfWeek
+            public string DateDayOfWeek { get; set; } // DayOfWeek
 
 
-            public string DayOfWeekName { get; set; } // DayOfWeekName
+            public string DateDayOfWeekName { get; set; } // DayOfWeekName
 
 
-            public string Weekday { get; set; } // Weekday
+            public string DateWeekday { get; set; } // Weekday
 
 
-            public string MonthInYear { get; set; } // MonthInYear
+            public string DateMonthInYear { get; set; } // MonthInYear
 
 
-            public byte Quarter { get; set; } // Quarter
+            public byte DateQuarter { get; set; } // Quarter
 
 
             public string QuarterInYear { get; set; } // QuarterInYear
@@ -49,28 +49,30 @@ namespace ALS.Glance.Models
             public string MuscleAbbreviation { get; set; } // MuscleAbbreviation
 
 
-            public string Muscle { get; set; } // Muscle
+            public string MuscleName { get; set; } // Muscle
 
 
-            public string PatientId { get; set; } // PatientId
+            public string PatientPatientId { get; set; } // PatientId
 
 
-            public string Name { get; set; } // Name
+            public long PatientId { get; set; } // Name
+            
+            public string PatientName { get; set; } // Name
 
 
-            public string Sex { get; set; } // Sex
+            public string PatientSex { get; set; } // Sex
 
 
-            public DateTimeOffset BornOn { get; set; } // BornOn
+            public DateTimeOffset PatientBornOn { get; set; } // BornOn
 
 
-            public DateTimeOffset DiagnosedOn { get; set; } // DiagnosedOn
+            public DateTimeOffset PatientDiagnosedOn { get; set; } // DiagnosedOn
 
 
-            public short Hour { get; set; } // Hour
+            public short TimeHour { get; set; } // Hour
 
 
-            public string TimeOfDay { get; set; } // TimeOfDay
+            public string TimeTimeOfDay { get; set; } // TimeOfDay
         }
 
     

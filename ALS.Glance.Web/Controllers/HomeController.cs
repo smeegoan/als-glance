@@ -33,7 +33,7 @@ namespace ALS.Glance.Web.Controllers
         public ActionResult ApiAuth()
         {
             var token = _credentials.ApplicationToken;
-            var script = @"var my = my || {}; my.authToken = '" + token + "'; my.baseUri = '" + _apiUrl + "';";
+            var script = @"var als_glance = als_glance || {}; als_glance.authToken = '" + token + "'; als_glance.baseUri = '" + _apiUrl + "';";
             return JavaScript(script);
         }
 

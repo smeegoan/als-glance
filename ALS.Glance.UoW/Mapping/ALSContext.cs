@@ -148,27 +148,28 @@ namespace ALS.Glance.UoW.Mapping
                 
                     cfg.Property(x => x.Id).IsRequired();
                     cfg.Property(x => x.AUC).IsRequired().HasPrecision(20, 19);
-                    cfg.Property(x => x.Date).IsRequired();
-                    cfg.Property(x => x.Day).IsRequired();
-                    cfg.Property(x => x.DayInMonth).IsRequired().HasMaxLength(50);
-                    cfg.Property(x => x.Month).IsRequired();
-                    cfg.Property(x => x.MonthName).IsRequired().HasMaxLength(50);
-                    cfg.Property(x => x.Year).IsRequired();
-                    cfg.Property(x => x.DayOfWeek).IsRequired().HasMaxLength(50);
-                    cfg.Property(x => x.DayOfWeekName).IsRequired().HasMaxLength(50);
-                    cfg.Property(x => x.Weekday).IsRequired().HasMaxLength(50);
-                    cfg.Property(x => x.MonthInYear).IsRequired().HasMaxLength(50);
-                    cfg.Property(x => x.Quarter).IsRequired();
+                    cfg.Property(x => x.DateDate).IsRequired();
+                    cfg.Property(x => x.DateDay).IsRequired();
+                    cfg.Property(x => x.DateDayInMonth).IsRequired().HasMaxLength(50);
+                    cfg.Property(x => x.DateMonth).IsRequired();
+                    cfg.Property(x => x.DateMonthName).IsRequired().HasMaxLength(50);
+                    cfg.Property(x => x.DateYear).IsRequired();
+                    cfg.Property(x => x.DateDayOfWeek).IsRequired().HasMaxLength(50);
+                    cfg.Property(x => x.DateDayOfWeekName).IsRequired().HasMaxLength(50);
+                    cfg.Property(x => x.DateWeekday).IsRequired().HasMaxLength(50);
+                    cfg.Property(x => x.DateMonthInYear).IsRequired().HasMaxLength(50);
+                    cfg.Property(x => x.DateQuarter).IsRequired();
                     cfg.Property(x => x.QuarterInYear).IsRequired().HasMaxLength(30);
                     cfg.Property(x => x.MuscleAbbreviation).IsRequired().HasMaxLength(30);
-                    cfg.Property(x => x.Muscle).IsRequired().HasMaxLength(200);
-                    cfg.Property(x => x.PatientId).IsRequired().HasMaxLength(30);
-                    cfg.Property(x => x.Name).IsRequired().HasMaxLength(500);
-                    cfg.Property(x => x.Sex).IsRequired().IsFixedLength().IsUnicode(false).HasMaxLength(1);
-                    cfg.Property(x => x.BornOn).IsRequired();
-                    cfg.Property(x => x.DiagnosedOn).IsRequired();
-                    cfg.Property(x => x.Hour).IsRequired();
-                    cfg.Property(x => x.TimeOfDay).IsRequired().HasMaxLength(50);
+                    cfg.Property(x => x.MuscleName).IsRequired().HasMaxLength(200);
+                    cfg.Property(x => x.PatientId).IsRequired();
+                    cfg.Property(x => x.PatientPatientId).IsRequired().HasMaxLength(30);
+                    cfg.Property(x => x.PatientName).IsRequired().HasMaxLength(500);
+                    cfg.Property(x => x.PatientSex).IsRequired().IsFixedLength().IsUnicode(false).HasMaxLength(1);
+                    cfg.Property(x => x.PatientBornOn).IsRequired();
+                    cfg.Property(x => x.PatientDiagnosedOn).IsRequired();
+                    cfg.Property(x => x.TimeHour).IsRequired();
+                    cfg.Property(x => x.TimeTimeOfDay).IsRequired().HasMaxLength(50);
 
                 });
         }

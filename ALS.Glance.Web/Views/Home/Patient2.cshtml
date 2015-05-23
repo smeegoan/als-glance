@@ -90,9 +90,9 @@
     <script>
         (function () {
 
-            var apiClient = new my.ApiClient({
-                baseUri: my.baseUri,
-                authToken: my.authToken,
+            var apiClient = new als_glance.ApiClient({
+                baseUri: als_glance.baseUri,
+                authToken: als_glance.authToken,
                 onAuthFail: function () {
                     $(".error").show();
                 }
@@ -130,7 +130,7 @@
                             }
                         };
                     };
-                    my.LoadPatientData(data);
+                    als_glance.LoadPatientData(data);
 
                 });
 

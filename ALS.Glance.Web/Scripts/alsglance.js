@@ -1,5 +1,7 @@
 ﻿'use strict';
-var my;
+var als_glance= als_glance|| {};
+var als_glance_ui = als_glance_ui || {};
+var yearDimension;
 var yearChart = dc.pieChart('#yearChart');
 var muscleChart = dc.pieChart('#muscleChart');
 var quarterChart = dc.pieChart('#quarterChart');
@@ -48,7 +50,47 @@ Date.prototype.setISO8601 = function (string) {
     this.setTime(Number(time));
 };
 
-my.LoadPatientData = function (data) {
+//#region AlS Glance
+als_glance.AddPredictions = function(data) {
+    var muscles = [];
+
+    //data =JSON.flatten(data);
+    data = data["value"];
+    data.forEach(function(entry) {
+        if (muscles[entry.MuscleAbbreviation] == null)
+            muscles[entry.MuscleAbbreviation] = [];
+        if (muscles[entry.MuscleAbbreviation][entry.TimeTimeOfDay] == null)
+            muscles[entry.MuscleAbbreviation][entry.TimeTimeOfDay] = [];
+        muscles[entry.MuscleAbbreviation][entry.TimeTimeOfDay].push([new Date(entry.DateDate).getTime(), entry.AUC]);
+    });
+    for (var muscle in muscles) {
+        for (var timeOfDay in muscles[muscle]) {
+            var measurements = muscles[muscle][timeOfDay];
+            var equation = regression('linear', measurements).equation;
+            var startDate = moment(measurements[0][0]);
+            for (var i = 1; i < 36; i++) {
+                startDate = startDate.add(1, "months");
+                var ticks = startDate.valueOf();
+                data.push({
+                    DateDate: startDate.format("YYYY-MM-DD HH:mm"),
+                    AUC: equation[0] * ticks + equation[1],
+                    DateMonthName: startDate.format("MMMM"),
+                    DateMonth: startDate.format("M"),
+                    DateYear: parseInt(startDate.format("YYYY")),
+                    DateQuarter: startDate.quarter(),
+                    PatientName: "Prediction",
+                    DateDayOfWeek: startDate.format("dddd"),
+                    TimeTimeOfDay: timeOfDay,
+                    MuscleName: muscle,
+                    MuscleAbbreviation: muscle
+                });
+            }
+        };
+    };
+    return data;
+};
+
+als_glance.LoadPatientData = function (data) {
     /* since its a csv file we need to format the data a bit */
     var dateFormat = d3.time.format('%Y/%m/%d');
     var numberFormat = d3.format('.5f');
@@ -170,7 +212,7 @@ my.LoadPatientData = function (data) {
 
     //#region Year
 
-    var yearDimension = ndx.dimension(function (d) {
+    yearDimension = ndx.dimension(function (d) {
         return d.DateYear;
     });
     // produce counts records in the dimension
@@ -502,53 +544,63 @@ my.LoadPatientData = function (data) {
     //simply call renderAll() to render all charts on the page
     dc.renderAll();
 
-    $("#reset").click(function () {
-        reset();
-    });
 
-    $("#years input[type=checkbox]").change(function () {
-        filterYears();
-        dc.redrawAll();
-    });
-    $('#muscles input[type=radio]').change(function () {
-        filterMuscle();
-        dc.redrawAll();
-    });
-
-    function reset() {
-        dc.filterAll();
-        resetYears();
-        $('#AT').prop("checked", true);
-        filterMuscle();
-        dc.redrawAll();
-    }
-
-    function resetYears() {
-        $('#years input').each(function (index, value) {
-            $(value).prop("checked", true);
-        });
-        filterYears();
-    }
-
-    function filterMuscle() {
-        var muscle = $('#muscles input:checked').attr('id');
-        muscleChart.filterAll();
-        muscleChart.filter([muscle]);
-    }
-
-    function filterYears() {
-        var years = [];
-        $('#years input:checked').each(function (index, value) {
-            years.push(parseInt($(value).attr('id')));
-        });
-        if (years.length == 0) {
-            resetYears();
-            return;
-        }
-
-        yearDimension.filterAll();
-        yearDimension.filterFunction(function (d) {
-            return years.indexOf(d) != -1;
-        });
-    }
 };
+//#endregion
+
+//#region ALS Glance UI
+als_glance_ui.reset = function reset() {
+    dc.filterAll();
+    als_glance_ui.resetYears();
+    $('#AT').prop("checked", true);
+    als_glance_ui.filterMuscle();
+    dc.redrawAll();
+};
+
+als_glance_ui.resetYears = function resetYears() {
+    $('#years input').each(function(index, value) {
+        $(value).prop("checked", true);
+    });
+    als_glance_ui.filterYears();
+};
+
+als_glance_ui.filterMuscle = function filterMuscle() {
+    var muscle = $('#muscles input:checked').attr('id');
+    muscleChart.filterAll();
+    muscleChart.filter([muscle]);
+};
+
+als_glance_ui.filterYears = function filterYears() {
+    var years = [];
+    $('#years input:checked').each(function(index, value) {
+        years.push(parseInt($(value).attr('id')));
+    });
+    if (years.length == 0) {
+        als_glance_ui.resetYears();
+        return;
+    }
+
+    yearDimension.filterAll();
+    yearDimension.filterFunction(function(d) {
+        return years.indexOf(d) != -1;
+    });
+};
+
+als_glance_ui.init = function() {
+
+    $("#reset").click(function() {
+        als_glance_ui.reset();
+    });
+
+    $("#years input[type=checkbox]").change(function() {
+        als_glance_ui.filterYears();
+        dc.redrawAll();
+    });
+    $('#muscles input[type=radio]').change(function() {
+        als_glance_ui.filterMuscle();
+        dc.redrawAll();
+    });
+
+    als_glance_ui.reset();
+};
+//#endregion
