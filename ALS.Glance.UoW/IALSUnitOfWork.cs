@@ -9,6 +9,8 @@ namespace ALS.Glance.UoW
         IDateRepository Dates { get; }
         IMuscleRepository Muscles { get; }
         IFactRepository Facts { get; }
+
+        IFactsRepository IndexedFacts { get; }
         IPatientRepository Patients { get; }
     }
 }

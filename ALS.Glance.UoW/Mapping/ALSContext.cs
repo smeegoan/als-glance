@@ -141,6 +141,36 @@ namespace ALS.Glance.UoW.Mapping
                   cfg.Ignore(e => e.Values);
                   cfg.Map();
               });
+            modelBuilder.Entity<Facts>(
+                cfg =>
+                {
+                    cfg.ToTable( "Facts");
+                
+                    cfg.Property(x => x.Id).IsRequired();
+                    cfg.Property(x => x.AUC).IsRequired().HasPrecision(20, 19);
+                    cfg.Property(x => x.Date).IsRequired();
+                    cfg.Property(x => x.Day).IsRequired();
+                    cfg.Property(x => x.DayInMonth).IsRequired().HasMaxLength(50);
+                    cfg.Property(x => x.Month).IsRequired();
+                    cfg.Property(x => x.MonthName).IsRequired().HasMaxLength(50);
+                    cfg.Property(x => x.Year).IsRequired();
+                    cfg.Property(x => x.DayOfWeek).IsRequired().HasMaxLength(50);
+                    cfg.Property(x => x.DayOfWeekName).IsRequired().HasMaxLength(50);
+                    cfg.Property(x => x.Weekday).IsRequired().HasMaxLength(50);
+                    cfg.Property(x => x.MonthInYear).IsRequired().HasMaxLength(50);
+                    cfg.Property(x => x.Quarter).IsRequired();
+                    cfg.Property(x => x.QuarterInYear).IsRequired().HasMaxLength(30);
+                    cfg.Property(x => x.MuscleAbbreviation).IsRequired().HasMaxLength(30);
+                    cfg.Property(x => x.Muscle).IsRequired().HasMaxLength(200);
+                    cfg.Property(x => x.PatientId).IsRequired().HasMaxLength(30);
+                    cfg.Property(x => x.Name).IsRequired().HasMaxLength(500);
+                    cfg.Property(x => x.Sex).IsRequired().IsFixedLength().IsUnicode(false).HasMaxLength(1);
+                    cfg.Property(x => x.BornOn).IsRequired();
+                    cfg.Property(x => x.DiagnosedOn).IsRequired();
+                    cfg.Property(x => x.Hour).IsRequired();
+                    cfg.Property(x => x.TimeOfDay).IsRequired().HasMaxLength(50);
+
+                });
         }
     }
 

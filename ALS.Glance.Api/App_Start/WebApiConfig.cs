@@ -96,6 +96,32 @@ namespace ALS.Glance.Api
                 type.HasRequired(e => e.Date);
                 type.HasRequired(e => e.Time);
             });
+            builder.EntitySet<Facts, long>(type =>
+            {
+                type.Property(e => e.AUC);
+                type.Property(e => e.DayOfWeek);
+                type.Property(e => e.Month);
+                type.Property(e => e.Weekday);
+                type.Property(e => e.Year);
+                type.Property(e => e.Date);
+                type.Property(e => e.Day);
+                type.Property(e => e.DayInMonth);
+                type.Property(e => e.DayOfWeekName);
+                type.Property(e => e.MonthInYear);
+                type.Property(e => e.MonthName);
+                type.Property(e => e.Quarter);
+                type.Property(e => e.QuarterInYear); 
+                type.Property(e => e.PatientId);
+                type.Property(e => e.Muscle);
+                type.Property(e => e.MuscleAbbreviation);
+                type.Property(e => e.Hour); 
+                type.Property(e => e.TimeOfDay);
+                type.Property(e => e.Name);
+                type.Property(e => e.PatientId);
+                type.Property(e => e.Sex);
+                type.Property(e => e.DiagnosedOn);
+                type.Property(e => e.BornOn);
+            });
             builder.EntitySet<DMuscle, long>(type =>
             {
                 type.Property(e => e.Name);
