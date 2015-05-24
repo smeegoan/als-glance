@@ -91,7 +91,7 @@ alsglance.dashboard.patients.load = function (data) {
         .renderHorizontalGridLines(true) // (optional) render horizontal grid lines, :default=false
         .renderVerticalGridLines(true) // (optional) render vertical grid lines, :default=false
         .xAxisLabel('Average Age') // (optional) render an axis label below the x axis
-        .yAxisLabel('# Measurements') // (optional) render a vertical axis lable left of the y axis
+        .yAxisLabel('# Patients') // (optional) render a vertical axis lable left of the y axis
         //#### Labels and  Titles
         //Labels are displaed on the chart for each bubble. Titles displayed on mouseover.
         .renderLabel(true) // (optional) whether chart should render labels, :default = true
@@ -102,7 +102,7 @@ alsglance.dashboard.patients.load = function (data) {
         .title(function(p) {
             return [
                 p.key,
-                'Total Measurements: ' + p.value.count,
+                '# Patients: ' + p.value.count,
                 'Average Age: ' + numberFormat(p.value.avgAge)
             ].join('\n');
         }).yAxis().tickFormat(function(v) {

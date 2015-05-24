@@ -47,3 +47,10 @@ textarea {
   padding-top: 30px;
   padding-bottom: 30px;
 }
+
+/*for applying margins to .btn-vert-block below 767px width (or any other):*/
+@media (max-width: 767px) {
+    .btn-vert-block + .btn-vert-block {
+        margin-top: 10px;    
+    }    
+}

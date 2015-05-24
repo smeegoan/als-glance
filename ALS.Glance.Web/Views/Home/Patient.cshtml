@@ -13,10 +13,11 @@
     <div class="tab-pane fade active in" id="results">
         <div class="container-fluid">
             <div class="row">
-                <div class="form-group col-md-3">
+                <div class="btn-group col-md-3 btn-vert-block">
                     <div id="reset" class="btn btn-default"><i class="fa fa-undo"></i>&nbsp;Reset</div>
                     <a class="btn btn-default" href="#"><i class="fa fa-save"></i>&nbsp;Save</a>
-                </div>    <div id="muscles" class="btn-group col-md-4" data-toggle="buttons">
+                </div>
+                <div id="muscles" class="btn-group col-md-4 btn-vert-block" data-toggle="buttons">
                     <label style="float:left;margin-right:5px; padding-top:7px; font-weight: normal;">Muscle </label>
                     @foreach (var item in Model.Muscles)
                     {
@@ -28,7 +29,7 @@
                         </div>
                     }
                 </div>
-                <div class="btn-group col-md-5  pull-right">
+                <div class="btn-group col-md-5 btn-vert-block">
                     <div id="reportrange" class="btn btn-default dropdown-toggle">
                         <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
                         <span></span> <b class="caret"></b>
@@ -37,7 +38,7 @@
 
             </div>
             <div class="row voffset3">
-                <div class="col-md-4 col-sm-4">
+                <div class="col-md-4">
                     <div class="box ui-draggable ui-droppable">
                         <div class="box-header">
                             <div class="box-name">
