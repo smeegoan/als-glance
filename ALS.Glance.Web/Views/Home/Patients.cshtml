@@ -6,59 +6,86 @@
 }
 
 <h2>@ViewBag.Title</h2>
-
-<table class="table" id="patients">
-    <thead>
-        <tr>
-            <th>
-                Patient Id
-            </th>
-            <th>
-                Born On
-            </th>
-            <th>
-                Diagnosed On
-            </th>
-            <th>
-                Name
-            </th>
-            <th>
-                Sex
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PatientId)
-                </td>
-                <td>
-                    @item.BornOn.Date.ToShortDateString()
-                </td>
-                <td>
-                    @item.DiagnosedOn.Date.ToShortDateString()
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Sex)
-                </td>
-                <td>
-                    <a href="@Url.Action("Patients", "Home", new { id = item.Id }, null)"> <span class="fa fa-eye"></span></a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="container-fluid">
+    <div class="row">
+        <div style="height: 200px; position: relative;">
+            <div id="aucBubbleChart" class="dc-chart">
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table" id="patients">
+            <thead>
+                <tr>
+                    <th>
+                        Patient Id
+                    </th>
+                    <th>
+                        Born On
+                    </th>
+                    <th>
+                        Diagnosed On
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Sex
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PatientId)
+                        </td>
+                        <td>
+                            @item.BornOn.Date.ToShortDateString()
+                        </td>
+                        <td>
+                            @item.DiagnosedOn.Date.ToShortDateString()
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sex)
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Patients", "Home", new { id = item.Id }, null)"> <span class="fa fa-eye"></span></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 @section Scripts {
+    @Scripts.Render("~/Home/ApiAuth")
     @Scripts.Render("~/bundles/datatablejs")
+    @Scripts.Render("~/bundles/dashboardpatientsjs")
+
     <script>
-        $(document).ready(function () {
+        (function () {
+
+            var apiClient = new alsglance.ApiClient({
+                baseUri: alsglance.baseUri,
+                authToken: alsglance.authToken,
+                onAuthFail: function () {
+                    $(".error").show();
+                }
+            });
+            $.when(apiClient.get("Facts?$select=PatientSex,PatientBornOn"))
+                    .then(function (data) {
+                        alsglance.dashboard.patients.load(data);
+                        alsglance.dashboard.patients.init();
+                    });
             $('#patients').dataTable();
-        });
+
+        })();
     </script>
 }
