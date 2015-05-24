@@ -55,9 +55,9 @@ function showSchemes() {
     }
     if (selectedSchemeType == "sequential") {
         $("#scheme1").css("width", "160px");
-        $("#multi").show().text("Multi-hue:");
+        $("#multi").show().text("Multi-hue");
         $("#scheme2").css("width", "90px");
-        $("#single").show().text("Single hue:");
+        $("#single").show().text("Single hue");
 
         $("#singlehue").empty().css("display", "inline-block");
         for (i in schemeNames.singlehue) {
@@ -143,6 +143,7 @@ function setScheme(s) {
 function checkFilters(scheme, f) {
     if (!colorbrewer[scheme][numClasses]) return false;
     if (checkColorblind(scheme) != 1) return false;
+    //if (checkPrint(scheme) != 1) return false;
     return true;
 }
 function checkColorblind(scheme) {
@@ -153,21 +154,6 @@ function checkPrint(scheme) {
 }
 function checkScreen(scheme) {
     return colorbrewer[scheme].properties.screen.length > 1 ? colorbrewer[scheme].properties.screen[numClasses - 3] : colorbrewer[scheme].properties.screen[0];
-}
-
-function applyColors() {
-    if (!colorbrewer[selectedScheme][numClasses]) {
-        return;
-    }
-    var colors = colorbrewer[selectedScheme][numClasses];
-    var colorsDiferential = d3.scale.ordinal().range([colorbrewer[selectedScheme][numClasses][3], colorbrewer[selectedScheme][numClasses][6]]);
-    var colorRange = d3.scale.ordinal().range(colors);
-    dayOfWeekChart.ordinalColors(colors).redraw();
-    lineChart.colors(colorbrewer[selectedScheme][numClasses][4]).redraw();
-    timeHourChart.colors(colorbrewer[selectedScheme][numClasses][3]).redraw();
-    quarterChart.colors(colorRange).redraw();
-    predictionSeriesChart.colors(colorsDiferential).redraw();
-    dateRangeChart.colors(colorbrewer[selectedScheme][numClasses][5]).redraw();
 }
 
 function drawColorChips() {
@@ -242,13 +228,48 @@ function hexToRgb(hex) {
     } : null;
 }
 
-function init() {
+function initColors() {
+    $("#colorPlaceHolder").replaceWith(' <li class="dropdown">'
+        +'   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Color Schemes <span class="caret"></span></a>'
+        +'    <ul class="dropdown-menu" role="menu">' 
+        +'        <li>' 
+        +'            <div class="container" style="max-width: 300px">' 
+        +'                <div id="scheme" class="form-group">' 
+        +'                    <div id="scheme1">' 
+        +'                        <label id="multi"></label>' 
+        +'                        <div id="ramps"></div>' 
+        +'                    </div> <!--end scheme1 div-->' 
+        +'                    <div id="scheme2">' 
+        +'                        <label id="single"></label>' 
+        +'                        <div id="singlehue"></div>' 
+        +'                    </div> <!--end scheme2 div-->' 
+        +'                </div> <!--end scheme div-->' 
+        +'            </div>' 
+        +'        </li>' 
+        +'    </ul>' 
+        +'</li>');
     var scheme = "BuGn";
-    var n = 7;
+    var n = 5;
     $("#num-classes").val(n);
     setSchemeType("sequential");
     setNumClasses(n);
     setScheme(scheme);
     showSchemes();
+}
+
+function applyColors() {
+    if (!colorbrewer[selectedScheme][numClasses]) {
+        return;
+    }
+    var colors = colorbrewer[selectedScheme][numClasses].slice(0); //clone the array
+    colors.shift(); //skip the first color because it's to faint
+    var colorsDiferential = d3.scale.ordinal().range([colorbrewer[selectedScheme][numClasses][1], colorbrewer[selectedScheme][numClasses][3]]);
+    var colorRange = d3.scale.ordinal().range(colors);
+    timeOfDayChart.ordinalColors(colors).redraw();
+    averageAucChart.colors(colorbrewer[selectedScheme][numClasses][3]).redraw();
+    timeHourChart.colors(colorbrewer[selectedScheme][numClasses][2]).redraw();
+    quarterChart.colors(colorRange).redraw();
+    predictionSeriesChart.colors(colorsDiferential).redraw();
+    dateRangeChart.colors(colorbrewer[selectedScheme][numClasses][2]).redraw();
 }
 

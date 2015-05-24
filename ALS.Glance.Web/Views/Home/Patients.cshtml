@@ -10,6 +10,7 @@
     <div class="row">
         <div style="height: 200px; position: relative;">
             <div id="aucBubbleChart" class="dc-chart">
+                <div class="loading">Loading...</div>
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -79,12 +80,14 @@
                     $(".error").show();
                 }
             });
-            $.when(apiClient.get("Facts?$select=PatientSex,PatientBornOn"))
+            $.when(apiClient.get("DPatient?$select=Sex,BornOn"))
                     .then(function (data) {
                         alsglance.dashboard.patients.load(data);
                         alsglance.dashboard.patients.init();
                     });
-            $('#patients').dataTable();
+            $('#patients').dataTable({
+                responsive: true
+            });
 
         })();
     </script>

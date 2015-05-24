@@ -2,210 +2,208 @@
 
 @{
     ViewBag.Title = "Details";
+    var i = 0;
 }
-
 <ul class="nav nav-tabs">
-    <li class="active"><a href="#results" data-toggle="tab">Results</a></li>
+    <li class="active"><a href="#results" data-toggle="tab">Resume</a></li>
     <li><a href="#details" data-toggle="tab">Details</a></li>
 </ul>
 <br />
-<div id="myTabContent" class="tab-content">
+<div id="main" class="tab-content">
     <div class="tab-pane fade active in" id="results">
-
-
         <div class="container-fluid">
-
             <div class="row">
-                <div class="col-sm-3">
-                    <div class="chart-wrapper">
-                        <div class="chart-stage">
-                            <fieldset>
-                                <legend>&nbsp;Muscles</legend>
-                                <div class="form-group">
-                                    <div id="muscles" class="col-md-10">
-                                        @foreach (var item in Model.Muscles)
-                                        {
-                                            var muscleChecked = item.Item3 ? "checked=\"checked\"" : string.Empty;
-
-                                            <div class="radio">
-                                                <label>
-                                                    <input id="@item.Item1" type="radio" @muscleChecked name="style-0">
-                                                    <span>@item.Item2</span>
-                                                </label>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <legend>&nbsp;Years</legend>
-                                <div class="form-group">
-                                    <div id="years" class="col-md-10">
-                                        @foreach (var item in Model.Years)
-                                        {
-                                            var yearChecked = item.Item2 ? "checked=\"checked\"" : string.Empty;
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input id="@item.Item1" type="checkbox" @yearChecked>
-                                                    @item.Item1
-                                                </label>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <legend>&nbsp;Color Schemes</legend>
-                                <div id="scheme1" class="col-md-offset-1">
-                                    <div id="ramps"></div>
-                                </div> <!--end scheme1 div-->
-                            </fieldset>
-                            <fieldset>
-                                <legend>&nbsp;Filters</legend>
-                                <div class="form-group">
-                                    <div class="col-md-offset-1">
-                                        <div id="reset" class="btn btn-default"><i class="fa fa-remove"></i>&nbsp;Reset</div>
-                                        <a class="btn btn-default" href="#"><i class="fa fa-save"></i>&nbsp;Save</a>
-                                    </div>
-                                </div>
-                            </fieldset>
+                <div class="form-group col-md-3">
+                    <div id="reset" class="btn btn-default"><i class="fa fa-undo"></i>&nbsp;Reset</div>
+                    <a class="btn btn-default" href="#"><i class="fa fa-save"></i>&nbsp;Save</a>
+                </div>    <div id="muscles" class="btn-group col-md-4" data-toggle="buttons">
+                    <label style="float:left;margin-right:5px; padding-top:7px; font-weight: normal;">Muscle </label>
+                    @foreach (var item in Model.Muscles)
+                    {
+                        <div id="@item.Item1" class="btn btn-default">
+                            <label>
+                                <input type="radio">
+                                <span>@item.Item1</span>
+                            </label>
                         </div>
-                        <div class="chart-notes">
-                            Notes about this chart
+                    }
+                </div>
+                <div class="btn-group col-md-5  pull-right">
+                    <div id="reportrange" class="btn btn-default dropdown-toggle">
+                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                        <span></span> <b class="caret"></b>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row voffset3">
+                <div class="col-md-4 col-sm-4">
+                    <div class="box ui-draggable ui-droppable">
+                        <div class="box-header">
+                            <div class="box-name">
+                                <i class="fa fa-clock-o"></i>
+                                <span>Hour</span>
+                            </div>
+                            <div class="box-icons">
+                                <a class="reset" href="javascript:timeHourChart.filterAll();dc.redrawAll();" style=""><i class="fa fa-undo"></i></a>
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="expand-link">
+                                    <i class="fa fa-expand"></i>
+                                </a>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                            <div class="no-move"></div>
+                        </div>
+                        <div class="box-content" style="height: 250px; position: relative;">
+                            <div style="height: 250px; position: relative;" id="timeHourChart" class="dc-chart">
+                                <div class="clearfix"></div>
+                                <div class="loading">Loading...</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-9">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="chart-wrapper">
-                                <div class="chart-title">
-                                    <strong>AUC</strong>
-                                    <span class="reset" style="display: none;">range: <span class="filter"></span></span>
-                                    <a class="reset" href="javascript:predictionSeriesChart.filterAll();volumeChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                                </div>
-                                <div class="chart-stage">
+                <div class="col-md-4 col-sm-4">
+                    <div class="box ui-draggable ui-droppable">
+                        <div class="box-header">
+                            <div class="box-name">
+                                <i class="fa fa-calendar"></i>
+                                <span>Quarter</span>
+                            </div>
+                            <div class="box-icons">
+                                <a class="reset" href="javascript:quarterChart.filterAll();dc.redrawAll();" style=""><i class="fa fa-undo"></i></a>
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="expand-link">
+                                    <i class="fa fa-expand"></i>
+                                </a>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                            <div class="no-move"></div>
+                        </div>
+                        <div class="box-content" style="height: 250px; position: relative;">
+                            <div style="height: 250px; position: relative;" id="quarterChart" class="dc-chart">
+                                <div class="clearfix"></div>
+                                <div class="loading">Loading...</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="box ui-draggable ui-droppable">
+                        <div class="box-header">
+                            <div class="box-name">
+                                <i class="fa fa-sun-o"></i>
+                                <span>Time Of Day</span>
+                            </div>
+                            <div class="box-icons">
+                                <a class="reset" href="javascript:timeOfDayChart.filterAll();dc.redrawAll();" style=""><i class="fa fa-undo"></i></a>
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="expand-link">
+                                    <i class="fa fa-expand"></i>
+                                </a>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                            <div class="no-move"></div>
+                        </div>
+                        <div class="box-content" style="height: 250px; position: relative;">
+                            <div style="height: 250px; position: relative;" id="timeOfDayChart" class="dc-chart" style="margin-left: 50px">
+                                <div class="clearfix"></div>
+                                <div class="loading">Loading...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <div class="box ui-draggable ui-droppable">
+                        <div class="box-header">
+                            <div class="box-name">
+                                <i class="fa fa-clock-o"></i>
+                                <span>Average AUC</span>
+                            </div>
+                            <div class="box-icons">
+                                <a class="reset" href="javascript:averageAucChart.filterAll();dc.redrawAll();" style=""><i class="fa fa-undo"></i></a>
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="expand-link">
+                                    <i class="fa fa-expand"></i>
+                                </a>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                            <div class="no-move"></div>
+                        </div>
+                        <div class="box-content" style="height: 250px; position: relative;">
+                            <div style="height: 250px; position: relative;" class='dc-chart' id='averageAucChart'>
+                                <div class="loading">Loading...</div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <div class="box ui-draggable ui-droppable">
+                        <div class="box-header">
+                            <div class="box-name">
+                                <i class="fa fa-calendar"></i>
+                                <span>AUC</span>
+                            </div>
+                            <div class="box-icons">
+                                <a class="reset" href="javascript:predictionSeriesChart.filterAll();dateRangeChart.filterAll();dc.redrawAll();" style=""><i class="fa fa-undo"></i></a>
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="expand-link">
+                                    <i class="fa fa-expand"></i>
+                                </a>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                            <div class="no-move"></div>
+                        </div>
+                        <div class="box-content">
+                            <div style="height: 250px; position: relative;">
+                                <div style="height: 250px; position: relative;">
                                     <div id="predictionSeriesChart" class="dc-chart">
                                         <div class="clearfix"></div>
                                     </div>
+
                                     <div id="dateRangeChart" class="dc-chart">
-                                    </div>
-                                </div>
-                                <div class="chart-notes">
-                                    Select a time range to zoom in
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="chart-wrapper">
-                                <div class="chart-title">
-                                    <strong>Quarter</strong>
-                                    <a class="reset" href="javascript:quarterChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                                </div>
-                                <div class="chart-stage">
-                                    <div id="quarterChart" class="dc-chart">
                                         <div class="clearfix"></div>
+                                        <div class="loading">Loading...</div>
                                     </div>
-                                </div>
-                                <div class="chart-notes">
-                                    Notes about this chart
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="chart-wrapper">
-                                <div class="chart-title">
-                                    <strong>Weekday</strong>
-                                    <a class="reset" href="javascript:dayOfWeekChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                                </div>
-                                <div class="chart-stage">
-                                    <div id="day-of-week-chart" class="dc-chart" style="margin-left: 50px">
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
-                                <div class="chart-notes">
-                                    Notes about this chart
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="chart-wrapper">
-                                <div class="chart-title">
-                                    <strong>Measurements by Hour</strong>
-                                    <span class="reset" style="display: none;">range: <span class="filter"></span></span>
-                                    <a class="reset" href="javascript:timeHourChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                                </div>
-                                <div class="chart-stage">
-                                    <div id="timeHourChart" class="dc-chart">
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
-                                <div class="chart-notes">
-                                    Notes about this chart
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="chart-wrapper">
-                                <div class="chart-title">
-                                    <strong>Average Hourly AUC</strong>
-                                    <span class="reset" style="display: none;">range: <span class="filter"></span></span>
-                                    <a class="reset" href="javascript:lineChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                                </div>
-                                <div class="chart-stage">
-                                    <div class='dc-chart' id='dc-line-chart'>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
-                                <div class="chart-notes">
-                                    Notes about this chart
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="chart-wrapper">
-                                <div class="chart-title">
-                                    <strong>Measurements by Time Of Day</strong> (radius: average AUC * 10000)
-                                    <a class="reset" href="javascript:timeOfDayBubbleChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                                </div>
-                                <div class="chart-stage">
-                                    <div id="yearly-bubble-chart" class="dc-chart">
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
-                                <div class="chart-notes">
-                                    Notes about this chart
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="container">
-            <div class="row">
-
-            </div>
-            <div class="row" style="margin-top: 20px">
-
-            </div>
-            <div class="row" style="margin-top: 20px">
-            </div>
-
-
         </div>
     </div>
     <div class="tab-pane fade" id="details">
         <div class="container">
             <div class="row">
                 <div>
-                    <div class="dc-data-count dc-chart">All records selected. Please click on the graph to apply filters.</div>
+                    <div id="dc-data-count" class="dc-chart">All records selected. Please click on the graph to apply filters.</div>
                 </div>
-                <table class="table table-hover dc-data-table" style="margin-top: 60px"></table>
+                <table id="dc-data-table" class="table table-hover" style="margin-top: 40px"></table>
             </div>
         </div>
     </div>
@@ -214,14 +212,20 @@
 @section Scripts {
     @*@if (Request.IsAuthenticated)*@
     @Scripts.Render("~/Home/ApiAuth")
-    @Scripts.Render("~/bundles/dcjs")
-    @Scripts.Render("~/bundles/keenjs")
+    @Scripts.Render("~/bundles/dashboardpatientjs")
+    <script>
+        $(document).ready(function () {
+            // Load required scripts and draw graphs
+            WinMove();
+        });
+    </script>
+
     <script>
         (function () {
 
-            var apiClient = new als_glance.ApiClient({
-                baseUri: als_glance.baseUri,
-                authToken: als_glance.authToken,
+            var apiClient = new alsglance.ApiClient({
+                baseUri: alsglance.baseUri,
+                authToken: alsglance.authToken,
                 onAuthFail: function () {
                     $(".error").show();
                 }
@@ -229,10 +233,10 @@
             //$.when(apiClient.get("Fact?$select=AUC&$expand=Time($select=Hour,TimeOfDay),Date($select=DayOfWeek,Weekday,Date,Year,MonthName,Quarter),Patient,Muscle($select=Name,Abbreviation)&$filter=Patient/Id eq " + @Model.Id))
             $.when(apiClient.get("Facts?$select=AUC,TimeHour,TimeTimeOfDay,DateDayOfWeek,DateWeekday,DateDate,DateYear,DateMonthName,DateQuarter,MuscleName,MuscleAbbreviation,PatientName&$filter=PatientId eq " + @Model.Id))
                     .then(function(data) {
-                        data=als_glance.AddPredictions(data);
-                        als_glance.LoadPatientData(data);
-                        als_glance_ui.init();
-                        init();
+                        data=alsglance.dashboard.patient.addPredictions(data);
+                        alsglance.dashboard.patient.load(data);
+                        alsglance.dashboard.patient.init();
+                        initColors();
                     });
 
         })();

@@ -7,8 +7,6 @@ namespace ALS.Glance.Web.Models
     {
         public long Id { get; set; }
 
-        public IEnumerable<Tuple<int,bool>> Years { get; set; }
-
-        public IEnumerable<Tuple<string,string,bool>> Muscles { get; set; }
+        public IEnumerable<Tuple<string,string>> Muscles { get; set; }
     }
 }

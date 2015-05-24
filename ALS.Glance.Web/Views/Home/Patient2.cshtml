@@ -86,13 +86,13 @@
 @section Scripts {
     @*@if (Request.IsAuthenticated)*@
     @Scripts.Render("~/Home/ApiAuth")
-    @Scripts.Render("~/bundles/dcjs")
+    @Scripts.Render("~/bundles/dashboardjs")
     <script>
         (function () {
 
-            var apiClient = new als_glance.ApiClient({
-                baseUri: als_glance.baseUri,
-                authToken: als_glance.authToken,
+            var apiClient = new alsglance.ApiClient({
+                baseUri: alsglance.baseUri,
+                authToken: alsglance.authToken,
                 onAuthFail: function () {
                     $(".error").show();
                 }
@@ -130,7 +130,7 @@
                             }
                         };
                     };
-                    als_glance.LoadPatientData(data);
+                    alsglance.dashboard.patient.load(data);
 
                 });
 

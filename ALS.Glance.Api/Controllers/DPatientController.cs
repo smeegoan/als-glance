@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.OData;
 using ALS.Glance.Api.Helpers.Cache;
+using ALS.Glance.Api.Security;
 using ALS.Glance.Models;
 using ALS.Glance.UoW;
 using ALS.Glance.UoW.Core;
@@ -22,7 +23,7 @@ namespace ALS.Glance.Api.Controllers
             _uow = unitOfWorkFactory.Get<IALSUnitOfWork>();
         }
 
-        [EnableQuery]
+        [EnableQuery, CorsPolicy]
         public IQueryable<DPatient> Get()
         {
             var cache = new ResponseCache(false, DefaultCacheTime.Long);

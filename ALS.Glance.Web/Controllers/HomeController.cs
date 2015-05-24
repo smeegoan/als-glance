@@ -33,7 +33,7 @@ namespace ALS.Glance.Web.Controllers
         public ActionResult ApiAuth()
         {
             var token = _credentials.ApplicationToken;
-            var script = @"var als_glance = als_glance || {}; als_glance.authToken = '" + token + "'; als_glance.baseUri = '" + _apiUrl + "';";
+            var script = @"var alsglance = alsglance || {}; alsglance.authToken = '" + token + "'; alsglance.baseUri = '" + _apiUrl + "';";
             return JavaScript(script);
         }
 
@@ -46,14 +46,11 @@ namespace ALS.Glance.Web.Controllers
                 return View(patients);
             }
             var muscles = await _glanceDa.GetMusclesAsync(_credentials, id.Value, ct);
-            var years = new List<int>( await _glanceDa.GetFactYearsAsync(_credentials, id.Value, ct));
-            years.Add(years.Max()+1);
-            
+
             var model = new PatientViewModel
             {
                 Id = id.Value,
-                Muscles = muscles.Select(e => Tuple.Create(e.Item1, e.Item2, false)),
-                Years = years.Select(e => Tuple.Create(e, true)),
+                Muscles = muscles.Select(e => Tuple.Create(e.Item1, e.Item2 )),
             };
             return View("Patient", model);
         }
