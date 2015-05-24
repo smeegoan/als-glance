@@ -38,7 +38,7 @@ namespace ALS.Glance.Api.Controllers
         [EnableQuery, AllowAnonymous]
         public IQueryable<AuthorizationRequest> Get()
         {
-            throw new HttpResponseException(Request.NotImplemented());
+            throw new HttpResponseException(Request.CreateNotImplementedResponse());
         }
 
         [EnableQuery, AllowAnonymous]

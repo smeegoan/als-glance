@@ -12,8 +12,6 @@ namespace ALS.Glance.DataAgents.Interfaces
     {
         Task<IEnumerable<DPatient>> GetPatientsAsync(WebApiCredentials credentials, CancellationToken ct);
 
-        Task<IEnumerable<int>> GetFactYearsAsync(WebApiCredentials credentials, long patientId, CancellationToken ct);
-
         Task<IEnumerable<Tuple<string,string>>> GetMusclesAsync(WebApiCredentials credentials, long patientId, CancellationToken ct);
     }
 }

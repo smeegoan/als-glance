@@ -110,7 +110,7 @@ namespace ALS.Glance.Api
                 type.Property(e => e.DateMonthInYear);
                 type.Property(e => e.DateMonthName);
                 type.Property(e => e.DateQuarter);
-                type.Property(e => e.QuarterInYear); 
+                type.Property(e => e.DateQuarterInYear); 
                 type.Property(e => e.PatientPatientId);
                 type.Property(e => e.MuscleName);
                 type.Property(e => e.MuscleAbbreviation);

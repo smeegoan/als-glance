@@ -43,7 +43,7 @@ namespace ALS.Glance.Models
             public byte DateQuarter { get; set; } // Quarter
 
 
-            public string QuarterInYear { get; set; } // QuarterInYear
+            public string DateQuarterInYear { get; set; } // QuarterInYear
 
 
             public string MuscleAbbreviation { get; set; } // MuscleAbbreviation

@@ -159,7 +159,7 @@ namespace ALS.Glance.UoW.Mapping
                     cfg.Property(x => x.DateWeekday).IsRequired().HasMaxLength(50);
                     cfg.Property(x => x.DateMonthInYear).IsRequired().HasMaxLength(50);
                     cfg.Property(x => x.DateQuarter).IsRequired();
-                    cfg.Property(x => x.QuarterInYear).IsRequired().HasMaxLength(30);
+                    cfg.Property(x => x.DateQuarterInYear).IsRequired().HasMaxLength(30);
                     cfg.Property(x => x.MuscleAbbreviation).IsRequired().HasMaxLength(30);
                     cfg.Property(x => x.MuscleName).IsRequired().HasMaxLength(200);
                     cfg.Property(x => x.PatientId).IsRequired();

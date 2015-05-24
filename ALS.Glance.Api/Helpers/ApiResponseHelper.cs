@@ -25,7 +25,7 @@ namespace ALS.Glance.Api.Helpers
 
         #region Not Implemented
 
-        public static HttpResponseMessage NotImplemented(this HttpRequestMessage request)
+        public static HttpResponseMessage CreateNotImplementedResponse(this HttpRequestMessage request)
         {
             return request.CreateErrorResponse(
                 HttpStatusCode.NotImplemented,
@@ -55,12 +55,12 @@ namespace ALS.Glance.Api.Helpers
 
         #region Bad Request
 
-        public static HttpResponseMessage BadRequest(this HttpRequestMessage request)
+        public static HttpResponseMessage CreateBadRequestResponse(this HttpRequestMessage request)
         {
-            return request.BadRequest(Resources.BadRequestErrorMessage);
+            return request.CreateBadRequestResponse(Resources.BadRequestErrorMessage);
         }
 
-        public static HttpResponseMessage BadRequest(this HttpRequestMessage request, string message)
+        public static HttpResponseMessage CreateBadRequestResponse(this HttpRequestMessage request, string message)
         {
             return request.CreateErrorResponse(
                 HttpStatusCode.BadRequest,

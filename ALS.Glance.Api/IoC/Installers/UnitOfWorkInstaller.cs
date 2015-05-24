@@ -18,13 +18,7 @@ namespace ALS.Glance.Api.IoC.Installers
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(
-                Component
-                    .For<IConnectionString>()
-                    .UsingFactoryMethod(
-                        () => (ConnectionString)
-                            ConfigurationManager.ConnectionStrings["ALSContext"].ConnectionString)
-                    .LifestyleSingleton(),
+            container.Register(                
                 Component.For<ALSContext, SecurityDbContext>()
                     .UsingFactoryMethod(
                         k => new ALSContext(k.Resolve<IConnectionString>().Value))

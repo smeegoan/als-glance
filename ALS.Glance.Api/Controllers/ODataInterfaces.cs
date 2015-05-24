@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.OData;
+using System.Web.OData.Query;
 
 namespace ALS.Glance.Api.Controllers
 {
@@ -72,6 +73,25 @@ namespace ALS.Glance.Api.Controllers
             /// <returns></returns>
             [EnableQuery]
             Task<IHttpActionResult> Get([FromODataUri] TKey1 applicationId, [FromODataUri] TKey2 key2, [FromODataUri] TKey3 key3, CancellationToken ct);
+        }
+
+
+        // ReSharper disable once InconsistentNaming
+        public interface WithKeyAndOptions<in TKey>
+        {
+            /// <summary>
+            /// Gets an <see cref="IQueryable{T}"/> of the given entity
+            /// </summary>
+            /// <returns></returns>
+            [EnableQuery]
+            IQueryable<TEntity> Get(ODataQueryOptions<TEntity> options);
+
+            /// <summary>
+            /// Gets an <see cref="IQueryable{T}"/> of the given entity
+            /// </summary>
+            /// <returns></returns>
+            [EnableQuery]
+            Task<IHttpActionResult> Get([FromODataUri] TKey key, ODataQueryOptions<TEntity> options, CancellationToken ct);
         }
     }
 

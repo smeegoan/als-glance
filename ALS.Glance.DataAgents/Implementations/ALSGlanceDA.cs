@@ -34,23 +34,6 @@ namespace ALS.Glance.DataAgents.Implementations
                    ct);
         }
 
-
-        public async Task<IEnumerable<int>> GetFactYearsAsync(WebApiCredentials credentials, long patientId, CancellationToken ct)
-        {
-            ct.ThrowIfCancellationRequested();
-            return await WebApiODataContainer.Using(_apiUrl, credentials)
-               .ExecuteAuthenticated(
-                     container =>
-                     {
-                         ct.ThrowIfCancellationRequested();
-                         var years = container.Fact.Expand(e => e.Date).Where(f => f.Patient.Id == patientId);
-
-                         return years.ToArray().Select(e => (int)e.Date.Year).Distinct();
-                     },
-                   ct);
-        }
-
-
         public async Task<IEnumerable<Tuple<string, string>>> GetMusclesAsync(WebApiCredentials credentials, long patientId, CancellationToken ct)
         {
             ct.ThrowIfCancellationRequested();

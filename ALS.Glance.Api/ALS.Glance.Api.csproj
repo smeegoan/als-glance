@@ -157,6 +157,10 @@
     <Compile Include="Controllers\FactsController.cs" />
     <Compile Include="Controllers\FactController.cs" />
     <Compile Include="Controllers\ODataInterfaces.cs" />
+    <Compile Include="Helpers\Binder\BinderExtensions.cs" />
+    <Compile Include="Helpers\Binder\BinderNode.cs" />
+    <Compile Include="Helpers\Binder\IODataQueryOptionsBinder.cs" />
+    <Compile Include="Helpers\Binder\ODataQueryOptionsBinder.cs" />
     <Compile Include="Helpers\Cache\BaseCache.cs" />
     <Compile Include="Helpers\Cache\ResponseCache.cs" />
     <Compile Include="Helpers\Cache\DefaultCacheTime.cs" />
@@ -166,6 +170,7 @@
     <Compile Include="Helpers\ApiResponseHelper.cs" />
     <Compile Include="Helpers\UserManagerExtensions.cs" />
     <Compile Include="IoC\Factories\WindsorApiControllerFactory.cs" />
+    <Compile Include="IoC\Installers\ConfigurationInstaller.cs" />
     <Compile Include="IoC\Installers\SecurityInstaller.cs" />
     <Compile Include="IoC\Installers\ControllerInstaller.cs" />
     <Compile Include="IoC\IoCManager.cs" />
