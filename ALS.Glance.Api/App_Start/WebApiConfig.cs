@@ -17,6 +17,20 @@ namespace ALS.Glance.Api
             #region OData Registration
 
             var builder = new ODataModelBuilder();
+
+            builder.ComplexType<AgeBounds>(
+               es =>
+               {
+                   es.Property(e => e.Max).IsRequired();
+                   es.Property(e => e.Min).IsRequired();
+               });
+            builder.ComplexType<YearBounds>(
+               es =>
+               {
+                   es.Property(e => e.Max).IsRequired();
+                   es.Property(e => e.Min).IsRequired();
+               });
+
             builder.EntitySet<ApiUser>(
               es =>
               {
@@ -70,10 +84,7 @@ namespace ALS.Glance.Api
                     es.HasOptional(e => e.User);
                 }).HasEditLinkForKey(true, e => e.Email);
             builder.ComplexType<ApiApplicationUser>(
-                es =>
-                {
-                    es.Property(e => e.Id);
-                });
+                es => es.Property(e => e.Id));
             builder.EntitySet<ApplicationSettings>(
                 es =>
                 {
@@ -88,7 +99,7 @@ namespace ALS.Glance.Api
                     es.Property(e => e.UpdatedOn).IsRequired();
                 }).HasEditLinkForKey(true, e => e.UserId, e => e.ApplicationId);
 
-            builder.EntitySet<Fact,long>(type =>
+            builder.EntitySet<Fact, long>(type =>
             {
                 type.Property(e => e.AUC);
                 type.HasRequired(e => e.Patient);
@@ -110,13 +121,13 @@ namespace ALS.Glance.Api
                 type.Property(e => e.DateMonthInYear);
                 type.Property(e => e.DateMonthName);
                 type.Property(e => e.DateQuarter);
-                type.Property(e => e.DateQuarterInYear); 
+                type.Property(e => e.DateQuarterInYear);
                 type.Property(e => e.PatientPatientId);
                 type.Property(e => e.MuscleName);
                 type.Property(e => e.MuscleAbbreviation);
-                type.Property(e => e.TimeHour); 
+                type.Property(e => e.TimeHour);
                 type.Property(e => e.TimeTimeOfDay);
-                type.Property(e => e.PatientId); 
+                type.Property(e => e.PatientId);
                 type.Property(e => e.PatientName);
                 type.Property(e => e.PatientPatientId);
                 type.Property(e => e.PatientSex);
@@ -135,6 +146,8 @@ namespace ALS.Glance.Api
                 type.Property(e => e.Sex);
                 type.Property(e => e.DiagnosedOn);
                 type.Property(e => e.BornOn);
+                type.Collection.Function("GetAgeBounds").Returns<AgeBounds>();
+                type.Function("GetYearBounds").Returns<YearBounds>();
             });
             builder.EntitySet<DTime, long>(type =>
             {

@@ -91,6 +91,14 @@ namespace ALS.Glance.DataAgents
             }
         }
 
+        public async Task<T> GetAuthenticatedAsync<T>(Func<WebApiODataContainer, string> pathGetter, Action<Exception> exceptionLogger, CancellationToken cancellationToken)
+        {
+            var formatter = new JsonMediaTypeFormatter();
+            formatter.SerializerSettings.Converters.Add((new StringEnumConverter { CamelCaseText = false }));
+
+            return await Execute<T>(async client => await client.GetAsync(pathGetter(this), cancellationToken), exceptionLogger, cancellationToken);
+        }
+        
         public async Task<TResult> ExecuteAuthenticated<TResult>(Func<WebApiODataContainer, Task<TResult>> action,
             CancellationToken cancellationToken)
         {
@@ -181,7 +189,7 @@ namespace ALS.Glance.DataAgents
             try
             {
                 client.BaseAddress = BaseUri;
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session.Authorization.AccessToken);
+                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session.Authorization.AccessToken);
 
                 var result = await funcToExecute(client);
 

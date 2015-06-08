@@ -1,6 +1,6 @@
 ﻿var aucBubbleChart = dc.bubbleChart('#aucBubbleChart');
 
-alsglance.dashboard.patients.load = function (data) {
+alsglance.dashboard.patients.load = function (data, min,max) {
     var numberFormat = d3.format('.5f');
     data = data["value"];
     data.forEach(function (d) {
@@ -77,7 +77,7 @@ alsglance.dashboard.patients.load = function (data) {
             return p.value.avgAge;
         })
         .maxBubbleRelativeSize(0.3)
-        .x(d3.scale.linear().domain([41, 42]))
+        .x(d3.scale.linear().domain([min, max]))
         .y(d3.scale.linear().domain([-100, 100]))
         .r(d3.scale.linear().domain([0, 4000]))
         //##### Elastic Scaling

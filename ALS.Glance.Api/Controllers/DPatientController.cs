@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.OData;
+using ALS.Glance.Api.Helpers;
 using ALS.Glance.Api.Helpers.Cache;
+using ALS.Glance.Api.Models;
 using ALS.Glance.Api.Security;
 using ALS.Glance.Models;
 using ALS.Glance.UoW;
@@ -43,6 +45,51 @@ namespace ALS.Glance.Api.Controllers
             if (entity == null)
                 return NotFound();
             return Ok(SingleResult.Create(new[] { entity }.AsQueryable()));
+        }
+
+        [HttpGet]
+        public IHttpActionResult GetYearBounds([FromODataUri] long key)
+        {
+            var cache = new ResponseCache(false, DefaultCacheTime.Long);
+            var bounds = cache.GetValue(Request) as YearBounds;
+            if (bounds == null)
+            {
+                var years = _uow.Facts.GetAll()
+                   .Where(e => e.PatientId == key)
+                   .Select(e => e.Date.Year)
+                   .Distinct();
+
+                bounds = new YearBounds
+                {
+                    Min = years.Min(),
+                    Max = years.Max()
+                };
+                cache.SetValue(Request, bounds);
+            }
+            return Ok(bounds);
+        }
+
+        [HttpGet]
+        public IHttpActionResult GetAgeBounds()
+        {
+            var cache = new ResponseCache(false, DefaultCacheTime.Long);
+            var bounds = cache.GetValue(Request) as AgeBounds;
+            if (bounds == null)
+            {
+                var today = DateTime.Now.Year;
+                var patients = _uow.Patients
+                    .GetAll()
+                    .GroupBy(e => e.Sex)
+                    .Select(grp => grp.Average(e => today - e.BornOn.Year));
+
+                bounds = new AgeBounds
+                {
+                    Min = Math.Floor(patients.Min()),
+                    Max = Math.Ceiling(patients.Max())
+                };
+                cache.SetValue(Request, bounds);
+            }
+            return Ok(bounds);
         }
     }
 }

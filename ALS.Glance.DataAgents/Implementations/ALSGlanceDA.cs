@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using ALS.Glance.DataAgents.ALS.Glance.Api.Models;
 using ALS.Glance.DataAgents.ALS.Glance.Models;
 using ALS.Glance.DataAgents.Interfaces;
 using ALS.Glance.Models.Core;
@@ -32,6 +33,25 @@ namespace ALS.Glance.DataAgents.Implementations
                         return await query.GetAllPagesAsync();
                     },
                    ct);
+        }
+
+        public virtual async Task<AgeBounds> GetAgeBoundsAsync(WebApiCredentials credentials, CancellationToken ct)
+        {
+            return await WebApiODataContainer.Using(_apiUrl, credentials)
+                .GetAuthenticatedAsync<AgeBounds>(
+                    container => string.Format("{0}/.GetAgeBounds", container.DPatient.ToString()),
+                    exception => { },
+                    ct);
+        }
+
+        public virtual async Task<YearBounds> GetYearBoundsAsync(WebApiCredentials credentials, long patientId, CancellationToken ct)
+        {
+            return await WebApiODataContainer.Using(_apiUrl, credentials)
+                .GetAuthenticatedAsync<YearBounds>(
+                    container => string.Format("{0}({1})/.GetYearBounds", container.DPatient.ToString(),patientId),
+                    exception => { },
+                    ct);
+
         }
 
         public async Task<IEnumerable<Tuple<string, string>>> GetMusclesAsync(WebApiCredentials credentials, long patientId, CancellationToken ct)

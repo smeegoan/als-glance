@@ -228,7 +228,7 @@
             $.when(apiClient.get("Facts?$select=AUC,TimeHour,TimeTimeOfDay,DateDayOfWeek,DateWeekday,DateDate,DateYear,DateMonthName,DateQuarter,MuscleName,MuscleAbbreviation,PatientName&$filter=PatientId eq " + @Model.Id))
                     .then(function(data) {
                         data=alsglance.dashboard.patient.addPredictions(data);
-                        alsglance.dashboard.patient.load(data);
+                        alsglance.dashboard.patient.load(data,@Model.YearMin,@Model.YearMax);
                         alsglance.dashboard.patient.init();
                         initColors();
                     });

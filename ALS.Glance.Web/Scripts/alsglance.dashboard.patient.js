@@ -128,7 +128,7 @@ alsglance.dashboard.patient.addPredictions = function (data) {
     return data;
 };
 
-alsglance.dashboard.patient.load = function (data) {
+alsglance.dashboard.patient.load = function (data,minYear,maxYear) {
     /* since its a csv file we need to format the data a bit */
     var dateFormat = d3.time.format('%Y/%m/%d');
     var numberFormat = d3.format('.5f');
@@ -289,7 +289,7 @@ alsglance.dashboard.patient.load = function (data) {
    .width(460)
         .height(180)
         //.chart(function(c) { return dc.lineChart(c).interpolate('basis'); })
-        .x(d3.time.scale().domain([new Date(2012, 0, 1), new Date(2016, 11, 31)]))
+        .x(d3.time.scale().domain([new Date(minYear, 0, 1), new Date(maxYear+1, 11, 31)]))
         .y(d3.scale.linear().domain([0.009, 0.03]))
         .brushOn(false)
         //.yAxisLabel("")
@@ -321,7 +321,7 @@ alsglance.dashboard.patient.load = function (data) {
         .group(volumeByMonthGroup)
         .centerBar(true)
         .gap(1)
-        .x(d3.time.scale().domain([new Date(2012, 0, 1), new Date(2016, 11, 31)]))
+        .x(d3.time.scale().domain([new Date(minYear, 0, 1), new Date(maxYear+1, 11, 31)]))
         .round(d3.time.month.round)
         .alwaysUseRounding(true)
         .xUnits(d3.time.months).on("filtered", function (chart) {

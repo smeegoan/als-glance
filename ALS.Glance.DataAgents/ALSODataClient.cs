@@ -8,294 +8,175 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generation date: 11/04/2015 15:48:21
-namespace ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations
-{
-    /// <summary>
-    /// There are no comments for ApiUserSingle in the schema.
-    /// </summary>
-    [global::Microsoft.OData.Client.OriginalNameAttribute("ApiUserSingle")]
-    public partial class ApiUserSingle : global::Microsoft.OData.Client.DataServiceQuerySingle<ApiUser>
-    {
-        /// <summary>
-        /// Initialize a new ApiUserSingle object.
-        /// </summary>
-        public ApiUserSingle(global::Microsoft.OData.Client.DataServiceContext context, string path)
-            : base(context, path) {}
-
-        /// <summary>
-        /// Initialize a new ApiUserSingle object.
-        /// </summary>
-        public ApiUserSingle(global::Microsoft.OData.Client.DataServiceContext context, string path, bool isComposable)
-            : base(context, path, isComposable) {}
-
-        /// <summary>
-        /// Initialize a new ApiUserSingle object.
-        /// </summary>
-        public ApiUserSingle(global::Microsoft.OData.Client.DataServiceQuerySingle<ApiUser> query)
-            : base(query) {}
-
-    }
-    /// <summary>
-    /// There are no comments for ApiUser in the schema.
-    /// </summary>
-    /// <KeyProperties>
-    /// UserName
-    /// </KeyProperties>
-    [global::Microsoft.OData.Client.Key("UserName")]
-    [global::Microsoft.OData.Client.OriginalNameAttribute("ApiUser")]
-    public partial class ApiUser : global::Microsoft.OData.Client.BaseEntityType, global::System.ComponentModel.INotifyPropertyChanged
-    {
-        /// <summary>
-        /// Create a new ApiUser object.
-        /// </summary>
-        /// <param name="userName">Initial value of UserName.</param>
-        /// <param name="createdOn">Initial value of CreatedOn.</param>
-        /// <param name="updatedOn">Initial value of UpdatedOn.</param>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        public static ApiUser CreateApiUser(string userName, global::System.DateTimeOffset createdOn, global::System.DateTimeOffset updatedOn)
-        {
-            ApiUser apiUser = new ApiUser();
-            apiUser.UserName = userName;
-            apiUser.CreatedOn = createdOn;
-            apiUser.UpdatedOn = updatedOn;
-            return apiUser;
-        }
-        /// <summary>
-        /// There are no comments for Property UserName in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("UserName")]
-        public string UserName
-        {
-            get
-            {
-                return this._UserName;
-            }
-            set
-            {
-                this.OnUserNameChanging(value);
-                this._UserName = value;
-                this.OnUserNameChanged();
-                this.OnPropertyChanged("UserName");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        private string _UserName;
-        partial void OnUserNameChanging(string value);
-        partial void OnUserNameChanged();
-        /// <summary>
-        /// There are no comments for Property Email in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("Email")]
-        public string Email
-        {
-            get
-            {
-                return this._Email;
-            }
-            set
-            {
-                this.OnEmailChanging(value);
-                this._Email = value;
-                this.OnEmailChanged();
-                this.OnPropertyChanged("Email");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        private string _Email;
-        partial void OnEmailChanging(string value);
-        partial void OnEmailChanged();
-        /// <summary>
-        /// There are no comments for Property CreatedOn in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("CreatedOn")]
-        public global::System.DateTimeOffset CreatedOn
-        {
-            get
-            {
-                return this._CreatedOn;
-            }
-            set
-            {
-                this.OnCreatedOnChanging(value);
-                this._CreatedOn = value;
-                this.OnCreatedOnChanged();
-                this.OnPropertyChanged("CreatedOn");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        private global::System.DateTimeOffset _CreatedOn;
-        partial void OnCreatedOnChanging(global::System.DateTimeOffset value);
-        partial void OnCreatedOnChanged();
-        /// <summary>
-        /// There are no comments for Property UpdatedOn in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("UpdatedOn")]
-        public global::System.DateTimeOffset UpdatedOn
-        {
-            get
-            {
-                return this._UpdatedOn;
-            }
-            set
-            {
-                this.OnUpdatedOnChanging(value);
-                this._UpdatedOn = value;
-                this.OnUpdatedOnChanged();
-                this.OnPropertyChanged("UpdatedOn");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        private global::System.DateTimeOffset _UpdatedOn;
-        partial void OnUpdatedOnChanging(global::System.DateTimeOffset value);
-        partial void OnUpdatedOnChanged();
-        /// <summary>
-        /// There are no comments for Property GivenName in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("GivenName")]
-        public string GivenName
-        {
-            get
-            {
-                return this._GivenName;
-            }
-            set
-            {
-                this.OnGivenNameChanging(value);
-                this._GivenName = value;
-                this.OnGivenNameChanged();
-                this.OnPropertyChanged("GivenName");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        private string _GivenName;
-        partial void OnGivenNameChanging(string value);
-        partial void OnGivenNameChanged();
-        /// <summary>
-        /// There are no comments for Property FamilyName in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("FamilyName")]
-        public string FamilyName
-        {
-            get
-            {
-                return this._FamilyName;
-            }
-            set
-            {
-                this.OnFamilyNameChanging(value);
-                this._FamilyName = value;
-                this.OnFamilyNameChanged();
-                this.OnPropertyChanged("FamilyName");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        private string _FamilyName;
-        partial void OnFamilyNameChanging(string value);
-        partial void OnFamilyNameChanged();
-        /// <summary>
-        /// This event is raised when the value of the property is changed
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        /// <summary>
-        /// The value of the property is changed
-        /// </summary>
-        /// <param name="property">property name</param>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        protected virtual void OnPropertyChanged(string property)
-        {
-            if ((this.PropertyChanged != null))
-            {
-                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
-            }
-        }
-    }
-    /// <summary>
-    /// There are no comments for ApiApplicationUser in the schema.
-    /// </summary>
-    [global::Microsoft.OData.Client.OriginalNameAttribute("ApiApplicationUser")]
-    public partial class ApiApplicationUser : global::System.ComponentModel.INotifyPropertyChanged
-    {
-        /// <summary>
-        /// There are no comments for Property Id in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("Id")]
-        public string Id
-        {
-            get
-            {
-                return this._Id;
-            }
-            set
-            {
-                this.OnIdChanging(value);
-                this._Id = value;
-                this.OnIdChanged();
-                this.OnPropertyChanged("Id");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        private string _Id;
-        partial void OnIdChanging(string value);
-        partial void OnIdChanged();
-        /// <summary>
-        /// This event is raised when the value of the property is changed
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        /// <summary>
-        /// The value of the property is changed
-        /// </summary>
-        /// <param name="property">property name</param>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        protected virtual void OnPropertyChanged(string property)
-        {
-            if ((this.PropertyChanged != null))
-            {
-                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
-            }
-        }
-    }
-    /// <summary>
-    /// Class containing all extension methods
-    /// </summary>
-    public static class ExtensionMethods
-    {
-        /// <summary>
-        /// Get an entity of type global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUser as global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUserSingle specified by key from an entity set
-        /// </summary>
-        /// <param name="source">source entity set</param>
-        /// <param name="keys">dictionary with the names and values of keys</param>
-        public static global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUserSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUser> source, global::System.Collections.Generic.Dictionary<string, object> keys)
-        {
-            return new global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUserSingle(source.Context, source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(source.Context, keys)));
-        }
-        /// <summary>
-        /// Get an entity of type global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUser as global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUserSingle specified by key from an entity set
-        /// </summary>
-        /// <param name="source">source entity set</param>
-        /// <param name="userName">The value of userName</param>
-        public static global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUserSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUser> source,
-            string userName)
-        {
-            global::System.Collections.Generic.Dictionary<string, object> keys = new global::System.Collections.Generic.Dictionary<string, object>
-            {
-                { "UserName", userName }
-            };
-            return new global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUserSingle(source.Context, source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(source.Context, keys)));
-        }
-    }
-}
+// Generation date: 08/06/2015 23:37:47
 namespace ALS.Glance.DataAgents.ALS.Glance.Api.Models
 {
+    /// <summary>
+    /// There are no comments for AgeBounds in the schema.
+    /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("AgeBounds")]
+    public partial class AgeBounds : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// Create a new AgeBounds object.
+        /// </summary>
+        /// <param name="max">Initial value of Max.</param>
+        /// <param name="min">Initial value of Min.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        public static AgeBounds CreateAgeBounds(double max, double min)
+        {
+            AgeBounds ageBounds = new AgeBounds();
+            ageBounds.Max = max;
+            ageBounds.Min = min;
+            return ageBounds;
+        }
+        /// <summary>
+        /// There are no comments for Property Max in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Max")]
+        public double Max
+        {
+            get
+            {
+                return this._Max;
+            }
+            set
+            {
+                this.OnMaxChanging(value);
+                this._Max = value;
+                this.OnMaxChanged();
+                this.OnPropertyChanged("Max");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private double _Max;
+        partial void OnMaxChanging(double value);
+        partial void OnMaxChanged();
+        /// <summary>
+        /// There are no comments for Property Min in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Min")]
+        public double Min
+        {
+            get
+            {
+                return this._Min;
+            }
+            set
+            {
+                this.OnMinChanging(value);
+                this._Min = value;
+                this.OnMinChanged();
+                this.OnPropertyChanged("Min");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private double _Min;
+        partial void OnMinChanging(double value);
+        partial void OnMinChanged();
+        /// <summary>
+        /// This event is raised when the value of the property is changed
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        /// <summary>
+        /// The value of the property is changed
+        /// </summary>
+        /// <param name="property">property name</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// There are no comments for YearBounds in the schema.
+    /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("YearBounds")]
+    public partial class YearBounds : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// Create a new YearBounds object.
+        /// </summary>
+        /// <param name="max">Initial value of Max.</param>
+        /// <param name="min">Initial value of Min.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        public static YearBounds CreateYearBounds(short max, short min)
+        {
+            YearBounds yearBounds = new YearBounds();
+            yearBounds.Max = max;
+            yearBounds.Min = min;
+            return yearBounds;
+        }
+        /// <summary>
+        /// There are no comments for Property Max in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Max")]
+        public short Max
+        {
+            get
+            {
+                return this._Max;
+            }
+            set
+            {
+                this.OnMaxChanging(value);
+                this._Max = value;
+                this.OnMaxChanged();
+                this.OnPropertyChanged("Max");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private short _Max;
+        partial void OnMaxChanging(short value);
+        partial void OnMaxChanged();
+        /// <summary>
+        /// There are no comments for Property Min in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Min")]
+        public short Min
+        {
+            get
+            {
+                return this._Min;
+            }
+            set
+            {
+                this.OnMinChanging(value);
+                this._Min = value;
+                this.OnMinChanged();
+                this.OnPropertyChanged("Min");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private short _Min;
+        partial void OnMinChanging(short value);
+        partial void OnMinChanged();
+        /// <summary>
+        /// This event is raised when the value of the property is changed
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        /// <summary>
+        /// The value of the property is changed
+        /// </summary>
+        /// <param name="property">property name</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
     /// <summary>
     /// There are no comments for AuthorizationRefreshSingle in the schema.
     /// </summary>
@@ -1016,6 +897,291 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Api.Models
                 { "Email", email }
             };
             return new global::ALS.Glance.DataAgents.ALS.Glance.Api.Models.ApiUserRegistrationSingle(source.Context, source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(source.Context, keys)));
+        }
+    }
+}
+namespace ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations
+{
+    /// <summary>
+    /// There are no comments for ApiUserSingle in the schema.
+    /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("ApiUserSingle")]
+    public partial class ApiUserSingle : global::Microsoft.OData.Client.DataServiceQuerySingle<ApiUser>
+    {
+        /// <summary>
+        /// Initialize a new ApiUserSingle object.
+        /// </summary>
+        public ApiUserSingle(global::Microsoft.OData.Client.DataServiceContext context, string path)
+            : base(context, path) {}
+
+        /// <summary>
+        /// Initialize a new ApiUserSingle object.
+        /// </summary>
+        public ApiUserSingle(global::Microsoft.OData.Client.DataServiceContext context, string path, bool isComposable)
+            : base(context, path, isComposable) {}
+
+        /// <summary>
+        /// Initialize a new ApiUserSingle object.
+        /// </summary>
+        public ApiUserSingle(global::Microsoft.OData.Client.DataServiceQuerySingle<ApiUser> query)
+            : base(query) {}
+
+    }
+    /// <summary>
+    /// There are no comments for ApiUser in the schema.
+    /// </summary>
+    /// <KeyProperties>
+    /// UserName
+    /// </KeyProperties>
+    [global::Microsoft.OData.Client.Key("UserName")]
+    [global::Microsoft.OData.Client.OriginalNameAttribute("ApiUser")]
+    public partial class ApiUser : global::Microsoft.OData.Client.BaseEntityType, global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// Create a new ApiUser object.
+        /// </summary>
+        /// <param name="userName">Initial value of UserName.</param>
+        /// <param name="createdOn">Initial value of CreatedOn.</param>
+        /// <param name="updatedOn">Initial value of UpdatedOn.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        public static ApiUser CreateApiUser(string userName, global::System.DateTimeOffset createdOn, global::System.DateTimeOffset updatedOn)
+        {
+            ApiUser apiUser = new ApiUser();
+            apiUser.UserName = userName;
+            apiUser.CreatedOn = createdOn;
+            apiUser.UpdatedOn = updatedOn;
+            return apiUser;
+        }
+        /// <summary>
+        /// There are no comments for Property UserName in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("UserName")]
+        public string UserName
+        {
+            get
+            {
+                return this._UserName;
+            }
+            set
+            {
+                this.OnUserNameChanging(value);
+                this._UserName = value;
+                this.OnUserNameChanged();
+                this.OnPropertyChanged("UserName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private string _UserName;
+        partial void OnUserNameChanging(string value);
+        partial void OnUserNameChanged();
+        /// <summary>
+        /// There are no comments for Property Email in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Email")]
+        public string Email
+        {
+            get
+            {
+                return this._Email;
+            }
+            set
+            {
+                this.OnEmailChanging(value);
+                this._Email = value;
+                this.OnEmailChanged();
+                this.OnPropertyChanged("Email");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private string _Email;
+        partial void OnEmailChanging(string value);
+        partial void OnEmailChanged();
+        /// <summary>
+        /// There are no comments for Property CreatedOn in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("CreatedOn")]
+        public global::System.DateTimeOffset CreatedOn
+        {
+            get
+            {
+                return this._CreatedOn;
+            }
+            set
+            {
+                this.OnCreatedOnChanging(value);
+                this._CreatedOn = value;
+                this.OnCreatedOnChanged();
+                this.OnPropertyChanged("CreatedOn");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private global::System.DateTimeOffset _CreatedOn;
+        partial void OnCreatedOnChanging(global::System.DateTimeOffset value);
+        partial void OnCreatedOnChanged();
+        /// <summary>
+        /// There are no comments for Property UpdatedOn in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("UpdatedOn")]
+        public global::System.DateTimeOffset UpdatedOn
+        {
+            get
+            {
+                return this._UpdatedOn;
+            }
+            set
+            {
+                this.OnUpdatedOnChanging(value);
+                this._UpdatedOn = value;
+                this.OnUpdatedOnChanged();
+                this.OnPropertyChanged("UpdatedOn");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private global::System.DateTimeOffset _UpdatedOn;
+        partial void OnUpdatedOnChanging(global::System.DateTimeOffset value);
+        partial void OnUpdatedOnChanged();
+        /// <summary>
+        /// There are no comments for Property GivenName in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("GivenName")]
+        public string GivenName
+        {
+            get
+            {
+                return this._GivenName;
+            }
+            set
+            {
+                this.OnGivenNameChanging(value);
+                this._GivenName = value;
+                this.OnGivenNameChanged();
+                this.OnPropertyChanged("GivenName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private string _GivenName;
+        partial void OnGivenNameChanging(string value);
+        partial void OnGivenNameChanged();
+        /// <summary>
+        /// There are no comments for Property FamilyName in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("FamilyName")]
+        public string FamilyName
+        {
+            get
+            {
+                return this._FamilyName;
+            }
+            set
+            {
+                this.OnFamilyNameChanging(value);
+                this._FamilyName = value;
+                this.OnFamilyNameChanged();
+                this.OnPropertyChanged("FamilyName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private string _FamilyName;
+        partial void OnFamilyNameChanging(string value);
+        partial void OnFamilyNameChanged();
+        /// <summary>
+        /// This event is raised when the value of the property is changed
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        /// <summary>
+        /// The value of the property is changed
+        /// </summary>
+        /// <param name="property">property name</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// There are no comments for ApiApplicationUser in the schema.
+    /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("ApiApplicationUser")]
+    public partial class ApiApplicationUser : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// There are no comments for Property Id in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Id")]
+        public string Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+                this.OnPropertyChanged("Id");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private string _Id;
+        partial void OnIdChanging(string value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// This event is raised when the value of the property is changed
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        /// <summary>
+        /// The value of the property is changed
+        /// </summary>
+        /// <param name="property">property name</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// Class containing all extension methods
+    /// </summary>
+    public static class ExtensionMethods
+    {
+        /// <summary>
+        /// Get an entity of type global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUser as global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUserSingle specified by key from an entity set
+        /// </summary>
+        /// <param name="source">source entity set</param>
+        /// <param name="keys">dictionary with the names and values of keys</param>
+        public static global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUserSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUser> source, global::System.Collections.Generic.Dictionary<string, object> keys)
+        {
+            return new global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUserSingle(source.Context, source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(source.Context, keys)));
+        }
+        /// <summary>
+        /// Get an entity of type global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUser as global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUserSingle specified by key from an entity set
+        /// </summary>
+        /// <param name="source">source entity set</param>
+        /// <param name="userName">The value of userName</param>
+        public static global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUserSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUser> source,
+            string userName)
+        {
+            global::System.Collections.Generic.Dictionary<string, object> keys = new global::System.Collections.Generic.Dictionary<string, object>
+            {
+                { "UserName", userName }
+            };
+            return new global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUserSingle(source.Context, source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(source.Context, keys)));
         }
     }
 }
@@ -2443,6 +2609,652 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
         }
     }
     /// <summary>
+    /// There are no comments for FactsSingle in the schema.
+    /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("FactsSingle")]
+    public partial class FactsSingle : global::Microsoft.OData.Client.DataServiceQuerySingle<Facts>
+    {
+        /// <summary>
+        /// Initialize a new FactsSingle object.
+        /// </summary>
+        public FactsSingle(global::Microsoft.OData.Client.DataServiceContext context, string path)
+            : base(context, path) {}
+
+        /// <summary>
+        /// Initialize a new FactsSingle object.
+        /// </summary>
+        public FactsSingle(global::Microsoft.OData.Client.DataServiceContext context, string path, bool isComposable)
+            : base(context, path, isComposable) {}
+
+        /// <summary>
+        /// Initialize a new FactsSingle object.
+        /// </summary>
+        public FactsSingle(global::Microsoft.OData.Client.DataServiceQuerySingle<Facts> query)
+            : base(query) {}
+
+    }
+    /// <summary>
+    /// There are no comments for Facts in the schema.
+    /// </summary>
+    /// <KeyProperties>
+    /// Id
+    /// </KeyProperties>
+    [global::Microsoft.OData.Client.Key("Id")]
+    [global::Microsoft.OData.Client.OriginalNameAttribute("Facts")]
+    public partial class Facts : global::Microsoft.OData.Client.BaseEntityType, global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// Create a new Facts object.
+        /// </summary>
+        /// <param name="ID">Initial value of Id.</param>
+        /// <param name="aUC">Initial value of AUC.</param>
+        /// <param name="dateMonth">Initial value of DateMonth.</param>
+        /// <param name="dateYear">Initial value of DateYear.</param>
+        /// <param name="dateDate">Initial value of DateDate.</param>
+        /// <param name="dateDay">Initial value of DateDay.</param>
+        /// <param name="dateQuarter">Initial value of DateQuarter.</param>
+        /// <param name="timeHour">Initial value of TimeHour.</param>
+        /// <param name="patientId">Initial value of PatientId.</param>
+        /// <param name="patientDiagnosedOn">Initial value of PatientDiagnosedOn.</param>
+        /// <param name="patientBornOn">Initial value of PatientBornOn.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        public static Facts CreateFacts(long ID, 
+                    decimal aUC, 
+                    byte dateMonth, 
+                    short dateYear, 
+                    global::System.DateTimeOffset dateDate, 
+                    byte dateDay, 
+                    byte dateQuarter, 
+                    short timeHour, 
+                    long patientId, 
+                    global::System.DateTimeOffset patientDiagnosedOn, 
+                    global::System.DateTimeOffset patientBornOn)
+        {
+            Facts facts = new Facts();
+            facts.Id = ID;
+            facts.AUC = aUC;
+            facts.DateMonth = dateMonth;
+            facts.DateYear = dateYear;
+            facts.DateDate = dateDate;
+            facts.DateDay = dateDay;
+            facts.DateQuarter = dateQuarter;
+            facts.TimeHour = timeHour;
+            facts.PatientId = patientId;
+            facts.PatientDiagnosedOn = patientDiagnosedOn;
+            facts.PatientBornOn = patientBornOn;
+            return facts;
+        }
+        /// <summary>
+        /// There are no comments for Property Id in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Id")]
+        public long Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+                this.OnPropertyChanged("Id");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private long _Id;
+        partial void OnIdChanging(long value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// There are no comments for Property AUC in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("AUC")]
+        public decimal AUC
+        {
+            get
+            {
+                return this._AUC;
+            }
+            set
+            {
+                this.OnAUCChanging(value);
+                this._AUC = value;
+                this.OnAUCChanged();
+                this.OnPropertyChanged("AUC");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private decimal _AUC;
+        partial void OnAUCChanging(decimal value);
+        partial void OnAUCChanged();
+        /// <summary>
+        /// There are no comments for Property DateDayOfWeek in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("DateDayOfWeek")]
+        public string DateDayOfWeek
+        {
+            get
+            {
+                return this._DateDayOfWeek;
+            }
+            set
+            {
+                this.OnDateDayOfWeekChanging(value);
+                this._DateDayOfWeek = value;
+                this.OnDateDayOfWeekChanged();
+                this.OnPropertyChanged("DateDayOfWeek");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private string _DateDayOfWeek;
+        partial void OnDateDayOfWeekChanging(string value);
+        partial void OnDateDayOfWeekChanged();
+        /// <summary>
+        /// There are no comments for Property DateMonth in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("DateMonth")]
+        public byte DateMonth
+        {
+            get
+            {
+                return this._DateMonth;
+            }
+            set
+            {
+                this.OnDateMonthChanging(value);
+                this._DateMonth = value;
+                this.OnDateMonthChanged();
+                this.OnPropertyChanged("DateMonth");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private byte _DateMonth;
+        partial void OnDateMonthChanging(byte value);
+        partial void OnDateMonthChanged();
+        /// <summary>
+        /// There are no comments for Property DateWeekday in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("DateWeekday")]
+        public string DateWeekday
+        {
+            get
+            {
+                return this._DateWeekday;
+            }
+            set
+            {
+                this.OnDateWeekdayChanging(value);
+                this._DateWeekday = value;
+                this.OnDateWeekdayChanged();
+                this.OnPropertyChanged("DateWeekday");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private string _DateWeekday;
+        partial void OnDateWeekdayChanging(string value);
+        partial void OnDateWeekdayChanged();
+        /// <summary>
+        /// There are no comments for Property DateYear in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("DateYear")]
+        public short DateYear
+        {
+            get
+            {
+                return this._DateYear;
+            }
+            set
+            {
+                this.OnDateYearChanging(value);
+                this._DateYear = value;
+                this.OnDateYearChanged();
+                this.OnPropertyChanged("DateYear");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private short _DateYear;
+        partial void OnDateYearChanging(short value);
+        partial void OnDateYearChanged();
+        /// <summary>
+        /// There are no comments for Property DateDate in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("DateDate")]
+        public global::System.DateTimeOffset DateDate
+        {
+            get
+            {
+                return this._DateDate;
+            }
+            set
+            {
+                this.OnDateDateChanging(value);
+                this._DateDate = value;
+                this.OnDateDateChanged();
+                this.OnPropertyChanged("DateDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private global::System.DateTimeOffset _DateDate;
+        partial void OnDateDateChanging(global::System.DateTimeOffset value);
+        partial void OnDateDateChanged();
+        /// <summary>
+        /// There are no comments for Property DateDay in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("DateDay")]
+        public byte DateDay
+        {
+            get
+            {
+                return this._DateDay;
+            }
+            set
+            {
+                this.OnDateDayChanging(value);
+                this._DateDay = value;
+                this.OnDateDayChanged();
+                this.OnPropertyChanged("DateDay");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private byte _DateDay;
+        partial void OnDateDayChanging(byte value);
+        partial void OnDateDayChanged();
+        /// <summary>
+        /// There are no comments for Property DateDayInMonth in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("DateDayInMonth")]
+        public string DateDayInMonth
+        {
+            get
+            {
+                return this._DateDayInMonth;
+            }
+            set
+            {
+                this.OnDateDayInMonthChanging(value);
+                this._DateDayInMonth = value;
+                this.OnDateDayInMonthChanged();
+                this.OnPropertyChanged("DateDayInMonth");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private string _DateDayInMonth;
+        partial void OnDateDayInMonthChanging(string value);
+        partial void OnDateDayInMonthChanged();
+        /// <summary>
+        /// There are no comments for Property DateDayOfWeekName in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("DateDayOfWeekName")]
+        public string DateDayOfWeekName
+        {
+            get
+            {
+                return this._DateDayOfWeekName;
+            }
+            set
+            {
+                this.OnDateDayOfWeekNameChanging(value);
+                this._DateDayOfWeekName = value;
+                this.OnDateDayOfWeekNameChanged();
+                this.OnPropertyChanged("DateDayOfWeekName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private string _DateDayOfWeekName;
+        partial void OnDateDayOfWeekNameChanging(string value);
+        partial void OnDateDayOfWeekNameChanged();
+        /// <summary>
+        /// There are no comments for Property DateMonthInYear in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("DateMonthInYear")]
+        public string DateMonthInYear
+        {
+            get
+            {
+                return this._DateMonthInYear;
+            }
+            set
+            {
+                this.OnDateMonthInYearChanging(value);
+                this._DateMonthInYear = value;
+                this.OnDateMonthInYearChanged();
+                this.OnPropertyChanged("DateMonthInYear");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private string _DateMonthInYear;
+        partial void OnDateMonthInYearChanging(string value);
+        partial void OnDateMonthInYearChanged();
+        /// <summary>
+        /// There are no comments for Property DateMonthName in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("DateMonthName")]
+        public string DateMonthName
+        {
+            get
+            {
+                return this._DateMonthName;
+            }
+            set
+            {
+                this.OnDateMonthNameChanging(value);
+                this._DateMonthName = value;
+                this.OnDateMonthNameChanged();
+                this.OnPropertyChanged("DateMonthName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private string _DateMonthName;
+        partial void OnDateMonthNameChanging(string value);
+        partial void OnDateMonthNameChanged();
+        /// <summary>
+        /// There are no comments for Property DateQuarter in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("DateQuarter")]
+        public byte DateQuarter
+        {
+            get
+            {
+                return this._DateQuarter;
+            }
+            set
+            {
+                this.OnDateQuarterChanging(value);
+                this._DateQuarter = value;
+                this.OnDateQuarterChanged();
+                this.OnPropertyChanged("DateQuarter");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private byte _DateQuarter;
+        partial void OnDateQuarterChanging(byte value);
+        partial void OnDateQuarterChanged();
+        /// <summary>
+        /// There are no comments for Property DateQuarterInYear in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("DateQuarterInYear")]
+        public string DateQuarterInYear
+        {
+            get
+            {
+                return this._DateQuarterInYear;
+            }
+            set
+            {
+                this.OnDateQuarterInYearChanging(value);
+                this._DateQuarterInYear = value;
+                this.OnDateQuarterInYearChanged();
+                this.OnPropertyChanged("DateQuarterInYear");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private string _DateQuarterInYear;
+        partial void OnDateQuarterInYearChanging(string value);
+        partial void OnDateQuarterInYearChanged();
+        /// <summary>
+        /// There are no comments for Property PatientPatientId in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("PatientPatientId")]
+        public string PatientPatientId
+        {
+            get
+            {
+                return this._PatientPatientId;
+            }
+            set
+            {
+                this.OnPatientPatientIdChanging(value);
+                this._PatientPatientId = value;
+                this.OnPatientPatientIdChanged();
+                this.OnPropertyChanged("PatientPatientId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private string _PatientPatientId;
+        partial void OnPatientPatientIdChanging(string value);
+        partial void OnPatientPatientIdChanged();
+        /// <summary>
+        /// There are no comments for Property MuscleName in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("MuscleName")]
+        public string MuscleName
+        {
+            get
+            {
+                return this._MuscleName;
+            }
+            set
+            {
+                this.OnMuscleNameChanging(value);
+                this._MuscleName = value;
+                this.OnMuscleNameChanged();
+                this.OnPropertyChanged("MuscleName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private string _MuscleName;
+        partial void OnMuscleNameChanging(string value);
+        partial void OnMuscleNameChanged();
+        /// <summary>
+        /// There are no comments for Property MuscleAbbreviation in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("MuscleAbbreviation")]
+        public string MuscleAbbreviation
+        {
+            get
+            {
+                return this._MuscleAbbreviation;
+            }
+            set
+            {
+                this.OnMuscleAbbreviationChanging(value);
+                this._MuscleAbbreviation = value;
+                this.OnMuscleAbbreviationChanged();
+                this.OnPropertyChanged("MuscleAbbreviation");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private string _MuscleAbbreviation;
+        partial void OnMuscleAbbreviationChanging(string value);
+        partial void OnMuscleAbbreviationChanged();
+        /// <summary>
+        /// There are no comments for Property TimeHour in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("TimeHour")]
+        public short TimeHour
+        {
+            get
+            {
+                return this._TimeHour;
+            }
+            set
+            {
+                this.OnTimeHourChanging(value);
+                this._TimeHour = value;
+                this.OnTimeHourChanged();
+                this.OnPropertyChanged("TimeHour");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private short _TimeHour;
+        partial void OnTimeHourChanging(short value);
+        partial void OnTimeHourChanged();
+        /// <summary>
+        /// There are no comments for Property TimeTimeOfDay in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("TimeTimeOfDay")]
+        public string TimeTimeOfDay
+        {
+            get
+            {
+                return this._TimeTimeOfDay;
+            }
+            set
+            {
+                this.OnTimeTimeOfDayChanging(value);
+                this._TimeTimeOfDay = value;
+                this.OnTimeTimeOfDayChanged();
+                this.OnPropertyChanged("TimeTimeOfDay");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private string _TimeTimeOfDay;
+        partial void OnTimeTimeOfDayChanging(string value);
+        partial void OnTimeTimeOfDayChanged();
+        /// <summary>
+        /// There are no comments for Property PatientId in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("PatientId")]
+        public long PatientId
+        {
+            get
+            {
+                return this._PatientId;
+            }
+            set
+            {
+                this.OnPatientIdChanging(value);
+                this._PatientId = value;
+                this.OnPatientIdChanged();
+                this.OnPropertyChanged("PatientId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private long _PatientId;
+        partial void OnPatientIdChanging(long value);
+        partial void OnPatientIdChanged();
+        /// <summary>
+        /// There are no comments for Property PatientName in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("PatientName")]
+        public string PatientName
+        {
+            get
+            {
+                return this._PatientName;
+            }
+            set
+            {
+                this.OnPatientNameChanging(value);
+                this._PatientName = value;
+                this.OnPatientNameChanged();
+                this.OnPropertyChanged("PatientName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private string _PatientName;
+        partial void OnPatientNameChanging(string value);
+        partial void OnPatientNameChanged();
+        /// <summary>
+        /// There are no comments for Property PatientSex in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("PatientSex")]
+        public string PatientSex
+        {
+            get
+            {
+                return this._PatientSex;
+            }
+            set
+            {
+                this.OnPatientSexChanging(value);
+                this._PatientSex = value;
+                this.OnPatientSexChanged();
+                this.OnPropertyChanged("PatientSex");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private string _PatientSex;
+        partial void OnPatientSexChanging(string value);
+        partial void OnPatientSexChanged();
+        /// <summary>
+        /// There are no comments for Property PatientDiagnosedOn in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("PatientDiagnosedOn")]
+        public global::System.DateTimeOffset PatientDiagnosedOn
+        {
+            get
+            {
+                return this._PatientDiagnosedOn;
+            }
+            set
+            {
+                this.OnPatientDiagnosedOnChanging(value);
+                this._PatientDiagnosedOn = value;
+                this.OnPatientDiagnosedOnChanged();
+                this.OnPropertyChanged("PatientDiagnosedOn");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private global::System.DateTimeOffset _PatientDiagnosedOn;
+        partial void OnPatientDiagnosedOnChanging(global::System.DateTimeOffset value);
+        partial void OnPatientDiagnosedOnChanged();
+        /// <summary>
+        /// There are no comments for Property PatientBornOn in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("PatientBornOn")]
+        public global::System.DateTimeOffset PatientBornOn
+        {
+            get
+            {
+                return this._PatientBornOn;
+            }
+            set
+            {
+                this.OnPatientBornOnChanging(value);
+                this._PatientBornOn = value;
+                this.OnPatientBornOnChanged();
+                this.OnPropertyChanged("PatientBornOn");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private global::System.DateTimeOffset _PatientBornOn;
+        partial void OnPatientBornOnChanging(global::System.DateTimeOffset value);
+        partial void OnPatientBornOnChanged();
+        /// <summary>
+        /// This event is raised when the value of the property is changed
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        /// <summary>
+        /// The value of the property is changed
+        /// </summary>
+        /// <param name="property">property name</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
     /// Class containing all extension methods
     /// </summary>
     public static class ExtensionMethods
@@ -2587,6 +3399,29 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
                 { "Id", id }
             };
             return new global::ALS.Glance.DataAgents.ALS.Glance.Models.DTimeSingle(source.Context, source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(source.Context, keys)));
+        }
+        /// <summary>
+        /// Get an entity of type global::ALS.Glance.DataAgents.ALS.Glance.Models.Facts as global::ALS.Glance.DataAgents.ALS.Glance.Models.FactsSingle specified by key from an entity set
+        /// </summary>
+        /// <param name="source">source entity set</param>
+        /// <param name="keys">dictionary with the names and values of keys</param>
+        public static global::ALS.Glance.DataAgents.ALS.Glance.Models.FactsSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.Facts> source, global::System.Collections.Generic.Dictionary<string, object> keys)
+        {
+            return new global::ALS.Glance.DataAgents.ALS.Glance.Models.FactsSingle(source.Context, source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(source.Context, keys)));
+        }
+        /// <summary>
+        /// Get an entity of type global::ALS.Glance.DataAgents.ALS.Glance.Models.Facts as global::ALS.Glance.DataAgents.ALS.Glance.Models.FactsSingle specified by key from an entity set
+        /// </summary>
+        /// <param name="source">source entity set</param>
+        /// <param name="id">The value of id</param>
+        public static global::ALS.Glance.DataAgents.ALS.Glance.Models.FactsSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.Facts> source,
+            long id)
+        {
+            global::System.Collections.Generic.Dictionary<string, object> keys = new global::System.Collections.Generic.Dictionary<string, object>
+            {
+                { "Id", id }
+            };
+            return new global::ALS.Glance.DataAgents.ALS.Glance.Models.FactsSingle(source.Context, source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(source.Context, keys)));
         }
     }
 }
@@ -2794,6 +3629,24 @@ namespace ALS.Glance.DataAgents.Default
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
         private global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.Fact> _Fact;
         /// <summary>
+        /// There are no comments for Facts in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Facts")]
+        public global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.Facts> Facts
+        {
+            get
+            {
+                if ((this._Facts == null))
+                {
+                    this._Facts = base.CreateQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.Facts>("Facts");
+                }
+                return this._Facts;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.Facts> _Facts;
+        /// <summary>
         /// There are no comments for DMuscle in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
@@ -2914,6 +3767,14 @@ namespace ALS.Glance.DataAgents.Default
             base.AddObject("Fact", fact);
         }
         /// <summary>
+        /// There are no comments for Facts in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        public void AddToFacts(global::ALS.Glance.DataAgents.ALS.Glance.Models.Facts facts)
+        {
+            base.AddObject("Facts", facts);
+        }
+        /// <summary>
         /// There are no comments for DMuscle in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
@@ -2953,23 +3814,15 @@ namespace ALS.Glance.DataAgents.Default
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
             private const string Edmx = @"<edmx:Edmx Version=""4.0"" xmlns:edmx=""http://docs.oasis-open.org/odata/ns/edmx"">
   <edmx:DataServices>
-    <Schema Namespace=""ALS.Glance.Models.Security.Implementations"" xmlns=""http://docs.oasis-open.org/odata/ns/edm"">
-      <EntityType Name=""ApiUser"">
-        <Key>
-          <PropertyRef Name=""UserName"" />
-        </Key>
-        <Property Name=""UserName"" Type=""Edm.String"" Nullable=""false"" />
-        <Property Name=""Email"" Type=""Edm.String"" />
-        <Property Name=""CreatedOn"" Type=""Edm.DateTimeOffset"" Nullable=""false"" />
-        <Property Name=""UpdatedOn"" Type=""Edm.DateTimeOffset"" Nullable=""false"" />
-        <Property Name=""GivenName"" Type=""Edm.String"" />
-        <Property Name=""FamilyName"" Type=""Edm.String"" />
-      </EntityType>
-      <ComplexType Name=""ApiApplicationUser"">
-        <Property Name=""Id"" Type=""Edm.String"" />
-      </ComplexType>
-    </Schema>
     <Schema Namespace=""ALS.Glance.Api.Models"" xmlns=""http://docs.oasis-open.org/odata/ns/edm"">
+      <ComplexType Name=""AgeBounds"">
+        <Property Name=""Max"" Type=""Edm.Double"" Nullable=""false"" />
+        <Property Name=""Min"" Type=""Edm.Double"" Nullable=""false"" />
+      </ComplexType>
+      <ComplexType Name=""YearBounds"">
+        <Property Name=""Max"" Type=""Edm.Int16"" Nullable=""false"" />
+        <Property Name=""Min"" Type=""Edm.Int16"" Nullable=""false"" />
+      </ComplexType>
       <EntityType Name=""AuthorizationRefresh"">
         <Key>
           <PropertyRef Name=""ApplicationId"" />
@@ -3006,6 +3859,22 @@ namespace ALS.Glance.DataAgents.Default
         <Property Name=""AcceptsTermsAndConditions"" Type=""Edm.Boolean"" Nullable=""false"" />
         <NavigationProperty Name=""User"" Type=""ALS.Glance.Models.Security.Implementations.ApiUser"" />
       </EntityType>
+    </Schema>
+    <Schema Namespace=""ALS.Glance.Models.Security.Implementations"" xmlns=""http://docs.oasis-open.org/odata/ns/edm"">
+      <EntityType Name=""ApiUser"">
+        <Key>
+          <PropertyRef Name=""UserName"" />
+        </Key>
+        <Property Name=""UserName"" Type=""Edm.String"" Nullable=""false"" />
+        <Property Name=""Email"" Type=""Edm.String"" />
+        <Property Name=""CreatedOn"" Type=""Edm.DateTimeOffset"" Nullable=""false"" />
+        <Property Name=""UpdatedOn"" Type=""Edm.DateTimeOffset"" Nullable=""false"" />
+        <Property Name=""GivenName"" Type=""Edm.String"" />
+        <Property Name=""FamilyName"" Type=""Edm.String"" />
+      </EntityType>
+      <ComplexType Name=""ApiApplicationUser"">
+        <Property Name=""Id"" Type=""Edm.String"" />
+      </ComplexType>
     </Schema>
     <Schema Namespace=""ALS.Glance.Models"" xmlns=""http://docs.oasis-open.org/odata/ns/edm"">
       <EntityType Name=""ApplicationSettings"" OpenType=""true"">
@@ -3076,6 +3945,35 @@ namespace ALS.Glance.DataAgents.Default
         <Property Name=""Hour"" Type=""Edm.Int16"" Nullable=""false"" />
         <Property Name=""TimeOfDay"" Type=""Edm.String"" />
       </EntityType>
+      <EntityType Name=""Facts"">
+        <Key>
+          <PropertyRef Name=""Id"" />
+        </Key>
+        <Property Name=""Id"" Type=""Edm.Int64"" Nullable=""false"" />
+        <Property Name=""AUC"" Type=""Edm.Decimal"" Nullable=""false"" />
+        <Property Name=""DateDayOfWeek"" Type=""Edm.String"" />
+        <Property Name=""DateMonth"" Type=""Edm.Byte"" Nullable=""false"" />
+        <Property Name=""DateWeekday"" Type=""Edm.String"" />
+        <Property Name=""DateYear"" Type=""Edm.Int16"" Nullable=""false"" />
+        <Property Name=""DateDate"" Type=""Edm.DateTimeOffset"" Nullable=""false"" />
+        <Property Name=""DateDay"" Type=""Edm.Byte"" Nullable=""false"" />
+        <Property Name=""DateDayInMonth"" Type=""Edm.String"" />
+        <Property Name=""DateDayOfWeekName"" Type=""Edm.String"" />
+        <Property Name=""DateMonthInYear"" Type=""Edm.String"" />
+        <Property Name=""DateMonthName"" Type=""Edm.String"" />
+        <Property Name=""DateQuarter"" Type=""Edm.Byte"" Nullable=""false"" />
+        <Property Name=""DateQuarterInYear"" Type=""Edm.String"" />
+        <Property Name=""PatientPatientId"" Type=""Edm.String"" />
+        <Property Name=""MuscleName"" Type=""Edm.String"" />
+        <Property Name=""MuscleAbbreviation"" Type=""Edm.String"" />
+        <Property Name=""TimeHour"" Type=""Edm.Int16"" Nullable=""false"" />
+        <Property Name=""TimeTimeOfDay"" Type=""Edm.String"" />
+        <Property Name=""PatientId"" Type=""Edm.Int64"" Nullable=""false"" />
+        <Property Name=""PatientName"" Type=""Edm.String"" />
+        <Property Name=""PatientSex"" Type=""Edm.String"" />
+        <Property Name=""PatientDiagnosedOn"" Type=""Edm.DateTimeOffset"" Nullable=""false"" />
+        <Property Name=""PatientBornOn"" Type=""Edm.DateTimeOffset"" Nullable=""false"" />
+      </EntityType>
     </Schema>
     <Schema xmlns=""http://docs.oasis-open.org/odata/ns/edm"">
       <Action Name=""ResetPassword"" IsBound=""true"">
@@ -3086,6 +3984,14 @@ namespace ALS.Glance.DataAgents.Default
         <Parameter Name=""NewPassword"" Type=""Edm.String"" Unicode=""false"" />
         <Parameter Name=""CurrentPassword"" Type=""Edm.String"" Unicode=""false"" />
       </Action>
+      <Function Name=""GetAgeBounds"" IsBound=""true"">
+        <Parameter Name=""bindingParameter"" Type=""Collection(ALS.Glance.Models.DPatient)"" />
+        <ReturnType Type=""ALS.Glance.Api.Models.AgeBounds"" />
+      </Function>
+      <Function Name=""GetYearBounds"" IsBound=""true"">
+        <Parameter Name=""bindingParameter"" Type=""ALS.Glance.Models.DPatient"" />
+        <ReturnType Type=""ALS.Glance.Api.Models.YearBounds"" />
+      </Function>
       <EntityContainer Name=""Container"">
         <EntitySet Name=""ApiUser"" EntityType=""ALS.Glance.Models.Security.Implementations.ApiUser"" />
         <EntitySet Name=""AuthorizationRefresh"" EntityType=""ALS.Glance.Api.Models.AuthorizationRefresh"" />
@@ -3102,6 +4008,7 @@ namespace ALS.Glance.DataAgents.Default
           <NavigationPropertyBinding Path=""Date"" Target=""DDate"" />
           <NavigationPropertyBinding Path=""Time"" Target=""DTime"" />
         </EntitySet>
+        <EntitySet Name=""Facts"" EntityType=""ALS.Glance.Models.Facts"" />
         <EntitySet Name=""DMuscle"" EntityType=""ALS.Glance.Models.DMuscle"" />
         <EntitySet Name=""DPatient"" EntityType=""ALS.Glance.Models.DPatient"" />
         <EntitySet Name=""DTime"" EntityType=""ALS.Glance.Models.DTime"" />
@@ -3140,6 +4047,32 @@ namespace ALS.Glance.DataAgents.Default
     /// </summary>
     public static class ExtensionMethods
     {
+        /// <summary>
+        /// There are no comments for GetAgeBounds in the schema.
+        /// </summary>
+        [global::Microsoft.OData.Client.OriginalNameAttribute("GetAgeBounds")]
+        public static global::Microsoft.OData.Client.DataServiceQuerySingle<global::ALS.Glance.DataAgents.ALS.Glance.Api.Models.AgeBounds> GetAgeBounds(this global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.DPatient> source)
+        {
+            if (!source.IsComposable)
+            {
+                throw new global::System.NotSupportedException("The previous function is not composable.");
+            }
+
+            return source.CreateFunctionQuerySingle<global::ALS.Glance.DataAgents.ALS.Glance.Api.Models.AgeBounds>(".GetAgeBounds", false);
+        }
+        /// <summary>
+        /// There are no comments for GetYearBounds in the schema.
+        /// </summary>
+        [global::Microsoft.OData.Client.OriginalNameAttribute("GetYearBounds")]
+        public static global::Microsoft.OData.Client.DataServiceQuerySingle<global::ALS.Glance.DataAgents.ALS.Glance.Api.Models.YearBounds> GetYearBounds(this global::Microsoft.OData.Client.DataServiceQuerySingle<global::ALS.Glance.DataAgents.ALS.Glance.Models.DPatient> source)
+        {
+            if (!source.IsComposable)
+            {
+                throw new global::System.NotSupportedException("The previous function is not composable.");
+            }
+
+            return source.CreateFunctionQuerySingle<global::ALS.Glance.DataAgents.ALS.Glance.Api.Models.YearBounds>(".GetYearBounds", false);
+        }
         /// <summary>
         /// There are no comments for ResetPassword in the schema.
         /// </summary>

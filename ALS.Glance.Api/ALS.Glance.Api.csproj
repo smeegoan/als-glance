@@ -175,6 +175,8 @@
     <Compile Include="IoC\Installers\ControllerInstaller.cs" />
     <Compile Include="IoC\IoCManager.cs" />
     <Compile Include="IoC\Installers\UnitOfWorkInstaller.cs" />
+    <Compile Include="Models\YearBounds.cs" />
+    <Compile Include="Models\AgeBounds.cs" />
     <Compile Include="Models\ApiUserRegistration.cs" />
     <Compile Include="Models\Authorization.cs" />
     <Compile Include="Models\AuthorizationRefresh.cs" />

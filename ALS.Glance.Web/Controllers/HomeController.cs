@@ -42,17 +42,27 @@ namespace ALS.Glance.Web.Controllers
             if (id == null)
             {
                 var patients = await _glanceDa.GetPatientsAsync(_credentials, ct);
+                var ageBounds = await _glanceDa.GetAgeBoundsAsync(_credentials, ct);
 
-                return View(patients);
+                var model = new PatientsViewModel
+                {
+                    AgeMax = ageBounds.Max,
+                    AgeMin = ageBounds.Min,
+                    Patients = patients,
+                };
+                return View(model);
             }
             var muscles = await _glanceDa.GetMusclesAsync(_credentials, id.Value, ct);
+            var yearBounds = await _glanceDa.GetYearBoundsAsync(_credentials,id.Value, ct);
 
-            var model = new PatientViewModel
+            var patientModel = new PatientViewModel
             {
                 Id = id.Value,
-                Muscles = muscles.Select(e => Tuple.Create(e.Item1, e.Item2 )),
+                YearMax = yearBounds.Max,
+                YearMin = yearBounds.Min,
+                Muscles = muscles.Select(e => Tuple.Create(e.Item1, e.Item2)),
             };
-            return View("Patient", model);
+            return View("Patient", patientModel);
         }
     }
 }

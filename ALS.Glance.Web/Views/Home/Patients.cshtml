@@ -1,5 +1,5 @@
 ﻿@using ALS.Glance.DataAgents.ALS.Glance.Models
-@model IEnumerable<DPatient>
+@model ALS.Glance.Web.Models.PatientsViewModel
 
 @{
     ViewBag.Title = "Patients";
@@ -38,7 +38,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var item in Model.Patients)
                 {
                     <tr>
                         <td>
@@ -82,7 +82,7 @@
             });
             $.when(apiClient.get("DPatient?$select=Sex,BornOn"))
                     .then(function (data) {
-                        alsglance.dashboard.patients.load(data);
+                        alsglance.dashboard.patients.load(data,@Model.AgeMin,@Model.AgeMax);
                         alsglance.dashboard.patients.init();
                     });
             $('#patients').dataTable({
