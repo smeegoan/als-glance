@@ -71,7 +71,7 @@
     @Scripts.Render("~/bundles/dashboardpatientsjs")
 
     <script>
-        (function () {
+        $(function () {
 
             var apiClient = new alsglance.ApiClient({
                 baseUri: alsglance.baseUri,
@@ -89,6 +89,6 @@
                 responsive: true
             });
 
-        })();
+        });
     </script>
 }

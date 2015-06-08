@@ -420,8 +420,18 @@ alsglance.dashboard.patient.load = function (data) {
                     return moment(d.DateDate).format("YYYY-MM-DD");
                 }
             },
-            'PatientName', // ...
-            'TimeTimeOfDay', // ...
+            {
+                label: 'Patient',
+                format: function (d) {
+                    return d.PatientName;
+                }
+            },
+            {
+                label: 'Time Of Day',
+                format: function (d) {
+                    return d.TimeTimeOfDay;
+                }
+            },
             {
                 label: 'Time (h)', // desired format of column name 'Change' when used as a label with a function.
                 format: function (d) {

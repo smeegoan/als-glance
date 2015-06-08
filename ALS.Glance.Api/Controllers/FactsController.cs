@@ -4,18 +4,15 @@ using System.Web.OData.Query;
 using ALS.Glance.Api.Helpers;
 using ALS.Glance.Api.Helpers.Binder;
 using ALS.Glance.Api.Helpers.Cache;
-using ALS.Glance.Api.Models;
 using ALS.Glance.Api.Security;
 using ALS.Glance.Models;
 using ALS.Glance.UoW;
 using ALS.Glance.UoW.Core;
 using System.Linq;
-using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.OData;
-using ALS.Glance.UoW.Core.Exceptions;
 
 namespace ALS.Glance.Api.Controllers
 {

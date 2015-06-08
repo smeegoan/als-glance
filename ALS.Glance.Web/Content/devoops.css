@@ -322,19 +322,12 @@ a.show-sidebar:hover {
   display: block;
 }
 .box-content {
-  /*position: relative;
-  padding: 15px;
-  */
-  background: #FCFCFC;
+  position: relative;
   -webkit-border-radius: 0 0 3px 3px;
   -moz-border-radius: 0 0 3px 3px;
   border-radius: 0 0 3px 3px;
-  	display: -webkit-box;
-	display: -moz-box;
-	display: box;
-	-webkit-box-pack: center;
-	-moz-box-pack: center;
-	box-pack: center;
+  padding: 15px;
+  background: #FCFCFC;
 }
 .box-content.dropbox, .box-content.sortablebox {
   overflow: hidden;
