@@ -9,10 +9,11 @@ using ALS.Glance.DataAgents.Interfaces;
 using ALS.Glance.Models.Core;
 using ALS.Glance.Web.Models;
 using ALS.Glance.Web.Properties;
+using ALS.Glance.Web.Security;
 
 namespace ALS.Glance.Web.Controllers
-{//roles user.api e user.site
-    public class HomeController : Controller
+{
+   public class HomeController : Controller
     {
         private readonly IALSGlanceDA _glanceDa;
         private readonly WebApiCredentials _credentials;
@@ -27,7 +28,7 @@ namespace ALS.Glance.Web.Controllers
 
         public ActionResult Index()
         {
-            return View();
+             return View();
         }
 
         public ActionResult ApiAuth()
@@ -37,6 +38,7 @@ namespace ALS.Glance.Web.Controllers
             return JavaScript(script);
         }
 
+        [MvcAuthorize(Roles.AdminRole, Roles.UserRole)]
         public async Task<ActionResult> Patients(int? id, CancellationToken ct)
         {
             if (id == null)
