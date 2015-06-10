@@ -3,16 +3,16 @@
   <Profiles />
   <Settings>
     <Setting Name="User" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">User</Value>
+      <Value Profile="(Default)">als.glance.web</Value>
     </Setting>
     <Setting Name="Password" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Password</Value>
+      <Value Profile="(Default)">--P&gt;5-F(5dNhymT=%!</Value>
     </Setting>
     <Setting Name="ApiUrl" Type="System.String" Scope="Application">
       <Value Profile="(Default)">http://localhost/ALS.Glance.Api/odata/</Value>
     </Setting>
     <Setting Name="ApplicationId" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">QUxTIEdsYW5jZQ==</Value>
+      <Value Profile="(Default)">ALS Glance</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -265,13 +265,17 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                 filters.push({ ChartID: chart.chartID(), Filter: chart.filters()[j] });
             }
         }
+        var entity = {};
+        entity.UserId = alsglance.userId;
+        entity.ApplicationId = alsglance.applicationId;
+        entity.Value = encodeURIComponent(JSON.stringify(filters));
         $.ajax({
-            type: "POST",
-            url: alsglance.baseUri + "ApplicationSettings",
+            type: "PUT",
+            url: alsglance.baseUri + "ApplicationSettings(UserId='"+alsglance.userId+"',ApplicationId='" + alsglance.applicationId + "')",
             // The key needs to match your method's input parameter (case-sensitive).
-            data: JSON.stringify({
-                UserId: "", ApplicationId: "", Value: encodeURIComponent(JSON.stringify(filters))
-            }),
+            data: JSON.stringify(
+                entity
+            ),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) { alert(data); },

@@ -137,8 +137,6 @@ namespace ALS.Glance.Api.Controllers
             if (email == null) throw new ArgumentNullException("email");
 
             user.Id = user.UserName = user.Email = email;
-            user.GivenName = givenName;
-            user.FamilyName = familyName;
             user.EmailConfirmed = false;
             user.CreatedOn = user.UpdatedOn = DateTimeOffset.Now;
             user.CreatedBy = user.UpdatedBy = "web.api";
@@ -169,9 +167,7 @@ namespace ALS.Glance.Api.Controllers
             result.ThrowIfFailed("Failed to reset the user password");
 
             user.Id = user.UserName = user.Email = email;
-            user.GivenName = givenName;
-            user.FamilyName = familyName;
-            user.EmailConfirmed = false;
+             user.EmailConfirmed = false;
             user.UpdatedOn = DateTimeOffset.Now;
             user.UpdatedBy = "web.api";
             foreach (var roleId in ServiceRoles.DefaultRoles

@@ -1,6 +1,9 @@
 ﻿using System.Web.Http;
 using System.Web.OData.Builder;
 using System.Web.OData.Extensions;
+using System.Web.OData.Routing;
+using System.Web.OData.Routing.Conventions;
+using ALS.Glance.Api.Helpers.Routing;
 using ALS.Glance.Api.Models;
 using ALS.Glance.Models;
 using ALS.Glance.Models.Security.Implementations;
@@ -39,9 +42,7 @@ namespace ALS.Glance.Api
                   es.Property(e => e.Email);
                   es.Property(e => e.CreatedOn).IsRequired();
                   es.Property(e => e.UpdatedOn).IsRequired();
-                  es.Property(e => e.GivenName);
-                  es.Property(e => e.FamilyName);
-
+               
                   es.Action("ResetPassword");
 
                   var action = es.Action("ChangePassword");
@@ -170,7 +171,12 @@ namespace ALS.Glance.Api
                 type.Property(e => e.QuarterInYear);
             });
             builder.Namespace = "";
-            config.MapODataServiceRoute("ODataRoute", "odata", builder.GetEdmModel());
+            // Create the default collection of built-in conventions.
+            var conventions = ODataRoutingConventions.CreateDefault();
+            // Insert the custom convention at the start of the collection.
+            conventions.Insert(0, new ODataRoutingConvention());
+
+            config.MapODataServiceRoute("ODataRoute", "odata", builder.GetEdmModel(),new DefaultODataPathHandler(), conventions);
 
             #endregion
         }

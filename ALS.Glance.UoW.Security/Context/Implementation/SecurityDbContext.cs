@@ -135,8 +135,6 @@ namespace ALS.Glance.UoW.Security.Context.Implementation
             {
                 cfg.ToTable("AspNetExtApiUsers");
                 cfg.HasMany(e => e.ApiAuthenticationTokens).WithRequired().HasForeignKey(e => e.BaseApiUserId);
-                 cfg.Property(e => e.GivenName).HasMaxLength(256).IsOptional();
-                cfg.Property(e => e.FamilyName).HasMaxLength(256).IsOptional();
              });
 
             modelBuilder.Entity<SiteUser>(

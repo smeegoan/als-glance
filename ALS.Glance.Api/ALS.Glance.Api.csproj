@@ -169,6 +169,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ApiResponseHelper.cs" />
+    <Compile Include="Helpers\Routing\ODataRoutingConvention.cs" />
+    <Compile Include="Helpers\Routing\ODataRoutingExtensions.cs" />
     <Compile Include="Helpers\UserManagerExtensions.cs" />
     <Compile Include="IoC\Factories\WindsorApiControllerFactory.cs" />
     <Compile Include="IoC\Installers\ConfigurationInstaller.cs" />

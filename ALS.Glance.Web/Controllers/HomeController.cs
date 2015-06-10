@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using ALS.Glance.DataAgents.Interfaces;
 using ALS.Glance.Models.Core;
@@ -13,7 +9,7 @@ using ALS.Glance.Web.Security;
 
 namespace ALS.Glance.Web.Controllers
 {
-   public class HomeController : Controller
+    public class HomeController : Controller
     {
         private readonly IALSGlanceDA _glanceDa;
         private readonly WebApiCredentials _credentials;
@@ -28,13 +24,13 @@ namespace ALS.Glance.Web.Controllers
 
         public ActionResult Index()
         {
-             return View();
+            return View();
         }
 
         public ActionResult ApiAuth()
         {
             var token = _credentials.ApplicationToken;
-            var script = @"var alsglance = alsglance || {}; alsglance.authToken = '" + token + "'; alsglance.baseUri = '" + _apiUrl + "';";
+            var script = string.Format(@"var alsglance = alsglance || {{}}; alsglance.authToken = '{0}'; alsglance.baseUri = '{1}';alsglance.applicationId='{2}';alsglance.userId='{3}'", token, _apiUrl, Settings.Default.ApplicationId,_credentials.UserName);
             return JavaScript(script);
         }
 
@@ -55,7 +51,7 @@ namespace ALS.Glance.Web.Controllers
                 return View(model);
             }
             var muscles = await _glanceDa.GetMusclesAsync(_credentials, ct);
-            var yearBounds = await _glanceDa.GetYearBoundsAsync(_credentials,id.Value, ct);
+            var yearBounds = await _glanceDa.GetYearBoundsAsync(_credentials, id.Value, ct);
 
             var patientModel = new PatientViewModel
             {

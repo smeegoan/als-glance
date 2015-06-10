@@ -31,7 +31,9 @@ namespace ALS.Glance.Api.Controllers
 
         #region ODataGet
 
-        [EnableQuery, ApiAuthorize(ServiceRoles.Admin)]
+        [EnableQuery
+        //, ApiAuthorize(ServiceRoles.Admin)
+        ]
         public IQueryable<ApplicationSettings> Get()
         {
             return _uow.ApplicationSettings.GetAll();
@@ -39,8 +41,9 @@ namespace ALS.Glance.Api.Controllers
 
         [EnableQuery,
         CorsPolicy,
-        ApiAuthorize(ServiceRoles.Admin, ServiceRoles.User),
-        Permission(Role = ServiceRoles.User, ClaimType = ClaimTypes.Name, MustOwn = "UserId")]
+        //ApiAuthorize(ServiceRoles.Admin, ServiceRoles.User),
+        //Permission(Role = ServiceRoles.User, ClaimType = ClaimTypes.Name, MustOwn = "UserId")
+        ]
         public async Task<IHttpActionResult> Get(
             [FromODataUri] string userId, [FromODataUri] string applicationId, CancellationToken ct)
         {
@@ -100,8 +103,10 @@ namespace ALS.Glance.Api.Controllers
 
         #region ODataPut
 
-        [ApiAuthorize(ServiceRoles.Admin, ServiceRoles.User),
-        Permission(Role = ServiceRoles.User, ClaimType = ClaimTypes.Name, MustOwn = "UserId")]
+        //[ApiAuthorize(ServiceRoles.Admin, ServiceRoles.User),
+        //Permission(Role = ServiceRoles.User, ClaimType = ClaimTypes.Name, MustOwn = "UserId")]
+        [CorsPolicy,
+        EnableQuery]
         public async Task<IHttpActionResult> Put(
             [FromODataUri] string userId, [FromODataUri] string applicationId, ApplicationSettings update, CancellationToken ct)
         {
