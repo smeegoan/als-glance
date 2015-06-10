@@ -57,7 +57,7 @@
                             @Html.DisplayFor(modelItem => item.Sex)
                         </td>
                         <td>
-                            <a href="@Url.Action("Patients", "Home", new { id = item.Id }, null)"> <span class="fa fa-eye"></span></a>
+                            <a href="javascript:javascript:alsglance.dashboard.patients.waitingDialog.show('@item.Name');window.location='@Url.Action("Patients", "Home", new { id = item.Id }, null)';"> <span class="fa fa-eye"></span></a>
                         </td>
                     </tr>
                 }

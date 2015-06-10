@@ -76,6 +76,64 @@ alsglance.dashboard = alsglance.dashboard || {
 };
 
 alsglance.dashboard.patients = alsglance.dashboard.patients || {
+    /**
+ * Module for displaying "Waiting for..." dialog using Bootstrap
+ *
+ * @author Eugene Maslovich <ehpc@em42.ru>
+ */
+
+    waitingDialog: (function ($) {
+
+        // Creating modal dialog's DOM
+        var $dialog = $(
+            '<div class="modal" data-backdrop="false" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="padding-top:15%; overflow-y:visible;">' +
+            '<div class="modal-dialog modal-m">' +
+            '<div class="modal-content">' +
+                '<div class="modal-header"><h6 style="margin:0;"></h6></div>' +
+                '<div class="modal-body">' +
+                    '<div class="progress progress-striped active" style="margin-bottom:0; height:16px;"><div class="progress-bar" style="width: 100%"></div></div>' +
+                '</div>' +
+            '</div></div></div>');
+
+        return {
+            /**
+             * Opens our dialog
+             * @param message Custom message
+             * @param options Custom options:
+             * 				  options.dialogSize - bootstrap postfix for dialog size, e.g. "sm", "m";
+             * 				  options.progressType - bootstrap postfix for progress bar type, e.g. "success", "warning".
+             */
+            show: function (message, options) {
+                // Assigning defaults
+                var settings = $.extend({
+                    dialogSize: 'm',
+                    progressType: ''
+                }, options);
+                if (typeof message === 'undefined') {
+                    message = 'Loading';
+                }
+                if (typeof options === 'undefined') {
+                    options = {};
+                }
+                // Configuring dialog
+                $dialog.find('.modal-dialog').attr('class', 'modal-dialog').addClass('modal-' + settings.dialogSize);
+                $dialog.find('.progress-bar').attr('class', 'progress-bar');
+                if (settings.progressType) {
+                    $dialog.find('.progress-bar').addClass('progress-bar-' + settings.progressType);
+                }
+                $dialog.find('h6').html('Loading...<br/><br/><b>' + message + '</b>');
+                // Opening dialog
+                $dialog.modal();
+            },
+            /**
+             * Closes dialog
+             */
+            hide: function () {
+                $dialog.modal('hide');
+            }
+        };
+
+    })(jQuery),
     init: function () {
         alsglance.dashboard.init();
     },
@@ -289,12 +347,13 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                         PatientName: "Prediction",
                         DateDayOfWeek: startDate.format("dddd"),
                         TimeTimeOfDay: timeOfDay,
+                        TimeHour: 24, //invalid hour so it will be excluded from hour chart
                         MuscleName: muscle,
                         MuscleAbbreviation: muscle
                     });
                 }
             };
-        };
+        };       
         return data;
     },
     load: function (data, minYear, maxYear) {
@@ -612,7 +671,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             // %filter-count and %total-count are replaced with the values obtained.
             .html({
                 some: '<strong>%filter-count</strong> selected out of <strong>%total-count</strong> records' +
-                    ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'\'>Reset All</a>',
+                    ' | <a href=\'javascript:alsglance.dashboard.patient.reset();\'\'>Reset All</a>',
                 all: 'All records selected. Please click on the graph to apply filters.'
             });
 

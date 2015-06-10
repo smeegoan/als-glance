@@ -242,6 +242,9 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\dc.css" />
     <Content Include="Content\colorbrewer.css" />
+    <Content Include="Content\images\Flexor-carpi-radialis.png" />
+    <Content Include="Content\images\Sternocleidomastoideus.png" />
+    <Content Include="Content\images\Tibialis_anterior.png" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
