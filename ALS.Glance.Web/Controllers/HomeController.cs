@@ -52,7 +52,7 @@ namespace ALS.Glance.Web.Controllers
                 };
                 return View(model);
             }
-            var muscles = await _glanceDa.GetMusclesAsync(_credentials, id.Value, ct);
+            var muscles = await _glanceDa.GetMusclesAsync(_credentials, ct);
             var yearBounds = await _glanceDa.GetYearBoundsAsync(_credentials,id.Value, ct);
 
             var patientModel = new PatientViewModel
@@ -60,7 +60,7 @@ namespace ALS.Glance.Web.Controllers
                 Id = id.Value,
                 YearMax = yearBounds.Max,
                 YearMin = yearBounds.Min,
-                Muscles = muscles.Select(e => Tuple.Create(e.Item1, e.Item2)),
+                Muscles = muscles,
             };
             return View("Patient", patientModel);
         }

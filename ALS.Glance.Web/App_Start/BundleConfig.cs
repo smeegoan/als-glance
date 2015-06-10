@@ -27,8 +27,7 @@ namespace ALS.Glance.Web
                 "~/Scripts/DC/dc.js",
                 "~/Scripts/apiclient.js",
                 "~/Scripts/moment.js",
-                "~/Scripts/alsglance.dashboard.js",
-                "~/Scripts/alsglance.dashboard.patients.js"));
+                "~/Scripts/alsglance.dashboard.js"));
 
 
             bundles.Add(new ScriptBundle("~/bundles/dashboardpatientjs").Include(                
@@ -42,8 +41,7 @@ namespace ALS.Glance.Web
                 "~/Scripts/colorbrewer.js",
                 "~/Scripts/colorbrewer_schemes.js",
                 "~/Scripts/devoops.js",
-                "~/Scripts/alsglance.dashboard.js",
-                "~/Scripts/alsglance.dashboard.patient.js"));
+                "~/Scripts/alsglance.dashboard.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include(
                       "~/Scripts/bootstrap.js",

@@ -18,7 +18,7 @@ using Newtonsoft.Json;
 
 namespace ALS.Glance.Api.Controllers
 {
-    [Authorize]
+  //  [Authorize]
     public class ApplicationSettingsController : ODataController, ODataGet<ApplicationSettings>.WithKey<string, string>,
         ODataPost<ApplicationSettings>, ODataPut<ApplicationSettings>.WithKey<string, string>, ODataPatch<ApplicationSettings>.WithKey<string, string>, ODataDelete.WithKey<string, string>
     {
@@ -38,6 +38,7 @@ namespace ALS.Glance.Api.Controllers
         }
 
         [EnableQuery,
+        CorsPolicy,
         ApiAuthorize(ServiceRoles.Admin, ServiceRoles.User),
         Permission(Role = ServiceRoles.User, ClaimType = ClaimTypes.Name, MustOwn = "UserId")]
         public async Task<IHttpActionResult> Get(
@@ -57,7 +58,8 @@ namespace ALS.Glance.Api.Controllers
 
         #region ODataPost
 
-        [ApiAuthorize(ServiceRoles.Admin, ServiceRoles.User)]
+//        [ApiAuthorize(ServiceRoles.Admin, ServiceRoles.User)]
+        [CorsPolicy]
         public async Task<IHttpActionResult> Post(ApplicationSettings entity, CancellationToken ct)
         {
             if (!ModelState.IsValid)

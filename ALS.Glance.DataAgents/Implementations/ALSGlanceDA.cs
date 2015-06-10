@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using ALS.Glance.DataAgents.ALS.Glance.Api.Models;
@@ -54,19 +51,19 @@ namespace ALS.Glance.DataAgents.Implementations
 
         }
 
-        public async Task<IEnumerable<Tuple<string, string>>> GetMusclesAsync(WebApiCredentials credentials, long patientId, CancellationToken ct)
+        public async Task<IEnumerable<DMuscle>> GetMusclesAsync(WebApiCredentials credentials, CancellationToken ct)
         {
             ct.ThrowIfCancellationRequested();
             return await WebApiODataContainer.Using(_apiUrl, credentials)
-               .ExecuteAuthenticated(
-                     container =>
-                     {
-                         ct.ThrowIfCancellationRequested();
-                         var facts = container.Fact.Expand(e => e.Muscle).Where(f => f.Patient.Id == patientId);
+                .ExecuteAuthenticated(
+                    async container =>
+                    {
+                        ct.ThrowIfCancellationRequested();
+                        var query = container.DMuscle;
 
-                         return facts.ToArray().Select(e => new Tuple<string, string>(e.Muscle.Abbreviation, e.Muscle.Name)).Distinct();
-                     },
-                   ct);
+                        return await query.GetAllPagesAsync();
+                    },
+                    ct);
         }
     }
 }

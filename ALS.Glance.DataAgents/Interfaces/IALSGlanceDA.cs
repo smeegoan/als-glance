@@ -17,6 +17,6 @@ namespace ALS.Glance.DataAgents.Interfaces
 
         Task<YearBounds> GetYearBoundsAsync(WebApiCredentials credentials, long patientId, CancellationToken ct);
 
-        Task<IEnumerable<Tuple<string,string>>> GetMusclesAsync(WebApiCredentials credentials, long patientId, CancellationToken ct);
+        Task<IEnumerable<DMuscle>> GetMusclesAsync(WebApiCredentials credentials, CancellationToken ct);
     }
 }

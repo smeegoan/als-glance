@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using ALS.Glance.DataAgents.ALS.Glance.Models;
 
 namespace ALS.Glance.Web.Models
 {
@@ -10,6 +10,6 @@ namespace ALS.Glance.Web.Models
 
         public short YearMin { get; set; }
 
-        public IEnumerable<Tuple<string,string>> Muscles { get; set; }
+        public IEnumerable<DMuscle> Muscles { get; set; }
     }
 }

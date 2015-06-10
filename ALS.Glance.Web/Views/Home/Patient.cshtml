@@ -15,16 +15,16 @@
             <div class="row">
                 <div class="btn-group col-md-3 btn-vert-block">
                     <div id="reset" class="btn btn-default"><i class="fa fa-undo"></i>&nbsp;Reset</div>
-                    <a class="btn btn-default" href="#"><i class="fa fa-save"></i>&nbsp;Save</a>
+                    <a class="btn btn-default" href="javascript:alsglance.dashboard.patient.saveSettings();"><i class="fa fa-save"></i>&nbsp;Save</a>
                 </div>
                 <div id="muscles" class="btn-group col-md-4 btn-vert-block" data-toggle="buttons">
                     <label style="float:left;margin-right:5px; padding-top:7px; font-weight: normal;">Muscle </label>
                     @foreach (var item in Model.Muscles)
                     {
-                        <div id="@item.Item1" class="btn btn-default">
+                        <div id="@item.Abbreviation" class="btn btn-default">
                             <label>
                                 <input type="radio">
-                                <span>@item.Item1</span>
+                                <span>@item.Abbreviation</span>
                             </label>
                         </div>
                     }
@@ -38,35 +38,6 @@
 
             </div>
             <div class="row voffset3">
-                <div class="col-md-4">
-                    <div class="box ui-draggable ui-droppable">
-                        <div class="box-header">
-                            <div class="box-name">
-                                <i class="fa fa-clock-o"></i>
-                                <span>Hour</span>
-                            </div>
-                            <div class="box-icons">
-                                <a class="reset" href="javascript:timeHourChart.filterAll();dc.redrawAll();"><i class="fa fa-undo"></i></a>
-                                <a class="collapse-link">
-                                    <i class="fa fa-chevron-up"></i>
-                                </a>
-                                <a class="expand-link">
-                                    <i class="fa fa-expand"></i>
-                                </a>
-                                <a class="close-link">
-                                    <i class="fa fa-times"></i>
-                                </a>
-                            </div>
-                            <div class="no-move"></div>
-                        </div>
-                        <div class="box-content" style="height: 250px; position: relative;">
-                            <div style="height: 250px; position: relative;" id="timeHourChart" class="dc-chart">
-                                <div class="clearfix"></div>
-                                <div class="loading">Loading...</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-md-4 col-sm-4">
                     <div class="box ui-draggable ui-droppable">
                         <div class="box-header">
@@ -126,6 +97,36 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="box ui-draggable ui-droppable">
+                        <div class="box-header">
+                            <div class="box-name">
+                                <i class="fa fa-clock-o"></i>
+                                <span>Hour</span>
+                            </div>
+                            <div class="box-icons">
+                                <a class="reset" href="javascript:timeHourChart.filterAll();dc.redrawAll();"><i class="fa fa-undo"></i></a>
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="expand-link">
+                                    <i class="fa fa-expand"></i>
+                                </a>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                            <div class="no-move"></div>
+                        </div>
+                        <div class="box-content" style="height: 250px; position: relative;">
+                            <div style="height: 250px; position: relative;" id="timeHourChart" class="dc-chart">
+                                <div class="clearfix"></div>
+                                <div class="loading">Loading...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-6">
@@ -225,7 +226,7 @@
                 }
             });
             //$.when(apiClient.get("Fact?$select=AUC&$expand=Time($select=Hour,TimeOfDay),Date($select=DayOfWeek,Weekday,Date,Year,MonthName,Quarter),Patient,Muscle($select=Name,Abbreviation)&$filter=Patient/Id eq " + @Model.Id))
-            $.when(apiClient.get("Facts?$select=AUC,TimeHour,TimeTimeOfDay,DateDayOfWeek,DateWeekday,DateDate,DateYear,DateMonthName,DateQuarter,MuscleName,MuscleAbbreviation,PatientName&$filter=PatientId eq " + @Model.Id))
+            $.when(apiClient.get("Facts?$select=AUC,TimeHour,TimeTimeOfDay,DateDayOfWeek,DateWeekday,DateDate,DateYear,DateMonthName,DateQuarter,MuscleName,MuscleAbbreviation,PatientName&$filter=PatientId eq @Model.Id"))
                     .then(function(data) {
                         data=alsglance.dashboard.patient.addPredictions(data);
                         alsglance.dashboard.patient.load(data,@Model.YearMin,@Model.YearMax);
