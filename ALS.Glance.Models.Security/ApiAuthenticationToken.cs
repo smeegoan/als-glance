@@ -19,7 +19,7 @@ namespace ALS.Glance.Models.Security
         /// <summary>
         /// The associated application
         /// </summary>
-        public virtual ApiApplicationUser ApiApplication { get; set; }
+        public virtual ApplicationUser ApiApplication { get; set; }
 
         /// <summary>
         /// The user id
@@ -29,7 +29,7 @@ namespace ALS.Glance.Models.Security
         /// <summary>
         /// The associated user
         /// </summary>
-        public virtual ApiUser BaseApiUser { get; set; }
+        public virtual IdentityUser BaseApiUser { get; set; }
 
         /// <summary>
         /// The generated refresh token

@@ -33,7 +33,7 @@ namespace ALS.Glance.DataAgents.Implementations
                    ct);
         }
 
-        public async Task<ApplicationSettings> GetSettingsAsync(WebApiCredentials credentials, CancellationToken ct)
+        public async Task<ApplicationSettings> GetSettingsAsync(WebApiCredentials credentials, string userId,CancellationToken ct)
         {
             ct.ThrowIfCancellationRequested();
             return await WebApiODataContainer.Using(_apiUrl, credentials)
@@ -43,7 +43,7 @@ namespace ALS.Glance.DataAgents.Implementations
                          ct.ThrowIfCancellationRequested();
                          var query =
                              container.ApplicationSettings.Where(
-                                 e => e.ApplicationId == credentials.ApplicationId && e.UserId == credentials.UserName);
+                                 e => e.ApplicationId == credentials.ApplicationId && e.UserId == userId);
                          return query.FirstOrDefault();
                      },
                    ct);

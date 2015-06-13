@@ -10,7 +10,7 @@ namespace ALS.Glance.Models.Core
         /// <summary>
         /// The <see cref="DateTime"/> when the model was created
         /// </summary>
-        DateTimeOffset CreatedOn { get; set; }
+        DateTimeOffset? CreatedOn { get; set; }
 
         /// <summary>
         /// The identity of who created the model

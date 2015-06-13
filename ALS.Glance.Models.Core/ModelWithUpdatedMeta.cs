@@ -8,7 +8,7 @@ namespace ALS.Glance.Models.Core
     /// <typeparam name="TId">The unique model identifier type</typeparam>
     public abstract class ModelWithUpdatedMeta<TId> : Model<TId>, IHaveUpdatedMeta
     {
-        public virtual DateTimeOffset UpdatedOn { get; set; }
+        public virtual DateTimeOffset? UpdatedOn { get; set; }
 
     }
 
@@ -17,7 +17,7 @@ namespace ALS.Glance.Models.Core
     /// </summary>
     public abstract class ModelWithUpdatedMeta : Model, IHaveUpdatedMeta
     {
-        public virtual DateTimeOffset UpdatedOn { get; set; }
+        public virtual DateTimeOffset? UpdatedOn { get; set; }
 
     }
 }

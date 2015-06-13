@@ -263,21 +263,23 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                 filters.push({ ChartID: chart.chartID(), Filter: chart.filters()[j] });
             }
         }
-        alsglance.dashboard.settings[alsglance.dashboard.patientId] = filters;
+        alsglance.dashboard.settings["P"+alsglance.dashboard.patientId] = filters;
         alsglance.dashboard.settings.colorScheme = selectedScheme;
         var entity = {};
-        entity.UserId = alsglance.userId;
+        entity.UserId = alsglance.dashboardUserId;
         entity.ApplicationId = alsglance.applicationId;
         entity.Value = encodeURIComponent(JSON.stringify(alsglance.dashboard.settings));
         $.ajax({
-            type: "PUT",
-            url: alsglance.baseUri + "ApplicationSettings(UserId='" + alsglance.dashboardUserId + "',ApplicationId='" + alsglance.applicationId + "')",
+            type: "POST",
+            url: alsglance.baseUri + "ApplicationSettings",
             data: JSON.stringify(
                 entity
             ),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            success: function (data) { toastr.success('Applied filters were successfully saved.', 'ALS Glance'); },
+            success: function(data) {
+                toastr.success('Filter changes were successfully saved.', 'ALS Glance');
+            },
             failure: function (errMsg) {
                 toastr.error(errMsg, 'ALS Glance');;
             }

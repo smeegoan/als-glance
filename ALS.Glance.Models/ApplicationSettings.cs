@@ -8,11 +8,11 @@ namespace ALS.Glance.Models
     {
         public virtual string UserId { get; set; }
 
-        public virtual ApiUser User { get; set; }
+        public virtual IdentityUser User { get; set; }
 
         public virtual string ApplicationId { get; set; }
 
-        public virtual ApiApplicationUser Application { get; set; }
+        public virtual ApplicationUser Application { get; set; }
 
         public virtual string Value { get; set; }
 

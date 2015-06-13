@@ -34,14 +34,14 @@ namespace ALS.Glance.Api
                    es.Property(e => e.Min).IsRequired();
                });
 
-            builder.EntitySet<ApiUser>(
+            builder.EntitySet<IdentityUser>(
               es =>
               {
                   es.HasKey(e => e.UserName);
                   es.Property(e => e.UserName).IsRequired();
                   es.Property(e => e.Email);
-                  es.Property(e => e.CreatedOn).IsRequired();
-                  es.Property(e => e.UpdatedOn).IsRequired();
+                  es.Property(e => e.CreatedOn);
+                  es.Property(e => e.UpdatedOn);
 
                   es.Action("ResetPassword");
 
@@ -84,7 +84,7 @@ namespace ALS.Glance.Api
                     es.Property(e => e.AcceptsTermsAndConditions).IsRequired();
                     es.HasOptional(e => e.User);
                 }).HasEditLinkForKey(true, e => e.Email);
-            builder.ComplexType<ApiApplicationUser>(
+            builder.ComplexType<ApplicationUser>(
                 es => es.Property(e => e.Id));
             builder.EntitySet<ApplicationSettings>(
                 es =>

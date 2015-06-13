@@ -8,7 +8,7 @@ namespace ALS.Glance.Models.Core
     /// <typeparam name="TId">The unique model identifier type</typeparam>
     public abstract class ModelWithCreatedMeta<TId> : Model<TId>, IHaveCreatedMeta
     {
-        public virtual DateTimeOffset CreatedOn { get; set; }
+        public virtual DateTimeOffset? CreatedOn { get; set; }
 
     }
 
@@ -17,7 +17,7 @@ namespace ALS.Glance.Models.Core
     /// </summary>
     public abstract class ModelWithCreatedMeta : Model, IHaveCreatedMeta
     {
-        public virtual DateTimeOffset CreatedOn { get; set; }
+        public virtual DateTimeOffset? CreatedOn { get; set; }
 
     }
 }

@@ -198,14 +198,14 @@ namespace ALS.Glance.Api.Controllers
                             && at.ApiApplicationId == applicationId), ct);
         }
 
-        private async Task<ApiUser> GetUserAsync(
+        private async Task<IdentityUser> GetUserAsync(
             string userName, string password, CancellationToken ct)
         {
             if (userName == null) throw new ArgumentNullException("userName");
             if (password == null) throw new ArgumentNullException("password");
 
-            var userManager = _uow.Security.GetUserManager<ApiUser>();
-            ((UserValidator<ApiUser, string>)userManager.UserValidator).AllowOnlyAlphanumericUserNames = false;
+            var userManager = _uow.Security.GetUserManager<IdentityUser>();
+            ((UserValidator<IdentityUser, string>)userManager.UserValidator).AllowOnlyAlphanumericUserNames = false;
 
 
             //  Gets the user by username and password
@@ -216,16 +216,16 @@ namespace ALS.Glance.Api.Controllers
             return user;
         }
 
-        private async Task<ApiApplicationUser> GetApiApplicationUserAsync(
+        private async Task<ApplicationUser> GetApiApplicationUserAsync(
             string applicationId, CancellationToken ct)
         {
             if (applicationId == null) throw new ArgumentNullException("applicationId");
 
-            return await _uow.Security.ApiApplications.GetByIdAsync(applicationId, ct);
+            return await _uow.Security.Applications.GetByIdAsync(applicationId, ct);
         }
 
         private async Task<ApiAuthenticationToken> AddApiAuthenticationTokenAsync(
-            ApiUser user, ApiApplicationUser application, CancellationToken ct)
+            IdentityUser user, ApplicationUser application, CancellationToken ct)
         {
             return
                 await _uow.Security.ApiAuthenticationTokens.AddAsync(

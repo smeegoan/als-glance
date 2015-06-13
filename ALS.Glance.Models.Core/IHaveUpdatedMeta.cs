@@ -10,7 +10,7 @@ namespace ALS.Glance.Models.Core
         /// <summary>
         /// The <see cref="DateTime"/> when the model was last updated
         /// </summary>
-        DateTimeOffset UpdatedOn { get; set; }
+        DateTimeOffset? UpdatedOn { get; set; }
 
     }
 }

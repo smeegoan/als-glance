@@ -236,7 +236,7 @@
                     alsglance.dashboard.patient.load(data, @Model.YearMin, @Model.YearMax);
                     initColors(alsglance.dashboard.settings.colorScheme);
                     alsglance.dashboard.patient.init();
-                    alsglance.dashboard.patient.applyFilters(alsglance.dashboard.settings[@Model.Id]);
+                    alsglance.dashboard.patient.applyFilters(alsglance.dashboard.settings["P"+@Model.Id]);
                 $.when(apiClient.get("EMG?$select=Data&top=1&orderBy=Date&filter=Patient/Id eq 1"))
                     .then(function(emg) {
                         alsglance.dashboard.patient.loadEMG(JSON.parse(emg.value[0].Data));

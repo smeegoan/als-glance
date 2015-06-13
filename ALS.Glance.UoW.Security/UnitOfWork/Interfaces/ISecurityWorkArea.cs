@@ -11,13 +11,10 @@ namespace ALS.Glance.UoW.Security.UnitOfWork.Interfaces
         bool RequiresUniqueEmail { get; }
         UserManager<TUser> GetUserManager<TUser>(bool autoSaveChanges = true)
             where TUser : class, IIdentityUser<string, IdentityUserLogin, IdentityUserRole, IdentityUserClaim>, IUser;
-        IApiApplicationRepository ApiApplications { get; }
         IApiAuthenticationAccessTokenRepository ApiAuthenticationAccessTokens { get; }
         IApiAuthenticationTokenRepository ApiAuthenticationTokens { get; }
         IApiRoleRepository ApiRoles { get; }
-        IApiUserRepository ApiUsers { get; }
         IApplicationRepository Applications { get; }
         IBaseIdentityRepository BaseIdentities { get; }
-        ISiteUserRepository SiteUsers { get; }
     }
 }

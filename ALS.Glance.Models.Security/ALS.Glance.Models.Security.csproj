@@ -44,13 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implementations\ApiApplicationUser.cs" />
     <Compile Include="Implementations\ApiAuthenticationAccessToken.cs" />
     <Compile Include="ApiAuthenticationToken.cs" />
     <Compile Include="Implementations\ApiRole.cs" />
-    <Compile Include="Implementations\ApiUser.cs" />
     <Compile Include="Implementations\ApplicationUser.cs" />
-    <Compile Include="Implementations\SiteUser.cs" />
     <Compile Include="Implementations\IdentityRole.cs" />
     <Compile Include="Implementations\IdentityUser.cs" />
     <Compile Include="Implementations\IdentityUserClaim.cs" />

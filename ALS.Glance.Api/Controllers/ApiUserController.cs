@@ -20,13 +20,13 @@ namespace ALS.Glance.Api.Controllers
     /// <summary>
     /// 
     /// </summary>
-    public class ApiUserController : ODataController, ODataGet<ApiUser>.WithKey<string>
+    public class ApiUserController : ODataController, ODataGet<IdentityUser>.WithKey<string>
     {
-        private readonly IUserTokenProvider<ApiUser, string> _userTokenProvider;
+        private readonly IUserTokenProvider<IdentityUser, string> _userTokenProvider;
         private readonly IIdentityMessageService _emailService;
         private readonly IALSUnitOfWork _uow;
 
-        public ApiUserController(IUnitOfWorkFactory unitOfWorkFactory, IUserTokenProvider<ApiUser, string> userTokenProvider,
+        public ApiUserController(IUnitOfWorkFactory unitOfWorkFactory, IUserTokenProvider<IdentityUser, string> userTokenProvider,
             IIdentityMessageService emailService)
         {
             _userTokenProvider = userTokenProvider;
@@ -39,9 +39,9 @@ namespace ALS.Glance.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [EnableQuery, ApiAuthorize(ServiceRoles.Admin)]
-        public IQueryable<ApiUser> Get()
+        public IQueryable<IdentityUser> Get()
         {
-            return _uow.Security.ApiUsers.GetAll();
+            return _uow.Security.BaseIdentities.GetAll();
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace ALS.Glance.Api.Controllers
         public async Task<IHttpActionResult> Get([FromODataUri] string key, CancellationToken ct)
         {
             ct.ThrowIfCancellationRequested();
-            var user = await _uow.Security.GetUserManager<ApiUser>().FindByNameAsync(key);
+            var user = await _uow.Security.GetUserManager<IdentityUser>().FindByNameAsync(key);
             if (user == null)
                 return NotFound();
             return Ok(user);
@@ -76,7 +76,7 @@ namespace ALS.Glance.Api.Controllers
             await _uow.BeginAsync(ct);
 
             ct.ThrowIfCancellationRequested();
-            var userManager = _uow.Security.GetUserManager<ApiUser>();
+            var userManager = _uow.Security.GetUserManager<IdentityUser>();
             var user = await userManager.FindByNameAsync(key);
             if (user == null)
                 return NotFound();
@@ -108,10 +108,10 @@ namespace ALS.Glance.Api.Controllers
 
         #region Private Methods
 
-        private UserManager<ApiUser> GetConfiguredApiUserManager(IALSUnitOfWork uow)
+        private UserManager<IdentityUser> GetConfiguredApiUserManager(IALSUnitOfWork uow)
         {
-            var userManager = uow.Security.GetUserManager<ApiUser>();
-            ((UserValidator<ApiUser, string>)userManager.UserValidator)
+            var userManager = uow.Security.GetUserManager<IdentityUser>();
+            ((UserValidator<IdentityUser, string>)userManager.UserValidator)
                 .AllowOnlyAlphanumericUserNames = false;
             userManager.UserTokenProvider = _userTokenProvider;
             userManager.EmailService = _emailService;
@@ -121,7 +121,7 @@ namespace ALS.Glance.Api.Controllers
 
         private async Task SendPasswordResetConfirmationEmailAsync<TApiUser>(
             TApiUser user, UserManager<TApiUser> userManager, CancellationToken ct)
-            where TApiUser : ApiUser
+            where TApiUser : IdentityUser
         {
             var token = await userManager.GeneratePasswordResetTokenAsync(user.Id);
             token = token.EncodeToBase64ASCII();

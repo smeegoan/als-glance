@@ -11,6 +11,7 @@ using ALS.Glance.Api.Properties;
 using ALS.Glance.Api.Security;
 using ALS.Glance.Api.Security.Filters;
 using ALS.Glance.Models;
+using ALS.Glance.Models.Security.Implementations;
 using ALS.Glance.UoW;
 using ALS.Glance.UoW.Core;
 using ALS.Glance.UoW.Core.Exceptions;
@@ -67,23 +68,26 @@ namespace ALS.Glance.Api.Controllers
             if (!ModelState.IsValid)
                 return Request.CreateBadRequestResult(Resources.BadRequestErrorMessage, ModelState);
 
-            await _uow.BeginAsync(ct);
-
+          
             var dbEntity =
                 await _uow.ApplicationSettings.GetByUserIdAndApplicationIdAsync(
                     entity.UserId, entity.ApplicationId, ct);
             if (dbEntity != null)
-                return Request.CreateConflictResponse("Duplicated");
+            {
+                //return Request.CreateConflictResponse("Duplicated"); 
+                //Esoterica host does not allow the verbs DELETE, PUT or PATCH so we update the entity here
 
+                return await Put(entity.UserId, entity.ApplicationId, entity, ct);
+            }
+
+            await _uow.BeginAsync(ct);
             entity.Application =
-                await _uow.Security.ApiApplications.GetByIdAsync(
+                await _uow.Security.Applications.GetByIdAsync(
                     entity.ApplicationId, ct);
             if (entity.Application == null)
                 return NotFound();
 
-            entity.User =
-                await _uow.Security.ApiUsers.GetByIdAsync(
-                    entity.UserId, ct);
+            entity.User = await _uow.Security.GetUserManager<IdentityUser>().FindByIdAsync(entity.UserId);
             if (entity.User == null)
                 return NotFound();
 
@@ -135,7 +139,6 @@ namespace ALS.Glance.Api.Controllers
                 {
                     entityToUpdate.UpdatedOn = DateTimeOffset.Now;
                     entityToUpdate.Value = update.Value;
-                    entityToUpdate = await _uow.ApplicationSettings.UpdateAsync(entityToUpdate, ct);
                 }
 
                 await _uow.CommitAsync(ct);

@@ -13,7 +13,7 @@ namespace ALS.Glance.DataAgents.Interfaces
     {
         Task<IEnumerable<DPatient>> GetPatientsAsync(WebApiCredentials credentials, CancellationToken ct);
 
-        Task<ApplicationSettings> GetSettingsAsync(WebApiCredentials credentials, CancellationToken ct);
+        Task<ApplicationSettings> GetSettingsAsync(WebApiCredentials credentials, string userId, CancellationToken ct);
 
         Task<AgeBounds> GetAgeBoundsAsync(WebApiCredentials credentials, CancellationToken ct);
 

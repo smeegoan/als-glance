@@ -48,7 +48,7 @@ namespace ALS.Glance.Api.Controllers
 
             await _uow.BeginAsync(ct);
 
-            var apiApplication = await _uow.Security.ApiApplications.GetByIdAsync(applicationIdDecoded, ct);
+            var apiApplication = await _uow.Security.Applications.GetByIdAsync(applicationIdDecoded, ct);
             if (apiApplication == null)
             {
                 ModelState.AddModelError(
@@ -118,7 +118,7 @@ namespace ALS.Glance.Api.Controllers
 
             await _uow.BeginAsync(ct);
 
-            var apiApplication = await _uow.Security.ApiApplications.GetByIdAsync(applicationIdDecoded, ct);
+            var apiApplication = await _uow.Security.Applications.GetByIdAsync(applicationIdDecoded, ct);
             if (apiApplication == null)
             {
                 ModelState.AddModelError(

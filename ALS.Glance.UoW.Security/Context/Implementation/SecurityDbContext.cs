@@ -25,18 +25,13 @@ namespace ALS.Glance.UoW.Security.Context.Implementation
 
         public bool RequireUniqueEmail { get; set; }
 
-        public virtual DbSet<ApiUser> ApiUsers { get; set; }
-
-        public virtual DbSet<ApiApplicationUser> ApiApplications { get; set; }
-
         public virtual DbSet<ApiAuthenticationAccessToken> ApiAuthenticationAccessToken { get; set; }
 
         public virtual DbSet<ApiAuthenticationToken> ApiAuthenticationToken { get; set; }
 
         public virtual DbSet<ApplicationUser> Applications { get; set; }
 
-        public virtual DbSet<SiteUser> SiteUsers { get; set; }
-
+     
         public virtual DbSet<IdentityUser> IdentityUsers { get; set; }
 
         public virtual DbSet<IdentityRole> Roles { get; set; }
@@ -93,18 +88,8 @@ namespace ALS.Glance.UoW.Security.Context.Implementation
                 cfg.HasMany(r => r.Users).WithRequired().HasForeignKey(ur => ur.RoleId);
             });
 
-            modelBuilder.Entity<ApiApplicationUser>(cfg =>
-            {
-                cfg.ToTable("AspNetExtApiApplications");
-                cfg.HasMany(a => a.ApiAuthenticationTokens)
-                    .WithRequired()
-                    .HasForeignKey(a => a.ApiApplicationId);
-            });
-
-            modelBuilder.Entity<ApplicationUser>(cfg =>
-            {
-                cfg.ToTable("AspNetExtApplications");
-            });
+          
+            modelBuilder.Entity<ApplicationUser>(cfg => cfg.ToTable("AspNetExtApplications"));
 
             modelBuilder.Entity<ApiAuthenticationToken>(cfg =>
             {
@@ -131,19 +116,6 @@ namespace ALS.Glance.UoW.Security.Context.Implementation
                         .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute()));
                 });
 
-            modelBuilder.Entity<ApiUser>(cfg =>
-            {
-                cfg.ToTable("AspNetExtApiUsers");
-                cfg.HasMany(e => e.ApiAuthenticationTokens).WithRequired().HasForeignKey(e => e.BaseApiUserId);
-             });
-
-            modelBuilder.Entity<SiteUser>(
-               cfg =>
-               {
-                   cfg.ToTable("AspNetExtSiteUser");
-                   cfg.Property(e => e.FirstName).HasMaxLength(256);
-                   cfg.Property(e => e.LastName).HasMaxLength(256);
-               });
 
             modelBuilder.Entity<ApiRole>(
                 cfg =>

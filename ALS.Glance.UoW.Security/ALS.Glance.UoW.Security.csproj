@@ -67,22 +67,16 @@
       <DependentUpon>IdentityResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Implementation\ApiApplicationRepository.cs" />
     <Compile Include="Repositories\Implementation\ApiRoleRepository.cs" />
     <Compile Include="Repositories\Implementation\ApiAuthenticationAccessTokenRepository.cs" />
     <Compile Include="Repositories\Implementation\ApiAuthenticationTokenRepository.cs" />
-    <Compile Include="Repositories\Implementation\ApiUserRepository.cs" />
     <Compile Include="Repositories\Implementation\ApplicationRepository.cs" />
     <Compile Include="Repositories\Implementation\BaseIdentityRepository.cs" />
-    <Compile Include="Repositories\Implementation\SiteUserRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IApiApplicationRepository.cs" />
     <Compile Include="Repositories\Interfaces\IApiRoleRepository.cs" />
     <Compile Include="Repositories\Interfaces\IApiAuthenticationAccessTokenRepository.cs" />
     <Compile Include="Repositories\Interfaces\IApiAuthenticationTokenRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IApiUserRepository.cs" />
     <Compile Include="Repositories\Interfaces\IApplicationRepository.cs" />
     <Compile Include="Repositories\Interfaces\IBaseIdentityRepository.cs" />
-    <Compile Include="Repositories\Interfaces\ISiteUserRepository.cs" />
     <Compile Include="SecurityUserStore.cs" />
     <Compile Include="UnitOfWork\Implementation\SecurityWorkArea.cs" />
     <Compile Include="UnitOfWork\Implementation\SecurityUnitOfWork.cs" />
