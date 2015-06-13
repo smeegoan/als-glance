@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationSettings.cs" />
+    <Compile Include="EMG.cs" />
     <Compile Include="Facts.cs" />
     <Compile Include="DDate.cs" />
     <Compile Include="Fact.cs" />

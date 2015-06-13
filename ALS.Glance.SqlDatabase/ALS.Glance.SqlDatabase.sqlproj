@@ -82,6 +82,7 @@
     <Build Include="dbo\Tables\AspNetExtApiApplications.sql" />
     <Build Include="dbo\Tables\ApplicationSettings.sql" />
     <Build Include="dbo\Views\Facts.sql" />
+    <Build Include="dbo\Tables\EMG.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />

@@ -30,7 +30,7 @@ namespace ALS.Glance.Web
                 "~/Scripts/alsglance.dashboard.js"));
 
 
-            bundles.Add(new ScriptBundle("~/bundles/dashboardpatientjs").Include(                
+            bundles.Add(new ScriptBundle("~/bundles/dashboardpatientjs").Include(
                 "~/Scripts/CrossFilter/crossfilter.js",
                 "~/Scripts/d3.v3.js",
                 "~/Scripts/DC/dc.js",
@@ -41,6 +41,7 @@ namespace ALS.Glance.Web
                 "~/Scripts/colorbrewer.js",
                 "~/Scripts/colorbrewer_schemes.js",
                 "~/Scripts/devoops.js",
+                "~/Scripts/toastr.js",
                 "~/Scripts/alsglance.dashboard.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include(
@@ -56,6 +57,7 @@ namespace ALS.Glance.Web
                 "~/Content/devoops.css",
                 "~/Content/daterangepicker-bs3.css",
                 "~/Content/colorbrewer.css",
+                 "~/Content/toastr.css",
                 "~/Content/bootstrap.css",
                 "~/Content/font-awesome.min.css",
                 "~/Content/site.css"));

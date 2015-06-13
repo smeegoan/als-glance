@@ -23,6 +23,8 @@ namespace ALS.Glance.UoW.Mapping
 
         }
 
+        public IDbSet<EMG> EMG { get; set; }
+
 
         public IDbSet<DDate> Date { get; set; }
 
@@ -60,6 +62,19 @@ namespace ALS.Glance.UoW.Mapping
 
                     cfg.Map();   
                 });
+
+            modelBuilder.Entity<EMG>(
+               cfg =>
+               {
+                   cfg.ToTable("EMG");
+                   cfg.HasKey(x => x.Id);
+
+                   cfg.Property(x => x.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+                   cfg.Property(x => x.Date).IsRequired();
+                   cfg.HasRequired(a => a.Patient).WithMany().HasForeignKey(c => c.PatientId);
+                 
+                   cfg.Map();
+               });
 
             modelBuilder.Entity<DMuscle>(
                 cfg =>

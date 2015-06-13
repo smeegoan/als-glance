@@ -42,7 +42,7 @@ namespace ALS.Glance.Api
                   es.Property(e => e.Email);
                   es.Property(e => e.CreatedOn).IsRequired();
                   es.Property(e => e.UpdatedOn).IsRequired();
-               
+
                   es.Action("ResetPassword");
 
                   var action = es.Action("ChangePassword");
@@ -107,6 +107,12 @@ namespace ALS.Glance.Api
                 type.HasRequired(e => e.Muscle);
                 type.HasRequired(e => e.Date);
                 type.HasRequired(e => e.Time);
+            });
+            builder.EntitySet<EMG, long>(type =>
+            {
+                type.Property(e => e.Data);
+                type.HasRequired(e => e.Patient);
+                type.Property(e => e.Date);
             });
             builder.EntitySet<Facts, long>(type =>
             {
@@ -176,7 +182,7 @@ namespace ALS.Glance.Api
             // Insert the custom convention at the start of the collection.
             conventions.Insert(0, new ODataRoutingConvention());
 
-            config.MapODataServiceRoute("ODataRoute", "odata", builder.GetEdmModel(),new DefaultODataPathHandler(), conventions);
+            config.MapODataServiceRoute("ODataRoute", "odata", builder.GetEdmModel(), new DefaultODataPathHandler(), conventions);
 
             #endregion
         }

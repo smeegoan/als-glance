@@ -12,5 +12,6 @@ namespace ALS.Glance.UoW
 
         IFactsRepository IndexedFacts { get; }
         IPatientRepository Patients { get; }
+        IEMGRepository EMGs { get; }
     }
 }

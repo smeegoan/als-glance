@@ -271,15 +271,14 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         $.ajax({
             type: "PUT",
             url: alsglance.baseUri + "ApplicationSettings(UserId='"+alsglance.userId+"',ApplicationId='" + alsglance.applicationId + "')",
-            // The key needs to match your method's input parameter (case-sensitive).
             data: JSON.stringify(
                 entity
             ),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            success: function (data) { alert(data); },
+            success: function (data) { toastr.success('Applied filters were successfully saved.', 'ALS Glance'); },
             failure: function (errMsg) {
-                alert(errMsg);
+                toastr.error(errMsg, 'ALS Glance');;
             }
         });
     },
