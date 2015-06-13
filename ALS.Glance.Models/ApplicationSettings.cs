@@ -16,11 +16,5 @@ namespace ALS.Glance.Models
 
         public virtual string Value { get; set; }
 
-        public IDictionary<string, object> Values { get; set; }
-
-        public ApplicationSettings()
-        {
-            Values = new Dictionary<string, object>();
-        }
     }
 }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generation date: 08/06/2015 23:37:47
+// Generation date: 13/06/2015 10:52:53
 namespace ALS.Glance.DataAgents.ALS.Glance.Api.Models
 {
     /// <summary>
@@ -1045,52 +1045,6 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations
         partial void OnUpdatedOnChanging(global::System.DateTimeOffset value);
         partial void OnUpdatedOnChanged();
         /// <summary>
-        /// There are no comments for Property GivenName in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("GivenName")]
-        public string GivenName
-        {
-            get
-            {
-                return this._GivenName;
-            }
-            set
-            {
-                this.OnGivenNameChanging(value);
-                this._GivenName = value;
-                this.OnGivenNameChanged();
-                this.OnPropertyChanged("GivenName");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        private string _GivenName;
-        partial void OnGivenNameChanging(string value);
-        partial void OnGivenNameChanged();
-        /// <summary>
-        /// There are no comments for Property FamilyName in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("FamilyName")]
-        public string FamilyName
-        {
-            get
-            {
-                return this._FamilyName;
-            }
-            set
-            {
-                this.OnFamilyNameChanging(value);
-                this._FamilyName = value;
-                this.OnFamilyNameChanged();
-                this.OnPropertyChanged("FamilyName");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        private string _FamilyName;
-        partial void OnFamilyNameChanging(string value);
-        partial void OnFamilyNameChanged();
-        /// <summary>
         /// This event is raised when the value of the property is changed
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
@@ -1348,6 +1302,29 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
         private global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiApplicationUser _Application;
         partial void OnApplicationChanging(global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiApplicationUser value);
         partial void OnApplicationChanged();
+        /// <summary>
+        /// There are no comments for Property Value in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Value")]
+        public string Value
+        {
+            get
+            {
+                return this._Value;
+            }
+            set
+            {
+                this.OnValueChanging(value);
+                this._Value = value;
+                this.OnValueChanged();
+                this.OnPropertyChanged("Value");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private string _Value;
+        partial void OnValueChanging(string value);
+        partial void OnValueChanged();
         /// <summary>
         /// There are no comments for Property CreatedOn in the schema.
         /// </summary>
@@ -3869,15 +3846,13 @@ namespace ALS.Glance.DataAgents.Default
         <Property Name=""Email"" Type=""Edm.String"" />
         <Property Name=""CreatedOn"" Type=""Edm.DateTimeOffset"" Nullable=""false"" />
         <Property Name=""UpdatedOn"" Type=""Edm.DateTimeOffset"" Nullable=""false"" />
-        <Property Name=""GivenName"" Type=""Edm.String"" />
-        <Property Name=""FamilyName"" Type=""Edm.String"" />
       </EntityType>
       <ComplexType Name=""ApiApplicationUser"">
         <Property Name=""Id"" Type=""Edm.String"" />
       </ComplexType>
     </Schema>
     <Schema Namespace=""ALS.Glance.Models"" xmlns=""http://docs.oasis-open.org/odata/ns/edm"">
-      <EntityType Name=""ApplicationSettings"" OpenType=""true"">
+      <EntityType Name=""ApplicationSettings"">
         <Key>
           <PropertyRef Name=""UserId"" />
           <PropertyRef Name=""ApplicationId"" />
@@ -3885,6 +3860,7 @@ namespace ALS.Glance.DataAgents.Default
         <Property Name=""UserId"" Type=""Edm.String"" Nullable=""false"" />
         <Property Name=""ApplicationId"" Type=""Edm.String"" Nullable=""false"" />
         <Property Name=""Application"" Type=""ALS.Glance.Models.Security.Implementations.ApiApplicationUser"" Nullable=""false"" />
+        <Property Name=""Value"" Type=""Edm.String"" />
         <Property Name=""CreatedOn"" Type=""Edm.DateTimeOffset"" Nullable=""false"" />
         <Property Name=""UpdatedOn"" Type=""Edm.DateTimeOffset"" Nullable=""false"" />
         <NavigationProperty Name=""User"" Type=""ALS.Glance.Models.Security.Implementations.ApiUser"" Nullable=""false"" />

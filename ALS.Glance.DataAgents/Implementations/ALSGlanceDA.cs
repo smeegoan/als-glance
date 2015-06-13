@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using ALS.Glance.DataAgents.ALS.Glance.Api.Models;
@@ -32,6 +33,22 @@ namespace ALS.Glance.DataAgents.Implementations
                    ct);
         }
 
+        public async Task<ApplicationSettings> GetSettingsAsync(WebApiCredentials credentials, CancellationToken ct)
+        {
+            ct.ThrowIfCancellationRequested();
+            return await WebApiODataContainer.Using(_apiUrl, credentials)
+               .ExecuteAuthenticated(
+                     container =>
+                     {
+                         ct.ThrowIfCancellationRequested();
+                         var query =
+                             container.ApplicationSettings.Where(
+                                 e => e.ApplicationId == credentials.ApplicationId && e.UserId == credentials.UserName);
+                         return query.SingleOrDefault();
+                     },
+                   ct);
+        }
+
         public virtual async Task<AgeBounds> GetAgeBoundsAsync(WebApiCredentials credentials, CancellationToken ct)
         {
             return await WebApiODataContainer.Using(_apiUrl, credentials)
@@ -45,7 +62,7 @@ namespace ALS.Glance.DataAgents.Implementations
         {
             return await WebApiODataContainer.Using(_apiUrl, credentials)
                 .GetAuthenticatedAsync<YearBounds>(
-                    container => string.Format("{0}({1})/.GetYearBounds", container.DPatient.ToString(),patientId),
+                    container => string.Format("{0}({1})/.GetYearBounds", container.DPatient.ToString(), patientId),
                     exception => { },
                     ct);
 

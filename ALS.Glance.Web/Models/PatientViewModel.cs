@@ -5,6 +5,7 @@ namespace ALS.Glance.Web.Models
 {
     public class PatientViewModel
     {
+        public string Settings { get; set; }
         public long Id { get; set; }
         public short YearMax { get; set; }
 

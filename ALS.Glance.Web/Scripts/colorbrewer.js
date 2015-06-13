@@ -6,7 +6,7 @@ var schemeNames = {
 };
 
 var visibleMap,
-	selectedScheme = "BuGn",
+	selectedScheme = selectedScheme||"BuGn",
 	numClasses = 7;
 
 function setNumClasses(n) {
@@ -228,7 +228,7 @@ function hexToRgb(hex) {
     } : null;
 }
 
-function initColors() {
+function initColors(defaultColor) {
     $("#colorPlaceHolder").replaceWith(' <li class="dropdown">'
         +'   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Color Schemes <span class="caret"></span></a>'
         +'    <ul class="dropdown-menu" role="menu">' 
@@ -248,7 +248,7 @@ function initColors() {
         +'        </li>' 
         +'    </ul>' 
         +'</li>');
-    var scheme = "BuGn";
+    var scheme = defaultColor||"BuGn";
     var n = 5;
     $("#num-classes").val(n);
     setSchemeType("sequential");

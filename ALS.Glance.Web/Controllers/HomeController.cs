@@ -30,7 +30,12 @@ namespace ALS.Glance.Web.Controllers
         public ActionResult ApiAuth()
         {
             var token = _credentials.ApplicationToken;
-            var script = string.Format(@"var alsglance = alsglance || {{}}; alsglance.authToken = '{0}'; alsglance.baseUri = '{1}';alsglance.applicationId='{2}';alsglance.userId='{3}'", token, _apiUrl, Settings.Default.ApplicationId,_credentials.UserName);
+            var script = string.Format(@"var alsglance = alsglance || {{}}; " +
+                                       "alsglance.authToken = '{0}'; " +
+                                       "alsglance.baseUri = '{1}';" +
+                                       "alsglance.applicationId='{2}';" +
+                                       "alsglance.userId='{3}';", token, _apiUrl, Settings.Default.ApplicationId,
+                _credentials.UserName);
             return JavaScript(script);
         }
 
@@ -41,7 +46,7 @@ namespace ALS.Glance.Web.Controllers
             {
                 var patients = await _glanceDa.GetPatientsAsync(_credentials, ct);
                 var ageBounds = await _glanceDa.GetAgeBoundsAsync(_credentials, ct);
-
+           
                 var model = new PatientsViewModel
                 {
                     AgeMax = ageBounds.Max,
@@ -50,11 +55,12 @@ namespace ALS.Glance.Web.Controllers
                 };
                 return View(model);
             }
+            var settings = await _glanceDa.GetSettingsAsync(_credentials, ct);
             var muscles = await _glanceDa.GetMusclesAsync(_credentials, ct);
             var yearBounds = await _glanceDa.GetYearBoundsAsync(_credentials, id.Value, ct);
-
-            var patientModel = new PatientViewModel
+             var patientModel = new PatientViewModel
             {
+                Settings = settings.Value,
                 Id = id.Value,
                 YearMax = yearBounds.Max,
                 YearMin = yearBounds.Min,

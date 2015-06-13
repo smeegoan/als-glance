@@ -134,9 +134,6 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
         };
 
     })(jQuery),
-    init: function () {
-        alsglance.dashboard.init();
-    },
     load: function (data, min, max) {
         aucBubbleChart = dc.bubbleChart('#aucBubbleChart');
         var numberFormat = d3.format('.5f');
@@ -265,10 +262,12 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                 filters.push({ ChartID: chart.chartID(), Filter: chart.filters()[j] });
             }
         }
+        alsglance.dashboard.settings[alsglance.dashboard.patientId] = filters;
+        alsglance.dashboard.settings.colorScheme = selectedScheme;
         var entity = {};
         entity.UserId = alsglance.userId;
         entity.ApplicationId = alsglance.applicationId;
-        entity.Value = encodeURIComponent(JSON.stringify(filters));
+        entity.Value = encodeURIComponent(JSON.stringify(alsglance.dashboard.settings));
         $.ajax({
             type: "PUT",
             url: alsglance.baseUri + "ApplicationSettings(UserId='"+alsglance.userId+"',ApplicationId='" + alsglance.applicationId + "')",
@@ -284,8 +283,10 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             }
         });
     },
-    loadSettings: function (settings) {
-        var filterObjects = JSON.parse(decodeURIComponent(settings));;
+    loadSettings: function (filterObjects) {
+        if (filterObjects == null)
+            return;
+
         for (var i = 0; i < filterObjects.length; i++) {
             dc.chartRegistry.list()[filterObjects[i].ChartID - 1].filter(filterObjects[i].Filter);
         }

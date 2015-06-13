@@ -83,7 +83,7 @@
             $.when(apiClient.get("DPatient?$select=Sex,BornOn"))
                     .then(function (data) {
                         alsglance.dashboard.patients.load(data,@Model.AgeMin,@Model.AgeMax);
-                        alsglance.dashboard.patients.init();
+                        alsglance.dashboard.init();
                     });
             $('#patients').dataTable({
                 responsive: true

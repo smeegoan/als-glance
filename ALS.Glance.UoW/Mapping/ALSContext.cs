@@ -138,7 +138,6 @@ namespace ALS.Glance.UoW.Mapping
                               IsUnique = true
                           }));
                   cfg.Property(e => e.Value).HasMaxLength(4000);
-                  cfg.Ignore(e => e.Values);
                   cfg.Map();
               });
             modelBuilder.Entity<Facts>(

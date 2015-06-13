@@ -18,7 +18,7 @@ using Newtonsoft.Json;
 
 namespace ALS.Glance.Api.Controllers
 {
-  //  [Authorize]
+    //  [Authorize]
     public class ApplicationSettingsController : ODataController, ODataGet<ApplicationSettings>.WithKey<string, string>,
         ODataPost<ApplicationSettings>, ODataPut<ApplicationSettings>.WithKey<string, string>, ODataPatch<ApplicationSettings>.WithKey<string, string>, ODataDelete.WithKey<string, string>
     {
@@ -32,7 +32,7 @@ namespace ALS.Glance.Api.Controllers
         #region ODataGet
 
         [EnableQuery
-        //, ApiAuthorize(ServiceRoles.Admin)
+            //, ApiAuthorize(ServiceRoles.Admin)
         ]
         public IQueryable<ApplicationSettings> Get()
         {
@@ -41,8 +41,8 @@ namespace ALS.Glance.Api.Controllers
 
         [EnableQuery,
         CorsPolicy,
-        //ApiAuthorize(ServiceRoles.Admin, ServiceRoles.User),
-        //Permission(Role = ServiceRoles.User, ClaimType = ClaimTypes.Name, MustOwn = "UserId")
+            //ApiAuthorize(ServiceRoles.Admin, ServiceRoles.User),
+            //Permission(Role = ServiceRoles.User, ClaimType = ClaimTypes.Name, MustOwn = "UserId")
         ]
         public async Task<IHttpActionResult> Get(
             [FromODataUri] string userId, [FromODataUri] string applicationId, CancellationToken ct)
@@ -53,7 +53,6 @@ namespace ALS.Glance.Api.Controllers
             if (entity == null)
                 return (IHttpActionResult)NotFound();
 
-            entity.Values = JsonConvert.DeserializeObject<Dictionary<string, object>>(entity.Value);
             return Ok(entity.ToSingleResult());
         }
 
@@ -61,7 +60,7 @@ namespace ALS.Glance.Api.Controllers
 
         #region ODataPost
 
-//        [ApiAuthorize(ServiceRoles.Admin, ServiceRoles.User)]
+        //        [ApiAuthorize(ServiceRoles.Admin, ServiceRoles.User)]
         [CorsPolicy]
         public async Task<IHttpActionResult> Post(ApplicationSettings entity, CancellationToken ct)
         {
@@ -89,9 +88,6 @@ namespace ALS.Glance.Api.Controllers
                 return NotFound();
 
             entity.CreatedOn = entity.UpdatedOn = DateTimeOffset.Now;
-            if (entity.Values == null)
-                entity.Values = new Dictionary<string, object>();
-            entity.Value = JsonConvert.SerializeObject(entity.Values);
             entity = await _uow.ApplicationSettings.AddAsync(entity, ct);
 
             await _uow.CommitAsync(ct);
@@ -134,8 +130,7 @@ namespace ALS.Glance.Api.Controllers
                     return NotFound();
 
                 entityToUpdate.UpdatedOn = DateTimeOffset.Now;
-                entityToUpdate.Values = update.Values ?? new Dictionary<string, object>();
-                entityToUpdate.Value = JsonConvert.SerializeObject(entityToUpdate.Values);
+                entityToUpdate.Value = update.Value;
                 entityToUpdate = await _uow.ApplicationSettings.UpdateAsync(entityToUpdate, ct);
 
                 await _uow.CommitAsync(ct);
@@ -174,10 +169,6 @@ namespace ALS.Glance.Api.Controllers
                     return NotFound();
 
                 entity.Patch(dbEntity);
-
-                if (dbEntity.Values == null)
-                    dbEntity.Values = new Dictionary<string, object>();
-                dbEntity.Value = JsonConvert.SerializeObject(dbEntity.Values);
                 dbEntity.UpdatedOn = DateTimeOffset.Now;
                 dbEntity = await _uow.ApplicationSettings.UpdateAsync(dbEntity, ct);
                 await _uow.CommitAsync(ct);
