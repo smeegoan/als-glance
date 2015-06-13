@@ -310,7 +310,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             alsglance.dashboard.patient.reset();
         });
         $("#save").click(function () {
-            alsglance.dashboard.patient.save();
+            alsglance.dashboard.patient.saveSettings();
         });
         $.each($('#muscles .btn'), function (index, value) {
             var id = $(value).attr('id');

@@ -128,19 +128,19 @@ namespace ALS.Glance.Api.Controllers
                         userId, applicationId, ct);
                 if (entityToUpdate == null)
                 {
-                    await _uow.ApplicationSettings.AddAsync(update, ct);
-
-                    await _uow.CommitAsync(ct);
-
-                    return Created(update);
+                    update.UpdatedOn = update.CreatedOn = DateTimeOffset.Now;
+                    update = await _uow.ApplicationSettings.AddAsync(update, ct);
                 }
-                entityToUpdate.UpdatedOn = DateTimeOffset.Now;
-                entityToUpdate.Value = update.Value;
-                entityToUpdate = await _uow.ApplicationSettings.UpdateAsync(entityToUpdate, ct);
+                else
+                {
+                    entityToUpdate.UpdatedOn = DateTimeOffset.Now;
+                    entityToUpdate.Value = update.Value;
+                    entityToUpdate = await _uow.ApplicationSettings.UpdateAsync(entityToUpdate, ct);
+                }
 
                 await _uow.CommitAsync(ct);
 
-                return Updated(entityToUpdate);
+                return Updated(entityToUpdate ?? update);
             }
             catch (ConcurrencyException)
             {
