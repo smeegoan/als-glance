@@ -6,28 +6,29 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.OData;
+using ALS.Glance.Api.Security;
 using ALS.Glance.Models;
 using ALS.Glance.UoW;
 using ALS.Glance.UoW.Core;
 
 namespace ALS.Glance.Api.Controllers
 {
-    public class EMGController:ODataController,
+    public class EMGController : ODataController,
         ODataGet<EMG>.WithKey<long>
     {
         private readonly IALSUnitOfWork _uow;
         public EMGController(IUnitOfWorkFactory unitOfWorkFactory)
         {
-            _uow = unitOfWorkFactory.Get<IALSUnitOfWork>(); 
+            _uow = unitOfWorkFactory.Get<IALSUnitOfWork>();
         }
 
-        [EnableQuery]
+        [EnableQuery, CorsPolicy]
         public IQueryable<EMG> Get()
         {
             return _uow.EMGs.GetAll();
         }
-       
-        [EnableQuery]
+
+        [EnableQuery, CorsPolicy]
         public async Task<IHttpActionResult> Get([FromODataUri] long key, CancellationToken ct)
         {
             var entity = await _uow.EMGs.GetByIdAsync(key, ct);

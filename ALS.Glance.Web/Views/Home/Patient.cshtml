@@ -133,35 +133,6 @@
                     <div class="box ui-draggable ui-droppable">
                         <div class="box-header">
                             <div class="box-name">
-                                <i class="fa fa-clock-o"></i>
-                                <span>Average AUC</span>
-                            </div>
-                            <div class="box-icons">
-                                <a class="reset" href="javascript:averageAucChart.filterAll();dc.redrawAll();"><i class="fa fa-undo"></i></a>
-                                <a class="collapse-link">
-                                    <i class="fa fa-chevron-up"></i>
-                                </a>
-                                <a class="expand-link">
-                                    <i class="fa fa-expand"></i>
-                                </a>
-                                <a class="close-link">
-                                    <i class="fa fa-times"></i>
-                                </a>
-                            </div>
-                            <div class="no-move"></div>
-                        </div>
-                        <div class="box-content" style="height: 250px; position: relative;">
-                            <div style="height: 250px; position: relative;" class='dc-chart' id='averageAucChart'>
-                                <div class="loading">Loading...</div>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6">
-                    <div class="box ui-draggable ui-droppable">
-                        <div class="box-header">
-                            <div class="box-name">
                                 <i class="fa fa-calendar"></i>
                                 <span>AUC</span>
                             </div>
@@ -196,6 +167,37 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-xs-12 col-sm-6">
+                    <div class="box ui-draggable ui-droppable">
+                        <div class="box-header">
+                            <div class="box-name">
+                                <i class="fa fa-stethoscope"></i>
+                                <span>Last EMG in selected period</span>
+                            </div>
+                            <div class="box-icons">
+                                @*<a class="reset" href="javascript:averageAucChart.filterAll();dc.redrawAll();"><i class="fa fa-undo"></i></a>*@
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="expand-link">
+                                    <i class="fa fa-expand"></i>
+                                </a>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                            <div class="no-move"></div>
+                        </div>
+
+                        <div class="box-content" style="height: 250px; position: relative;">
+                            <div style=" position: absolute;left: 10px;right: 10px;top: 40px;bottom: 10px;" id='emgChart'>
+                                <div class="loading">Loading...</div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -232,10 +234,15 @@
                     alsglance.dashboard.patientId = @Model.Id;
                     data = alsglance.dashboard.patient.addPredictions(data);
                     alsglance.dashboard.patient.load(data, @Model.YearMin, @Model.YearMax);
-                    alsglance.dashboard.patient.init();
-                    alsglance.dashboard.patient.loadSettings(alsglance.dashboard.settings[@Model.Id]);
                     initColors(alsglance.dashboard.settings.colorScheme);
-                });
+                    alsglance.dashboard.patient.init();
+                    alsglance.dashboard.patient.applyFilters(alsglance.dashboard.settings[@Model.Id]);
+                $.when(apiClient.get("EMG?$select=Data&top=1&orderBy=Date&filter=Patient/Id eq 1"))
+                    .then(function(emg) {
+                        alsglance.dashboard.patient.loadEMG(JSON.parse(emg.value[0].Data));
+                    });
+            });
+
             WinMove();
         });
     </script>

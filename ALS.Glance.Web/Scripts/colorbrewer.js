@@ -265,11 +265,15 @@ function applyColors() {
     colors.shift(); //skip the first color because it's to faint
     var colorsDiferential = d3.scale.ordinal().range([colorbrewer[selectedScheme][numClasses][1], colorbrewer[selectedScheme][numClasses][3]]);
     var colorRange = d3.scale.ordinal().range(colors);
+    var color2 = colorbrewer[selectedScheme][numClasses][2];
+    var color3 = colorbrewer[selectedScheme][numClasses][3];
     timeOfDayChart.ordinalColors(colors).redraw();
-    averageAucChart.colors(colorbrewer[selectedScheme][numClasses][3]).redraw();
-    timeHourChart.colors(colorbrewer[selectedScheme][numClasses][2]).redraw();
+    timeHourChart.colors(color2).redraw();
     quarterChart.colors(colorRange).redraw();
     predictionSeriesChart.colors(colorsDiferential).redraw();
-    dateRangeChart.colors(colorbrewer[selectedScheme][numClasses][2]).redraw();
+    dateRangeChart.colors(color2).redraw();
+    if (emgChart != null) {
+        emgChart.updateOptions({ colors: [color3] });
+    }
 }
 

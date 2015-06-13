@@ -40,6 +40,7 @@ namespace ALS.Glance.Web
                 "~/Scripts/daterangepicker.js",
                 "~/Scripts/colorbrewer.js",
                 "~/Scripts/colorbrewer_schemes.js",
+                "~/Scripts/dygraph-combined.js",
                 "~/Scripts/devoops.js",
                 "~/Scripts/toastr.js",
                 "~/Scripts/alsglance.dashboard.js"));
