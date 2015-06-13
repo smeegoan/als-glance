@@ -16,19 +16,6 @@
 	height: 27px;
 }
 
-#blind-icon.ok { background-image: url(images/colorblind.png); }
-#blind-icon.bad { background-image: url(images/colorblind_avoid.png); }
-#blind-icon.maybe { background-image: url(images/colorblind_maybe.png); }
-#print-icon.ok { background-image: url(images/colorprint.png); }
-#print-icon.bad { background-image: url(images/colorprint_avoid.png); }
-#print-icon.maybe { background-image: url(images/colorprint_maybe.png); }
-#screen-icon.ok { background-image: url(images/laptop.png); }
-#screen-icon.bad { background-image: url(images/laptop_avoid.png); }
-#screen-icon.maybe { background-image: url(images/laptop_maybe.png); }
-#copy-icon.ok { background-image: url(images/photocopy.png); }
-#copy-icon.bad { background-image: url(images/photocopy_avoid.png); }
-#copy-icon.maybe { background-image: url(images/photocopy_maybe.png); }
-
 #ramps, #singlehue {
 	padding: 0 5px;
 	display: inline-block;

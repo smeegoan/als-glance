@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Web;
-using ALS.Glance.Models;
-using ALS.Glance.Models.Core.Connection;
-using ALS.Glance.Web.Ioc.Installers;
-using Castle.MicroKernel.Registration;
+﻿using ALS.Glance.Web.Ioc.Installers;
 using Castle.Windsor;
 
 namespace ALS.Glance.Web.Ioc

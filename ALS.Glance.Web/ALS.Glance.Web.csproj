@@ -220,8 +220,23 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css">
+      <DependentUpon>bootstrap.css</DependentUpon>
+    </Content>
+    <Content Include="Content\colorbrewer.min.css">
+      <DependentUpon>colorbrewer.css</DependentUpon>
+    </Content>
     <Content Include="Content\daterangepicker-bs3.css" />
+    <Content Include="Content\daterangepicker-bs3.min.css">
+      <DependentUpon>daterangepicker-bs3.css</DependentUpon>
+    </Content>
+    <Content Include="Content\dc.min.css">
+      <DependentUpon>dc.css</DependentUpon>
+    </Content>
     <Content Include="Content\devoops.css" />
+    <Content Include="Content\devoops.min.css">
+      <DependentUpon>devoops.css</DependentUpon>
+    </Content>
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\dc.css" />
@@ -229,6 +244,9 @@
     <Content Include="Content\images\Flexor-carpi-radialis.png" />
     <Content Include="Content\images\Sternocleidomastoideus.png" />
     <Content Include="Content\images\Tibialis_anterior.png" />
+    <Content Include="Content\Site.min.css">
+      <DependentUpon>Site.css</DependentUpon>
+    </Content>
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -271,6 +289,12 @@
     <Content Include="Content\Site.css" />
     <Content Include="LICENSE.txt" />
     <Content Include="Scripts\alsglance.dashboard.js" />
+    <Content Include="Scripts\alsglance.dashboard.min.js">
+      <DependentUpon>alsglance.dashboard.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\apiclient.min.js">
+      <DependentUpon>apiclient.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
@@ -285,14 +309,26 @@
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="Scripts\colorbrewer.min.js">
+      <DependentUpon>colorbrewer.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\colorbrewer_schemes.js" />
     <Content Include="Scripts\colorbrewer.js" />
+    <Content Include="Scripts\colorbrewer_schemes.min.js">
+      <DependentUpon>colorbrewer_schemes.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\CrossFilter\crossfilter.js" />
     <Content Include="Scripts\CrossFilter\crossfilter.min.js" />
     <Content Include="Scripts\CrossFilter\README.md" />
     <Content Include="Scripts\CrossFilter\LICENSE" />
     <Content Include="Scripts\dataTables.bootstrap.js" />
+    <Content Include="Scripts\dataTables.bootstrap.min.js">
+      <DependentUpon>dataTables.bootstrap.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\daterangepicker.js" />
+    <Content Include="Scripts\daterangepicker.min.js">
+      <DependentUpon>daterangepicker.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\DC\dc.js" />
     <Content Include="Scripts\DC\dc.min.js" />
     <Content Include="Scripts\DC\dc.min.js.map" />
@@ -300,29 +336,74 @@
       <DependentUpon>bootstrap.min.js</DependentUpon>
     </Content>
     <Content Include="Properties\SlowCheetah\SlowCheetah.Transforms.targets" />
+    <Content Include="Scripts\devoops.min.js">
+      <DependentUpon>devoops.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\dygraph-combined.min.js.map">
+      <DependentUpon>dygraph-combined.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\devoops.min.js.map">
+      <DependentUpon>devoops.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\daterangepicker.min.js.map">
+      <DependentUpon>daterangepicker.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\dataTables.bootstrap.min.js.map">
+      <DependentUpon>dataTables.bootstrap.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\colorbrewer_schemes.min.js.map">
+      <DependentUpon>colorbrewer_schemes.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\colorbrewer.min.js.map">
+      <DependentUpon>colorbrewer.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\apiclient.min.js.map">
+      <DependentUpon>apiclient.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\alsglance.dashboard.min.js.map">
+      <DependentUpon>alsglance.dashboard.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\d3.v3.js" />
     <Content Include="Scripts\d3.v3.min.js" />
     <Content Include="Scripts\apiclient.js" />
     <Content Include="Scripts\devoops.js" />
     <Content Include="Scripts\dygraph-combined.js" />
+    <Content Include="Scripts\dygraph-combined.min.js">
+      <DependentUpon>dygraph-combined.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-1.10.2.intellisense.min.js">
+      <DependentUpon>jquery-1.10.2.intellisense.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.intellisense.min.js.map">
+      <DependentUpon>jquery-1.10.2.intellisense.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
     <Content Include="Scripts\jquery.dataTables.js" />
     <Content Include="Scripts\jquery.dataTables.min.js" />
+    <Content Include="Scripts\jquery.validate-vsdoc.min.js">
+      <DependentUpon>jquery.validate-vsdoc.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\modernizr-2.6.2.min.js">
+      <DependentUpon>modernizr-2.6.2.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\regression.js" />
+    <Content Include="Scripts\regression.min.js">
+      <DependentUpon>regression.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\toastr.js" />
@@ -359,6 +440,15 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Patient.cshtml" />
+    <Content Include="Scripts\regression.min.js.map">
+      <DependentUpon>regression.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\modernizr-2.6.2.min.js.map">
+      <DependentUpon>modernizr-2.6.2.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.validate-vsdoc.min.js.map">
+      <DependentUpon>jquery.validate-vsdoc.min.js</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

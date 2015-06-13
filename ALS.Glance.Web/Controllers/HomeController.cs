@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using ALS.Glance.DataAgents.Interfaces;
 using ALS.Glance.Models.Core;
 using ALS.Glance.Web.Models;
@@ -34,7 +35,11 @@ namespace ALS.Glance.Web.Controllers
                                        "alsglance.authToken = '{0}'; " +
                                        "alsglance.baseUri = '{1}';" +
                                        "alsglance.applicationId='{2}';" +
-                                       "alsglance.userId='{3}';", token, _apiUrl, Settings.Default.ApplicationId,
+                                       "alsglance.dashboardUserId='{3}';" +
+                                       "alsglance.userId='{4}';", token,
+                                       _apiUrl,
+                                       Settings.Default.ApplicationId,
+                                       User.Identity.GetUserId(),
                 _credentials.UserName);
             return JavaScript(script);
         }
