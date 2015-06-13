@@ -46,7 +46,7 @@ namespace ALS.Glance.Web.Controllers
             {
                 var patients = await _glanceDa.GetPatientsAsync(_credentials, ct);
                 var ageBounds = await _glanceDa.GetAgeBoundsAsync(_credentials, ct);
-           
+
                 var model = new PatientsViewModel
                 {
                     AgeMax = ageBounds.Max,
@@ -58,14 +58,14 @@ namespace ALS.Glance.Web.Controllers
             var settings = await _glanceDa.GetSettingsAsync(_credentials, ct);
             var muscles = await _glanceDa.GetMusclesAsync(_credentials, ct);
             var yearBounds = await _glanceDa.GetYearBoundsAsync(_credentials, id.Value, ct);
-             var patientModel = new PatientViewModel
-            {
-                Settings = settings.Value,
-                Id = id.Value,
-                YearMax = yearBounds.Max,
-                YearMin = yearBounds.Min,
-                Muscles = muscles,
-            };
+            var patientModel = new PatientViewModel
+           {
+               Settings = settings != null ? settings.Value : null,
+               Id = id.Value,
+               YearMax = yearBounds.Max,
+               YearMin = yearBounds.Min,
+               Muscles = muscles,
+           };
             return View("Patient", patientModel);
         }
     }

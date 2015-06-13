@@ -44,7 +44,7 @@ namespace ALS.Glance.DataAgents.Implementations
                          var query =
                              container.ApplicationSettings.Where(
                                  e => e.ApplicationId == credentials.ApplicationId && e.UserId == credentials.UserName);
-                         return query.SingleOrDefault();
+                         return query.FirstOrDefault();
                      },
                    ct);
         }

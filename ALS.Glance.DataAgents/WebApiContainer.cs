@@ -53,10 +53,10 @@ namespace ALS.Glance.DataAgents
         public static WebApiODataContainer Using(string url, WebApiCredentials servicesWebApiCredentials)
         {
             return new WebApiODataContainer(
-                new Uri(url),
-                servicesWebApiCredentials.ApplicationId,
-                servicesWebApiCredentials.UserName,
-                servicesWebApiCredentials.Password);
+                 new Uri(url),
+                 servicesWebApiCredentials.ApplicationId,
+                 servicesWebApiCredentials.UserName,
+                 servicesWebApiCredentials.Password) { IgnoreResourceNotFoundException = true };
         }
 
         public void Dispose()
@@ -67,7 +67,7 @@ namespace ALS.Glance.DataAgents
         public async Task<TResult> ExecuteAuthenticated<TResult>(Func<WebApiODataContainer, TResult> action,
             CancellationToken cancellationToken)
         {
-            return await ExecuteAuthenticated(action, cancellationToken, e => { });                  
+            return await ExecuteAuthenticated(action, cancellationToken, e => { });
         }
 
         public async Task<TResult> ExecuteAuthenticated<TResult>(Func<WebApiODataContainer, TResult> action,
@@ -98,18 +98,18 @@ namespace ALS.Glance.DataAgents
 
             return await Execute<T>(async client => await client.GetAsync(pathGetter(this), cancellationToken), exceptionLogger, cancellationToken);
         }
-        
+
         public async Task<TResult> ExecuteAuthenticated<TResult>(Func<WebApiODataContainer, Task<TResult>> action,
             CancellationToken cancellationToken)
         {
-            return await ExecuteAuthenticated(action, cancellationToken, e => { });         
+            return await ExecuteAuthenticated(action, cancellationToken, e => { });
         }
-            
-            public async Task<TResult> ExecuteAuthenticated<TResult>(Func<WebApiODataContainer, Task<TResult>> action, CancellationToken cancellationToken, Action<Exception> exceptionLogger)
+
+        public async Task<TResult> ExecuteAuthenticated<TResult>(Func<WebApiODataContainer, Task<TResult>> action, CancellationToken cancellationToken, Action<Exception> exceptionLogger)
         {
             try
             {
-               await AuthenticateAsync(cancellationToken);
+                await AuthenticateAsync(cancellationToken);
 
                 return await action(this);
             }
