@@ -60,7 +60,7 @@ namespace ALS.Glance.Web.Controllers
             var yearBounds = await _glanceDa.GetYearBoundsAsync(_credentials, id.Value, ct);
             var patientModel = new PatientViewModel
            {
-               Settings = settings != null ? settings.Value : null,
+               Settings = settings != null ? settings.Value : "[]",
                Id = id.Value,
                YearMax = yearBounds.Max,
                YearMin = yearBounds.Min,

@@ -127,8 +127,13 @@ namespace ALS.Glance.Api.Controllers
                     await _uow.ApplicationSettings.GetByUserIdAndApplicationIdAsync(
                         userId, applicationId, ct);
                 if (entityToUpdate == null)
-                    return NotFound();
+                {
+                    await _uow.ApplicationSettings.AddAsync(update, ct);
 
+                    await _uow.CommitAsync(ct);
+
+                    return Created(update);
+                }
                 entityToUpdate.UpdatedOn = DateTimeOffset.Now;
                 entityToUpdate.Value = update.Value;
                 entityToUpdate = await _uow.ApplicationSettings.UpdateAsync(entityToUpdate, ct);
