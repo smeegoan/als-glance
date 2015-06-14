@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[EMG] (
-    [Id]        BIGINT             NOT NULL,
+    [Id]        BIGINT             IDENTITY (1, 1) NOT NULL,
     [PatientId] BIGINT             NOT NULL,
     [Data]      VARCHAR (MAX)      NOT NULL,
     [Date]      DATETIMEOFFSET (7) NOT NULL,
