@@ -374,13 +374,14 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         emgChart = new Dygraph(document.getElementById("emgChart"), data, {
             // customBars: true,
             //   title: 'Daily Temperatures in New York vs. San Francisco',
-            // ylabel: 'Temperature (F)',
+            //xlabel: 'Time',
+            //ylabel: 'EMG Signal',
             legend: 'always',
             colors: [colorbrewer[selectedScheme][numClasses][3]],
             labelsDivStyles: {
                 'textAlign': 'right'
-            } //,
-            // showRangeSelector: true
+            } 
+            //,showRangeSelector: true
         });
     },
     load: function (data, minYear, maxYear) {

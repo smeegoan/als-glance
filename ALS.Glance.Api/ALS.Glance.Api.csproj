@@ -158,7 +158,8 @@
     <Compile Include="Controllers\DPatientController.cs" />
     <Compile Include="Controllers\FactsController.cs" />
     <Compile Include="Controllers\FactController.cs" />
-    <Compile Include="Controllers\ODataInterfaces.cs" />
+    <Compile Include="Helpers\ODataInterfaces\ODataGet.cs" />
+    <Compile Include="Helpers\ODataInterfaces\ODataDelete.cs" />
     <Compile Include="Helpers\Binder\BinderExtensions.cs" />
     <Compile Include="Helpers\Binder\BinderNode.cs" />
     <Compile Include="Helpers\Binder\IODataQueryOptionsBinder.cs" />
@@ -170,6 +171,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ApiResponseHelper.cs" />
+    <Compile Include="Helpers\ODataInterfaces\ODataPatch.cs" />
+    <Compile Include="Helpers\ODataInterfaces\ODataPost.cs" />
+    <Compile Include="Helpers\ODataInterfaces\ODataPut.cs" />
     <Compile Include="Helpers\Routing\ODataRoutingConvention.cs" />
     <Compile Include="Helpers\Routing\ODataRoutingExtensions.cs" />
     <Compile Include="Helpers\UserManagerExtensions.cs" />
