@@ -45,8 +45,8 @@ namespace ALS.Glance.Api.Controllers
 
             if (!string.IsNullOrEmpty(patientId))
             {
-                var cache = new ResponseCache(false, DefaultCacheTime.Long);
-                var facts = cache.GetValue(Request) as IEnumerable<Facts>;
+                var cache = new ResponseCache<IEnumerable<Facts>>(false, DefaultCacheTime.Long);
+                var facts = cache.GetValue(Request);
                 if (facts == null)
                 {
                     var id = Convert.ToInt64(patientId);

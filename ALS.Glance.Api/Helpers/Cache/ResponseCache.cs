@@ -6,7 +6,7 @@ using ALS.Glance.Api.Properties;
 
 namespace ALS.Glance.Api.Helpers.Cache
 {
-    public class ResponseCache : BaseCache
+    public class ResponseCache<T> : BaseCache
     {
         private readonly bool _absoluteExpiration;
         private readonly TimeSpan _expireSpan;
@@ -28,15 +28,15 @@ namespace ALS.Glance.Api.Helpers.Cache
         }
 
 
-        public object GetValue(HttpRequestMessage requestMessage)
+        public T GetValue(HttpRequestMessage requestMessage)
         {
             if (!Settings.Default.ResponseCacheEnabled)
             {
-                return null;
+                return default(T);
             }
 
             var key = HttpUtility.UrlDecode(requestMessage.RequestUri.AbsoluteUri);
-            return key == null ? null : Cache.Get(key);
+            return key == null ? default(T) :(T) Cache.Get(key);
         }
 
         public void SetValue(HttpRequestMessage requestMessage, object value)

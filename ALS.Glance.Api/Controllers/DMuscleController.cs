@@ -28,8 +28,8 @@ namespace ALS.Glance.Api.Controllers
         [EnableQuery, CorsPolicy]
         public IQueryable<DMuscle> Get()
         {
-            var cache = new ResponseCache(false, DefaultCacheTime.Long);
-            var muscles = cache.GetValue(Request) as IEnumerable<DMuscle>;
+            var cache = new ResponseCache<IEnumerable<DMuscle>>(false, DefaultCacheTime.Long);
+            var muscles = cache.GetValue(Request) ;
             if (muscles == null)
             {
                 muscles = _uow.Muscles.GetAll().ToArray();

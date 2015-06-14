@@ -28,8 +28,8 @@ namespace ALS.Glance.Api.Controllers
         [EnableQuery, CorsPolicy]
         public IQueryable<DPatient> Get()
         {
-            var cache = new ResponseCache(false, DefaultCacheTime.Long);
-            var patients = cache.GetValue(Request) as IEnumerable<DPatient>;
+            var cache = new ResponseCache<IEnumerable<DPatient>>(false, DefaultCacheTime.Long);
+            var patients = cache.GetValue(Request) ;
             if (patients == null)
             {
                 patients = _uow.Patients.GetAll().ToArray();
@@ -41,17 +41,23 @@ namespace ALS.Glance.Api.Controllers
         [EnableQuery]
         public async Task<IHttpActionResult> Get([FromODataUri] long key, CancellationToken ct)
         {
-            var entity = await _uow.Patients.GetByIdAsync(key, ct);
+            var cache = new ResponseCache<DPatient>(false, DefaultCacheTime.Long);
+            var entity = cache.GetValue(Request);
             if (entity == null)
-                return NotFound();
+            {
+                entity = await _uow.Patients.GetByIdAsync(key, ct);
+                if (entity == null)
+                    return NotFound();
+                cache.SetValue(Request, entity);
+            }
             return Ok(SingleResult.Create(new[] { entity }.AsQueryable()));
         }
 
         [HttpGet]
         public IHttpActionResult GetYearBounds([FromODataUri] long key)
         {
-            var cache = new ResponseCache(false, DefaultCacheTime.Long);
-            var bounds = cache.GetValue(Request) as YearBounds;
+            var cache = new ResponseCache<YearBounds>(false, DefaultCacheTime.Long);
+            var bounds = cache.GetValue(Request) ;
             if (bounds == null)
             {
                 var years = _uow.Facts.GetAll()
@@ -72,8 +78,8 @@ namespace ALS.Glance.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetAgeBounds()
         {
-            var cache = new ResponseCache(false, DefaultCacheTime.Long);
-            var bounds = cache.GetValue(Request) as AgeBounds;
+            var cache = new ResponseCache<AgeBounds>(false, DefaultCacheTime.Long);
+            var bounds = cache.GetValue(Request);
             if (bounds == null)
             {
                 var today = DateTime.Now.Year;
