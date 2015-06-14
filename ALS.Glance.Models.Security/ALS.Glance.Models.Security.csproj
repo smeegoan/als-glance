@@ -46,7 +46,6 @@
   <ItemGroup>
     <Compile Include="Implementations\ApiAuthenticationAccessToken.cs" />
     <Compile Include="ApiAuthenticationToken.cs" />
-    <Compile Include="Implementations\ApiRole.cs" />
     <Compile Include="Implementations\ApplicationUser.cs" />
     <Compile Include="Implementations\IdentityRole.cs" />
     <Compile Include="Implementations\IdentityUser.cs" />

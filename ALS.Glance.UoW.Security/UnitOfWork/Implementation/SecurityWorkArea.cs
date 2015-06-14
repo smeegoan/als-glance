@@ -16,8 +16,7 @@ namespace ALS.Glance.UoW.Security.UnitOfWork.Implementation
         private readonly SecurityDbContext _context;
         private readonly Lazy<IApiAuthenticationAccessTokenRepository> _lazyApiAuthenticationAccessTokeyRepository;
         private readonly Lazy<IApiAuthenticationTokenRepository> _lazyApiAuthenticationTokenRepository;
-        private readonly Lazy<IApiRoleRepository> _lazyApiRoleRepository;
-         private readonly Lazy<IApplicationRepository> _lazyApplicationRepository;
+        private readonly Lazy<IApplicationRepository> _lazyApplicationRepository;
         private readonly Lazy<IBaseIdentityRepository> _lazyBaseIdentityRepository;
 
         private readonly ConcurrentDictionary<Type, IDisposable> _userManagersForDispose =
@@ -54,12 +53,6 @@ namespace ALS.Glance.UoW.Security.UnitOfWork.Implementation
             get { return _lazyApiAuthenticationTokenRepository.Value; }
         }
 
-        public IApiRoleRepository ApiRoles
-        {
-            get { return _lazyApiRoleRepository.Value; }
-        }
-
-   
         public IApplicationRepository Applications
         {
             get { return _lazyApplicationRepository.Value; }
@@ -76,10 +69,9 @@ namespace ALS.Glance.UoW.Security.UnitOfWork.Implementation
             _context = context;
             _lazyApiAuthenticationAccessTokeyRepository = new Lazy<IApiAuthenticationAccessTokenRepository>(() => new ApiAuthenticationAccessTokenRepository(context));
             _lazyApiAuthenticationTokenRepository = new Lazy<IApiAuthenticationTokenRepository>(() => new ApiAuthenticationTokenRepository(context));
-            _lazyApiRoleRepository = new Lazy<IApiRoleRepository>(() => new ApiRoleRepository(context));
             _lazyApplicationRepository = new Lazy<IApplicationRepository>(() => new ApplicationRepository(context));
             _lazyBaseIdentityRepository = new Lazy<IBaseIdentityRepository>(() => new BaseIdentityRepository(context));
-         }
+        }
 
         ~SecurityWorkArea()
         {

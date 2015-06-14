@@ -115,14 +115,6 @@ namespace ALS.Glance.UoW.Security.Context.Implementation
                         .HasColumnType("datetime2")
                         .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute()));
                 });
-
-
-            modelBuilder.Entity<ApiRole>(
-                cfg =>
-                {
-                    cfg.ToTable("AspNetExtApiRoles");
-                    cfg.Property(e => e.Description).HasMaxLength(512);
-                });
         }
 
         /// <summary>

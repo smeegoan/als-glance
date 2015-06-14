@@ -67,12 +67,10 @@
       <DependentUpon>IdentityResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Implementation\ApiRoleRepository.cs" />
     <Compile Include="Repositories\Implementation\ApiAuthenticationAccessTokenRepository.cs" />
     <Compile Include="Repositories\Implementation\ApiAuthenticationTokenRepository.cs" />
     <Compile Include="Repositories\Implementation\ApplicationRepository.cs" />
     <Compile Include="Repositories\Implementation\BaseIdentityRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IApiRoleRepository.cs" />
     <Compile Include="Repositories\Interfaces\IApiAuthenticationAccessTokenRepository.cs" />
     <Compile Include="Repositories\Interfaces\IApiAuthenticationTokenRepository.cs" />
     <Compile Include="Repositories\Interfaces\IApplicationRepository.cs" />

@@ -13,7 +13,6 @@ namespace ALS.Glance.UoW.Security.UnitOfWork.Interfaces
             where TUser : class, IIdentityUser<string, IdentityUserLogin, IdentityUserRole, IdentityUserClaim>, IUser;
         IApiAuthenticationAccessTokenRepository ApiAuthenticationAccessTokens { get; }
         IApiAuthenticationTokenRepository ApiAuthenticationTokens { get; }
-        IApiRoleRepository ApiRoles { get; }
         IApplicationRepository Applications { get; }
         IBaseIdentityRepository BaseIdentities { get; }
     }
