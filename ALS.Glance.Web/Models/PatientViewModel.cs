@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using ALS.Glance.DataAgents.ALS.Glance.Models;
+using ALS.Glance.Models.Core;
 
 namespace ALS.Glance.Web.Models
 {
-    public class PatientViewModel
+    public class PatientViewModel : Model<long>
     {
+        public string Name { get; set; }
         public string Settings { get; set; }
-        public long Id { get; set; }
         public short YearMax { get; set; }
 
         public short YearMin { get; set; }

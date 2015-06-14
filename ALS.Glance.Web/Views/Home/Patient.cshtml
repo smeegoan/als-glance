@@ -1,8 +1,7 @@
 ﻿@model ALS.Glance.Web.Models.PatientViewModel
 
 @{
-    ViewBag.Title = "Details";
-    var i = 0;
+    ViewBag.Title = Model.Name+ " Resume";
 }
 <ul class="nav nav-tabs">
     <li class="active"><a href="#results" data-toggle="tab">Resume</a></li>
@@ -214,29 +213,29 @@
 </div>
 
 @section Scripts {
-    @*@if (Request.IsAuthenticated)*@
     @Scripts.Render("~/Home/ApiAuth")
-    @Scripts.Render("~/bundles/dashboardpatientjs")
+    @Scripts.Render("~/bundles/commonjs")
+    @Scripts.Render("~/bundles/dashboardjs")
     <script>
-    $(function() {
+        $(function() {
 
-        var apiClient = new alsglance.ApiClient({
-            baseUri: alsglance.baseUri,
-            authToken: alsglance.authToken,
-            onAuthFail: function() {
-                $(".error").show();
-            }
-        });
-        //$.when(apiClient.get("Fact?$select=AUC&$expand=Time($select=Hour,TimeOfDay),Date($select=DayOfWeek,Weekday,Date,Year,MonthName,Quarter),Patient,Muscle($select=Name,Abbreviation)&$filter=Patient/Id eq " + @Model.Id))
-        $.when(apiClient.get("Facts?$select=AUC,TimeHour,TimeTimeOfDay,DateDayOfWeek,DateWeekday,DateDate,DateYear,DateMonthName,DateQuarter,MuscleName,MuscleAbbreviation,PatientName&$filter=PatientId eq @Model.Id"))
-            .then(function(data) {
-                alsglance.dashboard.settings = alsglance.dashboard.settings || JSON.parse(decodeURIComponent('@Html.Raw(Model.Settings)'));
-                alsglance.dashboard.patientId = @Model.Id;
-                data = alsglance.dashboard.patient.addPredictions(data);
-                alsglance.dashboard.patient.load(data, @Model.YearMin, @Model.YearMax);
-                initColors(alsglance.dashboard.settings.colorScheme);
-                alsglance.dashboard.patient.init();
-                alsglance.dashboard.patient.applyFilters(alsglance.dashboard.settings["P"+@Model.Id]);
+            var apiClient = new alsglance.ApiClient({
+                baseUri: alsglance.baseUri,
+                authToken: alsglance.authToken,
+                onAuthFail: function() {
+                    toastr.error("Error authenticating!", 'ALS Glance');
+                }
+            });
+            //$.when(apiClient.get("Fact?$select=AUC&$expand=Time($select=Hour,TimeOfDay),Date($select=DayOfWeek,Weekday,Date,Year,MonthName,Quarter),Patient,Muscle($select=Name,Abbreviation)&$filter=Patient/Id eq " + @Model.Id))
+            $.when(apiClient.get("Facts?$select=AUC,TimeHour,TimeTimeOfDay,DateDayOfWeek,DateWeekday,DateDate,DateYear,DateMonthName,DateQuarter,MuscleName,MuscleAbbreviation,PatientName&$filter=PatientId eq @Model.Id"))
+                .then(function(data) {
+                    alsglance.dashboard.settings = alsglance.dashboard.settings || JSON.parse(decodeURIComponent('@Html.Raw(Model.Settings)'));
+                    alsglance.dashboard.patientId = @Model.Id;
+                    data = alsglance.dashboard.patient.addPredictions(data);
+                    alsglance.dashboard.patient.load(data, @Model.YearMin, @Model.YearMax);
+                    initColors(alsglance.dashboard.settings.colorScheme);
+                    alsglance.dashboard.patient.init();
+                    alsglance.dashboard.patient.applyFilters(alsglance.dashboard.settings["P"+@Model.Id]);
                     $.when(apiClient.get("EMG?$select=Data&$top=1&$orderby=Date&$filter=Patient/Id eq @Model.Id"))
                     .then(function(emg) {
                         if (emg.value.length==0)

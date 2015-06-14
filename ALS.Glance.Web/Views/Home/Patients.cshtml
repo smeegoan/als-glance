@@ -34,15 +34,18 @@
                     <th>
                         Sex
                     </th>
-                    <th></th>
+                    <th>Resume</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model.Patients)
                 {
+                    var patient = item;
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.PatientId)
+
+
+                            @Html.DisplayFor(modelItem => patient.PatientId)
                         </td>
                         <td>
                             @item.BornOn.Date.ToShortDateString()
@@ -51,13 +54,13 @@
                             @item.DiagnosedOn.Date.ToShortDateString()
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Name)
+                            @Html.DisplayFor(modelItem => patient.Name)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Sex)
+                            @Html.DisplayFor(modelItem => patient.Sex)
                         </td>
                         <td>
-                            <a href="javascript:javascript:alsglance.dashboard.patients.waitingDialog.show('@item.Name');window.location='@Url.Action("Patients", "Home", new { id = item.Id }, null)';"> <span class="fa fa-eye"></span></a>
+                            <a id="resume" href="javascript:alsglance.dashboard.patients.waitingDialog.show('@patient.Name');window.location='@Url.Action("Patients", "Home", new { item.Id}, null)';"> <span id="resume" class="fa fa-eye"></span></a>
                         </td>
                     </tr>
                 }
@@ -68,7 +71,7 @@
 @section Scripts {
     @Scripts.Render("~/Home/ApiAuth")
     @Scripts.Render("~/bundles/datatablejs")
-    @Scripts.Render("~/bundles/dashboardpatientsjs")
+    @Scripts.Render("~/bundles/commonjs")
 
     <script>
         $(function () {
@@ -77,7 +80,7 @@
                 baseUri: alsglance.baseUri,
                 authToken: alsglance.authToken,
                 onAuthFail: function () {
-                    $(".error").show();
+                    toastr.error("Error authenticating!", 'ALS Glance');
                 }
             });
             $.when(apiClient.get("DPatient?$select=Sex,BornOn"))
@@ -88,7 +91,6 @@
             $('#patients').dataTable({
                 responsive: true
             });
-
         });
     </script>
 }

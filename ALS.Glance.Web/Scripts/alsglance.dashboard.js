@@ -281,29 +281,36 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                 toastr.success('Filter changes were successfully saved.', 'ALS Glance');
             },
             failure: function (errMsg) {
-                toastr.error(errMsg, 'ALS Glance');;
+                toastr.error(errMsg, 'ALS Glance');
             }
         });
     },
     applyFilters: function (filterObjects) {
         if (filterObjects == null)
             return;
-
+        var id,filter;
         for (var i = 0; i < filterObjects.length; i++) {
-            dc.chartRegistry.list()[filterObjects[i].ChartID - 1].filter(filterObjects[i].Filter);
+            id = filterObjects[i].ChartID;
+            filter = filterObjects[i].Filter;
+            if (id == 1)
+                alsglance.dashboard.patient.filterMuscle(filter[0]);
+            else {
+                dc.chartRegistry.list()[id - 1].filter(filter);
+            }
         }
         dc.redrawAll();
     },
     reset: function () {
         dc.filterAll();
         alsglance.dashboard.patient.datePicker();
-        $('#AT').addClass("active");
-        $('#FCR').removeClass("active");
-        $('#SCM').removeClass("active");
         alsglance.dashboard.patient.filterMuscle("AT");
         dc.redrawAll();
     },
     filterMuscle: function (muscle) {
+        $('#AT').removeClass("active");
+        $('#FCR').removeClass("active");
+        $('#SCM').removeClass("active");
+        $('#' + muscle).addClass("active");
         muscleChart.filterAll();
         muscleChart.filter([muscle]);
     },

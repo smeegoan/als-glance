@@ -60,11 +60,13 @@ namespace ALS.Glance.Web.Controllers
                 };
                 return View(model);
             }
-            var settings = await _glanceDa.GetSettingsAsync(_credentials,User.Identity.GetUserId(), ct);
+            var settings = await _glanceDa.GetSettingsAsync(_credentials, User.Identity.GetUserId(), ct);
             var muscles = await _glanceDa.GetMusclesAsync(_credentials, ct);
             var yearBounds = await _glanceDa.GetYearBoundsAsync(_credentials, id.Value, ct);
+            var patient = await _glanceDa.GetPatientAsync(_credentials, id.Value, ct);
             var patientModel = new PatientViewModel
            {
+               Name = patient.Name,
                Settings = settings != null ? settings.Value : "{}",
                Id = id.Value,
                YearMax = yearBounds.Max,

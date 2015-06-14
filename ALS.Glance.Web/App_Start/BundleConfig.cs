@@ -20,30 +20,22 @@ namespace ALS.Glance.Web
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-
-            bundles.Add(new ScriptBundle("~/bundles/dashboardpatientsjs").Include(
+            bundles.Add(new ScriptBundle("~/bundles/commonjs").Include(
                 "~/Scripts/CrossFilter/crossfilter.js",
                 "~/Scripts/d3.v3.js",
                 "~/Scripts/DC/dc.js",
                 "~/Scripts/apiclient.js",
                 "~/Scripts/moment.js",
-                "~/Scripts/alsglance.dashboard.js"));
+                "~/Scripts/alsglance.dashboard.js",
+                "~/Scripts/toastr.js"));
 
-
-            bundles.Add(new ScriptBundle("~/bundles/dashboardpatientjs").Include(
-                "~/Scripts/CrossFilter/crossfilter.js",
-                "~/Scripts/d3.v3.js",
-                "~/Scripts/DC/dc.js",
-                "~/Scripts/apiclient.js",
-                "~/Scripts/regression.js",
-                "~/Scripts/moment.js",
+            bundles.Add(new ScriptBundle("~/bundles/dashboardjs").Include(
+                 "~/Scripts/regression.js",
                 "~/Scripts/daterangepicker.js",
                 "~/Scripts/colorbrewer.js",
                 "~/Scripts/colorbrewer_schemes.js",
                 "~/Scripts/dygraph-combined.js",
-                "~/Scripts/devoops.js",
-                "~/Scripts/toastr.js",
-                "~/Scripts/alsglance.dashboard.js"));
+                "~/Scripts/devoops.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include(
                       "~/Scripts/bootstrap.js",

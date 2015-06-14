@@ -12,6 +12,7 @@ namespace ALS.Glance.DataAgents.Interfaces
     public interface IALSGlanceDA : IDataAgent
     {
         Task<IEnumerable<DPatient>> GetPatientsAsync(WebApiCredentials credentials, CancellationToken ct);
+        Task<DPatient> GetPatientAsync(WebApiCredentials credentials, long id,CancellationToken ct);
 
         Task<ApplicationSettings> GetSettingsAsync(WebApiCredentials credentials, string userId, CancellationToken ct);
 

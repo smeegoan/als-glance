@@ -33,7 +33,22 @@ namespace ALS.Glance.DataAgents.Implementations
                    ct);
         }
 
-        public async Task<ApplicationSettings> GetSettingsAsync(WebApiCredentials credentials, string userId,CancellationToken ct)
+        public async Task<DPatient> GetPatientAsync(WebApiCredentials credentials, long id, CancellationToken ct)
+        {
+            ct.ThrowIfCancellationRequested();
+            return await WebApiODataContainer.Using(_apiUrl, credentials)
+               .ExecuteAuthenticated(
+                     container =>
+                     {
+                         ct.ThrowIfCancellationRequested();
+                         var query = container.DPatient.Where(e => e.Id == id);
+
+                         return query.FirstOrDefault();
+                     },
+                   ct);
+        }
+
+        public async Task<ApplicationSettings> GetSettingsAsync(WebApiCredentials credentials, string userId, CancellationToken ct)
         {
             ct.ThrowIfCancellationRequested();
             return await WebApiODataContainer.Using(_apiUrl, credentials)
