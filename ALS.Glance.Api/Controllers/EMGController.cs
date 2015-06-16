@@ -22,13 +22,13 @@ namespace ALS.Glance.Api.Controllers
             _uow = unitOfWorkFactory.Get<IALSUnitOfWork>();
         }
 
-        [EnableQuery, CorsPolicy]
+        [EnableQuery, EnableCors]
         public IQueryable<EMG> Get()
         {
             return _uow.EMGs.GetAll();
         }
 
-        [EnableQuery, CorsPolicy]
+        [EnableQuery, EnableCors]
         public async Task<IHttpActionResult> Get([FromODataUri] long key, CancellationToken ct)
         {
             var entity = await _uow.EMGs.GetByIdAsync(key, ct);

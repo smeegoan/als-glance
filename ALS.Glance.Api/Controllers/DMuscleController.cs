@@ -25,7 +25,7 @@ namespace ALS.Glance.Api.Controllers
             _uow = unitOfWorkFactory.Get<IALSUnitOfWork>();
         }
 
-        [EnableQuery, CorsPolicy]
+        [EnableQuery, EnableCors]
         public IQueryable<DMuscle> Get()
         {
             var cache = new ResponseCache<IEnumerable<DMuscle>>(false, DefaultCacheTime.Long);

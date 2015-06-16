@@ -197,7 +197,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Security\Base64StringManipulationExtensions.cs" />
-    <Compile Include="Security\CorsPolicyAttribute.cs" />
+    <Compile Include="Security\EnableCorsAttribute.cs" />
     <Compile Include="Security\SmtpEmailService.cs" />
     <Compile Include="Security\Filters\ApiAuthorizeAttribute.cs" />
     <Compile Include="Security\Filters\PermissionAttribute.cs" />

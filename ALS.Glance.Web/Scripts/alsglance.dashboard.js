@@ -268,7 +268,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         var entity = {};
         entity.UserId = alsglance.dashboardUserId;
         entity.ApplicationId = alsglance.applicationId;
-        entity.Value = encodeURIComponent(JSON.stringify(alsglance.dashboard.settings));
+        entity.Value = JSON.stringify(alsglance.dashboard.settings);
         $.ajax({
             type: "POST",
             url: alsglance.baseUri + "ApplicationSettings",

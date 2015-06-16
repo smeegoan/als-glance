@@ -8,11 +8,11 @@ using System.Web.Http.Cors;
 namespace ALS.Glance.Api.Security
 {
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
-    public class CorsPolicyAttribute : Attribute, ICorsPolicyProvider
+    public class EnableCorsAttribute : Attribute, ICorsPolicyProvider
     {
         private readonly CorsPolicy _policy;
 
-        public CorsPolicyAttribute()
+        public EnableCorsAttribute()
         {
             // Create a CORS policy.
             _policy = new CorsPolicy

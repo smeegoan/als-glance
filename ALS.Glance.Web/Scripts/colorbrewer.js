@@ -100,15 +100,13 @@ function clearSchemes() {
 }
 
 function setScheme(s) {
-    $("#county-map g").removeClass(selectedScheme).addClass(s);
-    $(".ramp.selected").removeClass("selected");
+     $(".ramp.selected").removeClass("selected");
     selectedScheme = s;
     $(".ramp." + selectedScheme).addClass("selected");
     $("#scheme-name").html(numClasses + "-class " + selectedScheme);
     applyColors();
     drawColorChips();
-    $("#permalink").val("http://colorbrewer2.org/?type=" + selectedSchemeType + "&scheme=" + selectedScheme + "&n=" + numClasses);
-
+  
     var jsonString = "[";
     for (var i = 0; i < numClasses; i++) {
         jsonString += "'" + colorbrewer[selectedScheme][numClasses][i] + "'";

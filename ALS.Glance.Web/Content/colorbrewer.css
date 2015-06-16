@@ -394,5 +394,4 @@ a:hover{ text-decoration: underline; }
 .svg-container { position: absolute; width: 100%; height: 100%; overflow: hidden; }
 #terrain-img{ position: absolute; }
 #road-lines{ fill: none; stroke: #f33; stroke-width: 1.5px; }
-#county-map{ fill: #999; }
-#county-map g{ stroke: #000; stroke-width: .50px; }
+

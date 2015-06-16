@@ -30,7 +30,7 @@ namespace ALS.Glance.Api.Controllers
 
         #region ODataGet
 
-        [EnableQuery, CorsPolicy]
+        [EnableQuery, EnableCors]
         public IQueryable<Facts> Get(ODataQueryOptions<Facts> options)
         {
             var parameters = _binder.BindFilter(options.Filter, ex =>

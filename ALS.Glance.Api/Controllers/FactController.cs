@@ -25,7 +25,7 @@ namespace ALS.Glance.Api.Controllers
 
         #region ODataGet
 
-        [EnableQuery, CorsPolicy]
+        [EnableQuery, EnableCors]
         public IQueryable<Fact> Get()
         {
             return _uow.Facts.GetAll();

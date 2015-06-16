@@ -242,6 +242,7 @@
     <Content Include="Content\dc.css" />
     <Content Include="Content\colorbrewer.css" />
     <Content Include="Content\images\Flexor-carpi-radialis.png" />
+    <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\Sternocleidomastoideus.png" />
     <Content Include="Content\images\Tibialis_anterior.png" />
     <Content Include="Content\Site.min.css">
@@ -363,6 +364,12 @@
     <Content Include="Scripts\alsglance.dashboard.min.js.map">
       <DependentUpon>alsglance.dashboard.min.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\d3.v3.min.js.map">
+      <DependentUpon>d3.v3.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\CrossFilter\crossfilter.min.js.map">
+      <DependentUpon>crossfilter.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\d3.v3.js" />
     <Content Include="Scripts\d3.v3.min.js" />
@@ -379,6 +386,15 @@
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-1.10.2.intellisense.min.js.map">
       <DependentUpon>jquery-1.10.2.intellisense.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-1.10.2.min.js.map">
+      <DependentUpon>jquery-1.10.2.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-ui-1.11.4.min.js.map">
+      <DependentUpon>jquery-ui-1.11.4.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.dataTables.min.js.map">
+      <DependentUpon>jquery.dataTables.min.js</DependentUpon>
     </Content>
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
@@ -448,6 +464,24 @@
     </Content>
     <Content Include="Scripts\jquery.validate-vsdoc.min.js.map">
       <DependentUpon>jquery.validate-vsdoc.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.validate.min.js.map">
+      <DependentUpon>jquery.validate.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js.map">
+      <DependentUpon>jquery.validate.unobtrusive.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\toastr.min.js.map">
+      <DependentUpon>toastr.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\moment-with-locales.min.js.map">
+      <DependentUpon>moment-with-locales.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\moment.min.js.map">
+      <DependentUpon>moment.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\respond.min.js.map">
+      <DependentUpon>respond.min.js</DependentUpon>
     </Content>
   </ItemGroup>
   <ItemGroup>
