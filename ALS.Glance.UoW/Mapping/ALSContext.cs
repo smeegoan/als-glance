@@ -102,8 +102,7 @@ namespace ALS.Glance.UoW.Mapping
                     cfg.HasRequired(a => a.Muscle).WithMany(b => b.Fact).HasForeignKey(c => c.MuscleId);
                     cfg.HasRequired(a => a.Patient).WithMany(b => b.Fact).HasForeignKey(c => c.PatientId);
                     cfg.HasRequired(a => a.Time).WithMany(b => b.Fact).HasForeignKey(c => c.TimeId);
-                    cfg.Map();   
-                });
+                 });
 
             modelBuilder.Entity<DPatient>(
                 cfg =>

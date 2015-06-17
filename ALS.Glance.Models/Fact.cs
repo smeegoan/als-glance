@@ -2,7 +2,7 @@
 
 namespace ALS.Glance.Models
 {
-    public class Fact : ModelWithAllMeta<long>
+    public class Fact : Model<long>
     {
         public decimal AUC { get; set; }
 
