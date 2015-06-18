@@ -32,6 +32,7 @@ namespace ALS.Glance.Web
             bundles.Add(new ScriptBundle("~/bundles/dashboardjs").Include(
                  "~/Scripts/regression.js",
                 "~/Scripts/daterangepicker.js",
+                "~/Scripts/intro.js",
                 "~/Scripts/colorbrewer.js",
                 "~/Scripts/colorbrewer_schemes.js",
                 "~/Scripts/dygraph-combined.js",
@@ -47,6 +48,7 @@ namespace ALS.Glance.Web
 
             bundles.Add(new StyleBundle("~/Content/misccss").Include(
                 "~/Content/dc.css",
+                "~/Content/introjs.css",
                 "~/Content/devoops.css",
                 "~/Content/daterangepicker-bs3.css",
                 "~/Content/colorbrewer.css",

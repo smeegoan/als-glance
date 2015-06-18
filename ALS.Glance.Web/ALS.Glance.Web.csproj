@@ -245,6 +245,14 @@
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\Sternocleidomastoideus.png" />
     <Content Include="Content\images\Tibialis_anterior.png" />
+    <Content Include="Content\introjs-dark.css" />
+    <Content Include="Content\introjs-nassim.css" />
+    <Content Include="Content\introjs-nazanin.css" />
+    <Content Include="Content\introjs-royal.css" />
+    <Content Include="Content\introjs-rtl.css" />
+    <Content Include="Content\introjs-rtl.min.css" />
+    <Content Include="Content\introjs.css" />
+    <Content Include="Content\introjs.min.css" />
     <Content Include="Content\Site.min.css">
       <DependentUpon>Site.css</DependentUpon>
     </Content>
@@ -379,6 +387,8 @@
     <Content Include="Scripts\dygraph-combined.min.js">
       <DependentUpon>dygraph-combined.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\intro.js" />
+    <Content Include="Scripts\intro.min.js" />
     <Content Include="Scripts\jquery-1.10.2.intellisense.min.js">
       <DependentUpon>jquery-1.10.2.intellisense.js</DependentUpon>
     </Content>

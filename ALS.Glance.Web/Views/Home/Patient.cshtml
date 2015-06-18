@@ -1,7 +1,7 @@
 ﻿@model ALS.Glance.Web.Models.PatientViewModel
 
 @{
-    ViewBag.Title = Model.Name+ " Resume";
+    ViewBag.Title = Model.Name + " Resume";
 }
 <ul class="nav nav-tabs">
     <li class="active"><a href="#results" data-toggle="tab">Resume</a></li>
@@ -58,7 +58,7 @@
                             </div>
                             <div class="no-move"></div>
                         </div>
-                        <div class="box-content" style="height: 250px; position: relative;">
+                        <div class="box-content" style="height: 250px; position: relative;" data-step="1" data-intro="Click on this pie chart to filter by Quarter." data-position='right'>
                             <div style="height: 250px; position: relative;" id="quarterChart" class="dc-chart">
                                 <div class="clearfix"></div>
                                 <div class="loading">Loading...</div>
@@ -88,7 +88,7 @@
                             </div>
                             <div class="no-move"></div>
                         </div>
-                        <div class="box-content" style="height: 250px; position: relative;">
+                        <div class="box-content" style="height: 250px; position: relative;" data-step="2" data-intro="Click on this row chart to filter by time of day." data-position='right'>
                             <div style="height: 250px; position: relative;" id="timeOfDayChart" class="dc-chart">
                                 <div class="clearfix"></div>
                                 <div class="loading">Loading...</div>
@@ -136,14 +136,14 @@
                                 <span>AUC</span>
                             </div>
                             <div class="box-icons">
-                                <a class="reset" href="javascript:predictionSeriesChart.filterAll();dateRangeChart.filterAll();dc.redrawAll();"><i class="fa fa-undo"></i></a>
-                                <a class="collapse-link">
+                                <a class="reset" href="javascript:predictionSeriesChart.filterAll();dateRangeChart.filterAll();dc.redrawAll();" data-step="3" data-intro="Click on this button to reset the filters applied to the chart." data-position='right'><i class="fa fa-undo"></i></a>
+                                <a class="collapse-link" data-step="4" data-intro="Click on this button to collapse the panel." data-position='right'>
                                     <i class="fa fa-chevron-up"></i>
                                 </a>
-                                <a class="expand-link">
+                                <a class="expand-link" data-step="5" data-intro="Click on this button to expand the panel." data-position='right'>
                                     <i class="fa fa-expand"></i>
                                 </a>
-                                <a class="close-link">
+                                <a class="close-link" data-step="6" data-intro="Click on this button to close the panel." data-position='right'>
                                     <i class="fa fa-times"></i>
                                 </a>
                             </div>
@@ -235,15 +235,15 @@
                     alsglance.dashboard.patient.load(data, @Model.YearMin, @Model.YearMax);
                     initColors(alsglance.dashboard.settings.colorScheme);
                     alsglance.dashboard.patient.init();
-                    alsglance.dashboard.patient.applyFilters(alsglance.dashboard.settings["P"+@Model.Id]);
+                    alsglance.dashboard.patient.applyFilters(alsglance.dashboard.settings["P" + @Model.Id]);
                     $.when(apiClient.get("EMG?$select=Data&$top=1&$orderby=Date&$filter=Patient/Id eq @Model.Id"))
-                    .then(function(emg) {
-                        if (emg.value.length==0)
-                            return;
-                        alsglance.dashboard.patient.loadEMG(JSON.parse(emg.value[0].Data));
-                    });
+                        .then(function(emg) {
+                            if (emg.value.length == 0)
+                                return;
+                            alsglance.dashboard.patient.loadEMG(JSON.parse(emg.value[0].Data));
+                        });
                 });
-
+            $("#helpPlaceHolder").html('<a href="javascript:void(0);" onclick="javascript:introJs().start();">Help</a>');
             WinMove();
         });
     </script>
