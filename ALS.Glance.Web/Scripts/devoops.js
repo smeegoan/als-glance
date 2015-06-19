@@ -586,7 +586,7 @@ $(document).ready(function () {
 	            .height();
 		    var maxHeight = $(window).height()-100;
 		    if (maxHeight == currentHeight)
-		        maxHeight = "250px";
+		        maxHeight = "220px";
 		    box.find('.box-content')
                 .height(maxHeight)
                 .find('.dc-chart')

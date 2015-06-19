@@ -5,13 +5,24 @@ var alsglance = alsglance || {};
 alsglance.dashboard = alsglance.dashboard || {
     resizeChart:
           function (chart) {
+              if (chart == null) {
+                  return;
+              }
               var parent = $("#" + chart.anchorName()).parent();
-              var newWidth = parent.width();
+              var width = parent.width();
+              if (width == null) {
+                  return;
+              }
               var height = parent.height();
               var children = parent.children().size();
-              chart.width(newWidth);
+              chart.width(width);
               if (children == 1) {
                   chart.height(height);
+              }
+              if (chart.hasOwnProperty("radius")) //pie chart
+              {
+                  chart.radius(Math.min(width, height) / 2.5);
+                  chart.innerRadius(chart.radius() / 2);
               }
           },
     resize: function () {
@@ -26,6 +37,8 @@ alsglance.dashboard = alsglance.dashboard || {
             chart = dc.chartRegistry.list()[i];
             chart.transitionDuration(500);
         }
+        if (emgChart != null)
+            emgChart.resize();
     },
     replaceResetBehaviour: function () {
         for (var i = 0; i < dc.chartRegistry.list().length; i++) {
@@ -263,7 +276,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                 filters.push({ ChartID: chart.chartID(), Filter: chart.filters()[j] });
             }
         }
-        alsglance.dashboard.settings["P"+alsglance.dashboard.patientId] = filters;
+        alsglance.dashboard.settings["P" + alsglance.dashboard.patientId] = filters;
         alsglance.dashboard.settings.colorScheme = selectedScheme;
         var entity = {};
         entity.UserId = alsglance.dashboardUserId;
@@ -277,7 +290,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             ),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            success: function(data) {
+            success: function (data) {
                 toastr.success('Filter changes were successfully saved.', 'ALS Glance');
             },
             failure: function (errMsg) {
@@ -288,7 +301,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
     applyFilters: function (filterObjects) {
         if (filterObjects == null)
             return;
-        var id,filter;
+        var id, filter;
         for (var i = 0; i < filterObjects.length; i++) {
             id = filterObjects[i].ChartID;
             filter = filterObjects[i].Filter;
@@ -374,15 +387,19 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         emgChart = new Dygraph(document.getElementById("emgChart"), data, {
             // customBars: true,
             //   title: 'Daily Temperatures in New York vs. San Francisco',
+            labels: ['Time', 'µV'],
             //xlabel: 'Time',
             //ylabel: 'EMG Signal',
-            legend: 'always',
+            legend: 'true',
             colors: [colorbrewer[selectedScheme][numClasses][3]],
             labelsDivStyles: {
                 'textAlign': 'right'
-            } 
+            }
             //,showRangeSelector: true
         });
+        emgChart.anchorName = function () {
+            return "emgChart";
+        };
     },
     load: function (data, minYear, maxYear) {
         muscleChart = dc.pieChart('#muscleChart');
