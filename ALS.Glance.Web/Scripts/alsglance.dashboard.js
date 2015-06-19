@@ -14,6 +14,13 @@ alsglance.dashboard = alsglance.dashboard || {
                   return;
               }
               var height = parent.height();
+              if (chart.hasOwnProperty("rangeChart")) {
+                  var range = chart.rangeChart();
+                  if (range != null) {
+                      height -= range.height();
+                      $("#" + chart.anchorName()).height(height); //fix for ranged charts
+                  }
+              }
               var children = parent.children().size();
               chart.width(width);
               if (children == 1) {
@@ -192,8 +199,6 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
         );
 
         aucBubbleChart
-            //.width(800) // (optional) define chart width, :default = 200
-            //.height(250) // (optional) define chart height, :default = 200
             .transitionDuration(1500) // (optional) define chart transition duration, :default = 750
             .margins({ top: 10, right: 50, bottom: 40, left: 50 })
             .dimension(timeOfDayDimension)
@@ -598,8 +603,8 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
 
         predictionSeriesChart
                .margins({ top: 20, right: 30, bottom: 20, left: 60 })
-       .width(460)
-            .height(180)
+       //.width(460)
+            .height(160)
             //.chart(function(c) { return dc.lineChart(c).interpolate('basis'); })
             .x(d3.time.scale().domain([new Date(minYear, 0, 1), new Date(maxYear + 1, 11, 31)]))
             .y(d3.scale.linear().domain([0.009, 0.03]))
@@ -625,10 +630,10 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             });
 
         dateRangeChart
-            .width(460)
-           .height(60)
-               .mouseZoomable(true)
-         .margins({ top: 10, right: 50, bottom: 20, left: 60 })
+            // .width(460)
+            .height(100)
+            .mouseZoomable(true)
+            .margins({ top: 20, right: 50, bottom: 20, left: 60 })
             .dimension(dateMonthInYearDimension)
             .group(volumeByMonthGroup)
             .centerBar(true)
@@ -645,27 +650,6 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             });
 
         //#endregion
-
-
-
-        //emgChart = new Dygraph(document.getElementById("emgChart"),
-        //         // For possible data formats, see http://dygraphs.com/data.html
-        //         // The x-values could also be dates, e.g. "2012/03/15"
-        //         "X,Y\n" +
-        //         "1,2516\n" +
-        //         "2,2\n" +
-        //         "3,4\n" +
-        //         "4,6\n" +
-        //         "5,8\n" +
-        //         "6,2488\n" +
-        //         "7,12\n" +
-        //         "8,14\n",
-        //         {
-        //             // options go here. See http://dygraphs.com/options.html
-        //             legend: 'always',
-        //             animatedZooms: true,
-        //             title: 'dygraphs chart template'
-        //         });
 
 
         //#region DataTable
