@@ -171,14 +171,14 @@
                                 <span>Last EMG in selected period</span>
                             </div>
                             <div class="box-icons">
-                                <a class="reset" href="javascript:void(0);" onclick="javascript:emgChart.resetZoom();" data-step="6" data-intro="Click on this button to reset the filters applied to the chart." data-position='left'><i class="fa fa-undo"></i></a>
-                                <a class="collapse-link" data-step="7" data-intro="Click on this button to collapse the panel." data-position='left'>
+                                <a class="reset" href="javascript:void(0);" onclick="javascript:emgChart.resetZoom();" data-step="6" data-intro="Click here to reset the filters applied to the chart." data-position='left'><i class="fa fa-undo"></i></a>
+                                <a class="collapse-link" data-step="7" data-intro="Click here to collapse the panel." data-position='left'>
                                     <i class="fa fa-chevron-up"></i>
                                 </a>
-                                <a class="expand-link" data-step="8" data-intro="Click on this button to expand the panel." data-position='left'>
+                                <a class="expand-link" data-step="8" data-intro="Click here to expand the panel." data-position='left'>
                                     <i class="fa fa-expand"></i>
                                 </a>
-                                <a class="close-link" data-step="9" data-intro="Click on this button to close the panel." data-position='left'>
+                                <a class="close-link" data-step="9" data-intro="Click here to close the panel." data-position='left'>
                                     <i class="fa fa-times"></i>
                                 </a>
                             </div>
@@ -241,7 +241,7 @@
                             alsglance.dashboard.patient.loadEMG(JSON.parse(emg.value[0].Data));
                         });
                 });
-            $("#helpPlaceHolder").html('<a href="javascript:void(0);" onclick="javascript:introJs().start();">Help</a>');
+            alsglance.dashboard.showHelpButton();
             WinMove();
         });
     </script>

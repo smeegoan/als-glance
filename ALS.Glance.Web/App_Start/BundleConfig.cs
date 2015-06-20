@@ -24,6 +24,7 @@ namespace ALS.Glance.Web
                 "~/Scripts/CrossFilter/crossfilter.js",
                 "~/Scripts/d3.v3.js",
                 "~/Scripts/DC/dc.js",
+                "~/Scripts/intro.js",
                 "~/Scripts/apiclient.js",
                 "~/Scripts/moment.js",
                 "~/Scripts/alsglance.dashboard.js",
@@ -32,7 +33,6 @@ namespace ALS.Glance.Web
             bundles.Add(new ScriptBundle("~/bundles/patientjs").Include(
                  "~/Scripts/regression.js",
                 "~/Scripts/daterangepicker.js",
-                "~/Scripts/intro.js",
                 "~/Scripts/colorbrewer.js",
                 "~/Scripts/colorbrewer_schemes.js",
                  "~/Scripts/dygraph-combined.js",

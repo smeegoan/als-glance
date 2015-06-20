@@ -3,6 +3,9 @@ var aucBubbleChart, muscleChart, quarterChart, timeHourChart, timeOfDayChart, pr
 
 var alsglance = alsglance || {};
 alsglance.dashboard = alsglance.dashboard || {
+    showHelpButton: function () {
+        $("#helpPlaceHolder").html('<a href="javascript:void(0);" onclick="javascript:introJs().start();">Help</a>');
+    },
     resizeChart:
           function (chart) {
               if (chart == null) {
@@ -300,7 +303,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             else if (id == 6) { //dateRangeChart must be handled in a different way
                 dc.chartRegistry.list()[id - 1].filterAll();
                 dc.chartRegistry.list()[id - 1].filter(dc.filters.RangedFilter(moment(filter[0]).valueOf(), moment(filter[1]).valueOf()));
-            } else if (id == 3) { //dateRangeChart must be handled in a different way
+            } else if (id == 3) {
                 dc.chartRegistry.list()[id - 1].filterAll();
                 dc.chartRegistry.list()[id - 1].filter(dc.filters.RangedFilter(filter[0], filter[1]));
             }
@@ -421,7 +424,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
 
         alsglance.dashboard.patient.datePicker = function () {
             var minDate = moment("01-01-" + minYear, "MM-DD-YYYY");
-            var maxDate = moment("12-31-" + maxYear, "MM-DD-YYYY");
+            var maxDate = moment("12-31-" + ++maxYear, "MM-DD-YYYY");
             $('#reportrange span').html(minDate.format('MMMM D, YYYY') + ' - ' + maxDate.format('MMMM D, YYYY'));
             $('#reportrange').daterangepicker({
                 format: 'MM/DD/YYYY',
