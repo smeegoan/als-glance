@@ -29,13 +29,13 @@ namespace ALS.Glance.Web
                 "~/Scripts/alsglance.dashboard.js",
                 "~/Scripts/toastr.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/dashboardjs").Include(
+            bundles.Add(new ScriptBundle("~/bundles/patientjs").Include(
                  "~/Scripts/regression.js",
                 "~/Scripts/daterangepicker.js",
                 "~/Scripts/intro.js",
                 "~/Scripts/colorbrewer.js",
                 "~/Scripts/colorbrewer_schemes.js",
-                "~/Scripts/dygraph-combined.js",
+                 "~/Scripts/dygraph-combined.js",
                 "~/Scripts/devoops.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include(

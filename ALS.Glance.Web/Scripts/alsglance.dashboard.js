@@ -292,14 +292,29 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         if (filterObjects == null || filterObjects.length == 0)
             return;
         var id, filter;
-        for (var i = 0; i < filterObjects.length; i++) {
-            id = filterObjects[i].ChartID;
-            filter = filterObjects[i].Filter;
+        for (var j = 0; j < filterObjects.length; j++) {
+            id = filterObjects[j].ChartID;
+            filter = filterObjects[j].Filter;
             if (id == 1)
                 alsglance.dashboard.patient.filterMuscle(filter[0]);
+            else if (id == 6) { //dateRangeChart must be handled in a different way
+                dc.chartRegistry.list()[id - 1].filterAll();
+                dc.chartRegistry.list()[id - 1].filter(dc.filters.RangedFilter(moment(filter[0]).valueOf(), moment(filter[1]).valueOf()));
+            } else if (id == 3) { //dateRangeChart must be handled in a different way
+                dc.chartRegistry.list()[id - 1].filterAll();
+                dc.chartRegistry.list()[id - 1].filter(dc.filters.RangedFilter(filter[0], filter[1]));
+            }
+
+        }
+        for (var i = 0; i < filterObjects.length; i++) {
+            id = filterObjects[i].ChartID;
+            if (id == 1 || id == 3 || id == 6) {
+            }
             else {
+                filter = filterObjects[i].Filter;
                 dc.chartRegistry.list()[id - 1].filter(filter);
             }
+
         }
         dc.redrawAll();
     },
@@ -444,11 +459,8 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             }, function (start, end, label) {
 
                 $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-                predictionDimension.filterAll();
-                predictionDimension.filter(function (d) {
-                    var date = d[1].valueOf();
-                    return date > start.valueOf() && date < end.valueOf();
-                });
+                dateRangeChart.filterAll();
+                dateRangeChart.filter(dc.filters.RangedFilter(start.valueOf(), end.valueOf()));
                 dc.redrawAll();
             });
         };
