@@ -118,7 +118,7 @@
                             <div class="no-move"></div>
                         </div>
                         <div class="box-content" style="height: 250px; position: relative;">
-                            <div style="height: 250px; position: relative;" id="timeHourChart" class="dc-chart">
+                            <div style="height: 250px; position: relative;" id="timeHourChart" class="dc-chart" data-step="3" data-intro="Drag and drop to zoom in." data-position='top'>
                                 <div class="clearfix"></div>
                                 <div class="loading">Loading...</div>
                             </div>
@@ -136,14 +136,14 @@
                                 <span>AUC</span>
                             </div>
                             <div class="box-icons">
-                                <a class="reset" href="javascript:void(0);" onclick="javascript:predictionSeriesChart.filterAll();dateRangeChart.filterAll();dc.redrawAll();" data-step="3" data-intro="Click on this button to reset the filters applied to the chart." data-position='right'><i class="fa fa-undo"></i></a>
-                                <a class="collapse-link" data-step="4" data-intro="Click on this button to collapse the panel." data-position='right'>
+                                <a class="reset" href="javascript:void(0);" onclick="javascript:predictionSeriesChart.filterAll();dateRangeChart.filterAll();dc.redrawAll();"><i class="fa fa-undo"></i></a>
+                                <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
                                 </a>
-                                <a class="expand-link" data-step="5" data-intro="Click on this button to expand the panel." data-position='right'>
+                                <a class="expand-link">
                                     <i class="fa fa-expand"></i>
                                 </a>
-                                <a class="close-link" data-step="6" data-intro="Click on this button to close the panel." data-position='right'>
+                                <a class="close-link">
                                     <i class="fa fa-times"></i>
                                 </a>
                             </div>
@@ -155,7 +155,7 @@
                                     <div class="clearfix"></div>
                                     <div class="loading">Loading...</div>
                                 </div>
-                                <div id="dateRangeChart" class="dc-chart">
+                                <div id="dateRangeChart" class="dc-chart" data-step="4" data-intro="Drag and drop or use mouse wheel to zoom in." data-position='top'>
                                     <div class="clearfix"></div>
 
                                 </div>
@@ -171,14 +171,14 @@
                                 <span>Last EMG in selected period</span>
                             </div>
                             <div class="box-icons">
-                                <a class="reset" href="javascript:void(0);" onclick="javascript:emgChart.resetZoom();"><i class="fa fa-undo"></i></a>
-                                <a class="collapse-link">
+                                <a class="reset" href="javascript:void(0);" onclick="javascript:emgChart.resetZoom();" data-step="6" data-intro="Click on this button to reset the filters applied to the chart." data-position='left'><i class="fa fa-undo"></i></a>
+                                <a class="collapse-link" data-step="7" data-intro="Click on this button to collapse the panel." data-position='left'>
                                     <i class="fa fa-chevron-up"></i>
                                 </a>
-                                <a class="expand-link">
+                                <a class="expand-link" data-step="8" data-intro="Click on this button to expand the panel." data-position='left'>
                                     <i class="fa fa-expand"></i>
                                 </a>
-                                <a class="close-link">
+                                <a class="close-link" data-step="9" data-intro="Click on this button to close the panel." data-position='left'>
                                     <i class="fa fa-times"></i>
                                 </a>
                             </div>
@@ -186,9 +186,10 @@
                         </div>
 
                         <div class="box-content" style="height: 250px; position: relative;">
-                            <div style="width:100%;height: 100%" id='emgChart'>
-                                <div class="loading">Loading...</div>
+                            <div style="width:100%;height: 100%" id='emgChart' data-step="5" data-intro="Drag and drop to zoom in." data-position='top'>
                                 <div class="clearfix"></div>
+                                <div class="loading">Loading...</div>
+
                             </div>
                         </div>
                     </div>
@@ -212,7 +213,7 @@
 @section Scripts {
     @Scripts.Render("~/Home/ApiAuth")
     @Scripts.Render("~/bundles/commonjs")
-    @Scripts.Render("~/bundles/dashboardjs")
+    @Scripts.Render("~/bundles/patientjs")
     <script>
         $(function() {
 

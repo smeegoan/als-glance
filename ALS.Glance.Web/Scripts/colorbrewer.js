@@ -1,3 +1,4 @@
+'use strict';
 var schemeNames = {
     sequential: ["BuGn", "BuPu", "GnBu", "OrRd", "PuBu", "PuBuGn", "PuRd", "RdPu", "YlGn", "YlGnBu", "YlOrBr", "YlOrRd"],
     singlehue: ["Blues", "Greens", "Greys", "Oranges", "Purples", "Reds"],
@@ -269,6 +270,7 @@ function applyColors() {
     timeHourChart.colors(color2).redraw();
     quarterChart.colors(colorRange).redraw();
     predictionSeriesChart.colors(colorsDiferential).redraw();
+
     dateRangeChart.colors(color2).redraw();
     if (emgChart != null) {
         emgChart.updateOptions({ colors: [color3] });

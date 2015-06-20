@@ -2984,7 +2984,7 @@ select[multiple].form-group-lg .form-control {
     padding-top: 6px;
   }
 }
-.btn {
+.btn,.introjs-button {
   display: inline-block;
   margin-bottom: 0;
   font-weight: normal;

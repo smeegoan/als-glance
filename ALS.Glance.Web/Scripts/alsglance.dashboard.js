@@ -206,17 +206,6 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
             //to generate x, y, and radius for each key (bubble) in the group
             .group(timeOfDayGroup)
             .colors(['rgb(49,130,189)', 'rgb(247,104,161)']) // (optional) define color function or array for bubbles
-            //.colorDomain([0, 1]) //(optional) define color domain to match your data domain if you want to bind data or
-            //color
-            //##### Accessors
-            //Accessor functions are applied to each value returned by the grouping
-            //
-            //* `.colorAccessor` The returned value will be mapped to an internal scale to determine a fill color
-            //* `.keyAccessor` Identifies the `X` value that will be applied against the `.x()` to identify pixel location
-            //* `.valueAccessor` Identifies the `Y` value that will be applied agains the `.y()` to identify pixel location
-            //* `.radiusValueAccessor` Identifies the value that will be applied agains the `.r()` determine radius size,
-            //*     by default this maps linearly to [0,100]
-            // .xUnits(dc.units.ordinal)
             .colorAccessor(function (d) {
                 var res = d.key == "M" ? 0 : 1;
                 return res;
@@ -234,10 +223,6 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
             .x(d3.scale.linear().domain([min, max]))
             .y(d3.scale.linear().domain([-100, 100]))
             .r(d3.scale.linear().domain([0, 4000]))
-            //##### Elastic Scaling
-            //`.elasticX` and `.elasticX` determine whether the chart should rescale each axis to fit data.
-            //The `.yAxisPadding` and `.xAxisPadding` add padding to data above and below their max values in the same unit
-            //domains as the Accessors.
             .elasticY(true)
             //.elasticX(true)
             .yAxisPadding(20)
@@ -304,7 +289,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         });
     },
     applyFilters: function (filterObjects) {
-        if (filterObjects == null)
+        if (filterObjects == null || filterObjects.length == 0)
             return;
         var id, filter;
         for (var i = 0; i < filterObjects.length; i++) {
@@ -323,6 +308,10 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         alsglance.dashboard.patient.datePicker();
         alsglance.dashboard.patient.filterMuscle("AT");
         dc.redrawAll();
+        if (emgChart != null) {
+            emgChart.resetZoom();
+        }
+
     },
     filterMuscle: function (muscle) {
         $('#AT').removeClass("active");
@@ -373,7 +362,6 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                         DateDate: startDate.format("YYYY-MM-DD HH:mm"),
                         AUC: equation[0] * ticks + equation[1],
                         DateMonthName: startDate.format("MMMM"),
-                        DateMonth: startDate.format("M"),
                         DateYear: parseInt(startDate.format("YYYY")),
                         DateQuarter: startDate.quarter(),
                         PatientName: "Prediction",
@@ -456,7 +444,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             }, function (start, end, label) {
 
                 $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-                predictionDimension.filter(null);
+                predictionDimension.filterAll();
                 predictionDimension.filter(function (d) {
                     var date = d[1].valueOf();
                     return date > start.valueOf() && date < end.valueOf();
@@ -478,6 +466,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             date.setISO8601(d.DateDate);
             d.DateDate = date;
             d.DateMonthInYear = d3.time.month(d.DateDate); // pre-calculate month for better performance
+
         });
 
         //### Create Crossfilter Dimensions and Groups
@@ -625,9 +614,11 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             .valueAccessor(function (d) {
                 return +d.value;
             })
+
             .legend(dc.legend().x(280).y(20).itemHeight(13).gap(5).legendWidth(170).itemWidth(170)).title(function (d) {
                 return dateFormat(d.key[1]) + ':\n' + d.value;
             });
+
 
         dateRangeChart
             // .width(460)

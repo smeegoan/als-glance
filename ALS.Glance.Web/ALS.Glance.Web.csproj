@@ -330,6 +330,10 @@
     <Content Include="Scripts\CrossFilter\crossfilter.min.js" />
     <Content Include="Scripts\CrossFilter\README.md" />
     <Content Include="Scripts\CrossFilter\LICENSE" />
+    <Content Include="Scripts\d3.tip.js" />
+    <Content Include="Scripts\d3.tip.min.js">
+      <DependentUpon>d3.tip.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\dataTables.bootstrap.js" />
     <Content Include="Scripts\dataTables.bootstrap.min.js">
       <DependentUpon>dataTables.bootstrap.js</DependentUpon>
@@ -377,6 +381,9 @@
     </Content>
     <Content Include="Scripts\CrossFilter\crossfilter.min.js.map">
       <DependentUpon>crossfilter.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\d3.tip.min.js.map">
+      <DependentUpon>d3.tip.min.js</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\d3.v3.js" />
