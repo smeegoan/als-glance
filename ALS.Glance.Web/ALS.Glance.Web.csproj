@@ -379,6 +379,9 @@
     <Content Include="Scripts\CrossFilter\crossfilter.min.js.map">
       <DependentUpon>crossfilter.min.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\ga.min.js.map">
+      <DependentUpon>ga.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\d3.v3.js" />
     <Content Include="Scripts\d3.v3.min.js" />
@@ -387,6 +390,10 @@
     <Content Include="Scripts\dygraph-combined.js" />
     <Content Include="Scripts\dygraph-combined.min.js">
       <DependentUpon>dygraph-combined.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\ga.js" />
+    <Content Include="Scripts\ga.min.js">
+      <DependentUpon>ga.js</DependentUpon>
     </Content>
     <Content Include="Scripts\intro.js" />
     <Content Include="Scripts\intro.min.js" />

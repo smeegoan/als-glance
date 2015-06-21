@@ -19,7 +19,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Patients", "Patients", "Home",new {id=""},null)</li>
+                    <li>@Html.ActionLink("Patients", "Patients", "Home", new { id = "" }, null)</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -32,9 +32,12 @@
             <p>&copy; Pedro Miguel C. Cardoso @DateTime.Now.Year</p>
         </footer>
     </div>
-
+    @Scripts.Render("~/bundles/gajs")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrapjs")
     @RenderSection("scripts", required: false)
+    <script>
+        analytics.logView();
+    </script>
 </body>
 </html>

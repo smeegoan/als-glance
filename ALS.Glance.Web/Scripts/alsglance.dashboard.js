@@ -3,8 +3,18 @@ var aucBubbleChart, muscleChart, quarterChart, timeHourChart, timeOfDayChart, pr
 
 var alsglance = alsglance || {};
 alsglance.dashboard = alsglance.dashboard || {
-    showHelpButton: function () {
-        $("#helpPlaceHolder").html('<a href="javascript:void(0);" onclick="javascript:introJs().start();">Help</a>');
+    showPatientsHelpButton: function () {
+        $("#patients_filter").attr("data-position", "bottom");
+        $("#patients_filter").attr("data-step", "1");
+        $("#patients_filter").attr("data-intro", "Click here to filter by the patient name.");
+        $("#helpPlaceHolder").html('<a href="javascript:void(0);" onclick="javascript:alsglance.dashboard.showHelp(\'Patients\');">Help</a>');
+    },
+    showPatientHelpButton: function () {
+        $("#helpPlaceHolder").html('<a href="javascript:void(0);" onclick="javascript:alsglance.dashboard.showHelp(\'Patient\');">Help</a>');
+    },
+    showHelp: function (category) {
+        introJs().start();
+        analytics.logUiEvent("showHelp", category, "navbar");
     },
     resizeChart:
           function (chart) {
@@ -290,6 +300,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                 toastr.error(errMsg, 'ALS Glance');
             }
         });
+        analytics.logUiEvent("saveSettings", "Patient", "dashboard");
     },
     applyFilters: function (filterObjects) {
         if (filterObjects == null || filterObjects.length == 0)
@@ -329,7 +340,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         if (emgChart != null) {
             emgChart.resetZoom();
         }
-
+        analytics.logUiEvent("reset", "Patient", "dashboard");
     },
     filterMuscle: function (muscle) {
         $('#AT').removeClass("active");
@@ -338,6 +349,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         $('#' + muscle).addClass("active");
         muscleChart.filterAll();
         muscleChart.filter([muscle]);
+        analytics.logUiEvent("filterMuscle", "Patient", "dashboard");
     },
     init: function () {
         $("#reset").click(function () {
@@ -465,6 +477,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                 dateRangeChart.filterAll();
                 dateRangeChart.filter(dc.filters.RangedFilter(start.valueOf(), end.valueOf()));
                 dc.redrawAll();
+                analytics.logUiEvent("filterDates", "Patient", "dashboard");
             });
         };
 
@@ -562,27 +575,27 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             .xAxis().ticks(4);
 
         //#### Bar Chart
-         timeHourChart//.width(420)
-            //.height(180)
-            //.margins({ top: 10, right: 50, bottom: 30, left: 40 })
-            .dimension(timeHourDimension)
-            .group(timeHourGroup)
-            .elasticY(true)
-            // (optional) whether bar should be center to its x value. Not needed for ordinal chart, :default=false
-            .centerBar(true)
-            // (optional) set gap between bars manually in px, :default=2
-            .gap(1)
-            // (optional) set filter brush rounding
-            .round(dc.round.floor)
-            .alwaysUseRounding(true)
-            .x(d3.scale.linear().domain([0, 23]))
-            .renderHorizontalGridLines(true)
-            // customize the filter displayed in the control span
-            .filterPrinter(function (filters) {
-                var filter = filters[0], s = '';
-                s += hourFormat(filter[0]) + 'h -> ' + hourFormat(filter[1]) + 'h';
-                return s;
-            });
+        timeHourChart//.width(420)
+           //.height(180)
+           //.margins({ top: 10, right: 50, bottom: 30, left: 40 })
+           .dimension(timeHourDimension)
+           .group(timeHourGroup)
+           .elasticY(true)
+           // (optional) whether bar should be center to its x value. Not needed for ordinal chart, :default=false
+           .centerBar(true)
+           // (optional) set gap between bars manually in px, :default=2
+           .gap(1)
+           // (optional) set filter brush rounding
+           .round(dc.round.floor)
+           .alwaysUseRounding(true)
+           .x(d3.scale.linear().domain([0, 23]))
+           .renderHorizontalGridLines(true)
+           // customize the filter displayed in the control span
+           .filterPrinter(function (filters) {
+               var filter = filters[0], s = '';
+               s += hourFormat(filter[0]) + 'h -> ' + hourFormat(filter[1]) + 'h';
+               return s;
+           });
 
         // Customize axis
         timeHourChart.xAxis().tickFormat(

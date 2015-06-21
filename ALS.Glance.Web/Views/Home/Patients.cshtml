@@ -87,10 +87,7 @@
                     .then(function (data) {
                         alsglance.dashboard.patients.load(data,@Model.AgeMin,@Model.AgeMax);
                         alsglance.dashboard.init();
-                        $("#patients_filter").attr("data-position", "bottom");
-                        $("#patients_filter").attr("data-step", "1");
-                        $("#patients_filter").attr("data-intro", "Click here to filter by the patient name.");
-                        alsglance.dashboard.showHelpButton();
+                        alsglance.dashboard.showPatientsHelpButton();
                     });
             $('#patients').dataTable({
                 "order": [[ 3, "asc" ]],
