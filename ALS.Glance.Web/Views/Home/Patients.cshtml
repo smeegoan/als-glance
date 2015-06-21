@@ -75,7 +75,7 @@
 
     <script>
         $(function () {
-
+            var then = moment();
             var apiClient = new alsglance.ApiClient({
                 baseUri: alsglance.baseUri,
                 authToken: alsglance.authToken,
@@ -88,6 +88,7 @@
                         alsglance.dashboard.patients.load(data,@Model.AgeMin,@Model.AgeMax);
                         alsglance.dashboard.init();
                         alsglance.dashboard.showPatientsHelpButton();
+                        analytics.logActionLoad(then,"Patients");
                     });
             $('#patients').dataTable({
                 "order": [[ 3, "asc" ]],

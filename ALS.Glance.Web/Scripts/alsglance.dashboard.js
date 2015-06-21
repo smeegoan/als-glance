@@ -157,6 +157,7 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
                 $dialog.find('h6').html('Loading...<br/><br/><b>' + message + '</b>');
                 // Opening dialog
                 $dialog.modal();
+                analytics.logUiEvent("viewResume", "Patient", "dashboard", message);
             },
             /**
              * Closes dialog
@@ -349,7 +350,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         $('#' + muscle).addClass("active");
         muscleChart.filterAll();
         muscleChart.filter([muscle]);
-        analytics.logUiEvent("filterMuscle", "Patient", "dashboard");
+        analytics.logUiEvent("filterMuscle", "Patient", "dashboard", muscle);
     },
     init: function () {
         $("#reset").click(function () {
@@ -477,7 +478,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                 dateRangeChart.filterAll();
                 dateRangeChart.filter(dc.filters.RangedFilter(start.valueOf(), end.valueOf()));
                 dc.redrawAll();
-                analytics.logUiEvent("filterDates", "Patient", "dashboard");
+                analytics.logUiEvent("filterDates", "Patient", "dashboard", { start: start.format('MMMM D, YYYY'), end: end.format('MMMM D, YYYY') });
             });
         };
 

@@ -216,7 +216,7 @@
     @Scripts.Render("~/bundles/patientjs")
     <script>
         $(function() {
-
+            var then = moment();
             var apiClient = new alsglance.ApiClient({
                 baseUri: alsglance.baseUri,
                 authToken: alsglance.authToken,
@@ -239,6 +239,7 @@
                             if (emg.value.length == 0)
                                 return;
                             alsglance.dashboard.patient.loadEMG(JSON.parse(emg.value[0].Data));
+                            analytics.logActionLoad(then,"Patient");
                         });
                 });
             alsglance.dashboard.showPatientHelpButton();

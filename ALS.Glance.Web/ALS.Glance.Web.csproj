@@ -391,9 +391,9 @@
     <Content Include="Scripts\dygraph-combined.min.js">
       <DependentUpon>dygraph-combined.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\ga.js" />
+    <Content Include="Scripts\telemetry.js" />
     <Content Include="Scripts\ga.min.js">
-      <DependentUpon>ga.js</DependentUpon>
+      <DependentUpon>telemetry.js</DependentUpon>
     </Content>
     <Content Include="Scripts\intro.js" />
     <Content Include="Scripts\intro.min.js" />
