@@ -27,6 +27,11 @@ namespace ALS.Glance.Web.Controllers
         {
             return View();
         }
+        public ActionResult UsabilityForm()
+        {
+            return View();
+        }
+
 
         public ActionResult ApiAuth()
         {

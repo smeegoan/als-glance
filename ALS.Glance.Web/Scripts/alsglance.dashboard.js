@@ -485,7 +485,6 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         });
 
         //### Create Crossfilter Dimensions and Groups
-        //See the [crossfilter API](https://github.com/square/crossfilter/wiki/API-Reference) for reference.
         var ndx = crossfilter(data);
         var all = ndx.groupAll();
 
@@ -563,12 +562,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             .xAxis().ticks(4);
 
         //#### Bar Chart
-        // Create a bar chart and use the given css selector as anchor. You can also specify
-        // an optional chart group for this chart to be scoped within. When a chart belongs
-        // to a specific group then any interaction with such chart will only trigger redraw
-        // on other charts within the same chart group.
-        /* dc.barChart('#volume-month-chart') */
-        timeHourChart//.width(420)
+         timeHourChart//.width(420)
             //.height(180)
             //.margins({ top: 10, right: 50, bottom: 30, left: 40 })
             .dimension(timeHourDimension)
@@ -630,7 +624,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                 return +d.value;
             })
 
-            .legend(dc.legend().x(280).y(20).itemHeight(13).gap(5).legendWidth(170).itemWidth(170)).title(function (d) {
+            .legend(dc.legend().x(80).y(25).itemHeight(13).gap(5).legendWidth(170).itemWidth(170)).title(function (d) {
                 return dateFormat(d.key[1]) + ':\n' + d.value;
             });
 

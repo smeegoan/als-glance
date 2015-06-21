@@ -52,11 +52,13 @@ namespace ALS.Glance.Web
                 "~/Content/devoops.css",
                 "~/Content/daterangepicker-bs3.css",
                 "~/Content/colorbrewer.css",
-                 "~/Content/toastr.css",
+                "~/Content/toastr.css",
                 "~/Content/bootstrap.css",
                 "~/Content/font-awesome.min.css",
                 "~/Content/site.css"));
 
+            bundles.Add(new StyleBundle("~/Content/usabilityformcss").Include(
+                "~/Content/usabilityform.css"));
         }
     }
 }
