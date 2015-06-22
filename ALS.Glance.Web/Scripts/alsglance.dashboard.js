@@ -157,7 +157,7 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
                 $dialog.find('h6').html('Loading...<br/><br/><b>' + message + '</b>');
                 // Opening dialog
                 $dialog.modal();
-                analytics.logUiEvent("viewResume", "Patient", "dashboard", message);
+                analytics.logUiEvent("viewResume", "Patient", "dashboard");
             },
             /**
              * Closes dialog
@@ -301,7 +301,6 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                 toastr.error(errMsg, 'ALS Glance');
             }
         });
-        analytics.logUiEvent("saveSettings", "Patient", "dashboard");
     },
     applyFilters: function (filterObjects) {
         if (filterObjects == null || filterObjects.length == 0)
@@ -341,7 +340,6 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         if (emgChart != null) {
             emgChart.resetZoom();
         }
-        analytics.logUiEvent("reset", "Patient", "dashboard");
     },
     filterMuscle: function (muscle) {
         $('#AT').removeClass("active");
@@ -350,20 +348,22 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         $('#' + muscle).addClass("active");
         muscleChart.filterAll();
         muscleChart.filter([muscle]);
-        analytics.logUiEvent("filterMuscle", "Patient", "dashboard", muscle);
     },
     init: function () {
         $("#reset").click(function () {
             alsglance.dashboard.patient.reset();
+            analytics.logUiEvent("reset", "Patient", "dashboard");
         });
         $("#save").click(function () {
             alsglance.dashboard.patient.saveSettings();
+            analytics.logUiEvent("save", "Patient", "dashboard");
         });
         $.each($('#muscles .btn'), function (index, value) {
             var id = $(value).attr('id');
             $(value).click(id, function () {
                 alsglance.dashboard.patient.filterMuscle(id);
                 dc.redrawAll();
+                analytics.logUiEvent("filterMuscle", "Patient", "dashboard");
             });
         });
         alsglance.dashboard.init();
@@ -478,7 +478,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                 dateRangeChart.filterAll();
                 dateRangeChart.filter(dc.filters.RangedFilter(start.valueOf(), end.valueOf()));
                 dc.redrawAll();
-                analytics.logUiEvent("filterDates", "Patient", "dashboard", { start: start.format('MMMM D, YYYY'), end: end.format('MMMM D, YYYY') });
+                analytics.logUiEvent("filterDates", "Patient", "dashboard");
             });
         };
 
