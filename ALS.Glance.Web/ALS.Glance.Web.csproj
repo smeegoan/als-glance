@@ -379,9 +379,6 @@
     <Content Include="Scripts\CrossFilter\crossfilter.min.js.map">
       <DependentUpon>crossfilter.min.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\ga.min.js.map">
-      <DependentUpon>ga.min.js</DependentUpon>
-    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\d3.v3.js" />
     <Content Include="Scripts\d3.v3.min.js" />
@@ -392,9 +389,6 @@
       <DependentUpon>dygraph-combined.js</DependentUpon>
     </Content>
     <Content Include="Scripts\telemetry.js" />
-    <Content Include="Scripts\ga.min.js">
-      <DependentUpon>telemetry.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\intro.js" />
     <Content Include="Scripts\intro.min.js" />
     <Content Include="Scripts\jquery-1.10.2.intellisense.min.js">
@@ -440,6 +434,9 @@
     </Content>
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\telemetry.min.js">
+      <DependentUpon>telemetry.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -502,6 +499,9 @@
       <DependentUpon>respond.min.js</DependentUpon>
     </Content>
     <Content Include="Views\Home\UsabilityForm.cshtml" />
+    <Content Include="Scripts\telemetry.min.js.map">
+      <DependentUpon>telemetry.min.js</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

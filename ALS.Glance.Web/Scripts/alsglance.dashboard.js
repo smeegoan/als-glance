@@ -183,11 +183,11 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
         //See the [crossfilter API](https://github.com/square/crossfilter/wiki/API-Reference) for reference.
         var ndx = crossfilter(data);
 
-        var timeOfDayDimension = ndx.dimension(function (d) {
+        var sexDimension = ndx.dimension(function (d) {
             return d.Sex;
         });
         // maintain running tallies by year as filters are applied or removed
-        var timeOfDayGroup = timeOfDayDimension.group().reduce(
+        var ageGroup = sexDimension.group().reduce(
             /* callback for when data is added to the current filter results */
             function (p, v) {
                 ++p.count;
@@ -215,10 +215,10 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
         aucBubbleChart
             .transitionDuration(1500) // (optional) define chart transition duration, :default = 750
             .margins({ top: 10, right: 50, bottom: 40, left: 50 })
-            .dimension(timeOfDayDimension)
+            .dimension(sexDimension)
             //Bubble chart expect the groups are reduced to multiple values which would then be used
             //to generate x, y, and radius for each key (bubble) in the group
-            .group(timeOfDayGroup)
+            .group(ageGroup)
             .colors(['rgb(49,130,189)', 'rgb(247,104,161)']) // (optional) define color function or array for bubbles
             .colorAccessor(function (d) {
                 var res = d.key == "M" ? 0 : 1;

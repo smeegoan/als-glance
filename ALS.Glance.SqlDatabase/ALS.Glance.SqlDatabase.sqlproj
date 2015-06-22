@@ -79,8 +79,12 @@
     <Build Include="dbo\Tables\ApplicationSettings.sql" />
     <Build Include="dbo\Views\Facts.sql" />
     <Build Include="dbo\Tables\EMG.sql" />
+    <None Include="Scripts\Script.Facts.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\Script.Dates.sql" />
   </ItemGroup>
 </Project>

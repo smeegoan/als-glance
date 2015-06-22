@@ -14,7 +14,7 @@
         }
     },
     logActionLoad: function (then, page) {
-        analytics.logUiEvent("load", page, "telemetry", moment.utc(moment() - then).format("HH:mm:ss.SSS"));
+        analytics.logUiEvent("load", page, "telemetry", moment.utc(moment() - then));
     },
     logView: function () {
         (function (i, s, o, g, r, a, m) {
