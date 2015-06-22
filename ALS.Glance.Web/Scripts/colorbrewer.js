@@ -52,6 +52,7 @@ function showSchemes() {
         $("#ramps").append(ramp.append(svg).click(function () {
             if ($(this).hasClass("selected")) return;
             setScheme($(this).attr("class").substr(5));
+            analytics.logUiEvent("changeColor", "Patient", "dashboard");
         }));
     }
     if (selectedSchemeType == "sequential") {
@@ -72,6 +73,7 @@ function showSchemes() {
             $("#singlehue").append(ramp.append(svg).click(function () {
                 if ($(this).hasClass("selected")) return;
                 setScheme($(this).attr("class").substr(5));
+                analytics.logUiEvent("changeColor", "Patient", "dashboard");
             }));
         }
     } else {

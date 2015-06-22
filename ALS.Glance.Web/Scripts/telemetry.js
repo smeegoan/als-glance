@@ -5,12 +5,13 @@
  * @param  {string} category standardized event categories
  * @param  {string} label    optional description
  */
-    logUiEvent: function (action, category, label,value) {
+    logUiEvent: function (action, category, label, value) {
         var lb = label || '';
+        var v = value || 1;
         //check for google analytics
         if (window.ga) {
             //send the information
-            ga('send', 'event', category, action, lb,value);
+            ga('send', 'event', category, action, lb, v);
         }
     },
     logActionLoad: function (then, page) {

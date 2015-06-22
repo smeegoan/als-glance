@@ -74,51 +74,6 @@ function MessagesMenuWidth() {
 }
 
 //
-// Helper for run TinyMCE editor with textarea's
-//
-function TinyMCEStart(elem, mode) {
-    var plugins = [];
-    if (mode == 'extreme') {
-        plugins = ["advlist anchor autolink autoresize autosave bbcode charmap code contextmenu directionality ",
-			"emoticons fullpage fullscreen hr image insertdatetime layer legacyoutput",
-			"link lists media nonbreaking noneditable pagebreak paste preview print save searchreplace",
-			"tabfocus table template textcolor visualblocks visualchars wordcount"]
-    }
-    tinymce.init({
-        selector: elem,
-        theme: "modern",
-        plugins: plugins,
-        //content_css: "css/style.css",
-        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons",
-        style_formats: [
-			{ title: 'Header 2', block: 'h2', classes: 'page-header' },
-			{ title: 'Header 3', block: 'h3', classes: 'page-header' },
-			{ title: 'Header 4', block: 'h4', classes: 'page-header' },
-			{ title: 'Header 5', block: 'h5', classes: 'page-header' },
-			{ title: 'Header 6', block: 'h6', classes: 'page-header' },
-			{ title: 'Bold text', inline: 'b' },
-			{ title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
-			{ title: 'Red header', block: 'h1', styles: { color: '#ff0000' } },
-			{ title: 'Example 1', inline: 'span', classes: 'example1' },
-			{ title: 'Example 2', inline: 'span', classes: 'example2' },
-			{ title: 'Table styles' },
-			{ title: 'Table row 1', selector: 'tr', classes: 'tablerow1' }
-        ]
-    });
-}
-//
-// Helper for draw Sparkline plots on Dashboard page
-//
-function SparkLineDrawBarGraph(elem, arr, color) {
-    if (color) {
-        var stacked_color = color;
-    }
-    else {
-        stacked_color = '#6AA6D6'
-    }
-    elem.sparkline(arr, { type: 'bar', barWidth: 7, highlightColor: '#000', barSpacing: 2, height: 40, stackedBarColor: stacked_color });
-}
-//
 //  Helper for open ModalBox with requested header, content and bottom
 //
 //
@@ -265,60 +220,7 @@ function Table2Json(table) {
 }
 
 
-//
-// Draw xChart Graph on Coindesk page
-//
-function DrawCoinDeskXCharts() {
-    var data = {
-        "xScale": "ordinal",
-        "yScale": "linear",
-        "main": [
-			{
-			    "className": ".pizza",
-			    "data": xchart_data
-			}
-        ]
-    };
-    var myChart = new xChart('line-dotted', data, '#coindesk-xchart');
-}
-//
-// Draw Flot Graph on Coindesk page
-//
-function DrawCoinDeskFlot() {
-    var data1 = [
-		{ data: exchange_rate, label: "Bitcoin exchange rate ($)" }
-    ];
-    var options = {
-        canvas: true,
-        xaxes: [
-			{ mode: "time" }
-        ],
-        yaxes: [
-			{ min: 0 },
-			{
-			    position: "right",
-			    alignTicksWithAxis: 1,
-			    tickFormatter: function (value, axis) {
-			        return value.toFixed(axis.tickDecimals) + "€";
-			    }
-			}
-        ],
-        legend: { position: "sw" }
-    };
-    $.plot("#coindesk-flot", data1, options);
-}
-//
-// Draw Google Chart Graph on Coindesk page
-//
-function DrawCoinDeskGoogleCharts() {
-    var google_options = {
-        backgroundColor: '#fcfcfc',
-        title: 'Coindesk Exchange Rate'
-    };
-    var google_element = 'coindesk-google-chart';
-    var google_type = google.visualization.LineChart;
-    drawGoogleChart(google_data, google_options, google_element, google_type);
-}
+
 /*-------------------------------------------
 	Scripts for DataTables page (tables_datatables.html)
 ---------------------------------------------*/
@@ -378,98 +280,7 @@ function SmallChangeVal(val) {
     }
     return [result];
 }
-//
-// Make array of random data
-//
-function SparklineTestData() {
-    var arr = [];
-    for (var i = 1; i < 9; i++) {
-        arr.push([Math.floor(1000 * Math.random())])
-    }
-    return arr;
-}
-//
-// Redraw Knob charts on Dashboard (panel- servers)
-//
-function RedrawKnob(elem) {
-    elem.animate({
-        value: Math.floor(100 * Math.random())
-    }, {
-        duration: 3000,
-        easing: 'swing',
-        progress: function () {
-            $(this).val(parseInt(Math.ceil(elem.val()))).trigger('change');
-        }
-    });
-}
-//
-// Draw 3 Sparkline plot in Dashboard header
-//
-function SparklineLoop() {
-    SparkLineDrawBarGraph($('#sparkline-1'), sparkline_arr_1.map(SmallChangeVal));
-    SparkLineDrawBarGraph($('#sparkline-2'), sparkline_arr_2.map(SmallChangeVal), '#7BC5D3');
-    SparkLineDrawBarGraph($('#sparkline-3'), sparkline_arr_3.map(SmallChangeVal), '#B25050');
-}
 
-//
-// Draw SparkLine example Charts for Dashboard (table- Tickers)
-//
-function DrawSparklineDashboard() {
-    SparklineLoop();
-    setInterval(SparklineLoop, 1000);
-    var sparkline_clients = [[309], [223], [343], [652], [455], [18], [912], [15]];
-    $('.bar').each(function () {
-        $(this).sparkline(sparkline_clients.map(SmallChangeVal), { type: 'bar', barWidth: 5, highlightColor: '#000', barSpacing: 2, height: 30, stackedBarColor: '#6AA6D6' });
-    });
-    var sparkline_table = [[1, 341], [2, 464], [4, 564], [5, 235], [6, 335], [7, 535], [8, 642], [9, 342], [10, 765]];
-    $('.td-graph').each(function () {
-        var arr = $.map(sparkline_table, function (val, index) {
-            return [[val[0], SmallChangeVal([val[1]])]];
-        });
-        $(this).sparkline(arr,
-			{
-			    defaultPixelsPerValue: 10, minSpotColor: null, maxSpotColor: null, spotColor: null,
-			    fillColor: false, lineWidth: 2, lineColor: '#5A8DB6'
-			});
-    });
-}
-//
-// Draw Knob Charts for Dashboard (for servers)
-//
-function DrawKnobDashboard() {
-    var srv_monitoring_selectors = [
-		$("#knob-srv-1"), $("#knob-srv-2"), $("#knob-srv-3"),
-		$("#knob-srv-4"), $("#knob-srv-5"), $("#knob-srv-6")
-    ];
-    srv_monitoring_selectors.forEach(DrawKnob);
-    setInterval(function () {
-        srv_monitoring_selectors.forEach(RedrawKnob);
-    }, 3000);
-}
-/*-------------------------------------------
-	Function for File upload page (form_file_uploader.html)
----------------------------------------------*/
-function FileUpload() {
-    $('#bootstrapped-fine-uploader').fineUploader({
-        template: 'qq-template-bootstrap',
-        classes: {
-            success: 'alert alert-success',
-            fail: 'alert alert-error'
-        },
-        thumbnails: {
-            placeholders: {
-                waitingPath: "assets/waiting-generic.png",
-                notAvailablePath: "assets/not_available-generic.png"
-            }
-        },
-        request: {
-            endpoint: 'server/handleUploads'
-        },
-        validation: {
-            allowedExtensions: ['jpeg', 'jpg', 'gif', 'png']
-        }
-    });
-}
 
 /*-------------------------------------------
 	Function for Form Layout page (form layouts.html)
