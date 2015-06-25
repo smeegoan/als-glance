@@ -18,6 +18,8 @@ alsglance.charts = alsglance.charts || {
         alsglance.charts.resizeAll();
     },
     addXAxis: function (chartToUpdate, displayText) {
+        if (chartToUpdate == null)
+            return;
         chartToUpdate.svg()
             .append("text")
             .attr("class", "x-axis-label")
