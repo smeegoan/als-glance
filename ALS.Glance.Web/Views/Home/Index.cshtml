@@ -1,38 +1,24 @@
-﻿@{
+﻿@using ALS.Glance.Web.Resources
+@{
     ViewBag.Title = "Home Page";
 }
 
 <div class="row">
     <img src="@Url.Content("~/Content/Images/logo.png")"alt="ALS Glance">
-    <p>
-        <br />
-        A electromiografia (EMG) é uma técnica experimental dedicada á monitorização e gravação da atividade elétrica das membranas excitáveis. Estes sinais são formados por mudanças fisiológicas no estado das membranas fibrosas dos músculos.
-    </p><p>
-        A electromiografia cinesiológica além de funcionar como um instrumento padrão para a avaliação neuromuscular pode ser um auxiliar extremamente útil no diagnóstico de pacientes com esclerose múltipla.
-    </p><p>
-        Para se analisar e comparar sinais EMGs de diferentes pacientes, músculos e aquisições são usadas técnicas de normalização e posteriormente é calculado o sinal EMG integrado (IEMG) usado para avaliar o nível de atividade dos diferentes músculos. O IEMG é a área sobre a curva retificada (AUC).
-    </p><p>
-        Este site pretende facilitar o diagnóstico de pacientes com esclerose lateral amiotrófica (ALS) através da análise dos dados recolhidos por dispositivos que recolhem atividade elétrica de diferentes músculos.
-    </p>
+    @Html.Raw(Resources.HomeIntroduction)
 </div>
 
 <div class="row">
     <div class="col-md-4">
         <img src="@Url.Content("~/Content/Images/Flexor-carpi-radialis.png")" class="center-block" alt="Flexor-carpi-radialis" height="220">
-        <h4>Flexor carpi radialis</h4>
-        <p>Flexor carpi radialis is a muscle of the human forearm that acts to flex and (radial) abduct the hand.</p>
-        <p><a class="btn btn-default" href="http://en.wikipedia.org/wiki/Flexor_carpi_radialis_muscle">Learn more &raquo;</a></p>
+        @Html.Raw(Resources.HomeFlexorCarpiRadialis)
     </div>
     <div class="col-md-4">
         <img src="@Url.Content("~/Content/Images/Sternocleidomastoideus.png")" class="center-block" alt="Sternocleidomastoideus" height="220">
-        <h4>Sternocleidomastoid</h4>
-        <p>The sternocleidomastoid muscle, also known as sternomastoid and commonly abbreviated as SCM, is one of the largest and most superficial cervical muscles.</p>
-        <p><a class="btn btn-default" href="http://en.wikipedia.org/wiki/Sternocleidomastoid_muscle">Learn more &raquo;</a></p>
+        @Html.Raw(Resources.HomeSternocleidomastoid)
     </div>
     <div class="col-md-4">
         <img src="@Url.Content("~/Content/Images/Tibialis_anterior.png")" class="center-block" alt="Tibialis_anterior" height="220">
-        <h4>Tibialis anterior </h4>
-        <p>The tibialis anterior is a muscle that originates in the upper two-thirds of the lateral (outside) surface of the tibia and inserts into the medial cuneiform and first metatarsal bones of the foot.</p>
-        <p><a class="btn btn-default" href="http://en.wikipedia.org/wiki/Tibialis_anterior_muscle">Learn more &raquo;</a></p>
+        @Html.Raw(Resources.HomeTibialisAnterior)
     </div>
 </div>

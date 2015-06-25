@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using ALS.Glance.Web.Resources
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -19,7 +20,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Patients", "Patients", "Home", new { id = "" }, null)</li>
+                    <li>@Html.ActionLink(Resources.SharedPatients, "Patients", "Home", new { id = "" }, null)</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

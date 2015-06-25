@@ -27,7 +27,7 @@ namespace ALS.Glance.Web
                 "~/Scripts/intro.js",
                 "~/Scripts/apiclient.js",
                 "~/Scripts/moment.js",
-                "~/Scripts/alsglance.dashboard.js",
+                "~/Scripts/alsglance.js",
                 "~/Scripts/toastr.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/telemetryjs").Include(

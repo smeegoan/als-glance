@@ -1,11 +1,12 @@
-﻿@model ALS.Glance.Web.Models.PatientViewModel
+﻿@using ALS.Glance.Web.Resources
+@model ALS.Glance.Web.Models.PatientViewModel
 
 @{
     ViewBag.Title = Model.Name + " Resume";
 }
 <ul class="nav nav-tabs">
-    <li class="active"><a href="#results" data-toggle="tab">Resume</a></li>
-    <li><a href="#details" data-toggle="tab">Details</a></li>
+    <li class="active"><a href="#results" data-toggle="tab">@Resources.PatientResume</a></li>
+    <li><a href="#details" data-toggle="tab">@Resources.PatientDetails</a></li>
 </ul>
 <br />
 <div id="main" class="tab-content">
@@ -13,14 +14,14 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="btn-group col-md-3 btn-vert-block">
-                    <div id="reset" class="btn btn-default"><i class="fa fa-undo"></i>&nbsp;Reset</div>
-                    <div id="save" class="btn btn-default"><i class="fa fa-save"></i>&nbsp;Save</div>
+                    <div id="reset" class="btn btn-default"><i class="fa fa-undo"></i>&nbsp;@Resources.PatientReset</div>
+                    <div id="save" class="btn btn-default"><i class="fa fa-save"></i>&nbsp;@Resources.PatientSave</div>
                 </div>
                 <div id="muscles" class="btn-group col-md-4 btn-vert-block" data-toggle="buttons">
-                    <label style="float:left;margin-right:5px; padding-top:7px; font-weight: normal;">Muscle </label>
+                    <label style="float:left;margin-right:5px; padding-top:7px; font-weight: normal;">@Resources.PatientMuscle </label>
                     @foreach (var item in Model.Muscles)
                     {
-                        <div id="@item.Abbreviation" class="btn btn-default">
+                        <div id="@item.Abbreviation" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="@item.Name">
                             <label>
                                 <input type="radio">
                                 <span>@item.Abbreviation</span>
@@ -61,7 +62,7 @@
                         <div class="box-content" style="height: 250px; position: relative;" data-step="1" data-intro="Click on this pie chart to filter by Quarter." data-position='right'>
                             <div style="height: 220px; position: relative;" id="quarterChart" class="dc-chart">
                                 <div class="clearfix"></div>
-                                <div class="loading">Loading...</div>
+                                <div class="loading">@Resources.PatientLoading</div>
                             </div>
 
                         </div>
@@ -91,7 +92,7 @@
                         <div class="box-content" style="height: 250px; position: relative;" data-step="2" data-intro="Click on this row chart to filter by time of day." data-position='right'>
                             <div style="height: 250px; position: relative;" id="timeOfDayChart" class="dc-chart">
                                 <div class="clearfix"></div>
-                                <div class="loading">Loading...</div>
+                                <div class="loading">@Resources.PatientLoading</div>
                             </div>
                         </div>
                     </div>
@@ -120,7 +121,7 @@
                         <div class="box-content" style="height: 250px; position: relative;">
                             <div style="height: 250px; position: relative;" id="timeHourChart" class="dc-chart" data-step="3" data-intro="Drag and drop to zoom in." data-position='top'>
                                 <div class="clearfix"></div>
-                                <div class="loading">Loading...</div>
+                                <div class="loading">@Resources.PatientLoading</div>
                             </div>
                         </div>
                     </div>
@@ -153,7 +154,7 @@
                             <div style="height: 220px; position: relative;">
                                 <div style="height: 250px; position: relative;" id="predictionSeriesChart" class="dc-chart">
                                     <div class="clearfix"></div>
-                                    <div class="loading">Loading...</div>
+                                    <div class="loading">@Resources.PatientLoading</div>
                                 </div>
                                 <div id="dateRangeChart" class="dc-chart" data-step="4" data-intro="Drag and drop or use mouse wheel to zoom in." data-position='top'>
                                     <div class="clearfix"></div>
@@ -188,7 +189,7 @@
                         <div class="box-content" style="height: 250px; position: relative;">
                             <div style="width:100%;height: 100%" id='emgChart' data-step="5" data-intro="Drag and drop to zoom in." data-position='top'>
                                 <div class="clearfix"></div>
-                                <div class="loading">Loading...</div>
+                                <div class="loading">@Resources.PatientLoading</div>
 
                             </div>
                         </div>
@@ -232,7 +233,8 @@
                     data = alsglance.dashboard.patient.addPredictions(data);
                     alsglance.dashboard.patient.load(data, @Model.YearMin, @Model.YearMax);
                     initColors(alsglance.dashboard.settings.colorScheme);
-                    alsglance.dashboard.patient.init();
+                    alsglance.charts.setBehaviour();
+                    alsglance.dashboard.patient.reset();
                     alsglance.dashboard.patient.applyFilters(alsglance.dashboard.settings["P" + @Model.Id]);
                     $.when(apiClient.get("EMG?$select=Data&$top=1&$orderby=Date&$filter=Patient/Id eq @Model.Id"))
                         .then(function(emg) {
@@ -242,7 +244,9 @@
                             analytics.logActionLoad(then,"Patient");
                         });
                 });
-            alsglance.dashboard.showPatientHelpButton();
+            $('[data-toggle="tooltip"]').tooltip();
+            alsglance.presentation.showPatientHelpButton('@Resources.Help');
+            alsglance.presentation.bindButtonEvents();
             WinMove();
         });
     </script>

@@ -214,6 +214,16 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Resources.pt-PT.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.pt-PT.resx</DependentUpon>
+    </Compile>
     <Compile Include="Security\MvcAuthorizeAttribute.cs" />
     <Compile Include="Security\Roles.cs" />
     <Compile Include="Startup.cs" />
@@ -298,9 +308,9 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="LICENSE.txt" />
-    <Content Include="Scripts\alsglance.dashboard.js" />
+    <Content Include="Scripts\alsglance.js" />
     <Content Include="Scripts\alsglance.dashboard.min.js">
-      <DependentUpon>alsglance.dashboard.js</DependentUpon>
+      <DependentUpon>alsglance.js</DependentUpon>
     </Content>
     <Content Include="Scripts\apiclient.min.js">
       <DependentUpon>apiclient.js</DependentUpon>
@@ -379,6 +389,11 @@
     <Content Include="Scripts\CrossFilter\crossfilter.min.js.map">
       <DependentUpon>crossfilter.min.js</DependentUpon>
     </Content>
+    <EmbeddedResource Include="Resources\Resources.pt-PT.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.pt-PT.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\d3.v3.js" />
     <Content Include="Scripts\d3.v3.min.js" />
@@ -545,6 +560,12 @@
       <Project>{D0351D8B-CFBD-4131-8AF4-A92E4F0EAA7B}</Project>
       <Name>ALS.Glance.UoW.Security</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

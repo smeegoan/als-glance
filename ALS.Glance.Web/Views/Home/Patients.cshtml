@@ -1,8 +1,8 @@
-﻿@using ALS.Glance.DataAgents.ALS.Glance.Models
+﻿@using ALS.Glance.Web.Resources
 @model ALS.Glance.Web.Models.PatientsViewModel
 
 @{
-    ViewBag.Title = "Patients";
+    ViewBag.Title = Resources.SharedPatients;
 }
 
 <h2>@ViewBag.Title</h2>
@@ -10,7 +10,7 @@
     <div class="row">
         <div style="height: 200px; position: relative;">
             <div id="aucBubbleChart" class="dc-chart">
-                <div class="loading">Loading...</div>
+                <div class="loading">@Resources.PatientLoading</div>
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -34,7 +34,7 @@
                     <th>
                         Sex
                     </th>
-                    <th>Resume</th>
+                    <th>@Resources.PatientResume</th>
                 </tr>
             </thead>
             <tbody>
@@ -60,7 +60,7 @@
                             @Html.DisplayFor(modelItem => patient.Sex)
                         </td>
                         <td>
-                            <a id="resume" href="javascript:void(0);" onclick="javascript:alsglance.dashboard.patients.waitingDialog.show('@patient.Name');window.location='@Url.Action("Patients", "Home", new { item.Id}, null)';" data-step="2" data-intro="Click here to view the patient resume." data-position='left'> <span id="resume" class="fa fa-eye"></span></a>
+                            <a id="resume" href="javascript:void(0);" onclick="javascript:alsglance.presentation.showLoadingDialog.show('@patient.Name');window.location='@Url.Action("Patients", "Home", new { item.Id}, null)';" data-step="2" data-intro="Click here to view the patient resume." data-position='left'> <span id="resume" class="fa fa-eye"></span></a>
                         </td>
                     </tr>
                 }
@@ -86,8 +86,8 @@
             $.when(apiClient.get("DPatient?$select=Sex,BornOn"))
                     .then(function (data) {
                         alsglance.dashboard.patients.load(data,@Model.AgeMin,@Model.AgeMax);
-                        alsglance.dashboard.init();
-                        alsglance.dashboard.showPatientsHelpButton();
+                        alsglance.charts.setBehaviour();
+                        alsglance.presentation.showPatientsHelpButton('@Resources.Help');
                         analytics.logActionLoad(then,"Patients");
                     });
             $('#patients').dataTable({

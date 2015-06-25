@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Help" xml:space="preserve">
+    <value>Ajuda</value>
+  </data>
+  <data name="HomeFlexorCarpiRadialis" xml:space="preserve">
+    <value>&lt;h4&gt;Flexor radial do carpo&lt;/h4&gt;&lt;p&gt;O músculo flexor radial do carpo tem origem no tendão flexor comum no epicôndilo medial do úmero e se insere na base do 2 e 3 metacarpos. Suas ações são: Flexão e abdução (Desvio Radial) da mão.&lt;/p&gt;&lt;p&gt;&lt;a class="btn btn-default" href="https://pt.wikipedia.org/wiki/M%C3%BAsculo_flexor_radial_do_carpo"&gt;Saber mais &amp;raquo;&lt;/a&gt;&lt;/p&gt;</value>
+  </data>
+  <data name="HomeIntroduction" xml:space="preserve">
+    <value>&lt;p&gt;&lt;br /&gt;A electromiografia (EMG) é uma técnica experimental dedicada á monitorização e gravação da atividade elétrica das membranas excitáveis. Estes sinais são formados por mudanças fisiológicas no estado das membranas fibrosas dos músculos.&lt;/p&gt;&lt;p&gt;A electromiografia cinesiológica além de funcionar como um instrumento padrão para a avaliação neuromuscular pode ser um auxiliar extremamente útil no diagnóstico de pacientes com esclerose múltipla.&lt;/p&gt;&lt;p&gt;Para se analisar e comparar sinais EMGs de diferentes pacientes, músculos e aquisições são usadas técnicas de normalização e posteriormente é calculado o sinal EMG integrado (IEMG) usado para avaliar o nível de atividade dos diferentes músculos. O IEMG é a área sobre a curva retificada (AUC).&lt;/p&gt;&lt;p&gt;Este site pretende facilitar o diagnóstico de pacientes com esclerose lateral amiotrófica (ALS) através da análise dos dados recolhidos por dispositivos que recolhem atividade elétrica de diferentes músculos.&lt;/p&gt;</value>
+  </data>
+  <data name="HomeSternocleidomastoid" xml:space="preserve">
+    <value>&lt;h4&gt;Esternocleidomastoideu&lt;/h4&gt;&lt;p&gt;Na anatomia humana, o esternocleidomastoideu é um músculo da face lateral do pescoço, na região anterolateral. É o principal flexor do pescoço. Largo e robusto, é constituído, no tramo torácico, por duas “cabeças”: a esternal e a clavicular.&lt;/p&gt;&lt;p&gt;&lt;a class="btn btn-default" href="https://pt.wikipedia.org/wiki/M%C3%BAsculo_esternocleidomastoideo"&gt;Saber mais  &amp;raquo;&lt;/a&gt;&lt;/p&gt;</value>
+  </data>
+  <data name="HomeTibialisAnterior" xml:space="preserve">
+    <value>&lt;h4&gt;Tibial anterior&lt;/h4&gt;&lt;p&gt;O músculo tibia anterior é um músculo da perna. O tibial anterior é o músculo da perna que se estende lateralmente à borda anterior da tíbia.&lt;/p&gt;&lt;p&gt;&lt;a class="btn btn-default" href="https://pt.wikipedia.org/wiki/M%C3%BAsculo_tibial_anterior"&gt;Saber mais &amp;raquo;&lt;/a&gt;&lt;/p&gt;</value>
+  </data>
+  <data name="PatientDetails" xml:space="preserve">
+    <value>Detalhes</value>
+  </data>
+  <data name="PatientLoading" xml:space="preserve">
+    <value>Aguarde...</value>
+  </data>
+  <data name="PatientMuscle" xml:space="preserve">
+    <value>Músculo</value>
+  </data>
+  <data name="PatientReset" xml:space="preserve">
+    <value>Repor</value>
+  </data>
+  <data name="PatientResume" xml:space="preserve">
+    <value>Resumo</value>
+  </data>
+  <data name="PatientSave" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="SharedLogin" xml:space="preserve">
+    <value>Entrar</value>
+  </data>
+  <data name="SharedLogoff" xml:space="preserve">
+    <value>Sair</value>
+  </data>
+  <data name="SharedManage" xml:space="preserve">
+    <value>Gerir</value>
+  </data>
+  <data name="SharedPatients" xml:space="preserve">
+    <value>Pacientes</value>
+  </data>
+</root>

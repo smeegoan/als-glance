@@ -2,70 +2,45 @@
 var aucBubbleChart, muscleChart, quarterChart, timeHourChart, timeOfDayChart, predictionSeriesChart, dateRangeChart, emgChart;
 
 var alsglance = alsglance || {};
-alsglance.dashboard = alsglance.dashboard || {
-    showPatientsHelpButton: function () {
-        $("#patients_filter").attr("data-position", "bottom");
-        $("#patients_filter").attr("data-step", "1");
-        $("#patients_filter").attr("data-intro", "Click here to filter by the patient name.");
-        $("#helpPlaceHolder").html('<a href="javascript:void(0);" onclick="javascript:alsglance.dashboard.showHelp(\'Patients\');">Help</a>');
+alsglance.charts = alsglance.charts || {
+    setBehaviour: function () {
+        alsglance.charts.replaceControlsBehaviour();
+        $(window).resize(function () {
+            if (this.resizeTO) clearTimeout(this.resizeTO);
+            this.resizeTO = setTimeout(function () {
+                $(this).trigger('resizeEnd');
+            }, 500);
+        });
+        $(window).bind('resizeEnd', function () {
+            //window hasn't changed size in 500ms
+            alsglance.charts.resizeAll();
+        });
+        alsglance.charts.resizeAll();
     },
-    showPatientHelpButton: function () {
-        $("#helpPlaceHolder").html('<a href="javascript:void(0);" onclick="javascript:alsglance.dashboard.showHelp(\'Patient\');">Help</a>');
+    addXAxis: function (chartToUpdate, displayText) {
+        chartToUpdate.svg()
+            .append("text")
+            .attr("class", "x-axis-label")
+            .attr("text-anchor", "middle")
+            .attr("x", chartToUpdate.width() / 2)
+            .attr("y", chartToUpdate.height())
+            .text(displayText);
     },
-    showHelp: function (category) {
-        introJs().start();
-        analytics.logUiEvent("showHelp", category, "navbar");
+    redrawAll: function () {
+        dc.redrawAll();
+        alsglance.charts.addXAxis(timeOfDayChart, "# Measurements");
     },
-    resizeChart:
-          function (chart) {
-              if (chart == null) {
-                  return;
-              }
-              var parent = $("#" + chart.anchorName()).parent();
-              var width = parent.width();
-              if (width == null) {
-                  return;
-              }
-              var height = parent.height();
-              if (chart.hasOwnProperty("rangeChart")) {
-                  var range = chart.rangeChart();
-                  if (range != null) {
-                      height -= range.height();
-                      $("#" + chart.anchorName()).height(height); //fix for ranged charts
-                  }
-              }
-              var children = parent.children().size();
-              chart.width(width);
-              if (children == 1) {
-                  chart.height(height);
-              }
-              if (chart.hasOwnProperty("radius")) //pie chart
-              {
-                  chart.radius(Math.min(width, height) / 2.5);
-                  chart.innerRadius(chart.radius() / 2);
-              }
-          },
-    resize: function () {
-        var i, chart;
-        for (i = 0; i < dc.chartRegistry.list().length; i++) {
-            chart = dc.chartRegistry.list()[i];
-            chart.transitionDuration(0);
-            alsglance.dashboard.resizeChart(chart);
-        }
-        dc.renderAll();
-        for (i = 0; i < dc.chartRegistry.list().length; i++) {
-            chart = dc.chartRegistry.list()[i];
-            chart.transitionDuration(500);
-        }
-        if (emgChart != null)
-            emgChart.resize();
-    },
-    replaceResetBehaviour: function () {
-        for (var i = 0; i < dc.chartRegistry.list().length; i++) {
-            var chart = dc.chartRegistry.list()[i];
-            chart.turnOnControls = alsglance.dashboard.turnOnControls(chart);
-            chart.turnOffControls = alsglance.dashboard.turnOffControls(chart);
-        }
+    turnOffControls: function (chart) {
+        return function () {
+            var node = chart.root()[0][0];
+            if (node != null) {
+                var grandparent = node.parentNode.parentNode;
+                d3.select(grandparent).selectAll('.reset').style('display', 'none');
+                d3.select(grandparent).selectAll('.filter')
+                    .style('display', 'none').text(chart.filter());
+            }
+            return chart;
+        };
     },
     turnOnControls: function (chart) {
         return function () {
@@ -80,42 +55,91 @@ alsglance.dashboard = alsglance.dashboard || {
             return chart;
         };
     },
-    init: function () {
-        alsglance.dashboard.replaceResetBehaviour();
-        $(window).resize(function () {
-            if (this.resizeTO) clearTimeout(this.resizeTO);
-            this.resizeTO = setTimeout(function () {
-                $(this).trigger('resizeEnd');
-            }, 500);
-        });
-        $(window).bind('resizeEnd', function () {
-            //window hasn't changed size in 500ms
-            alsglance.dashboard.resize();
-        });
-        alsglance.dashboard.resize();
+    replaceControlsBehaviour: function () {
+        for (var i = 0; i < dc.chartRegistry.list().length; i++) {
+            var chart = dc.chartRegistry.list()[i];
+            chart.turnOnControls = alsglance.charts.turnOnControls(chart);
+            chart.turnOffControls = alsglance.charts.turnOffControls(chart);
+        }
     },
-    turnOffControls: function (chart) {
-        return function () {
-            var node = chart.root()[0][0];
-            if (node != null) {
-                var grandparent = node.parentNode.parentNode;
-                d3.select(grandparent).selectAll('.reset').style('display', 'none');
-                d3.select(grandparent).selectAll('.filter')
-                    .style('display', 'none').text(chart.filter());
+    resize: function (chart) {
+        if (chart == null) {
+            return;
+        }
+        var parent = $("#" + chart.anchorName()).parent();
+        var width = parent.width();
+        if (width == null) {
+            return;
+        }
+        var height = parent.height();
+        if (chart.hasOwnProperty("rangeChart")) {
+            var range = chart.rangeChart();
+            if (range != null) {
+                height -= range.height();
+                $("#" + chart.anchorName()).height(height); //fix for ranged charts
             }
-            return chart;
-        };
+        }
+        var children = parent.children().size();
+        chart.width(width);
+        if (children == 1) {
+            chart.height(height);
+        }
+        if (chart.hasOwnProperty("radius")) //pie chart
+        {
+            chart.radius(Math.min(width, height) / 2.5);
+            chart.innerRadius(chart.radius() / 2);
+        }
+    },
+    resizeAll: function () {
+        var i, chart;
+        for (i = 0; i < dc.chartRegistry.list().length; i++) {
+            chart = dc.chartRegistry.list()[i];
+            chart.transitionDuration(0);
+            alsglance.charts.resize(chart);
+        }
+        dc.renderAll();
+        alsglance.charts.addXAxis(timeOfDayChart, "# Measurements");
+        for (i = 0; i < dc.chartRegistry.list().length; i++) {
+            chart = dc.chartRegistry.list()[i];
+            chart.transitionDuration(500);
+        }
+        if (emgChart != null)
+            emgChart.resize();
     },
 };
-
-alsglance.dashboard.patients = alsglance.dashboard.patients || {
-    /**
- * Module for displaying "Waiting for..." dialog using Bootstrap
- *
- * @author Eugene Maslovich <ehpc@em42.ru>
- */
-
-    waitingDialog: (function ($) {
+alsglance.presentation = alsglance.presentation || {
+    bindButtonEvents: function () {
+        $("#reset").click(function () {
+            alsglance.dashboard.patient.reset();
+            analytics.logUiEvent("reset", "Patient", "dashboard");
+        });
+        $("#save").click(function () {
+            alsglance.dashboard.patient.saveSettings();
+            analytics.logUiEvent("save", "Patient", "dashboard");
+        });
+        $.each($('#muscles .btn'), function (index, value) {
+            var id = $(value).attr('id');
+            $(value).click(id, function () {
+                alsglance.dashboard.patient.filterMuscle(id);
+                alsglance.charts.redrawAll();
+                analytics.logUiEvent("filterMuscle", "Patient", "dashboard");
+            });
+        });
+    },
+    showPatientsHelpButton: function (text) {
+        $("#patients_filter").attr("data-position", "bottom");
+        $("#patients_filter").attr("data-step", "1");
+        $("#patients_filter").attr("data-intro", "Click here to filter by the patient name.");
+        $("#helpPlaceHolder").html('<a href="javascript:void(0);" onclick="javascript:alsglance.presentation.showHelp(\'Patients\');">' + text + '</a>');
+    },
+    showPatientHelpButton: function (text) {
+        $("#helpPlaceHolder").html('<a href="javascript:void(0);" onclick="javascript:alsglance.presentation.showHelp(\'Patient\');">' + text + '</a>');
+    },
+    showHelp: function (category) {
+        introJs().start();
+        analytics.logUiEvent("showHelp", category, "navbar");
+    },
+    showLoadingDialog: (function ($) {
 
         // Creating modal dialog's DOM
         var $dialog = $(
@@ -168,6 +192,9 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
         };
 
     })(jQuery),
+};
+alsglance.dashboard = alsglance.dashboard || {};
+alsglance.dashboard.patients = alsglance.dashboard.patients || {
     load: function (data, min, max) {
         aucBubbleChart = dc.bubbleChart('#aucBubbleChart');
 
@@ -330,13 +357,13 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             }
 
         }
-        dc.redrawAll();
+        alsglance.charts.redrawAll();
     },
     reset: function () {
         dc.filterAll();
         alsglance.dashboard.patient.datePicker();
         alsglance.dashboard.patient.filterMuscle("AT");
-        dc.redrawAll();
+        alsglance.charts.redrawAll();
         if (emgChart != null) {
             emgChart.resetZoom();
         }
@@ -348,26 +375,6 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         $('#' + muscle).addClass("active");
         muscleChart.filterAll();
         muscleChart.filter([muscle]);
-    },
-    init: function () {
-        $("#reset").click(function () {
-            alsglance.dashboard.patient.reset();
-            analytics.logUiEvent("reset", "Patient", "dashboard");
-        });
-        $("#save").click(function () {
-            alsglance.dashboard.patient.saveSettings();
-            analytics.logUiEvent("save", "Patient", "dashboard");
-        });
-        $.each($('#muscles .btn'), function (index, value) {
-            var id = $(value).attr('id');
-            $(value).click(id, function () {
-                alsglance.dashboard.patient.filterMuscle(id);
-                dc.redrawAll();
-                analytics.logUiEvent("filterMuscle", "Patient", "dashboard");
-            });
-        });
-        alsglance.dashboard.init();
-        alsglance.dashboard.patient.reset();
     },
     addPredictions: function (data) {
         var muscles = [];
@@ -477,14 +484,10 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                 $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
                 dateRangeChart.filterAll();
                 dateRangeChart.filter(dc.filters.RangedFilter(start.valueOf(), end.valueOf()));
-                dc.redrawAll();
+                alsglance.charts.redrawAll();
                 analytics.logUiEvent("filterDates", "Patient", "dashboard");
             });
         };
-
-
-
-
 
         /* since its a csv file we need to format the data a bit */
         var dateFormat = d3.time.format('%Y/%m/%d');
@@ -568,7 +571,6 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             .label(function (d) {
                 return d.key.split('.')[1];
             })
-            // title sets the row text
             .title(function (d) {
                 return d.value;
             })
