@@ -56,14 +56,12 @@
     <Compile Include="ALSUnitOfWork.cs" />
     <Compile Include="IALSUnitOfWork.cs" />
     <Compile Include="Repository\Implementation\ApplicationSettingsRepository.cs" />
-    <Compile Include="Repository\Implementation\EMGRepository.cs" />
     <Compile Include="Repository\Implementation\DateRepository.cs" />
     <Compile Include="Repository\Implementation\FactsRepository.cs" />
     <Compile Include="Repository\Implementation\FactRepository.cs" />
     <Compile Include="Repository\Implementation\MuscleRepository.cs" />
     <Compile Include="Repository\Implementation\PatientRepository.cs" />
     <Compile Include="Repository\Interface\IApplicationSettingsRepository.cs" />
-    <Compile Include="Repository\Interface\IEMGRepository.cs" />
     <Compile Include="Repository\Interface\IFactsRepository.cs" />
     <Compile Include="Repository\Interface\IPatientRepository.cs" />
     <Compile Include="Repository\Interface\IDateRepository.cs" />

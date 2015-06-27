@@ -115,6 +115,15 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Color Schemes.
+        /// </summary>
+        public static string PatientColorSchemes {
+            get {
+                return ResourceManager.GetString("PatientColorSchemes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Details.
         /// </summary>
         public static string PatientDetails {

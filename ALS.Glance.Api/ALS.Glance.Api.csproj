@@ -152,7 +152,6 @@
     <Compile Include="Controllers\ApplicationSettingsController.cs" />
     <Compile Include="Controllers\AuthorizationRefreshController.cs" />
     <Compile Include="Controllers\AuthorizationRequestController.cs" />
-    <Compile Include="Controllers\EMGController.cs" />
     <Compile Include="Controllers\DDateController.cs" />
     <Compile Include="Controllers\DMuscleController.cs" />
     <Compile Include="Controllers\DPatientController.cs" />

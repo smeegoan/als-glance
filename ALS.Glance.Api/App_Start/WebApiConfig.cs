@@ -103,20 +103,17 @@ namespace ALS.Glance.Api
             builder.EntitySet<Fact, long>(type =>
             {
                 type.Property(e => e.AUC);
+                type.Property(e => e.EMG);
                 type.HasRequired(e => e.Patient);
                 type.HasRequired(e => e.Muscle);
                 type.HasRequired(e => e.Date);
                 type.HasRequired(e => e.Time);
             });
-            builder.EntitySet<EMG, long>(type =>
-            {
-                type.Property(e => e.Data);
-                type.HasRequired(e => e.Patient);
-                type.Property(e => e.Date);
-            });
+         
             builder.EntitySet<Facts, long>(type =>
             {
                 type.Property(e => e.AUC);
+                type.Property(e => e.EMG);
                 type.Property(e => e.DateDayOfWeek);
                 type.Property(e => e.DateMonth);
                 type.Property(e => e.DateWeekday);

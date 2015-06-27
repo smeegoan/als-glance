@@ -252,4 +252,7 @@
   <data name="PatientUseRegression" xml:space="preserve">
     <value>Usar regressão para prever resultados futuros</value>
   </data>
+  <data name="PatientColorSchemes" xml:space="preserve">
+    <value>Esquemas de Cores</value>
+  </data>
 </root>

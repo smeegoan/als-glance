@@ -78,7 +78,6 @@
     <Build Include="dbo\Tables\AspNetExtApiAuthenticationAccessTokens.sql" />
     <Build Include="dbo\Tables\ApplicationSettings.sql" />
     <Build Include="dbo\Views\Facts.sql" />
-    <Build Include="dbo\Tables\EMG.sql" />
     <None Include="Scripts\Script.Facts.sql" />
   </ItemGroup>
   <ItemGroup>

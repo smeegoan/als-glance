@@ -367,7 +367,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                     data = alsglance.dashboard.patient.addPredictions(data);
                 }
                 alsglance.dashboard.patient.load(data, alsglance.dashboard.patient.yearMin, alsglance.dashboard.patient.yearMax);
-                colorbrewer.initColors(alsglance.dashboard.settings.colorScheme);
+                colorbrewer.showColorSchemeButton(alsglance.dashboard.settings.colorScheme);
                 alsglance.charts.setBehaviour();
                 alsglance.dashboard.patient.reset();
                 alsglance.dashboard.patient.applyFilters(alsglance.dashboard.settings["P" + alsglance.dashboard.patientId]);

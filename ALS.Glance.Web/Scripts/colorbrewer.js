@@ -40,7 +40,7 @@ var colorbrewer = colorbrewer || {
     },
     showSchemes: function () {
         $("#ramps").empty();
-        var ramp,svg;
+        var ramp, svg;
         for (var i in colorbrewer.schemeNames[selectedSchemeType]) {
             if (colorbrewer.checkFilters(colorbrewer.schemeNames[selectedSchemeType][i]) == false) continue;
             ramp = $("<div class='ramp " + colorbrewer.schemeNames[selectedSchemeType][i] + "'></div>"),
@@ -227,9 +227,9 @@ var colorbrewer = colorbrewer || {
             b: parseInt(result[3], 16)
         } : null;
     },
-    initColors: function (defaultColor) {
+    showColorSchemeButton: function (defaultColor) {
         $("#colorPlaceHolder").replaceWith(' <li class="dropdown">'
-            + '   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Color Schemes <span class="caret"></span></a>'
+            + '   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">' + alsglance.resources.colorSchemes + '<span class="caret"></span></a>'
             + '    <ul class="dropdown-menu" role="menu">'
             + '        <li>'
             + '            <div class="container" style="max-width: 300px">'

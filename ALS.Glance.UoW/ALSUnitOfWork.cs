@@ -9,8 +9,7 @@ namespace ALS.Glance.UoW
 {
     public class ALSUnitOfWork : SecurityUnitOfWork, IALSUnitOfWork
     {
-        private readonly Lazy<IEMGRepository> _lazyEMGRepository;
-        private readonly Lazy<IDateRepository> _lazyDateRepository;
+         private readonly Lazy<IDateRepository> _lazyDateRepository;
         private readonly Lazy<IMuscleRepository> _lazyMuscleRepository;
         private readonly Lazy<IFactRepository> _lazyFactRepository;
         private readonly Lazy<IFactsRepository> _lazyFactsRepository;
@@ -20,7 +19,6 @@ namespace ALS.Glance.UoW
         public ALSUnitOfWork(ALSContext context)
             : base(context)
         {
-            _lazyEMGRepository = new Lazy<IEMGRepository>(() => new EMGRepository(context));
             _lazyDateRepository = new Lazy<IDateRepository>(() => new DateRepository(context));
             _lazyMuscleRepository = new Lazy<IMuscleRepository>(() => new MuscleRepository(context));
             _lazyFactRepository = new Lazy<IFactRepository>(() => new FactRepository(context));
@@ -34,7 +32,6 @@ namespace ALS.Glance.UoW
         public IFactsRepository IndexedFacts { get { return _lazyFactsRepository.Value; } }
         public IFactRepository Facts { get { return _lazyFactRepository.Value; } }
         public IPatientRepository Patients { get { return _lazyPatientRepository.Value; } }
-        public IEMGRepository EMGs { get { return _lazyEMGRepository.Value; } }
         public IApplicationSettingsRepository ApplicationSettings { get { return _lazyApplicationSettingsRepository.Value; } }
 
     }

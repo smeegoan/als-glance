@@ -23,9 +23,6 @@ namespace ALS.Glance.UoW.Mapping
 
         }
 
-        public IDbSet<EMG> EMG { get; set; }
-
-
         public IDbSet<DDate> Date { get; set; }
 
         public IDbSet<Fact> Fact { get; set; }
@@ -60,21 +57,9 @@ namespace ALS.Glance.UoW.Mapping
                     cfg.Property(x => x.Quarter).IsRequired();
                     cfg.Property(x => x.QuarterInYear).IsRequired().HasMaxLength(30);
 
-                    cfg.Map();   
+                    cfg.Map();
                 });
 
-            modelBuilder.Entity<EMG>(
-               cfg =>
-               {
-                   cfg.ToTable("EMG");
-                   cfg.HasKey(x => x.Id);
-
-                   cfg.Property(x => x.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-                   cfg.Property(x => x.Date).IsRequired();
-                   cfg.HasRequired(a => a.Patient).WithMany().HasForeignKey(c => c.PatientId);
-                 
-                   cfg.Map();
-               });
 
             modelBuilder.Entity<DMuscle>(
                 cfg =>
@@ -86,7 +71,7 @@ namespace ALS.Glance.UoW.Mapping
                     cfg.Property(x => x.Name).IsRequired().IsUnicode(false).HasMaxLength(200);
                     cfg.Property(x => x.Abbreviation).IsRequired().HasMaxLength(30);
 
-                    cfg.Map();   
+                    cfg.Map();
                 });
 
             modelBuilder.Entity<Fact>(
@@ -97,12 +82,13 @@ namespace ALS.Glance.UoW.Mapping
 
                     cfg.Property(x => x.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
                     cfg.Property(x => x.AUC).IsRequired();
-                
+
                     cfg.HasRequired(a => a.Date).WithMany(b => b.Fact).HasForeignKey(c => c.DateId);
                     cfg.HasRequired(a => a.Muscle).WithMany(b => b.Fact).HasForeignKey(c => c.MuscleId);
                     cfg.HasRequired(a => a.Patient).WithMany(b => b.Fact).HasForeignKey(c => c.PatientId);
                     cfg.HasRequired(a => a.Time).WithMany(b => b.Fact).HasForeignKey(c => c.TimeId);
-                 });
+                    cfg.Property(x => x.EMG);
+                });
 
             modelBuilder.Entity<DPatient>(
                 cfg =>
@@ -117,7 +103,7 @@ namespace ALS.Glance.UoW.Mapping
                     cfg.Property(x => x.PatientId).IsRequired().HasMaxLength(30);
                     cfg.Property(x => x.Sex).IsRequired().IsFixedLength().IsUnicode(false).HasMaxLength(1);
 
-                    cfg.Map();   
+                    cfg.Map();
                 });
 
             modelBuilder.Entity<DTime>(
@@ -129,7 +115,7 @@ namespace ALS.Glance.UoW.Mapping
                     cfg.Property(x => x.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
                     cfg.Property(x => x.Hour).IsRequired();
                     cfg.Property(x => x.TimeOfDay).IsRequired().IsUnicode(false).HasMaxLength(50);
-                    cfg.Map();     
+                    cfg.Map();
                 });
 
             modelBuilder.Entity<ApplicationSettings>(
@@ -157,8 +143,8 @@ namespace ALS.Glance.UoW.Mapping
             modelBuilder.Entity<Facts>(
                 cfg =>
                 {
-                    cfg.ToTable( "Facts");
-                
+                    cfg.ToTable("Facts");
+
                     cfg.Property(x => x.Id).IsRequired();
                     cfg.Property(x => x.AUC).IsRequired().HasPrecision(20, 19);
                     cfg.Property(x => x.DateDate).IsRequired();
@@ -183,6 +169,7 @@ namespace ALS.Glance.UoW.Mapping
                     cfg.Property(x => x.PatientDiagnosedOn).IsRequired();
                     cfg.Property(x => x.TimeHour).IsRequired();
                     cfg.Property(x => x.TimeTimeOfDay).IsRequired().HasMaxLength(50);
+                    cfg.Property(x => x.EMG);
 
                 });
         }
