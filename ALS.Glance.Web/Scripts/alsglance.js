@@ -18,9 +18,12 @@ alsglance.charts = alsglance.charts || {
     addXAxis: function (chartToUpdate, displayText) {
         if (chartToUpdate == null)
             return;
+
+        $("#chart" + chartToUpdate.__dcFlag__).remove();
         chartToUpdate.svg()
             .append("text")
-            .attr("class", "x-axis-label")
+            .attr("id", "chart" + chartToUpdate.__dcFlag__)
+            .attr("class", "x-axis-label x-label")
             .attr("text-anchor", "middle")
             .attr("x", chartToUpdate.width() / 2)
             .attr("y", chartToUpdate.height())
@@ -503,8 +506,8 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             // customBars: true,
             //   title: 'Daily Temperatures in New York vs. San Francisco',
             labels: ['Time', 'µV'],
-            //xlabel: 'Time',
-            //ylabel: 'EMG Signal',
+            xlabel: 'Time',
+           // ylabel: 'EMG',
             legend: 'true',
             colors: [colorbrewer.schemes[selectedScheme][numClasses][3]],
             labelsDivStyles: {
@@ -676,6 +679,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
            .round(dc.round.floor)
            .alwaysUseRounding(true)
            .x(d3.scale.linear().domain([0, 23]))
+             .yAxisLabel(alsglance.resources.measurements)
            .renderHorizontalGridLines(true)
            // customize the filter displayed in the control span
            .filterPrinter(function (filters) {
@@ -819,19 +823,19 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                     }
                 },
                 {
-                    label: 'Time Of Day',
+                    label: alsglance.resources.timeOfDay,
                     format: function (d) {
                         return d.TimeTimeOfDay;
                     }
                 },
                 {
-                    label: 'Time (h)', // desired format of column name 'Change' when used as a label with a function.
+                    label: alsglance.resources.hour,
                     format: function (d) {
                         return d.TimeHour;
                     }
                 },
                   {
-                      label: 'Muscle',
+                      label: alsglance.resources.muscle,
                       format: function (d) {
                           return d.MuscleAbbreviation;
                       }

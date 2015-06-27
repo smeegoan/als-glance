@@ -385,6 +385,15 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string SharedClose {
+            get {
+                return ResourceManager.GetString("SharedClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log in.
         /// </summary>
         public static string SharedLogin {

@@ -51,7 +51,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">@Resources.SharedClose</button>
                         <button id="saveOptions" type="button" class="btn btn-primary">@Resources.PatientSave</button>
                     </div>
                 </div>
@@ -274,6 +274,9 @@
                 }
             });
             alsglance.resources = alsglance.resources || {
+                hour: '@Resources.PatientHour',
+                timeOfDay: '@Resources.PatientTimeOfDay',
+                muscle: '@Resources.PatientMuscle',
                 allSelectedMessage: '@Resources.PatientAllSelected',
                 loadingMessage: '@Resources.PatientLoading',
                 saveMessage: '@Resources.PatientSaveMessage',
@@ -290,7 +293,8 @@
             else if (alsglance.dashboard.settings.predictionBackLog==12)
                 $('#year').prop('checked', true);
             else {
-                $('#6months').prop('checked', true);      
+                alsglance.dashboard.settings.predictionBackLog = 6;
+                $('#6months').prop('checked', true);
             }
             alsglance.dashboard.patientId = @Model.Id;
             alsglance.dashboard.patient.yearMin=@Model.YearMin;
@@ -301,7 +305,7 @@
             alsglance.presentation.bindButtonEvents();
             alsglance.presentation.makePanelsDraggable();
         });
-    </script>
+</script>
 }
 
 

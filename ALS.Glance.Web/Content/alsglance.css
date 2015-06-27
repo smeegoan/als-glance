@@ -31,32 +31,83 @@ textarea {
     margin-right: 2em;
     margin-top: 2em;
 }
-.voffset  { margin-top: 2px; }
-.voffset1 { margin-top: 5px; }
-.voffset2 { margin-top: 10px; }
-.voffset3 { margin-top: 15px; }
-.voffset4 { margin-top: 30px; }
-.voffset5 { margin-top: 40px; }
-.voffset6 { margin-top: 60px; }
-.voffset7 { margin-top: 80px; }
-.voffset8 { margin-top: 100px; }
-.voffset9 { margin-top: 150px; }
 
-.loading{
+.voffset {
+    margin-top: 2px;
+}
+
+.voffset1 {
+    margin-top: 5px;
+}
+
+.voffset2 {
+    margin-top: 10px;
+}
+
+.voffset3 {
+    margin-top: 15px;
+}
+
+.voffset4 {
+    margin-top: 30px;
+}
+
+.voffset5 {
+    margin-top: 40px;
+}
+
+.voffset6 {
+    margin-top: 60px;
+}
+
+.voffset7 {
+    margin-top: 80px;
+}
+
+.voffset8 {
+    margin-top: 100px;
+}
+
+.voffset9 {
+    margin-top: 150px;
+}
+
+.loading {
     text-align: center;
-  padding-top: 30px;
-  padding-bottom: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 /*for applying margins to .btn-vert-block below 767px width (or any other):*/
 @media (max-width: 767px) {
     .btn-vert-block + .btn-vert-block {
-        margin-top: 10px;    
-    }    
+        margin-top: 10px;
+    }
 }
 
 .introjs-helperNumberLayer {
-     -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+#emgChart .dygraph-label {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.846;
+    color: #666666;
+}
+
+#emgChart .dygraph-title {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.846;
+    color: #666666;
+}
+
+#emgChart .dygraph-ylabel {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.846;
+    color: #666666; 
 }

@@ -31,7 +31,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; Pedro Miguel C. Cardoso @DateTime.Now.Year</p>
+            <p>rev @ViewContext.Controller.GetType().Assembly.GetName().Version<br/>&copy; Pedro Miguel C. Cardoso @File.GetCreationTime(ViewContext.Controller.GetType().Assembly.Location).Year</p>
         </footer>
     </div>
     @Scripts.Render("~/bundles/telemetryjs")

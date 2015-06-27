@@ -237,4 +237,7 @@
   <data name="PatientTip4" xml:space="preserve">
     <value>Click here to configure the prediction of results.</value>
   </data>
+  <data name="SharedClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
 </root>
