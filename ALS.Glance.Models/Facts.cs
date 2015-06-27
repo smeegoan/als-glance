@@ -10,7 +10,7 @@ namespace ALS.Glance.Models
             public decimal AUC { get; set; } // AUC
 
 
-            public DateTime DateDate { get; set; } // date
+            public DateTimeOffset DateDate { get; set; } // date
 
 
             public byte DateDay { get; set; } // Day

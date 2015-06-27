@@ -344,7 +344,7 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
                     alsglance.dashboard.patients.dataTable.fnAddData(alldata);
                     alsglance.dashboard.patients.dataTable.fnDraw();
                 });
-            }).yAxis();
+            });
         //#endregion
 
         //#### Rendering
@@ -371,13 +371,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                 alsglance.charts.setBehaviour();
                 alsglance.dashboard.patient.reset();
                 alsglance.dashboard.patient.applyFilters(alsglance.dashboard.settings["P" + alsglance.dashboard.patientId]);
-                $.when(alsglance.apiClient.get("EMG?$select=Data&$top=1&$orderby=Date&$filter=Patient/Id eq " + alsglance.dashboard.patientId))
-                    .then(function (emg) {
-                        if (emg.value.length == 0)
-                            return;
-                        alsglance.dashboard.patient.loadEMG(JSON.parse(emg.value[0].Data));
-                        analytics.logActionLoad(then, "Patient");
-                    });
+                analytics.logActionLoad(then, "Patient");
             });
     },
     saveSettings: function () {
@@ -503,11 +497,9 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
     },
     loadEMG: function (data) {
         alsglance.charts.emgChart = new Dygraph(document.getElementById("emgChart"), data, {
-            // customBars: true,
-            //   title: 'Daily Temperatures in New York vs. San Francisco',
             labels: ['Time', 'µV'],
             xlabel: 'Time',
-           // ylabel: 'EMG',
+            // ylabel: 'EMG',
             legend: 'true',
             colors: [colorbrewer.schemes[selectedScheme][numClasses][3]],
             labelsDivStyles: {
@@ -621,10 +613,11 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
 
         //#endregion
 
-        // determine a histogram of percent changes
+
         var timeHourDimension = ndx.dimension(function (d) {
             return d.TimeHour;
         });
+
         var timeHourGroup = timeHourDimension.group();
 
         // counts per weekday
@@ -733,7 +726,6 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                 return dateFormat(d.key[1]) + ':\n' + d.value;
             });
 
-
         alsglance.charts.dateRangeChart
             // .width(460)
             .height(100)
@@ -746,12 +738,26 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             .x(d3.time.scale().domain([new Date(minYear, 0, 1), new Date(maxYear + 1, 11, 31)]))
             .round(d3.time.month.round)
             .alwaysUseRounding(true)
-            .xUnits(d3.time.months).on("filtered", function (chart) {
+            .xUnits(d3.time.months)
+            .on("filtered", function (chart) {
                 var filters = chart.filters();
+                var endDate;
                 if (filters.length > 0) {
                     var range = filters[0];
-                    $('#reportrange span').html(moment(range[0]).format('MMMM D, YYYY') + ' - ' + moment(range[1]).format('MMMM D, YYYY'));
+                    endDate = moment(range[1]);
+                    $('#reportrange span').html(moment(range[0]).format('MMMM D, YYYY') + ' - ' + endDate.format('MMMM D, YYYY'));
+
+                } else {
+                    endDate = moment(new Date(maxYear + 1, 11, 31));
                 }
+                $.when(alsglance.apiClient.get("Facts?$top=1&$select=DateDate,EMG&$filter=PatientId%20eq%20" + alsglance.dashboard.patientId + " and EMG ne null and DateDate le " + endDate.format('YYYY-MM-DDTHH:mm') + "%2B00:00&$orderby=DateDate desc"))
+                    .then(function (emgs) {
+                        var emg = emgs.value;
+                        if (emg == null)
+                            return;
+                        alsglance.dashboard.patient.loadEMG(JSON.parse(emg[0].EMG));
+                    });
+
             });
 
         //#endregion

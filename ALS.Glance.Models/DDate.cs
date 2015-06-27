@@ -6,7 +6,7 @@ namespace ALS.Glance.Models
 {
     public class DDate : ModelWithAllMeta<long>
     {     
-        public DateTime Date { get; set; }
+        public DateTimeOffset Date { get; set; }
 
         public byte Day { get; set; }
 
