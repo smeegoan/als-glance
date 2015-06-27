@@ -190,7 +190,7 @@
     <value>Altura do Dia</value>
   </data>
   <data name="PatientTip1" xml:space="preserve">
-    <value>Clique neste gráfico de pizza para filtrar por trimestre.</value>
+    <value>Clique neste gráfico de donut para filtrar por trimestre.</value>
   </data>
   <data name="PatientTip2" xml:space="preserve">
     <value>Clique neste gráfico de linha para filtrar por altura do dia.</value>

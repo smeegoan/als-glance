@@ -304,7 +304,7 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click on this pie chart to filter by quarter..
+        ///   Looks up a localized string similar to Click on this donut chart to filter by quarter..
         /// </summary>
         public static string PatientTip1 {
             get {

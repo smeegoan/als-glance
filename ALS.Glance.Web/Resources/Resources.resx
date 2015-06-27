@@ -199,7 +199,7 @@
     <value>Time Of Day</value>
   </data>
   <data name="PatientTip1" xml:space="preserve">
-    <value>Click on this pie chart to filter by quarter.</value>
+    <value>Click on this donut chart to filter by quarter.</value>
   </data>
   <data name="PatientTip2" xml:space="preserve">
     <value>Click on this row chart to filter by time of day.</value>

@@ -58,7 +58,7 @@ namespace ALS.Glance.Web
                 "~/Content/toastr.css",
                 "~/Content/bootstrap.css",
                 "~/Content/font-awesome.min.css",
-                "~/Content/site.css"));
+                "~/Content/alsglance.css"));
 
             bundles.Add(new StyleBundle("~/Content/usabilityformcss").Include(
                 "~/Content/usabilityform.css"));

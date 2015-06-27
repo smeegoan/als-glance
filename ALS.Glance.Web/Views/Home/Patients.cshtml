@@ -68,6 +68,7 @@
                         alsglance.dashboard.patients.dataTable= $('#patients').dataTable({
                             "order": [[3, "asc"]],
                             "aaData": alsglance.dashboard.patients.sexDimension.top(Infinity),
+                            "dom": '<"top"f<"clear">>rt<"col-sm-offset-4"p>',
                             "bLengthChange": false,
                             "bSort": true,
                             "bInfo": false,
