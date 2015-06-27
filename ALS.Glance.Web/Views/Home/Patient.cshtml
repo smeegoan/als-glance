@@ -20,7 +20,7 @@
                         <h4 class="modal-title" id="myModalLabel">AUC</h4>
                     </div>
                     <div class="modal-body">
-                        <form class="form-horizontal" role="form">
+                        <form id="aucForm"class="form-horizontal" role="form">
                             <div class="form-group">
                                 <div class="col-md-offset-1 col-md-8">
                                     <div class="checkbox">
@@ -34,17 +34,16 @@
                                 <label class="col-md-offset-1 col-md-3 control-label">Data used for prediction:</label>
                                 <div class="col-md-8">
                                     <label class="radio radio-inline col-md-2">
-
-                                        <input type="radio" class="radiobox" name="style-0a">
+                                        <input id="all" type="radio" class="radiobox" name="predictionBacklog" value="999">
                                         <span>All</span>
 
                                     </label>
                                     <label class="radio radio-inline col-md-3">
-                                        <input type="radio" class="radiobox" name="style-0a">
+                                        <input id="year" type="radio" class="radiobox" name="predictionBacklog" value="12">
                                         <span>Last Year</span>
                                     </label>
                                     <label class="radio radio-inline col-md-4">
-                                        <input type="radio" class="radiobox" name="style-0a">
+                                        <input id="6months" type="radio" class="radiobox" name="predictionBacklog" value="6">
                                         <span>Last 6 Months</span>
                                     </label>
                                 </div>
@@ -285,6 +284,13 @@
             alsglance.dashboard.settings = alsglance.dashboard.settings || JSON.parse(decodeURIComponent('@Html.Raw(Model.Settings)'));
             if (alsglance.dashboard.settings.showPredictions == null) {
                 alsglance.dashboard.settings.showPredictions = true;
+            }
+            if (alsglance.dashboard.settings.predictionBackLog==999)
+                $('#all').prop('checked', true);
+            else if (alsglance.dashboard.settings.predictionBackLog==12)
+                $('#year').prop('checked', true);
+            else {
+                $('#6months').prop('checked', true);      
             }
             alsglance.dashboard.patientId = @Model.Id;
             alsglance.dashboard.patient.yearMin=@Model.YearMin;

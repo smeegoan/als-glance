@@ -214,7 +214,7 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Filter changes were successfully saved..
+        ///   Looks up a localized string similar to The changes were successfully saved..
         /// </summary>
         public static string PatientSaveMessage {
             get {

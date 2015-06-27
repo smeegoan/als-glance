@@ -159,6 +159,7 @@ alsglance.presentation = alsglance.presentation || {
         });
         $("#saveOptions").click(function () {
             alsglance.dashboard.settings.showPredictions = $("#showPredictions").is(':checked');
+            alsglance.dashboard.settings.predictionBackLog = parseInt($('input[name=predictionBacklog]:checked', '#aucForm').val());
             $('#aucOptions').modal('hide');
             alsglance.dashboard.patient.saveSettings();
             alsglance.dashboard.patient.loadFacts();
@@ -243,7 +244,7 @@ alsglance.presentation = alsglance.presentation || {
 alsglance.dashboard = alsglance.dashboard || {};
 alsglance.dashboard.patients = alsglance.dashboard.patients || {
     load: function (data, min, max) {
-        alsglance.charts.aucBubbleChart = alsglance.charts.aucBubbleChart||dc.bubbleChart('#aucBubbleChart');
+        alsglance.charts.aucBubbleChart = alsglance.charts.aucBubbleChart || dc.bubbleChart('#aucBubbleChart');
 
         var numberFormat = d3.format('.5f');
         data = data["value"];
@@ -363,7 +364,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                     data = alsglance.dashboard.patient.addPredictions(data);
                 }
                 alsglance.dashboard.patient.load(data, alsglance.dashboard.patient.yearMin, alsglance.dashboard.patient.yearMax);
-                initColors(alsglance.dashboard.settings.colorScheme);
+                colorbrewer.initColors(alsglance.dashboard.settings.colorScheme);
                 alsglance.charts.setBehaviour();
                 alsglance.dashboard.patient.reset();
                 alsglance.dashboard.patient.applyFilters(alsglance.dashboard.settings["P" + alsglance.dashboard.patientId]);
@@ -459,14 +460,17 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
     },
     addPredictions: function (data) {
         var muscles = [];
-
+        var lastDate = moment(data[data.length - 1].DateDate);
         //data =JSON.flatten(data);
         data.forEach(function (entry) {
-            if (muscles[entry.MuscleAbbreviation] == null)
-                muscles[entry.MuscleAbbreviation] = [];
-            if (muscles[entry.MuscleAbbreviation][entry.TimeTimeOfDay] == null)
-                muscles[entry.MuscleAbbreviation][entry.TimeTimeOfDay] = [];
-            muscles[entry.MuscleAbbreviation][entry.TimeTimeOfDay].push([new Date(entry.DateDate).getTime(), entry.AUC]);
+            if (lastDate.diff(entry.DateDate, 'months') <= alsglance.dashboard.settings.predictionBackLog) {
+
+                if (muscles[entry.MuscleAbbreviation] == null)
+                    muscles[entry.MuscleAbbreviation] = [];
+                if (muscles[entry.MuscleAbbreviation][entry.TimeTimeOfDay] == null)
+                    muscles[entry.MuscleAbbreviation][entry.TimeTimeOfDay] = [];
+                muscles[entry.MuscleAbbreviation][entry.TimeTimeOfDay].push([new Date(entry.DateDate).getTime(), entry.AUC]);
+            }
         });
         for (var muscle in muscles) {
             for (var timeOfDay in muscles[muscle]) {
@@ -502,7 +506,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             //xlabel: 'Time',
             //ylabel: 'EMG Signal',
             legend: 'true',
-            colors: [colorbrewer[selectedScheme][numClasses][3]],
+            colors: [colorbrewer.schemes[selectedScheme][numClasses][3]],
             labelsDivStyles: {
                 'textAlign': 'right'
             }

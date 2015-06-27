@@ -169,7 +169,7 @@
     <value>Save</value>
   </data>
   <data name="PatientSaveMessage" xml:space="preserve">
-    <value>Filter changes were successfully saved.</value>
+    <value>The changes were successfully saved.</value>
   </data>
   <data name="PatientsBornOn" xml:space="preserve">
     <value>Born On</value>
