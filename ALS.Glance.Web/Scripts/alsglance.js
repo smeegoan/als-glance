@@ -245,29 +245,30 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
         data.forEach(function (d) {
             var date = new Date();
             date.setISO8601(d.BornOn);
-            d.age = moment().diff(date, 'years');
+            d.Age = moment().diff(date, 'years');
+            d.Resume = '<a id="resume" href="javascript:void(0);" onclick="javascript:alsglance.presentation.showLoadingDialog.show(\'' + d.Name + '\');window.location=\'Patients/' + d.Id + '\'" data-step="2" data-intro="Click here to view the patient resume." data-position=\'left\'> <span id="resume" class="fa fa-eye"></span></a>';
         });
 
         //### Create Crossfilter Dimensions and Groups
         //See the [crossfilter API](https://github.com/square/crossfilter/wiki/API-Reference) for reference.
         var ndx = crossfilter(data);
 
-        var sexDimension = ndx.dimension(function (d) {
+        alsglance.dashboard.patients.sexDimension = ndx.dimension(function (d) {
             return d.Sex;
         });
         // maintain running tallies by year as filters are applied or removed
-        var ageGroup = sexDimension.group().reduce(
+        var ageGroup = alsglance.dashboard.patients.sexDimension.group().reduce(
             /* callback for when data is added to the current filter results */
             function (p, v) {
                 ++p.count;
-                p.sumAge += v.age;
+                p.sumAge += v.Age;
                 p.avgAge = p.sumAge / p.count;
                 return p;
             },
             /* callback for when data is removed from the current filter results */
             function (p, v) {
                 --p.count;
-                p.sumAge -= v.age;
+                p.sumAge -= v.Age;
                 p.avgAge = p.count ? p.sumAge / p.count : 0;
                 return p;
             },
@@ -284,7 +285,7 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
         aucBubbleChart
             .transitionDuration(1500) // (optional) define chart transition duration, :default = 750
             .margins({ top: 10, right: 50, bottom: 40, left: 50 })
-            .dimension(sexDimension)
+            .dimension(alsglance.dashboard.patients.sexDimension)
             //Bubble chart expect the groups are reduced to multiple values which would then be used
             //to generate x, y, and radius for each key (bubble) in the group
             .group(ageGroup)
@@ -327,9 +328,14 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
                     alsglance.resources.patientsYAxisLabel + ': ' + p.value.count,
                     alsglance.resources.patientsXAxisLabel + ': ' + numberFormat(p.value.avgAge)
                 ].join('\n');
-            }).yAxis().tickFormat(function (v) {
-                return v;
-            });
+            }).on("filtered", function () {
+                dc.events.trigger(function () {
+                    var alldata = alsglance.dashboard.patients.sexDimension.top(Infinity);
+                    alsglance.dashboard.patients.dataTable.fnClearTable();
+                    alsglance.dashboard.patients.dataTable.fnAddData(alldata);
+                    alsglance.dashboard.patients.dataTable.fnDraw();
+                });
+            }).yAxis();
         //#endregion
 
         //#### Rendering

@@ -55,14 +55,12 @@ namespace ALS.Glance.Web.Controllers
         {
             if (id == null)
             {
-                var patients = await _glanceDa.GetPatientsAsync(_credentials, ct);
                 var ageBounds = await _glanceDa.GetAgeBoundsAsync(_credentials, ct);
 
                 var model = new PatientsViewModel
                 {
                     AgeMax = ageBounds.Max,
                     AgeMin = ageBounds.Min,
-                    Patients = patients,
                 };
                 return View(model);
             }

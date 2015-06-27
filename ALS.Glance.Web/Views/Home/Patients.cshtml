@@ -36,35 +36,7 @@
                     </th>
                     <th>@Resources.PatientResume</th>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Patients)
-                {
-                    var patient = item;
-                    <tr>
-                        <td>
-
-
-                            @Html.DisplayFor(modelItem => patient.PatientId)
-                        </td>
-                        <td>
-                            @item.BornOn.Date.ToShortDateString()
-                        </td>
-                        <td>
-                            @item.DiagnosedOn.Date.ToShortDateString()
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => patient.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => patient.Sex)
-                        </td>
-                        <td>
-                            <a id="resume" href="javascript:void(0);" onclick="javascript:alsglance.presentation.showLoadingDialog.show('@patient.Name');window.location='@Url.Action("Patients", "Home", new { item.Id}, null)';" data-step="2" data-intro="Click here to view the patient resume." data-position='left'> <span id="resume" class="fa fa-eye"></span></a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
+            </thead>           
         </table>
     </div>
 </div>
@@ -74,33 +46,48 @@
     @Scripts.Render("~/bundles/commonjs")
 
     <script>
-        $(function () {
-            var then = moment();
-            var apiClient = new alsglance.ApiClient({
-                baseUri: alsglance.baseUri,
-                authToken: alsglance.authToken,
-                onAuthFail: function () {
-                    toastr.error("Error authenticating!", 'ALS Glance');
-                }
-            });
-            alsglance.resources = alsglance.resources || {
-                loadingMessage: '@Resources.PatientLoading',
-                patientsXAxisLabel: '@Resources.PatientsXAxisLabel',
-                patientsYAxisLabel: '@Resources.PatientsYAxisLabel',
-                help: '@Resources.Help',
-                patientsTip1:'@Resources.PatientsTip1',
-            };
-            $.when(apiClient.get("DPatient?$select=Sex,BornOn"))
-                    .then(function (data) {
-                        alsglance.dashboard.patients.load(data,@Model.AgeMin,@Model.AgeMax);
+    $(function () {
+        var then = moment();
+        var apiClient = new alsglance.ApiClient({
+            baseUri: alsglance.baseUri,
+            authToken: alsglance.authToken,
+            onAuthFail: function () {
+                toastr.error("Error authenticating!", 'ALS Glance');
+            }
+        });
+        alsglance.resources = alsglance.resources || {
+            loadingMessage: '@Resources.PatientLoading',
+            patientsXAxisLabel: '@Resources.PatientsXAxisLabel',
+            patientsYAxisLabel: '@Resources.PatientsYAxisLabel',
+            help: '@Resources.Help',
+            patientsTip1:'@Resources.PatientsTip1',
+        };
+        $.when(apiClient.get("DPatient?$select=Id,PatientId,BornOn,DiagnosedOn,Name,Sex"))
+                .then(function (data) {
+                    alsglance.dashboard.patients.load(data,@Model.AgeMin,@Model.AgeMax);
+                        alsglance.dashboard.patients.dataTable= $('#patients').dataTable({
+                            "order": [[3, "asc"]],
+                            "aaData": alsglance.dashboard.patients.sexDimension.top(Infinity),
+                            "bLengthChange": false,
+                            "bSort": true,
+                            "bInfo": false,
+                            "bAutoWidth": false,
+                            "bDeferRender": true,
+                            "bDestroy": true,
+                            "aoColumns": [
+                                { "mData": "PatientId", "sDefaultContent": "" },
+                                { "mData": "BornOn", "sDefaultContent": "" },
+                                { "mData": "DiagnosedOn", "sDefaultContent": "" },
+                                { "mData": "Name", "sDefaultContent": "" },
+                                { "mData": "Sex", "sDefaultContent": "" },
+                                { "mData": "Resume", "sDefaultContent": ""}
+                            ]
+                        });
                         alsglance.charts.setBehaviour();
                         alsglance.presentation.showPatientsHelpButton();
                         analytics.logActionLoad(then,"Patients");
                     });
-            $('#patients').dataTable({
-                "order": [[ 3, "asc" ]],
-                responsive: true
-            });
+
         });
     </script>
 }
