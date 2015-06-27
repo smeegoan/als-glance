@@ -132,14 +132,32 @@
   <data name="HomeTibialisAnterior" xml:space="preserve">
     <value>&lt;h4&gt;Tibialis anterior&lt;/h4&gt;&lt;p&gt;The tibialis anterior is a muscle that originates in the upper two-thirds of the lateral (outside) surface of the tibia and inserts into the medial cuneiform and first metatarsal bones of the foot.&lt;/p&gt;&lt;p&gt;&lt;a class="btn btn-default" href="http://en.wikipedia.org/wiki/Tibialis_anterior_muscle"&gt;Learn more &amp;raquo;&lt;/a&gt;&lt;/p&gt;</value>
   </data>
+  <data name="PatientAllSelected" xml:space="preserve">
+    <value>All records selected. Please click on the graph to apply filters.</value>
+  </data>
   <data name="PatientDetails" xml:space="preserve">
     <value>Details</value>
+  </data>
+  <data name="PatientEMG" xml:space="preserve">
+    <value>Last EMG in range</value>
+  </data>
+  <data name="PatientHour" xml:space="preserve">
+    <value>Hour</value>
   </data>
   <data name="PatientLoading" xml:space="preserve">
     <value>Loading...</value>
   </data>
+  <data name="PatientMeasurements" xml:space="preserve">
+    <value># Measurements</value>
+  </data>
   <data name="PatientMuscle" xml:space="preserve">
     <value>Muscle</value>
+  </data>
+  <data name="PatientQuarter" xml:space="preserve">
+    <value>Quarter</value>
+  </data>
+  <data name="PatientQuarterPrefix" xml:space="preserve">
+    <value>Q</value>
   </data>
   <data name="PatientReset" xml:space="preserve">
     <value>Reset</value>
@@ -149,6 +167,60 @@
   </data>
   <data name="PatientSave" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="PatientSaveMessage" xml:space="preserve">
+    <value>Filter changes were successfully saved.</value>
+  </data>
+  <data name="PatientsBornOn" xml:space="preserve">
+    <value>Born On</value>
+  </data>
+  <data name="PatientsDiagnosedOn" xml:space="preserve">
+    <value>Diagnosed On</value>
+  </data>
+  <data name="PatientsName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="PatientsPatientId" xml:space="preserve">
+    <value>Patient Id</value>
+  </data>
+  <data name="PatientsSex" xml:space="preserve">
+    <value>Sex</value>
+  </data>
+  <data name="PatientsTip1" xml:space="preserve">
+    <value>Click here to filter by the patient name.</value>
+  </data>
+  <data name="PatientsXAxisLabel" xml:space="preserve">
+    <value># Patients</value>
+  </data>
+  <data name="PatientsYAxisLabel" xml:space="preserve">
+    <value>Average Age</value>
+  </data>
+  <data name="PatientTimeOfDay" xml:space="preserve">
+    <value>Time Of Day</value>
+  </data>
+  <data name="PatientTip1" xml:space="preserve">
+    <value>Click on this pie chart to filter by quarter.</value>
+  </data>
+  <data name="PatientTip2" xml:space="preserve">
+    <value>Click on this row chart to filter by time of day.</value>
+  </data>
+  <data name="PatientTip3" xml:space="preserve">
+    <value>Drag and drop to zoom in.</value>
+  </data>
+  <data name="PatientTip4" xml:space="preserve">
+    <value>Drag and drop or use mouse wheel to zoom in.</value>
+  </data>
+  <data name="PatientTip6" xml:space="preserve">
+    <value>Click here to reset the filters applied to the chart.</value>
+  </data>
+  <data name="PatientTip7" xml:space="preserve">
+    <value>Click here to collapse the panel.</value>
+  </data>
+  <data name="PatientTip8" xml:space="preserve">
+    <value>Click here to expand the panel.</value>
+  </data>
+  <data name="PatientTip9" xml:space="preserve">
+    <value>Click here to close the panel.</value>
   </data>
   <data name="SharedLogin" xml:space="preserve">
     <value>Log in</value>

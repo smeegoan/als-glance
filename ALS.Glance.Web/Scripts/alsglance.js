@@ -30,7 +30,7 @@ alsglance.charts = alsglance.charts || {
     },
     redrawAll: function () {
         dc.redrawAll();
-        alsglance.charts.addXAxis(timeOfDayChart, "# Measurements");
+        alsglance.charts.addXAxis(timeOfDayChart, alsglance.resources.measurements);
     },
     turnOffControls: function (chart) {
         return function () {
@@ -100,7 +100,7 @@ alsglance.charts = alsglance.charts || {
             alsglance.charts.resize(chart);
         }
         dc.renderAll();
-        alsglance.charts.addXAxis(timeOfDayChart, "# Measurements");
+        alsglance.charts.addXAxis(timeOfDayChart, alsglance.resources.measurements);
         for (i = 0; i < dc.chartRegistry.list().length; i++) {
             chart = dc.chartRegistry.list()[i];
             chart.transitionDuration(500);
@@ -110,6 +110,46 @@ alsglance.charts = alsglance.charts || {
     },
 };
 alsglance.presentation = alsglance.presentation || {
+    makePanelsDraggable: function () {
+        //
+        //  Function maked all .box selector is draggable, to disable for concrete element add class .no-drop
+        //
+        $("div.box").not('.no-drop')
+            .draggable({
+                revert: true,
+                zIndex: 2000,
+                cursor: "crosshair",
+                handle: '.box-name',
+                opacity: 0.8
+            })
+            .droppable({
+                tolerance: 'pointer',
+                drop: function (event, ui) {
+                    var draggable = ui.draggable;
+                    var droppable = $(this);
+                    var dragPos = draggable.position();
+                    var dropPos = droppable.position();
+                    draggable.swap(droppable);
+                    setTimeout(function () {
+                        var dropmap = droppable.find('[id^=map-]');
+                        var dragmap = draggable.find('[id^=map-]');
+                        if (dragmap.length > 0 || dropmap.length > 0) {
+                            dragmap.resize();
+                            dropmap.resize();
+                        }
+                        else {
+                            draggable.resize();
+                            droppable.resize();
+                            alsglance.charts.resizeAll();
+                        }
+                    }, 50);
+                    setTimeout(function () {
+                        draggable.find('[id^=map-]').resize();
+                        droppable.find('[id^=map-]').resize();
+                    }, 250);
+                }
+            });
+    },
     bindButtonEvents: function () {
         $("#reset").click(function () {
             alsglance.dashboard.patient.reset();
@@ -128,14 +168,14 @@ alsglance.presentation = alsglance.presentation || {
             });
         });
     },
-    showPatientsHelpButton: function (text) {
+    showPatientsHelpButton: function () {
         $("#patients_filter").attr("data-position", "bottom");
         $("#patients_filter").attr("data-step", "1");
-        $("#patients_filter").attr("data-intro", "Click here to filter by the patient name.");
-        $("#helpPlaceHolder").html('<a href="javascript:void(0);" onclick="javascript:alsglance.presentation.showHelp(\'Patients\');">' + text + '</a>');
+        $("#patients_filter").attr("data-intro", alsglance.resources.patientsTip1);
+        $("#helpPlaceHolder").html('<a href="javascript:void(0);" onclick="javascript:alsglance.presentation.showHelp(\'Patients\');">' + alsglance.resources.help + '</a>');
     },
-    showPatientHelpButton: function (text) {
-        $("#helpPlaceHolder").html('<a href="javascript:void(0);" onclick="javascript:alsglance.presentation.showHelp(\'Patient\');">' + text + '</a>');
+    showPatientHelpButton: function () {
+        $("#helpPlaceHolder").html('<a href="javascript:void(0);" onclick="javascript:alsglance.presentation.showHelp(\'Patient\');">' + alsglance.resources.help + '</a>');
     },
     showHelp: function (category) {
         introJs().start();
@@ -180,7 +220,7 @@ alsglance.presentation = alsglance.presentation || {
                 if (settings.progressType) {
                     $dialog.find('.progress-bar').addClass('progress-bar-' + settings.progressType);
                 }
-                $dialog.find('h6').html('Loading...<br/><br/><b>' + message + '</b>');
+                $dialog.find('h6').html(alsglance.resources.loadingMessage + '...<br/><br/><b>' + message + '</b>');
                 // Opening dialog
                 $dialog.modal();
                 analytics.logUiEvent("viewResume", "Patient", "dashboard");
@@ -272,8 +312,8 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
             .xAxisPadding(50)
             .renderHorizontalGridLines(true) // (optional) render horizontal grid lines, :default=false
             .renderVerticalGridLines(true) // (optional) render vertical grid lines, :default=false
-            .xAxisLabel('Average Age') // (optional) render an axis label below the x axis
-            .yAxisLabel('# Patients') // (optional) render a vertical axis lable left of the y axis
+            .xAxisLabel(alsglance.resources.patientsXAxisLabel) // (optional) render an axis label below the x axis
+            .yAxisLabel(alsglance.resources.patientsYAxisLabel) // (optional) render a vertical axis lable left of the y axis
             //#### Labels and  Titles
             //Labels are displaed on the chart for each bubble. Titles displayed on mouseover.
             .renderLabel(true) // (optional) whether chart should render labels, :default = true
@@ -284,8 +324,8 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
             .title(function (p) {
                 return [
                     p.key,
-                    '# Patients: ' + p.value.count,
-                    'Average Age: ' + numberFormat(p.value.avgAge)
+                    alsglance.resources.patientsYAxisLabel + ': ' + p.value.count,
+                    alsglance.resources.patientsXAxisLabel + ': ' + numberFormat(p.value.avgAge)
                 ].join('\n');
             }).yAxis().tickFormat(function (v) {
                 return v;
@@ -324,7 +364,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
-                toastr.success('Filter changes were successfully saved.', 'ALS Glance');
+                toastr.success(alsglance.resources.saveMessage, 'ALS Glance');
             },
             failure: function (errMsg) {
                 toastr.error(errMsg, 'ALS Glance');
@@ -552,7 +592,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         //#region Quarter Chart
 
         var quarter = ndx.dimension(function (d) {
-            return 'Q' + d.DateQuarter;
+            return alsglance.resources.quarterPrefix + d.DateQuarter;
         });
         var quarterGroup = quarter.group().reduceCount();
 
@@ -690,7 +730,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             .html({
                 some: '<strong>%filter-count</strong> selected out of <strong>%total-count</strong> records' +
                     ' | <a href=\'javascript:alsglance.dashboard.patient.reset();\'\'>Reset All</a>',
-                all: 'All records selected. Please click on the graph to apply filters.'
+                all: alsglance.resources.allSelectedMessage
             });
 
         /*

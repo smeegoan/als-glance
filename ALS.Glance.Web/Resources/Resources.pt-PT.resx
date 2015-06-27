@@ -135,11 +135,20 @@
   <data name="PatientDetails" xml:space="preserve">
     <value>Detalhes</value>
   </data>
+  <data name="PatientEMG" xml:space="preserve">
+    <value>Último EMG no período</value>
+  </data>
+  <data name="PatientHour" xml:space="preserve">
+    <value>Hora</value>
+  </data>
   <data name="PatientLoading" xml:space="preserve">
     <value>Aguarde...</value>
   </data>
   <data name="PatientMuscle" xml:space="preserve">
     <value>Músculo</value>
+  </data>
+  <data name="PatientQuarter" xml:space="preserve">
+    <value>Trimestre</value>
   </data>
   <data name="PatientReset" xml:space="preserve">
     <value>Repor</value>
@@ -149,6 +158,60 @@
   </data>
   <data name="PatientSave" xml:space="preserve">
     <value>Guardar</value>
+  </data>
+  <data name="PatientSaveMessage" xml:space="preserve">
+    <value>As alterações foram guardadas com êxito.</value>
+  </data>
+  <data name="PatientsBornOn" xml:space="preserve">
+    <value>Nascido Em</value>
+  </data>
+  <data name="PatientsDiagnosedOn" xml:space="preserve">
+    <value>Diagnosticado Em</value>
+  </data>
+  <data name="PatientsName" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="PatientsPatientId" xml:space="preserve">
+    <value>Id Paciente</value>
+  </data>
+  <data name="PatientsSex" xml:space="preserve">
+    <value>Sexo</value>
+  </data>
+  <data name="PatientsTip1" xml:space="preserve">
+    <value>Clique aqui para filtrar por nome de paciente.</value>
+  </data>
+  <data name="PatientsXAxisLabel" xml:space="preserve">
+    <value>Idade Media</value>
+  </data>
+  <data name="PatientsYAxisLabel" xml:space="preserve">
+    <value># Pacientes</value>
+  </data>
+  <data name="PatientTimeOfDay" xml:space="preserve">
+    <value>Altura do Dia</value>
+  </data>
+  <data name="PatientTip1" xml:space="preserve">
+    <value>Clique neste gráfico de pizza para filtrar por trimestre.</value>
+  </data>
+  <data name="PatientTip2" xml:space="preserve">
+    <value>Clique neste gráfico de linha para filtrar por altura do dia.</value>
+  </data>
+  <data name="PatientTip3" xml:space="preserve">
+    <value>Arraste e largue para fazer zoom.</value>
+  </data>
+  <data name="PatientTip4" xml:space="preserve">
+    <value>Arraste e largue ou use a roda do rato para fazer zoom.</value>
+  </data>
+  <data name="PatientTip6" xml:space="preserve">
+    <value>Clique aqui para repor os filtros aplicados ao gráfico.</value>
+  </data>
+  <data name="PatientTip7" xml:space="preserve">
+    <value>Clique aqui para minimizar o painel.</value>
+  </data>
+  <data name="PatientTip8" xml:space="preserve">
+    <value>Clique aqui para expandir o painel.</value>
+  </data>
+  <data name="PatientTip9" xml:space="preserve">
+    <value>Clique aqui para fechar o painel.</value>
   </data>
   <data name="SharedLogin" xml:space="preserve">
     <value>Entrar</value>
@@ -161,5 +224,11 @@
   </data>
   <data name="SharedPatients" xml:space="preserve">
     <value>Pacientes</value>
+  </data>
+  <data name="PatientMeasurements" xml:space="preserve">
+    <value># Medicoes</value>
+  </data>
+  <data name="PatientQuarterPrefix" xml:space="preserve">
+    <value>T</value>
   </data>
 </root>

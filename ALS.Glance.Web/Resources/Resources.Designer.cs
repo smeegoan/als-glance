@@ -106,11 +106,38 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All records selected. Please click on the graph to apply filters..
+        /// </summary>
+        public static string PatientAllSelected {
+            get {
+                return ResourceManager.GetString("PatientAllSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Details.
         /// </summary>
         public static string PatientDetails {
             get {
                 return ResourceManager.GetString("PatientDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last EMG in range.
+        /// </summary>
+        public static string PatientEMG {
+            get {
+                return ResourceManager.GetString("PatientEMG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hour.
+        /// </summary>
+        public static string PatientHour {
+            get {
+                return ResourceManager.GetString("PatientHour", resourceCulture);
             }
         }
         
@@ -124,11 +151,38 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to # Measurements.
+        /// </summary>
+        public static string PatientMeasurements {
+            get {
+                return ResourceManager.GetString("PatientMeasurements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Muscle.
         /// </summary>
         public static string PatientMuscle {
             get {
                 return ResourceManager.GetString("PatientMuscle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quarter.
+        /// </summary>
+        public static string PatientQuarter {
+            get {
+                return ResourceManager.GetString("PatientQuarter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Q.
+        /// </summary>
+        public static string PatientQuarterPrefix {
+            get {
+                return ResourceManager.GetString("PatientQuarterPrefix", resourceCulture);
             }
         }
         
@@ -156,6 +210,168 @@ namespace ALS.Glance.Web.Resources {
         public static string PatientSave {
             get {
                 return ResourceManager.GetString("PatientSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter changes were successfully saved..
+        /// </summary>
+        public static string PatientSaveMessage {
+            get {
+                return ResourceManager.GetString("PatientSaveMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Born On.
+        /// </summary>
+        public static string PatientsBornOn {
+            get {
+                return ResourceManager.GetString("PatientsBornOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diagnosed On.
+        /// </summary>
+        public static string PatientsDiagnosedOn {
+            get {
+                return ResourceManager.GetString("PatientsDiagnosedOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string PatientsName {
+            get {
+                return ResourceManager.GetString("PatientsName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Patient Id.
+        /// </summary>
+        public static string PatientsPatientId {
+            get {
+                return ResourceManager.GetString("PatientsPatientId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sex.
+        /// </summary>
+        public static string PatientsSex {
+            get {
+                return ResourceManager.GetString("PatientsSex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click here to filter by the patient name..
+        /// </summary>
+        public static string PatientsTip1 {
+            get {
+                return ResourceManager.GetString("PatientsTip1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to # Patients.
+        /// </summary>
+        public static string PatientsXAxisLabel {
+            get {
+                return ResourceManager.GetString("PatientsXAxisLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Average Age.
+        /// </summary>
+        public static string PatientsYAxisLabel {
+            get {
+                return ResourceManager.GetString("PatientsYAxisLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time Of Day.
+        /// </summary>
+        public static string PatientTimeOfDay {
+            get {
+                return ResourceManager.GetString("PatientTimeOfDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click on this pie chart to filter by quarter..
+        /// </summary>
+        public static string PatientTip1 {
+            get {
+                return ResourceManager.GetString("PatientTip1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click on this row chart to filter by time of day..
+        /// </summary>
+        public static string PatientTip2 {
+            get {
+                return ResourceManager.GetString("PatientTip2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drag and drop to zoom in..
+        /// </summary>
+        public static string PatientTip3 {
+            get {
+                return ResourceManager.GetString("PatientTip3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drag and drop or use mouse wheel to zoom in..
+        /// </summary>
+        public static string PatientTip4 {
+            get {
+                return ResourceManager.GetString("PatientTip4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click here to reset the filters applied to the chart..
+        /// </summary>
+        public static string PatientTip6 {
+            get {
+                return ResourceManager.GetString("PatientTip6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click here to collapse the panel..
+        /// </summary>
+        public static string PatientTip7 {
+            get {
+                return ResourceManager.GetString("PatientTip7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click here to expand the panel..
+        /// </summary>
+        public static string PatientTip8 {
+            get {
+                return ResourceManager.GetString("PatientTip8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click here to close the panel..
+        /// </summary>
+        public static string PatientTip9 {
+            get {
+                return ResourceManager.GetString("PatientTip9", resourceCulture);
             }
         }
         

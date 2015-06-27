@@ -20,19 +20,19 @@
             <thead>
                 <tr>
                     <th>
-                        Patient Id
+                        @Resources.PatientsPatientId
                     </th>
                     <th>
-                        Born On
+                        @Resources.PatientsBornOn
                     </th>
                     <th>
-                        Diagnosed On
+                        @Resources.PatientsDiagnosedOn
                     </th>
                     <th>
-                        Name
+                        @Resources.PatientsName
                     </th>
                     <th>
-                        Sex
+                        @Resources.PatientsSex
                     </th>
                     <th>@Resources.PatientResume</th>
                 </tr>
@@ -83,11 +83,18 @@
                     toastr.error("Error authenticating!", 'ALS Glance');
                 }
             });
+            alsglance.resources = alsglance.resources || {
+                loadingMessage: '@Resources.PatientLoading',
+                patientsXAxisLabel: '@Resources.PatientsXAxisLabel',
+                patientsYAxisLabel: '@Resources.PatientsYAxisLabel',
+                help: '@Resources.Help',
+                patientsTip1:'@Resources.PatientsTip1',
+            };
             $.when(apiClient.get("DPatient?$select=Sex,BornOn"))
                     .then(function (data) {
                         alsglance.dashboard.patients.load(data,@Model.AgeMin,@Model.AgeMax);
                         alsglance.charts.setBehaviour();
-                        alsglance.presentation.showPatientsHelpButton('@Resources.Help');
+                        alsglance.presentation.showPatientsHelpButton();
                         analytics.logActionLoad(then,"Patients");
                     });
             $('#patients').dataTable({

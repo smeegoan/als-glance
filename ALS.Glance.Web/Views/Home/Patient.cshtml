@@ -2,7 +2,7 @@
 @model ALS.Glance.Web.Models.PatientViewModel
 
 @{
-    ViewBag.Title = Model.Name + " Resume";
+    ViewBag.Title = Model.Name + " " + Resources.PatientResume;
 }
 <ul class="nav nav-tabs">
     <li class="active"><a href="#results" data-toggle="tab">@Resources.PatientResume</a></li>
@@ -43,7 +43,7 @@
                         <div class="box-header">
                             <div class="box-name">
                                 <i class="fa fa-calendar"></i>
-                                <span>Quarter</span>
+                                <span>@Resources.PatientQuarter</span>
                             </div>
                             <div class="box-icons">
                                 <a class="reset" href="javascript:void(0);" onclick="javascript:quarterChart.filterAll();dc.redrawAll();"><i class="fa fa-undo"></i></a>
@@ -59,7 +59,7 @@
                             </div>
                             <div class="no-move"></div>
                         </div>
-                        <div class="box-content" style="height: 250px; position: relative;" data-step="1" data-intro="Click on this pie chart to filter by Quarter." data-position='right'>
+                        <div class="box-content" style="height: 250px; position: relative;" data-step="1" data-intro="@Resources.PatientTip1" data-position='right'>
                             <div style="height: 220px; position: relative;" id="quarterChart" class="dc-chart">
                                 <div class="clearfix"></div>
                                 <div class="loading">@Resources.PatientLoading</div>
@@ -73,7 +73,7 @@
                         <div class="box-header">
                             <div class="box-name">
                                 <i class="fa fa-sun-o"></i>
-                                <span>Time Of Day</span>
+                                <span>@Resources.PatientTimeOfDay</span>
                             </div>
                             <div class="box-icons">
                                 <a class="reset" href="javascript:void(0);" onclick="javascript:timeOfDayChart.filterAll();dc.redrawAll();"><i class="fa fa-undo"></i></a>
@@ -89,7 +89,7 @@
                             </div>
                             <div class="no-move"></div>
                         </div>
-                        <div class="box-content" style="height: 250px; position: relative;" data-step="2" data-intro="Click on this row chart to filter by time of day." data-position='right'>
+                        <div class="box-content" style="height: 250px; position: relative;" data-step="2" data-intro="@Resources.PatientTip2" data-position='right'>
                             <div style="height: 250px; position: relative;" id="timeOfDayChart" class="dc-chart">
                                 <div class="clearfix"></div>
                                 <div class="loading">@Resources.PatientLoading</div>
@@ -102,7 +102,7 @@
                         <div class="box-header">
                             <div class="box-name">
                                 <i class="fa fa-clock-o"></i>
-                                <span>Hour</span>
+                                <span>@Resources.PatientHour</span>
                             </div>
                             <div class="box-icons">
                                 <a class="reset" href="javascript:void(0);" onclick="javascript:timeHourChart.filterAll();dc.redrawAll();"><i class="fa fa-undo"></i></a>
@@ -119,7 +119,7 @@
                             <div class="no-move"></div>
                         </div>
                         <div class="box-content" style="height: 250px; position: relative;">
-                            <div style="height: 250px; position: relative;" id="timeHourChart" class="dc-chart" data-step="3" data-intro="Drag and drop to zoom in." data-position='top'>
+                            <div style="height: 250px; position: relative;" id="timeHourChart" class="dc-chart" data-step="3" data-intro="@Resources.PatientTip3" data-position='top'>
                                 <div class="clearfix"></div>
                                 <div class="loading">@Resources.PatientLoading</div>
                             </div>
@@ -156,7 +156,7 @@
                                     <div class="clearfix"></div>
                                     <div class="loading">@Resources.PatientLoading</div>
                                 </div>
-                                <div id="dateRangeChart" class="dc-chart" data-step="4" data-intro="Drag and drop or use mouse wheel to zoom in." data-position='top'>
+                                <div id="dateRangeChart" class="dc-chart" data-step="4" data-intro="@Resources.PatientTip4" data-position='top'>
                                     <div class="clearfix"></div>
 
                                 </div>
@@ -169,17 +169,17 @@
                         <div class="box-header">
                             <div class="box-name">
                                 <i class="fa fa-stethoscope"></i>
-                                <span>Last EMG in range</span>
+                                <span>@Resources.PatientEMG</span>
                             </div>
                             <div class="box-icons">
-                                <a class="reset" href="javascript:void(0);" onclick="javascript:emgChart.resetZoom();" data-step="6" data-intro="Click here to reset the filters applied to the chart." data-position='left'><i class="fa fa-undo"></i></a>
-                                <a class="collapse-link" data-step="7" data-intro="Click here to collapse the panel." data-position='left'>
+                                <a class="reset" href="javascript:void(0);" onclick="javascript:emgChart.resetZoom();" data-step="6" data-intro="@Resources.PatientTip6" data-position='left'><i class="fa fa-undo"></i></a>
+                                <a class="collapse-link" data-step="7" data-intro="@Resources.PatientTip7" data-position='left'>
                                     <i class="fa fa-chevron-up"></i>
                                 </a>
-                                <a class="expand-link" data-step="8" data-intro="Click here to expand the panel." data-position='left'>
+                                <a class="expand-link" data-step="8" data-intro="@Resources.PatientTip8" data-position='left'>
                                     <i class="fa fa-expand"></i>
                                 </a>
-                                <a class="close-link" data-step="9" data-intro="Click here to close the panel." data-position='left'>
+                                <a class="close-link" data-step="9" data-intro="@Resources.PatientTip9" data-position='left'>
                                     <i class="fa fa-times"></i>
                                 </a>
                             </div>
@@ -187,7 +187,7 @@
                         </div>
 
                         <div class="box-content" style="height: 250px; position: relative;">
-                            <div style="width:100%;height: 100%" id='emgChart' data-step="5" data-intro="Drag and drop to zoom in." data-position='top'>
+                            <div style="width:100%;height: 100%" id='emgChart' data-step="5" data-intro="@Resources.PatientTip3" data-position='top'>
                                 <div class="clearfix"></div>
                                 <div class="loading">@Resources.PatientLoading</div>
 
@@ -203,7 +203,7 @@
         <div class="container">
             <div class="row">
                 <div>
-                    <div id="dc-data-count" class="dc-chart">All records selected. Please click on the graph to apply filters.</div>
+                    <div id="dc-data-count" class="dc-chart">@Resources.PatientAllSelected</div>
                 </div>
                 <table id="dc-data-table" class="table table-hover" style="margin-top: 40px"></table>
             </div>
@@ -225,6 +225,14 @@
                     toastr.error("Error authenticating!", 'ALS Glance');
                 }
             });
+            alsglance.resources = alsglance.resources || {
+                allSelectedMessage: '@Resources.PatientAllSelected',
+                loadingMessage: '@Resources.PatientLoading',
+                saveMessage: '@Resources.PatientSaveMessage',
+                quarterPrefix: '@Resources.PatientQuarterPrefix',
+                measurements:'@Resources.PatientMeasurements',
+                help: '@Resources.Help',
+            };
             //$.when(apiClient.get("Fact?$select=AUC&$expand=Time($select=Hour,TimeOfDay),Date($select=DayOfWeek,Weekday,Date,Year,MonthName,Quarter),Patient,Muscle($select=Name,Abbreviation)&$filter=Patient/Id eq " + @Model.Id))
             $.when(apiClient.get("Facts?$select=AUC,TimeHour,TimeTimeOfDay,DateDayOfWeek,DateWeekday,DateDate,DateYear,DateMonthName,DateQuarter,MuscleName,MuscleAbbreviation,PatientName&$filter=PatientId eq @Model.Id"))
                 .then(function(data) {
@@ -237,17 +245,18 @@
                     alsglance.dashboard.patient.reset();
                     alsglance.dashboard.patient.applyFilters(alsglance.dashboard.settings["P" + @Model.Id]);
                     $.when(apiClient.get("EMG?$select=Data&$top=1&$orderby=Date&$filter=Patient/Id eq @Model.Id"))
-                        .then(function(emg) {
-                            if (emg.value.length == 0)
-                                return;
-                            alsglance.dashboard.patient.loadEMG(JSON.parse(emg.value[0].Data));
-                            analytics.logActionLoad(then,"Patient");
-                        });
+                            .then(function(emg) {
+                                if (emg.value.length == 0)
+                                    return;
+                                alsglance.dashboard.patient.loadEMG(JSON.parse(emg.value[0].Data));
+                                analytics.logActionLoad(then,"Patient");
+                            });
                 });
             $('[data-toggle="tooltip"]').tooltip();
-            alsglance.presentation.showPatientHelpButton('@Resources.Help');
+            alsglance.presentation.showPatientHelpButton();
             alsglance.presentation.bindButtonEvents();
-            WinMove();
+            alsglance.presentation.makePanelsDraggable();
+
         });
     </script>
 }

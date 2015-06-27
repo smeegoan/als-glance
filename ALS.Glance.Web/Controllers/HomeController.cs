@@ -33,7 +33,8 @@ namespace ALS.Glance.Web.Controllers
         }
 
 
-        public ActionResult ApiAuth()
+        [MvcAuthorize(Roles.AdminRole, Roles.UserRole)]
+        public JavaScriptResult ApiAuth()
         {
             var token = _credentials.ApplicationToken;
             var script = string.Format(@"var alsglance = alsglance || {{}}; " +
