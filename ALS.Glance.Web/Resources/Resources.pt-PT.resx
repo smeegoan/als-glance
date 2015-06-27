@@ -237,4 +237,19 @@
   <data name="SharedClose" xml:space="preserve">
     <value>Fechar</value>
   </data>
+  <data name="PatientRegressionData" xml:space="preserve">
+    <value>Dados usados para previsão:</value>
+  </data>
+  <data name="PatientRegressionDataAll" xml:space="preserve">
+    <value>Todos</value>
+  </data>
+  <data name="PatientRegressionDataLast6Months" xml:space="preserve">
+    <value>Últimos 6 meses</value>
+  </data>
+  <data name="PatientRegressionDataLastYear" xml:space="preserve">
+    <value>Último ano</value>
+  </data>
+  <data name="PatientUseRegression" xml:space="preserve">
+    <value>Usar regressão para prever resultados futuros</value>
+  </data>
 </root>

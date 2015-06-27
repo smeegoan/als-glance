@@ -229,6 +229,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\alsglance.min.css">
+      <DependentUpon>alsglance.css</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css">
       <DependentUpon>bootstrap.css</DependentUpon>
@@ -248,33 +251,75 @@
       <DependentUpon>devoops.css</DependentUpon>
     </Content>
     <Content Include="Content\font-awesome.css" />
-    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\dc.css" />
     <Content Include="Content\colorbrewer.css" />
+    <Content Include="Content\font-awesome.min.css">
+      <DependentUpon>font-awesome.css</DependentUpon>
+    </Content>
     <Content Include="Content\images\Flexor-carpi-radialis.png" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\Sternocleidomastoideus.png" />
     <Content Include="Content\images\Tibialis_anterior.png" />
     <Content Include="Content\introjs-dark.css" />
+    <Content Include="Content\introjs-dark.min.css">
+      <DependentUpon>introjs-dark.css</DependentUpon>
+    </Content>
     <Content Include="Content\introjs-nassim.css" />
+    <Content Include="Content\introjs-nassim.min.css">
+      <DependentUpon>introjs-nassim.css</DependentUpon>
+    </Content>
     <Content Include="Content\introjs-nazanin.css" />
+    <Content Include="Content\introjs-nazanin.min.css">
+      <DependentUpon>introjs-nazanin.css</DependentUpon>
+    </Content>
     <Content Include="Content\introjs-royal.css" />
+    <Content Include="Content\introjs-royal.min.css">
+      <DependentUpon>introjs-royal.css</DependentUpon>
+    </Content>
     <Content Include="Content\introjs-rtl.css" />
-    <Content Include="Content\introjs-rtl.min.css" />
+    <Content Include="Content\introjs-rtl.min.css">
+      <DependentUpon>introjs-rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\introjs.css" />
-    <Content Include="Content\introjs.min.css" />
-    <Content Include="Content\Site.min.css">
-      <DependentUpon>alsglance.css</DependentUpon>
+    <Content Include="Content\introjs.min.css">
+      <DependentUpon>introjs.css</DependentUpon>
     </Content>
     <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\accordion.min.css">
+      <DependentUpon>accordion.css</DependentUpon>
+    </Content>
     <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\all.min.css">
+      <DependentUpon>all.css</DependentUpon>
+    </Content>
     <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\autocomplete.min.css">
+      <DependentUpon>autocomplete.css</DependentUpon>
+    </Content>
     <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\base.min.css">
+      <DependentUpon>base.css</DependentUpon>
+    </Content>
     <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\button.min.css">
+      <DependentUpon>button.css</DependentUpon>
+    </Content>
     <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\core.min.css">
+      <DependentUpon>core.css</DependentUpon>
+    </Content>
     <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\datepicker.min.css">
+      <DependentUpon>datepicker.css</DependentUpon>
+    </Content>
     <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\dialog.min.css">
+      <DependentUpon>dialog.css</DependentUpon>
+    </Content>
     <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\draggable.min.css">
+      <DependentUpon>draggable.css</DependentUpon>
+    </Content>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -289,19 +334,57 @@
     <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\menu.min.css">
+      <DependentUpon>menu.css</DependentUpon>
+    </Content>
     <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\progressbar.min.css">
+      <DependentUpon>progressbar.css</DependentUpon>
+    </Content>
     <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\resizable.min.css">
+      <DependentUpon>resizable.css</DependentUpon>
+    </Content>
     <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectable.min.css">
+      <DependentUpon>selectable.css</DependentUpon>
+    </Content>
     <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\selectmenu.min.css">
+      <DependentUpon>selectmenu.css</DependentUpon>
+    </Content>
     <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\slider.min.css">
+      <DependentUpon>slider.css</DependentUpon>
+    </Content>
     <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\sortable.min.css">
+      <DependentUpon>sortable.css</DependentUpon>
+    </Content>
     <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\spinner.min.css">
+      <DependentUpon>spinner.css</DependentUpon>
+    </Content>
     <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\tabs.min.css">
+      <DependentUpon>tabs.css</DependentUpon>
+    </Content>
     <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\theme.min.css">
+      <DependentUpon>theme.css</DependentUpon>
+    </Content>
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\themes\base\tooltip.min.css">
+      <DependentUpon>tooltip.css</DependentUpon>
+    </Content>
     <Content Include="Content\toastr.css" />
-    <Content Include="Content\toastr.min.css" />
+    <Content Include="Content\toastr.min.css">
+      <DependentUpon>toastr.css</DependentUpon>
+    </Content>
     <Content Include="Content\usabilityform.css" />
+    <Content Include="Content\usabilityform.min.css">
+      <DependentUpon>usabilityform.css</DependentUpon>
+    </Content>
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

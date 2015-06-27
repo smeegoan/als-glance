@@ -240,4 +240,19 @@
   <data name="SharedClose" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="PatientRegressionData" xml:space="preserve">
+    <value>Data used for prediction:</value>
+  </data>
+  <data name="PatientRegressionDataAll" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="PatientRegressionDataLast6Months" xml:space="preserve">
+    <value>Last 6 months</value>
+  </data>
+  <data name="PatientRegressionDataLastYear" xml:space="preserve">
+    <value>Last year</value>
+  </data>
+  <data name="PatientUseRegression" xml:space="preserve">
+    <value>Use regression to predict future results</value>
+  </data>
 </root>

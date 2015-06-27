@@ -25,26 +25,26 @@
                                 <div class="col-md-offset-1 col-md-8">
                                     <div class="checkbox">
                                         <label>
-                                            <input id="showPredictions" type="checkbox" />Use regression to predict future results
+                                            <input id="showPredictions" type="checkbox" />@Resources.PatientUseRegression
                                         </label>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-offset-1 col-md-3 control-label">Data used for prediction:</label>
+                                <label class="col-md-offset-1 col-md-3 control-label">@Resources.PatientRegressionData</label>
                                 <div class="col-md-8">
-                                    <label class="radio radio-inline col-md-2">
+                                    <label class="radio radio-inline col-md-3">
                                         <input id="all" type="radio" class="radiobox" name="predictionBacklog" value="999">
-                                        <span>All</span>
+                                        <span>@Resources.PatientRegressionDataAll</span>
 
                                     </label>
                                     <label class="radio radio-inline col-md-3">
                                         <input id="year" type="radio" class="radiobox" name="predictionBacklog" value="12">
-                                        <span>Last Year</span>
+                                        <span>@Resources.PatientRegressionDataLastYear</span>
                                     </label>
                                     <label class="radio radio-inline col-md-4">
                                         <input id="6months" type="radio" class="radiobox" name="predictionBacklog" value="6">
-                                        <span>Last 6 Months</span>
+                                        <span>@Resources.PatientRegressionDataLast6Months</span>
                                     </label>
                                 </div>
                             </div>

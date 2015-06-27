@@ -569,8 +569,8 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             }, function (start, end, label) {
 
                 $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-                dateRangeChart.filterAll();
-                dateRangeChart.filter(dc.filters.RangedFilter(start.valueOf(), end.valueOf()));
+                alsglance.charts.dateRangeChart.filterAll();
+                alsglance.charts.dateRangeChart.filter(dc.filters.RangedFilter(start.valueOf(), end.valueOf()));
                 alsglance.charts.redrawAll();
                 analytics.logUiEvent("filterDates", "Patient", "dashboard");
             });

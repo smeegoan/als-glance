@@ -187,6 +187,42 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data used for prediction:.
+        /// </summary>
+        public static string PatientRegressionData {
+            get {
+                return ResourceManager.GetString("PatientRegressionData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string PatientRegressionDataAll {
+            get {
+                return ResourceManager.GetString("PatientRegressionDataAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last 6 months.
+        /// </summary>
+        public static string PatientRegressionDataLast6Months {
+            get {
+                return ResourceManager.GetString("PatientRegressionDataLast6Months", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last year.
+        /// </summary>
+        public static string PatientRegressionDataLastYear {
+            get {
+                return ResourceManager.GetString("PatientRegressionDataLastYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reset.
         /// </summary>
         public static string PatientReset {
@@ -381,6 +417,15 @@ namespace ALS.Glance.Web.Resources {
         public static string PatientTip9 {
             get {
                 return ResourceManager.GetString("PatientTip9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use regression to predict future results.
+        /// </summary>
+        public static string PatientUseRegression {
+            get {
+                return ResourceManager.GetString("PatientUseRegression", resourceCulture);
             }
         }
         
