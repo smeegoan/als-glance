@@ -7,7 +7,7 @@ var schemeNames = {
 };
 
 var visibleMap,
-	selectedScheme = selectedScheme||"BuGn",
+	selectedScheme,
 	numClasses = 7;
 
 function setNumClasses(n) {
@@ -249,7 +249,7 @@ function initColors(defaultColor) {
         +'        </li>' 
         +'    </ul>' 
         +'</li>');
-    var scheme = defaultColor||"BuGn";
+    var scheme = defaultColor || "Blues";
     var n = 5;
     $("#num-classes").val(n);
     setSchemeType("sequential");
@@ -268,14 +268,14 @@ function applyColors() {
     var colorRange = d3.scale.ordinal().range(colors);
     var color2 = colorbrewer[selectedScheme][numClasses][2];
     var color3 = colorbrewer[selectedScheme][numClasses][3];
-    timeOfDayChart.ordinalColors(colors).redraw();
-    timeHourChart.colors(color2).redraw();
-    quarterChart.colors(colorRange).redraw();
-    predictionSeriesChart.colors(colorsDiferential).redraw();
+    alsglance.charts.timeOfDayChart.ordinalColors(colors).redraw();
+    alsglance.charts.timeHourChart.colors(color2).redraw();
+    alsglance.charts.quarterChart.colors(colorRange).redraw();
+    alsglance.charts.aucSeriesChart.colors(colorsDiferential).redraw();
 
-    dateRangeChart.colors(color2).redraw();
-    if (emgChart != null) {
-        emgChart.updateOptions({ colors: [color3] });
+    alsglance.charts.dateRangeChart.colors(color2).redraw();
+    if (alsglance.charts.emgChart != null) {
+        alsglance.charts.emgChart.updateOptions({ colors: [color3] });
     }
 }
 

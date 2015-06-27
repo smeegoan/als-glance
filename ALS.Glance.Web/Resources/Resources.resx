@@ -207,19 +207,19 @@
   <data name="PatientTip3" xml:space="preserve">
     <value>Drag and drop to zoom in.</value>
   </data>
-  <data name="PatientTip4" xml:space="preserve">
+  <data name="PatientTip5" xml:space="preserve">
     <value>Drag and drop or use mouse wheel to zoom in.</value>
   </data>
-  <data name="PatientTip6" xml:space="preserve">
+  <data name="PatientTip7" xml:space="preserve">
     <value>Click here to reset the filters applied to the chart.</value>
   </data>
-  <data name="PatientTip7" xml:space="preserve">
+  <data name="PatientTip8" xml:space="preserve">
     <value>Click here to collapse the panel.</value>
   </data>
-  <data name="PatientTip8" xml:space="preserve">
+  <data name="PatientTip9" xml:space="preserve">
     <value>Click here to expand the panel.</value>
   </data>
-  <data name="PatientTip9" xml:space="preserve">
+  <data name="PatientTip10" xml:space="preserve">
     <value>Click here to close the panel.</value>
   </data>
   <data name="SharedLogin" xml:space="preserve">
@@ -233,5 +233,8 @@
   </data>
   <data name="SharedPatients" xml:space="preserve">
     <value>Patients</value>
+  </data>
+  <data name="PatientTip4" xml:space="preserve">
+    <value>Click here to configure the prediction of results.</value>
   </data>
 </root>

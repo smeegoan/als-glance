@@ -1,6 +1,4 @@
 ﻿'use strict';
-var aucBubbleChart, muscleChart, quarterChart, timeHourChart, timeOfDayChart, predictionSeriesChart, dateRangeChart, emgChart;
-
 var alsglance = alsglance || {};
 alsglance.charts = alsglance.charts || {
     setBehaviour: function () {
@@ -30,7 +28,7 @@ alsglance.charts = alsglance.charts || {
     },
     redrawAll: function () {
         dc.redrawAll();
-        alsglance.charts.addXAxis(timeOfDayChart, alsglance.resources.measurements);
+        alsglance.charts.addXAxis(alsglance.charts.timeOfDayChart, alsglance.resources.measurements);
     },
     turnOffControls: function (chart) {
         return function () {
@@ -100,13 +98,13 @@ alsglance.charts = alsglance.charts || {
             alsglance.charts.resize(chart);
         }
         dc.renderAll();
-        alsglance.charts.addXAxis(timeOfDayChart, alsglance.resources.measurements);
+        alsglance.charts.addXAxis(alsglance.charts.timeOfDayChart, alsglance.resources.measurements);
         for (i = 0; i < dc.chartRegistry.list().length; i++) {
             chart = dc.chartRegistry.list()[i];
             chart.transitionDuration(500);
         }
-        if (emgChart != null)
-            emgChart.resize();
+        if (alsglance.charts.emgChart != null)
+            alsglance.charts.emgChart.resize();
     },
 };
 alsglance.presentation = alsglance.presentation || {
@@ -159,6 +157,13 @@ alsglance.presentation = alsglance.presentation || {
             alsglance.dashboard.patient.saveSettings();
             analytics.logUiEvent("save", "Patient", "dashboard");
         });
+        $("#saveOptions").click(function () {
+            alsglance.dashboard.settings.showPredictions = $("#showPredictions").is(':checked');
+            $('#aucOptions').modal('hide');
+            alsglance.dashboard.patient.saveSettings();
+            alsglance.dashboard.patient.loadFacts();
+        });
+
         $.each($('#muscles .btn'), function (index, value) {
             var id = $(value).attr('id');
             $(value).click(id, function () {
@@ -238,7 +243,7 @@ alsglance.presentation = alsglance.presentation || {
 alsglance.dashboard = alsglance.dashboard || {};
 alsglance.dashboard.patients = alsglance.dashboard.patients || {
     load: function (data, min, max) {
-        aucBubbleChart = dc.bubbleChart('#aucBubbleChart');
+        alsglance.charts.aucBubbleChart = alsglance.charts.aucBubbleChart||dc.bubbleChart('#aucBubbleChart');
 
         var numberFormat = d3.format('.5f');
         data = data["value"];
@@ -282,7 +287,7 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
             }
         );
 
-        aucBubbleChart
+        alsglance.charts.aucBubbleChart
             .transitionDuration(1500) // (optional) define chart transition duration, :default = 750
             .margins({ top: 10, right: 50, bottom: 40, left: 50 })
             .dimension(alsglance.dashboard.patients.sexDimension)
@@ -347,6 +352,30 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
 };
 
 alsglance.dashboard.patient = alsglance.dashboard.patient || {
+    loadFacts: function () {
+        var then = moment();
+        //$.when(apiClient.get("Fact?$select=AUC&$expand=Time($select=Hour,TimeOfDay),Date($select=DayOfWeek,Weekday,Date,Year,MonthName,Quarter),Patient,Muscle($select=Name,Abbreviation)&$filter=Patient/Id eq " + alsglance.dashboard.patientId))
+        $.when(alsglance.apiClient.get("Facts?$select=AUC,TimeHour,TimeTimeOfDay,DateDayOfWeek,DateWeekday,DateDate,DateYear,DateMonthName,DateQuarter,MuscleName,MuscleAbbreviation,PatientName&$filter=PatientId eq " + alsglance.dashboard.patientId))
+            .then(function (data) {
+                data = data.value;
+                if (alsglance.dashboard.settings.showPredictions) {
+                    $('#showPredictions').prop('checked', true);
+                    data = alsglance.dashboard.patient.addPredictions(data);
+                }
+                alsglance.dashboard.patient.load(data, alsglance.dashboard.patient.yearMin, alsglance.dashboard.patient.yearMax);
+                initColors(alsglance.dashboard.settings.colorScheme);
+                alsglance.charts.setBehaviour();
+                alsglance.dashboard.patient.reset();
+                alsglance.dashboard.patient.applyFilters(alsglance.dashboard.settings["P" + alsglance.dashboard.patientId]);
+                $.when(alsglance.apiClient.get("EMG?$select=Data&$top=1&$orderby=Date&$filter=Patient/Id eq " + alsglance.dashboard.patientId))
+                    .then(function (emg) {
+                        if (emg.value.length == 0)
+                            return;
+                        alsglance.dashboard.patient.loadEMG(JSON.parse(emg.value[0].Data));
+                        analytics.logActionLoad(then, "Patient");
+                    });
+            });
+    },
     saveSettings: function () {
         var filters = [];
         for (var i = 0; i < dc.chartRegistry.list().length; i++) {
@@ -401,7 +430,11 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             }
             else {
                 filter = filterObjects[i].Filter;
-                dc.chartRegistry.list()[id - 1].filter(filter);
+                var chart = dc.chartRegistry.list()[id - 1];
+                if (chart == null) {
+                    continue;
+                }
+                chart.filter(filter);
             }
 
         }
@@ -412,8 +445,8 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         alsglance.dashboard.patient.datePicker();
         alsglance.dashboard.patient.filterMuscle("AT");
         alsglance.charts.redrawAll();
-        if (emgChart != null) {
-            emgChart.resetZoom();
+        if (alsglance.charts.emgChart != null) {
+            alsglance.charts.emgChart.resetZoom();
         }
     },
     filterMuscle: function (muscle) {
@@ -421,14 +454,13 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         $('#FCR').removeClass("active");
         $('#SCM').removeClass("active");
         $('#' + muscle).addClass("active");
-        muscleChart.filterAll();
-        muscleChart.filter([muscle]);
+        alsglance.charts.muscleChart.filterAll();
+        alsglance.charts.muscleChart.filter([muscle]);
     },
     addPredictions: function (data) {
         var muscles = [];
 
         //data =JSON.flatten(data);
-        data = data.value;
         data.forEach(function (entry) {
             if (muscles[entry.MuscleAbbreviation] == null)
                 muscles[entry.MuscleAbbreviation] = [];
@@ -463,7 +495,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         return data;
     },
     loadEMG: function (data) {
-        emgChart = new Dygraph(document.getElementById("emgChart"), data, {
+        alsglance.charts.emgChart = new Dygraph(document.getElementById("emgChart"), data, {
             // customBars: true,
             //   title: 'Daily Temperatures in New York vs. San Francisco',
             labels: ['Time', 'µV'],
@@ -481,12 +513,12 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         };
     },
     load: function (data, minYear, maxYear) {
-        muscleChart = dc.pieChart('#muscleChart');
-        quarterChart = dc.pieChart('#quarterChart');
-        timeHourChart = dc.barChart('#timeHourChart');
-        timeOfDayChart = dc.rowChart('#timeOfDayChart');
-        predictionSeriesChart = dc.seriesChart('#predictionSeriesChart');
-        dateRangeChart = dc.barChart('#dateRangeChart');
+        alsglance.charts.muscleChart = alsglance.charts.muscleChart || dc.pieChart('#muscleChart');
+        alsglance.charts.quarterChart = alsglance.charts.quarterChart || dc.pieChart('#quarterChart');
+        alsglance.charts.timeHourChart = alsglance.charts.timeHourChart || dc.barChart('#timeHourChart');
+        alsglance.charts.timeOfDayChart = alsglance.charts.timeOfDayChart || dc.rowChart('#timeOfDayChart');
+        alsglance.charts.aucSeriesChart = alsglance.charts.aucSeriesChart || dc.seriesChart('#predictionSeriesChart');
+        alsglance.charts.dateRangeChart = alsglance.charts.dateRangeChart || dc.barChart('#dateRangeChart');
         var dateDimension;
         var predictionDimension;
 
@@ -576,7 +608,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         var muscleGroup = muscleDimension.group().reduceCount();
 
 
-        muscleChart
+        alsglance.charts.muscleChart
             .dimension(muscleDimension) // set dimension
             .group(muscleGroup);
 
@@ -602,7 +634,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         });
         var quarterGroup = quarter.group().reduceCount();
 
-        quarterChart
+        alsglance.charts.quarterChart
             .radius(90)
             .innerRadius(50)
             .dimension(quarter)
@@ -611,7 +643,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         //#endregion
 
         //#### Row Chart
-        timeOfDayChart.width(180)
+        alsglance.charts.timeOfDayChart.width(180)
           //  .height(180)
             //.margins({ top: 20, left: 30, right: 10, bottom: 20 })
             .group(dayOfWeekGroup)
@@ -626,7 +658,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             .xAxis().ticks(4);
 
         //#### Bar Chart
-        timeHourChart//.width(420)
+        alsglance.charts.timeHourChart//.width(420)
            //.height(180)
            //.margins({ top: 10, right: 50, bottom: 30, left: 40 })
            .dimension(timeHourDimension)
@@ -648,10 +680,12 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                return s;
            });
 
+
         // Customize axis
-        timeHourChart.xAxis().tickFormat(
+        alsglance.charts.timeHourChart.xAxis().tickFormat(
             function (v) { return v + 'h'; });
-        timeHourChart.yAxis().ticks(6);
+        alsglance.charts.timeHourChart.yAxis().ticks(6);
+
 
         //#region Prediction Chart
         predictionDimension = ndx.dimension(function (d) {
@@ -662,8 +696,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             return +d.AUC;
         });
 
-
-        predictionSeriesChart
+        alsglance.charts.aucSeriesChart
                .margins({ top: 20, right: 30, bottom: 20, left: 60 })
        //.width(460)
             .height(160)
@@ -677,7 +710,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             // .elasticY(true)
             .dimension(predictionDimension)
             .group(predictionGroup)
-            .rangeChart(dateRangeChart)
+            .rangeChart(alsglance.charts.dateRangeChart)
             .seriesAccessor(function (d) {
                 return d.key[0];
             })
@@ -693,7 +726,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             });
 
 
-        dateRangeChart
+        alsglance.charts.dateRangeChart
             // .width(460)
             .height(100)
             .mouseZoomable(true)
@@ -793,6 +826,12 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                         return d.TimeHour;
                     }
                 },
+                  {
+                      label: 'Muscle',
+                      format: function (d) {
+                          return d.MuscleAbbreviation;
+                      }
+                  },
                 'AUC' // d['volume'], ie, a field accessor; capitalized automatically
             ])
 

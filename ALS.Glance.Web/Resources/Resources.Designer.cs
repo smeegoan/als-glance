@@ -313,6 +313,15 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Click here to close the panel..
+        /// </summary>
+        public static string PatientTip10 {
+            get {
+                return ResourceManager.GetString("PatientTip10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Click on this row chart to filter by time of day..
         /// </summary>
         public static string PatientTip2 {
@@ -331,7 +340,7 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Drag and drop or use mouse wheel to zoom in..
+        ///   Looks up a localized string similar to Click here to configure the prediction of results..
         /// </summary>
         public static string PatientTip4 {
             get {
@@ -340,16 +349,16 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click here to reset the filters applied to the chart..
+        ///   Looks up a localized string similar to Drag and drop or use mouse wheel to zoom in..
         /// </summary>
-        public static string PatientTip6 {
+        public static string PatientTip5 {
             get {
-                return ResourceManager.GetString("PatientTip6", resourceCulture);
+                return ResourceManager.GetString("PatientTip5", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click here to collapse the panel..
+        ///   Looks up a localized string similar to Click here to reset the filters applied to the chart..
         /// </summary>
         public static string PatientTip7 {
             get {
@@ -358,7 +367,7 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click here to expand the panel..
+        ///   Looks up a localized string similar to Click here to collapse the panel..
         /// </summary>
         public static string PatientTip8 {
             get {
@@ -367,7 +376,7 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click here to close the panel..
+        ///   Looks up a localized string similar to Click here to expand the panel..
         /// </summary>
         public static string PatientTip9 {
             get {

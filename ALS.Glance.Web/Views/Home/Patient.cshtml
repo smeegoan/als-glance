@@ -11,6 +11,53 @@
 <br />
 <div id="main" class="tab-content">
     <div class="tab-pane fade active in" id="results">
+        <!-- Modal -->
+        <div class="modal fade" id="aucOptions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">AUC</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <div class="col-md-offset-1 col-md-8">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input id="showPredictions" type="checkbox" />Use regression to predict future results
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-offset-1 col-md-3 control-label">Data used for prediction:</label>
+                                <div class="col-md-8">
+                                    <label class="radio radio-inline col-md-2">
+
+                                        <input type="radio" class="radiobox" name="style-0a">
+                                        <span>All</span>
+
+                                    </label>
+                                    <label class="radio radio-inline col-md-3">
+                                        <input type="radio" class="radiobox" name="style-0a">
+                                        <span>Last Year</span>
+                                    </label>
+                                    <label class="radio radio-inline col-md-4">
+                                        <input type="radio" class="radiobox" name="style-0a">
+                                        <span>Last 6 Months</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button id="saveOptions" type="button" class="btn btn-primary">@Resources.PatientSave</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="container-fluid">
             <div class="row">
                 <div class="btn-group col-md-3 btn-vert-block">
@@ -46,7 +93,7 @@
                                 <span>@Resources.PatientQuarter</span>
                             </div>
                             <div class="box-icons">
-                                <a class="reset" href="javascript:void(0);" onclick="javascript:quarterChart.filterAll();dc.redrawAll();"><i class="fa fa-undo"></i></a>
+                                <a class="reset" href="javascript:void(0);" onclick="javascript:alsglance.charts.quarterChart.filterAll();dc.redrawAll();"><i class="fa fa-undo"></i></a>
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
                                 </a>
@@ -76,7 +123,7 @@
                                 <span>@Resources.PatientTimeOfDay</span>
                             </div>
                             <div class="box-icons">
-                                <a class="reset" href="javascript:void(0);" onclick="javascript:timeOfDayChart.filterAll();dc.redrawAll();"><i class="fa fa-undo"></i></a>
+                                <a class="reset" href="javascript:void(0);" onclick="javascript:alsglance.charts.timeOfDayChart.filterAll();dc.redrawAll();"><i class="fa fa-undo"></i></a>
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
                                 </a>
@@ -105,7 +152,7 @@
                                 <span>@Resources.PatientHour</span>
                             </div>
                             <div class="box-icons">
-                                <a class="reset" href="javascript:void(0);" onclick="javascript:timeHourChart.filterAll();dc.redrawAll();"><i class="fa fa-undo"></i></a>
+                                <a class="reset" href="javascript:void(0);" onclick="javascript:alsglance.charts.timeHourChart.filterAll();dc.redrawAll();"><i class="fa fa-undo"></i></a>
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
                                 </a>
@@ -137,7 +184,10 @@
                                 <span>AUC</span>
                             </div>
                             <div class="box-icons">
-                                <a class="reset" href="javascript:void(0);" onclick="javascript:predictionSeriesChart.filterAll();dateRangeChart.filterAll();dc.redrawAll();"><i class="fa fa-undo"></i></a>
+                                <a data-toggle="modal" data-target="#aucOptions" data-step="4" data-intro="@Resources.PatientTip4" data-position='top'>
+                                    <i class="fa fa-gears"></i>
+                                </a>
+                                <a class="reset" href="javascript:void(0);" onclick="javascript:alsglance.charts.aucSeriesChart.filterAll();alsglance.charts.dateRangeChart.filterAll();dc.redrawAll();"><i class="fa fa-undo"></i></a>
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
                                 </a>
@@ -156,7 +206,7 @@
                                     <div class="clearfix"></div>
                                     <div class="loading">@Resources.PatientLoading</div>
                                 </div>
-                                <div id="dateRangeChart" class="dc-chart" data-step="4" data-intro="@Resources.PatientTip4" data-position='top'>
+                                <div id="dateRangeChart" class="dc-chart" data-step="5" data-intro="@Resources.PatientTip5" data-position='top'>
                                     <div class="clearfix"></div>
 
                                 </div>
@@ -172,14 +222,14 @@
                                 <span>@Resources.PatientEMG</span>
                             </div>
                             <div class="box-icons">
-                                <a class="reset" href="javascript:void(0);" onclick="javascript:emgChart.resetZoom();" data-step="6" data-intro="@Resources.PatientTip6" data-position='left'><i class="fa fa-undo"></i></a>
-                                <a class="collapse-link" data-step="7" data-intro="@Resources.PatientTip7" data-position='left'>
+                                <a class="reset" href="javascript:void(0);" onclick="javascript:alsglance.charts.emgChart.resetZoom();" data-step="7" data-intro="@Resources.PatientTip7" data-position='left'><i class="fa fa-undo"></i></a>
+                                <a class="collapse-link" data-step="8" data-intro="@Resources.PatientTip8" data-position='left'>
                                     <i class="fa fa-chevron-up"></i>
                                 </a>
-                                <a class="expand-link" data-step="8" data-intro="@Resources.PatientTip8" data-position='left'>
+                                <a class="expand-link" data-step="9" data-intro="@Resources.PatientTip9" data-position='left'>
                                     <i class="fa fa-expand"></i>
                                 </a>
-                                <a class="close-link" data-step="9" data-intro="@Resources.PatientTip9" data-position='left'>
+                                <a class="close-link" data-step="10" data-intro="@Resources.PatientTip10" data-position='left'>
                                     <i class="fa fa-times"></i>
                                 </a>
                             </div>
@@ -187,7 +237,7 @@
                         </div>
 
                         <div class="box-content" style="height: 250px; position: relative;">
-                            <div style="width:100%;height: 100%" id='emgChart' data-step="5" data-intro="@Resources.PatientTip3" data-position='top'>
+                            <div style="width:100%;height: 100%" id='emgChart' data-step="6" data-intro="@Resources.PatientTip3" data-position='top'>
                                 <div class="clearfix"></div>
                                 <div class="loading">@Resources.PatientLoading</div>
 
@@ -217,8 +267,7 @@
     @Scripts.Render("~/bundles/patientjs")
     <script>
         $(function() {
-            var then = moment();
-            var apiClient = new alsglance.ApiClient({
+            alsglance.apiClient = new alsglance.ApiClient({
                 baseUri: alsglance.baseUri,
                 authToken: alsglance.authToken,
                 onAuthFail: function() {
@@ -230,28 +279,17 @@
                 loadingMessage: '@Resources.PatientLoading',
                 saveMessage: '@Resources.PatientSaveMessage',
                 quarterPrefix: '@Resources.PatientQuarterPrefix',
-                measurements:'@Resources.PatientMeasurements',
+                measurements: '@Resources.PatientMeasurements',
                 help: '@Resources.Help',
             };
-            //$.when(apiClient.get("Fact?$select=AUC&$expand=Time($select=Hour,TimeOfDay),Date($select=DayOfWeek,Weekday,Date,Year,MonthName,Quarter),Patient,Muscle($select=Name,Abbreviation)&$filter=Patient/Id eq " + @Model.Id))
-            $.when(apiClient.get("Facts?$select=AUC,TimeHour,TimeTimeOfDay,DateDayOfWeek,DateWeekday,DateDate,DateYear,DateMonthName,DateQuarter,MuscleName,MuscleAbbreviation,PatientName&$filter=PatientId eq @Model.Id"))
-                .then(function(data) {
-                    alsglance.dashboard.settings = alsglance.dashboard.settings || JSON.parse(decodeURIComponent('@Html.Raw(Model.Settings)'));
-                    alsglance.dashboard.patientId = @Model.Id;
-                    data = alsglance.dashboard.patient.addPredictions(data);
-                    alsglance.dashboard.patient.load(data, @Model.YearMin, @Model.YearMax);
-                    initColors(alsglance.dashboard.settings.colorScheme);
-                    alsglance.charts.setBehaviour();
-                    alsglance.dashboard.patient.reset();
-                    alsglance.dashboard.patient.applyFilters(alsglance.dashboard.settings["P" + @Model.Id]);
-                    $.when(apiClient.get("EMG?$select=Data&$top=1&$orderby=Date&$filter=Patient/Id eq @Model.Id"))
-                            .then(function(emg) {
-                                if (emg.value.length == 0)
-                                    return;
-                                alsglance.dashboard.patient.loadEMG(JSON.parse(emg.value[0].Data));
-                                analytics.logActionLoad(then,"Patient");
-                            });
-                });
+            alsglance.dashboard.settings = alsglance.dashboard.settings || JSON.parse(decodeURIComponent('@Html.Raw(Model.Settings)'));
+            if (alsglance.dashboard.settings.showPredictions == null) {
+                alsglance.dashboard.settings.showPredictions = true;
+            }
+            alsglance.dashboard.patientId = @Model.Id;
+            alsglance.dashboard.patient.yearMin=@Model.YearMin;
+            alsglance.dashboard.patient.yearMax= @Model.YearMax;
+            alsglance.dashboard.patient.loadFacts();
             $('[data-toggle="tooltip"]').tooltip();
             alsglance.presentation.showPatientHelpButton();
             alsglance.presentation.bindButtonEvents();

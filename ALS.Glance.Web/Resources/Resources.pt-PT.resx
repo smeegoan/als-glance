@@ -198,19 +198,19 @@
   <data name="PatientTip3" xml:space="preserve">
     <value>Arraste e largue para fazer zoom.</value>
   </data>
-  <data name="PatientTip4" xml:space="preserve">
+  <data name="PatientTip5" xml:space="preserve">
     <value>Arraste e largue ou use a roda do rato para fazer zoom.</value>
   </data>
-  <data name="PatientTip6" xml:space="preserve">
+  <data name="PatientTip7" xml:space="preserve">
     <value>Clique aqui para repor os filtros aplicados ao gráfico.</value>
   </data>
-  <data name="PatientTip7" xml:space="preserve">
+  <data name="PatientTip8" xml:space="preserve">
     <value>Clique aqui para minimizar o painel.</value>
   </data>
-  <data name="PatientTip8" xml:space="preserve">
+  <data name="PatientTip9" xml:space="preserve">
     <value>Clique aqui para expandir o painel.</value>
   </data>
-  <data name="PatientTip9" xml:space="preserve">
+  <data name="PatientTip10" xml:space="preserve">
     <value>Clique aqui para fechar o painel.</value>
   </data>
   <data name="SharedLogin" xml:space="preserve">
@@ -230,5 +230,8 @@
   </data>
   <data name="PatientQuarterPrefix" xml:space="preserve">
     <value>T</value>
+  </data>
+  <data name="PatientTip4" xml:space="preserve">
+    <value>Clique aqui para configurar a previsão de medições.</value>
   </data>
 </root>
