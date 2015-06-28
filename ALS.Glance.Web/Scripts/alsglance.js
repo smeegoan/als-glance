@@ -179,8 +179,8 @@ alsglance.presentation = alsglance.presentation || {
     },
     showPatientsHelpButton: function () {
         $("#patients_filter").attr("data-position", "bottom");
-        $("#patients_filter").attr("data-step", "1");
-        $("#patients_filter").attr("data-intro", alsglance.resources.patientsTip1);
+        $("#patients_filter").attr("data-step", "2");
+        $("#patients_filter").attr("data-intro", alsglance.resources.patientsTip2);
         $("#helpPlaceHolder").html('<a href="javascript:void(0);" onclick="javascript:alsglance.presentation.showHelp(\'Patients\');">' + alsglance.resources.help + '</a>');
     },
     showPatientHelpButton: function () {
@@ -255,7 +255,7 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
             var date = new Date();
             date.setISO8601(d.BornOn);
             d.Age = moment().diff(date, 'years');
-            d.Resume = '<a id="resume" href="javascript:void(0);" onclick="javascript:alsglance.presentation.showLoadingDialog.show(\'' + d.Name + '\');window.location=\'Patients/' + d.Id + '\'" data-step="2" data-intro="Click here to view the patient resume." data-position=\'left\'> <span id="resume" class="fa fa-eye"></span></a>';
+            d.Resume = '<a id="resume" href="javascript:void(0);" onclick="javascript:alsglance.presentation.showLoadingDialog.show(\'' + d.Name + '\');window.location=\'Patients/' + d.Id + '\'" data-step="3" data-intro="' + alsglance.resources.patientsTip3 + '" data-position=\'left\'> <span id="resume" class="fa fa-eye"></span></a>';
         });
 
         //### Create Crossfilter Dimensions and Groups
@@ -366,7 +366,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                     $('#showPredictions').prop('checked', true);
                     data = alsglance.dashboard.patient.addPredictions(data);
                 }
-                alsglance.dashboard.patient.load(data, alsglance.dashboard.patient.yearMin, alsglance.dashboard.patient.yearMax);
+                alsglance.dashboard.patient.load(data);
                 colorbrewer.showColorSchemeButton(alsglance.dashboard.settings.colorScheme);
                 alsglance.charts.setBehaviour();
                 alsglance.dashboard.patient.reset();
@@ -495,7 +495,19 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         };
         return data;
     },
-    loadEMG: function (data) {
+    loadEmg: function () {
+        if (alsglance.dashboard.patient.muscle == null) {
+            return ;
+        }
+        $.when(alsglance.apiClient.get("Facts?$top=1&$select=DateDate,EMG&$filter=PatientId%20eq%20" + alsglance.dashboard.patientId + " and EMG ne null and MuscleAbbreviation eq '" + alsglance.dashboard.patient.muscle + "' and DateDate le " + alsglance.dashboard.patient.endDate.format('YYYY-MM-DDTHH:mm') + "%2B00:00&$orderby=DateDate desc"))
+                   .then(function (facts) {
+                       var emg = facts.value;
+                       if (emg == null || emg.length == 0)
+                           return;
+                       alsglance.dashboard.patient.renderEmg(JSON.parse(emg[0].EMG));
+                   });
+    },
+    renderEmg: function (data) {
         alsglance.charts.emgChart = new Dygraph(document.getElementById("emgChart"), data, {
             labels: ['Time', 'µV'],
             xlabel: 'Time',
@@ -511,7 +523,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             return "emgChart";
         };
     },
-    load: function (data, minYear, maxYear) {
+    load: function (data) {
         alsglance.charts.muscleChart = alsglance.charts.muscleChart || dc.pieChart('#muscleChart');
         alsglance.charts.quarterChart = alsglance.charts.quarterChart || dc.pieChart('#quarterChart');
         alsglance.charts.timeHourChart = alsglance.charts.timeHourChart || dc.barChart('#timeHourChart');
@@ -522,8 +534,8 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         var predictionDimension;
 
         alsglance.dashboard.patient.datePicker = function () {
-            var minDate = moment("01-01-" + minYear, "MM-DD-YYYY");
-            var maxDate = moment("12-31-" + ++maxYear, "MM-DD-YYYY");
+            var minDate = moment("01-01-" + alsglance.dashboard.patient.yearMin, "MM-DD-YYYY");
+            var maxDate = moment("12-31-" + (alsglance.dashboard.patient.yearMax + 1), "MM-DD-YYYY");
             $('#reportrange span').html(minDate.format('MMMM D, YYYY') + ' - ' + maxDate.format('MMMM D, YYYY'));
             $('#reportrange').daterangepicker({
                 format: 'MM/DD/YYYY',
@@ -609,8 +621,14 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
 
         alsglance.charts.muscleChart
             .dimension(muscleDimension) // set dimension
-            .group(muscleGroup);
-
+            .group(muscleGroup)
+            .on("filtered", function (chart) {
+                var filters = chart.filters();
+                if (filters.length > 0) {
+                    alsglance.dashboard.patient.muscle = filters[0];
+                    alsglance.dashboard.patient.loadEmg();
+                }
+            });
         //#endregion
 
 
@@ -702,7 +720,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
        //.width(460)
             .height(160)
             //.chart(function(c) { return dc.lineChart(c).interpolate('basis'); })
-            .x(d3.time.scale().domain([new Date(minYear, 0, 1), new Date(maxYear + 1, 11, 31)]))
+            .x(d3.time.scale().domain([new Date(alsglance.dashboard.patient.yearMin, 0, 1), new Date(alsglance.dashboard.patient.yearMax + 1, 11, 31)]))
             .y(d3.scale.linear().domain([0.009, 0.03]))
             .brushOn(false)
             //.yAxisLabel("")
@@ -735,29 +753,20 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             .group(volumeByMonthGroup)
             .centerBar(true)
             .gap(1)
-            .x(d3.time.scale().domain([new Date(minYear, 0, 1), new Date(maxYear + 1, 11, 31)]))
+            .x(d3.time.scale().domain([new Date(alsglance.dashboard.patient.yearMin, 0, 1), new Date(alsglance.dashboard.patient.yearMax + 1, 11, 31)]))
             .round(d3.time.month.round)
             .alwaysUseRounding(true)
             .xUnits(d3.time.months)
             .on("filtered", function (chart) {
                 var filters = chart.filters();
-                var endDate;
                 if (filters.length > 0) {
                     var range = filters[0];
-                    endDate = moment(range[1]);
-                    $('#reportrange span').html(moment(range[0]).format('MMMM D, YYYY') + ' - ' + endDate.format('MMMM D, YYYY'));
-
+                    alsglance.dashboard.patient.endDate = moment(range[1]);
+                    $('#reportrange span').html(moment(range[0]).format('MMMM D, YYYY') + ' - ' + alsglance.dashboard.patient.endDate.format('MMMM D, YYYY'));
                 } else {
-                    endDate = moment(new Date(maxYear + 1, 11, 31));
+                    alsglance.dashboard.patient.endDate = moment(new Date(alsglance.dashboard.patient.yearMax + 1, 11, 31));
                 }
-                $.when(alsglance.apiClient.get("Facts?$top=1&$select=DateDate,EMG&$filter=PatientId%20eq%20" + alsglance.dashboard.patientId + " and EMG ne null and DateDate le " + endDate.format('YYYY-MM-DDTHH:mm') + "%2B00:00&$orderby=DateDate desc"))
-                    .then(function (emgs) {
-                        var emg = emgs.value;
-                        if (emg == null)
-                            return;
-                        alsglance.dashboard.patient.loadEMG(JSON.parse(emg[0].EMG));
-                    });
-
+                alsglance.dashboard.patient.loadEmg();
             });
 
         //#endregion

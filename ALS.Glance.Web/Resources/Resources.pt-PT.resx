@@ -177,8 +177,8 @@
   <data name="PatientsSex" xml:space="preserve">
     <value>Sexo</value>
   </data>
-  <data name="PatientsTip1" xml:space="preserve">
-    <value>Clique aqui para filtrar por nome de paciente.</value>
+  <data name="PatientsTip2" xml:space="preserve">
+    <value>Clique aqui para filtrar os pacientes por nome.</value>
   </data>
   <data name="PatientsXAxisLabel" xml:space="preserve">
     <value>Idade Media</value>
@@ -254,5 +254,11 @@
   </data>
   <data name="PatientColorSchemes" xml:space="preserve">
     <value>Esquemas de Cores</value>
+  </data>
+  <data name="PatientsTip1" xml:space="preserve">
+    <value>Clique aqui para filtrar os pacientes por sexo.</value>
+  </data>
+  <data name="PatientsTip3" xml:space="preserve">
+    <value>Clique aqui para ver o resumo do paciente.</value>
   </data>
 </root>

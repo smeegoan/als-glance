@@ -313,11 +313,29 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click here to filter by the patient name..
+        ///   Looks up a localized string similar to Click here to filter patients by sex..
         /// </summary>
         public static string PatientsTip1 {
             get {
                 return ResourceManager.GetString("PatientsTip1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click here to filter patients by name..
+        /// </summary>
+        public static string PatientsTip2 {
+            get {
+                return ResourceManager.GetString("PatientsTip2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click here to view the patient resume..
+        /// </summary>
+        public static string PatientsTip3 {
+            get {
+                return ResourceManager.GetString("PatientsTip3", resourceCulture);
             }
         }
         

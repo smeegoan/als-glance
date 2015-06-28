@@ -186,8 +186,8 @@
   <data name="PatientsSex" xml:space="preserve">
     <value>Sex</value>
   </data>
-  <data name="PatientsTip1" xml:space="preserve">
-    <value>Click here to filter by the patient name.</value>
+  <data name="PatientsTip2" xml:space="preserve">
+    <value>Click here to filter patients by name.</value>
   </data>
   <data name="PatientsXAxisLabel" xml:space="preserve">
     <value># Patients</value>
@@ -257,5 +257,11 @@
   </data>
   <data name="PatientUseRegression" xml:space="preserve">
     <value>Use regression to predict future results</value>
+  </data>
+  <data name="PatientsTip1" xml:space="preserve">
+    <value>Click here to filter patients by sex.</value>
+  </data>
+  <data name="PatientsTip3" xml:space="preserve">
+    <value>Click here to view the patient resume.</value>
   </data>
 </root>
