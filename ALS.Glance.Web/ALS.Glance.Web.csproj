@@ -390,7 +390,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\alsglance.css" />
-    <Content Include="LICENSE.txt" />
     <Content Include="Scripts\alsglance.js" />
     <Content Include="Scripts\alsglance.dashboard.min.js">
       <DependentUpon>alsglance.js</DependentUpon>

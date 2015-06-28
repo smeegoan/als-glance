@@ -91,6 +91,8 @@ AppPackages/
 # Others
 EF.Reverse.POCO.Core.ttinclude
 EF.Reverse.POCO.ttinclude
+*.pubxml
+Web.Release.config
 [Bb]in
 [Oo]bj
 #sql
