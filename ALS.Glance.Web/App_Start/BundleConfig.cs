@@ -21,9 +21,9 @@ namespace ALS.Glance.Web
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/commonjs").Include(
-                "~/Scripts/CrossFilter/crossfilter.js",
-                "~/Scripts/d3.v3.js",
-                "~/Scripts/DC/dc.js",
+                "~/Scripts/Charts/CrossFilter/crossfilter.js",
+                "~/Scripts/Charts/d3.v3.js",
+                "~/Scripts/Charts/dc.js",
                 "~/Scripts/intro.js",
                 "~/Scripts/apiclient.js",
                 "~/Scripts/moment.js",
@@ -38,7 +38,7 @@ namespace ALS.Glance.Web
                 "~/Scripts/daterangepicker.js",
                 "~/Scripts/colorbrewer.js",
                 "~/Scripts/colorbrewer_schemes.js",
-                 "~/Scripts/dygraph-combined.js",
+                 "~/Scripts/Charts/dygraph-combined.js",
                 "~/Scripts/devoops.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include(

@@ -395,11 +395,13 @@
     <Content Include="Scripts\alsglance.dashboard.min.js">
       <DependentUpon>alsglance.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\alsglance.min.js">
+      <DependentUpon>alsglance.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\apiclient.min.js">
       <DependentUpon>apiclient.js</DependentUpon>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
@@ -412,6 +414,9 @@
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="Scripts\bootstrap.min.js">
+      <DependentUpon>bootstrap.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\colorbrewer.min.js">
       <DependentUpon>colorbrewer.js</DependentUpon>
     </Content>
@@ -420,10 +425,15 @@
     <Content Include="Scripts\colorbrewer_schemes.min.js">
       <DependentUpon>colorbrewer_schemes.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\CrossFilter\crossfilter.js" />
-    <Content Include="Scripts\CrossFilter\crossfilter.min.js" />
-    <Content Include="Scripts\CrossFilter\README.md" />
-    <Content Include="Scripts\CrossFilter\LICENSE" />
+    <Content Include="Scripts\Charts\CrossFilter\crossfilter.js" />
+    <Content Include="Scripts\Charts\CrossFilter\crossfilter.min.js">
+      <DependentUpon>crossfilter.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Charts\CrossFilter\README.md" />
+    <Content Include="Scripts\Charts\CrossFilter\LICENSE" />
+    <Content Include="Scripts\Charts\d3.v3.min.js">
+      <DependentUpon>d3.v3.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\dataTables.bootstrap.js" />
     <Content Include="Scripts\dataTables.bootstrap.min.js">
       <DependentUpon>dataTables.bootstrap.js</DependentUpon>
@@ -432,17 +442,15 @@
     <Content Include="Scripts\daterangepicker.min.js">
       <DependentUpon>daterangepicker.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\DC\dc.js" />
-    <Content Include="Scripts\DC\dc.min.js" />
-    <Content Include="Scripts\DC\dc.min.js.map" />
-    <Content Include="Scripts\bootstrap.min.js.map">
-      <DependentUpon>bootstrap.min.js</DependentUpon>
-    </Content>
+    <Content Include="Scripts\Charts\dc.js" />
     <Content Include="Properties\SlowCheetah\SlowCheetah.Transforms.targets" />
+    <Content Include="Scripts\Charts\dc.min.js">
+      <DependentUpon>dc.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\devoops.min.js">
       <DependentUpon>devoops.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\dygraph-combined.min.js.map">
+    <Content Include="Scripts\Charts\dygraph-combined.min.js.map">
       <DependentUpon>dygraph-combined.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\devoops.min.js.map">
@@ -466,34 +474,70 @@
     <Content Include="Scripts\alsglance.dashboard.min.js.map">
       <DependentUpon>alsglance.dashboard.min.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\d3.v3.min.js.map">
-      <DependentUpon>d3.v3.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\CrossFilter\crossfilter.min.js.map">
-      <DependentUpon>crossfilter.min.js</DependentUpon>
-    </Content>
     <EmbeddedResource Include="Resources\Resources.pt-PT.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.pt-PT.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Content Include="Scripts\intro.min.js.map">
+      <DependentUpon>intro.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\alsglance.min.js.map">
+      <DependentUpon>alsglance.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\bootstrap.min.js.map">
+      <DependentUpon>bootstrap.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Charts\d3.v3.min.js.map">
+      <DependentUpon>d3.v3.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Charts\dc.min.js.map">
+      <DependentUpon>dc.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Charts\CrossFilter\crossfilter.min.js.map">
+      <DependentUpon>crossfilter.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\d3.v3.js" />
-    <Content Include="Scripts\d3.v3.min.js" />
+    <Content Include="Scripts\Charts\d3.v3.js" />
     <Content Include="Scripts\apiclient.js" />
     <Content Include="Scripts\devoops.js" />
-    <Content Include="Scripts\dygraph-combined.js" />
-    <Content Include="Scripts\dygraph-combined.min.js">
+    <Content Include="Scripts\Charts\dygraph-combined.js" />
+    <Content Include="Scripts\Charts\dygraph-combined.min.js">
       <DependentUpon>dygraph-combined.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\intro.min.js">
+      <DependentUpon>intro.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-1.10.2.min.js">
+      <DependentUpon>jquery-1.10.2.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-ui-1.11.4.min.js">
+      <DependentUpon>jquery-ui-1.11.4.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.dataTables.min.js">
+      <DependentUpon>jquery.dataTables.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.validate.min.js">
+      <DependentUpon>jquery.validate.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js">
+      <DependentUpon>jquery.validate.unobtrusive.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\moment-with-locales.min.js">
+      <DependentUpon>moment-with-locales.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\moment.min.js">
+      <DependentUpon>moment.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\respond.min.js">
+      <DependentUpon>respond.js</DependentUpon>
     </Content>
     <Content Include="Scripts\telemetry.js" />
     <Content Include="Scripts\intro.js" />
-    <Content Include="Scripts\intro.min.js" />
     <Content Include="Scripts\jquery-1.10.2.intellisense.min.js">
       <DependentUpon>jquery-1.10.2.intellisense.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-1.10.2.intellisense.min.js.map">
       <DependentUpon>jquery-1.10.2.intellisense.min.js</DependentUpon>
     </Content>
@@ -508,36 +552,32 @@
     </Content>
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
-    <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
     <Content Include="Scripts\jquery.dataTables.js" />
-    <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.min.js">
       <DependentUpon>jquery.validate-vsdoc.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.6.2.min.js">
       <DependentUpon>modernizr-2.6.2.js</DependentUpon>
     </Content>
     <Content Include="Scripts\moment-with-locales.js" />
-    <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
-    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\regression.js" />
     <Content Include="Scripts\regression.min.js">
       <DependentUpon>regression.js</DependentUpon>
     </Content>
     <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\telemetry.min.js">
       <DependentUpon>telemetry.js</DependentUpon>
     </Content>
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Scripts\_references.min.js">
+      <DependentUpon>_references.js</DependentUpon>
+    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -554,7 +594,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Patients.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
@@ -577,14 +616,18 @@
     <Content Include="Scripts\jquery.validate-vsdoc.min.js.map">
       <DependentUpon>jquery.validate-vsdoc.min.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\toastr.min.js.map">
+      <DependentUpon>toastr.min.js</DependentUpon>
+    </Content>
+    <Content Include="Views\Home\UsabilityForm.cshtml" />
+    <Content Include="Scripts\telemetry.min.js.map">
+      <DependentUpon>telemetry.min.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery.validate.min.js.map">
       <DependentUpon>jquery.validate.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js.map">
       <DependentUpon>jquery.validate.unobtrusive.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\toastr.min.js.map">
-      <DependentUpon>toastr.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\moment-with-locales.min.js.map">
       <DependentUpon>moment-with-locales.min.js</DependentUpon>
@@ -595,9 +638,8 @@
     <Content Include="Scripts\respond.min.js.map">
       <DependentUpon>respond.min.js</DependentUpon>
     </Content>
-    <Content Include="Views\Home\UsabilityForm.cshtml" />
-    <Content Include="Scripts\telemetry.min.js.map">
-      <DependentUpon>telemetry.min.js</DependentUpon>
+    <Content Include="Scripts\_references.min.js.map">
+      <DependentUpon>_references.min.js</DependentUpon>
     </Content>
   </ItemGroup>
   <ItemGroup>

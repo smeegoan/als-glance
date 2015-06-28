@@ -497,7 +497,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
     },
     loadEmg: function () {
         if (alsglance.dashboard.patient.muscle == null) {
-            return ;
+            return;
         }
         $.when(alsglance.apiClient.get("Facts?$top=1&$select=DateDate,EMG&$filter=PatientId%20eq%20" + alsglance.dashboard.patientId + " and EMG ne null and MuscleAbbreviation eq '" + alsglance.dashboard.patient.muscle + "' and DateDate le " + alsglance.dashboard.patient.endDate.format('YYYY-MM-DDTHH:mm') + "%2B00:00&$orderby=DateDate desc"))
                    .then(function (facts) {
@@ -795,25 +795,6 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                 all: alsglance.resources.allSelectedMessage
             });
 
-        /*
-        //#### Data Table
-        // Create a data table widget and use the given css selector as anchor. You can also specify
-        // an optional chart group for this chart to be scoped within. When a chart belongs
-        // to a specific group then any interaction with such chart will only trigger redraw
-        // on other charts within the same chart group.
-        <!-- anchor div for data table -->
-        <div id='data-table'>
-            <!-- create a custom header -->
-            <div class='header'>
-                <span>Date</span>
-                <span>Open</span>
-                <span>Close</span>
-                <span>Change</span>
-                <span>Volume</span>
-            </div>
-            <!-- data rows will filled in here -->
-        </div>
-        */
         dc.dataTable('#dc-data-table')
             .dimension(dateDimension)
             // data table does not use crossfilter group but rather a closure
@@ -849,25 +830,25 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                         return d.TimeHour;
                     }
                 },
-                  {
-                      label: alsglance.resources.muscle,
-                      format: function (d) {
-                          return d.MuscleAbbreviation;
-                      }
-                  },
+                {
+                    label: alsglance.resources.muscle,
+                    format: function (d) {
+                        return d.MuscleAbbreviation;
+                    }
+                },
                 'AUC' // d['volume'], ie, a field accessor; capitalized automatically
             ])
 
             // (optional) sort using the given field, :default = function(d){return d;}
             .sortBy(function (d) {
                 return d.DateDate;
-            })
-            // (optional) sort order, :default ascending
-            .order(d3.ascending)
-            // (optional) custom renderlet to post-process chart using D3
-            .on("renderlet.post-process", function (table) {
-                //table.selectAll('.dc-table-group ').classed('info', true);
             });
+        // (optional) sort order, :default ascending
+        //.order(d3.ascending);
+        // (optional) custom renderlet to post-process chart using D3
+        // .on("renderlet.post-process", function (table) {
+        //table.selectAll('.dc-table-group ').classed('info', true);
+        //  });
 
         //#endregion
 
