@@ -115,6 +115,15 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back to Top.
+        /// </summary>
+        public static string PatientBackToTop {
+            get {
+                return ResourceManager.GetString("PatientBackToTop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Color Schemes.
         /// </summary>
         public static string PatientColorSchemes {
@@ -241,7 +250,7 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Resume.
+        ///   Looks up a localized string similar to Summary.
         /// </summary>
         public static string PatientResume {
             get {
@@ -331,7 +340,7 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click here to view the patient resume..
+        ///   Looks up a localized string similar to Click here to view the patient summary..
         /// </summary>
         public static string PatientsTip3 {
             get {
@@ -340,7 +349,7 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to # Patients.
+        ///   Looks up a localized string similar to Average Age.
         /// </summary>
         public static string PatientsXAxisLabel {
             get {
@@ -349,7 +358,7 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Average Age.
+        ///   Looks up a localized string similar to # Patients.
         /// </summary>
         public static string PatientsYAxisLabel {
             get {

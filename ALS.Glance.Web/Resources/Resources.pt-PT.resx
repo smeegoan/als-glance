@@ -261,4 +261,7 @@
   <data name="PatientsTip3" xml:space="preserve">
     <value>Clique aqui para ver o resumo do paciente.</value>
   </data>
+  <data name="PatientBackToTop" xml:space="preserve">
+    <value>Voltar ao Topo</value>
+  </data>
 </root>

@@ -163,7 +163,7 @@
     <value>Reset</value>
   </data>
   <data name="PatientResume" xml:space="preserve">
-    <value>Resume</value>
+    <value>Summary</value>
   </data>
   <data name="PatientSave" xml:space="preserve">
     <value>Save</value>
@@ -190,10 +190,10 @@
     <value>Click here to filter patients by name.</value>
   </data>
   <data name="PatientsXAxisLabel" xml:space="preserve">
-    <value># Patients</value>
+    <value>Average Age</value>
   </data>
   <data name="PatientsYAxisLabel" xml:space="preserve">
-    <value>Average Age</value>
+    <value># Patients</value>
   </data>
   <data name="PatientTimeOfDay" xml:space="preserve">
     <value>Time Of Day</value>
@@ -262,6 +262,9 @@
     <value>Click here to filter patients by sex.</value>
   </data>
   <data name="PatientsTip3" xml:space="preserve">
-    <value>Click here to view the patient resume.</value>
+    <value>Click here to view the patient summary.</value>
+  </data>
+  <data name="PatientBackToTop" xml:space="preserve">
+    <value>Back to Top</value>
   </data>
 </root>

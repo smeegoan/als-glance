@@ -6,7 +6,7 @@
 }
 <ul class="nav nav-tabs">
     <li class="active"><a href="#results" data-toggle="tab">@Resources.PatientResume</a></li>
-    <li><a href="#details" data-toggle="tab">@Resources.PatientDetails</a></li>
+    <li><a href="#details" data-toggle="tab" id="top">@Resources.PatientDetails</a></li>
 </ul>
 <br />
 <div id="main" class="tab-content">
@@ -255,6 +255,11 @@
                     <div id="dc-data-count" class="dc-chart">@Resources.PatientAllSelected</div>
                 </div>
                 <table id="dc-data-table" class="table table-hover" style="margin-top: 40px"></table>
+                <span id="top-link-block" class="hidden">
+                    <a href="#top" class="well well-sm" onclick="$('html,body').animate({scrollTop:0},'slow');return false;">
+                        <i class="glyphicon glyphicon-chevron-up"></i> @Resources.PatientBackToTop
+                    </a>
+                </span><!-- /top-link-block -->
             </div>
         </div>
     </div>

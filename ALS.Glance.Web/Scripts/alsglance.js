@@ -312,7 +312,7 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
             .radiusValueAccessor(function (p) {
                 return p.value.avgAge;
             })
-            .maxBubbleRelativeSize(0.3)
+            .maxBubbleRelativeSize(0.7)
             .x(d3.scale.linear().domain([min, max]))
             .y(d3.scale.linear().domain([-100, 100]))
             .r(d3.scale.linear().domain([0, 4000]))
@@ -859,7 +859,16 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
 
     }
 };
-
+$(function() {
+// Only enable if the document has a long scroll bar
+// Note the window height + offset
+    if (($(window).height() + 100) < $(document).height()) {
+        $('#top-link-block').removeClass('hidden').affix({
+            // how far to scroll down before link "slides" into view
+            offset: { top: 100 }
+        });
+    }
+});
 Date.prototype.setISO8601 = function (string) {
     var regexp = "([0-9]{4})(-([0-9]{2})(-([0-9]{2})" +
         "(T([0-9]{2}):([0-9]{2})(:([0-9]{2})(\.([0-9]+))?)?" +
