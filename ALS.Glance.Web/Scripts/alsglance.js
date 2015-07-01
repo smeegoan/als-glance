@@ -511,16 +511,21 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         return data;
     },
     loadEmg: function () {
-        if (alsglance.dashboard.patient.muscle == null) {
+        var url = "Facts?$top=1&$select=DateDate,EMG&$filter=PatientId%20eq%20" + alsglance.dashboard.patientId + " and EMG ne null " +
+            //  (alsglance.dashboard.patient.timeOfDay != null ? " and TimeTimeOfDay eq '" + alsglance.dashboard.patient.timeOfDay + "' " : "") +
+            (alsglance.dashboard.patient.muscle != null ? " and MuscleAbbreviation eq '" + alsglance.dashboard.patient.muscle + "' " : "") +
+            (alsglance.dashboard.patient.endDate != null ? " and DateDate le " + alsglance.dashboard.patient.endDate.format('YYYY-MM-DDTHH:mm') + "%2B00:00&$orderby=DateDate desc" : "");
+        if (url == alsglance.dashboard.patient.lastUrl) {
             return;
         }
-        $.when(alsglance.apiClient.get("Facts?$top=1&$select=DateDate,EMG&$filter=PatientId%20eq%20" + alsglance.dashboard.patientId + " and EMG ne null and MuscleAbbreviation eq '" + alsglance.dashboard.patient.muscle + "' and DateDate le " + alsglance.dashboard.patient.endDate.format('YYYY-MM-DDTHH:mm') + "%2B00:00&$orderby=DateDate desc"))
-                   .then(function (facts) {
-                       var emg = facts.value;
-                       if (emg == null || emg.length == 0)
-                           return;
-                       alsglance.dashboard.patient.renderEmg(JSON.parse(emg[0].EMG));
-                   });
+        $.when(alsglance.apiClient.get(url))
+            .then(function (facts) {
+                alsglance.dashboard.patient.lastUrl = url;
+                var emg = facts.value;
+                if (emg == null || emg.length == 0)
+                    return;
+                alsglance.dashboard.patient.renderEmg(JSON.parse(emg[0].EMG));
+            });
     },
     renderEmg: function (data) {
         alsglance.charts.emgChart = new Dygraph(document.getElementById("emgChart"), data, {
@@ -654,10 +659,10 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         var timeHourGroup = timeHourDimension.group();
 
         // counts per weekday
-        var dayOfWeek = ndx.dimension(function (d) {
-            return '1' + '.' + d.TimeTimeOfDay;
+        var timeOfDayDimension = ndx.dimension(function (d) {
+            return d.TimeTimeOfDay;
         });
-        var dayOfWeekGroup = dayOfWeek.group();
+        var dayOfWeekGroup = timeOfDayDimension.group();
 
 
         //#region Quarter Chart
@@ -680,12 +685,16 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
           //  .height(180)
             //.margins({ top: 20, left: 30, right: 10, bottom: 20 })
             .group(dayOfWeekGroup)
-            .dimension(dayOfWeek)
+            .dimension(timeOfDayDimension)
             .label(function (d) {
-                return d.key.split('.')[1];
+                return d.key;
             })
-            .title(function (d) {
-                return d.value;
+            .on("filtered", function (chart) {
+                var filters = chart.filters();
+                if (filters.length > 0) {
+                    alsglance.dashboard.patient.timeOfDay = filters;
+                    alsglance.dashboard.patient.loadEmg();
+                }
             })
             .elasticX(true)
             .xAxis().ticks(4);
