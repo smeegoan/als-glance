@@ -1,6 +1,21 @@
 ﻿'use strict';
 var alsglance = alsglance || {};
 alsglance.charts = alsglance.charts || {
+    removeOverlapedAxisTicks: function (ticks) {
+        for (var j = 0; j < ticks.length; j++) {
+            var c = ticks[j],
+                n = ticks[j + 1];
+            if (!c || !n || !c.getBoundingClientRect || !n.getBoundingClientRect)
+                continue;
+            while (c.getBoundingClientRect().right > n.getBoundingClientRect().left) {
+                d3.select(n).remove();
+                j++;
+                n = ticks[j + 1];
+                if (!n)
+                    break;
+            }
+        }
+    },
     setBehaviour: function () {
         alsglance.charts.replaceControlsBehaviour();
         $(window).resize(function () {
@@ -509,8 +524,8 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
     },
     renderEmg: function (data) {
         alsglance.charts.emgChart = new Dygraph(document.getElementById("emgChart"), data, {
-            labels: ['Time', 'µV'],
-            xlabel: 'Time',
+            labels: [alsglance.resources.time, 'µV'],
+            xlabel: alsglance.resources.time,
             // ylabel: 'EMG',
             legend: 'true',
             colors: [colorbrewer.schemes[selectedScheme][numClasses][3]],
@@ -757,7 +772,12 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             .round(d3.time.month.round)
             .alwaysUseRounding(true)
             .xUnits(d3.time.months)
+            .on("renderlet.axis", function (chart) {
+                alsglance.charts.removeOverlapedAxisTicks($("#predictionSeriesChart .axis.x").find(".tick"));
+                alsglance.charts.removeOverlapedAxisTicks($("#dateRangeChart .axis.x").find(".tick"));
+            })
             .on("filtered", function (chart) {
+
                 var filters = chart.filters();
                 if (filters.length > 0) {
                     var range = filters[0];
@@ -859,9 +879,9 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
 
     }
 };
-$(function() {
-// Only enable if the document has a long scroll bar
-// Note the window height + offset
+$(function () {
+    // Only enable if the document has a long scroll bar
+    // Note the window height + offset
     if (($(window).height() + 100) < $(document).height()) {
         $('#top-link-block').removeClass('hidden').affix({
             // how far to scroll down before link "slides" into view

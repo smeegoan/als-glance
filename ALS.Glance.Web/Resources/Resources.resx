@@ -267,4 +267,7 @@
   <data name="PatientBackToTop" xml:space="preserve">
     <value>Back to Top</value>
   </data>
+  <data name="PatientTime" xml:space="preserve">
+    <value>Time</value>
+  </data>
 </root>

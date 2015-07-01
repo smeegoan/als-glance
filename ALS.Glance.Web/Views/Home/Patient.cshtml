@@ -20,7 +20,7 @@
                         <h4 class="modal-title" id="myModalLabel">AUC</h4>
                     </div>
                     <div class="modal-body">
-                        <form id="aucForm"class="form-horizontal" role="form">
+                        <form id="aucForm" class="form-horizontal" role="form">
                             <div class="form-group">
                                 <div class="col-md-offset-1 col-md-8">
                                     <div class="checkbox">
@@ -288,7 +288,8 @@
                 quarterPrefix: '@Resources.PatientQuarterPrefix',
                 measurements: '@Resources.PatientMeasurements',
                 help: '@Resources.Help',
-                colorSchemes:'@Resources.PatientColorSchemes'
+                colorSchemes:'@Resources.PatientColorSchemes',
+                time:'@Resources.PatientTime'
             };
             alsglance.dashboard.settings = alsglance.dashboard.settings || JSON.parse(decodeURIComponent('@Html.Raw(Model.Settings)'));
             if (alsglance.dashboard.settings.showPredictions == null) {
@@ -311,7 +312,7 @@
             alsglance.presentation.bindButtonEvents();
             alsglance.presentation.makePanelsDraggable();
         });
-</script>
+    </script>
 }
 
 

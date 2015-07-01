@@ -367,6 +367,15 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Time.
+        /// </summary>
+        public static string PatientTime {
+            get {
+                return ResourceManager.GetString("PatientTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Time Of Day.
         /// </summary>
         public static string PatientTimeOfDay {
