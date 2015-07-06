@@ -44,10 +44,6 @@ alsglance.charts = alsglance.charts || {
             .attr("y", chartToUpdate.height())
             .text(displayText);
     },
-    redrawAll: function () {
-        dc.redrawAll();
-        alsglance.charts.addXAxis(alsglance.charts.timeOfDayChart, alsglance.resources.measurements);
-    },
     turnOffControls: function (chart) {
         return function () {
             var node = chart.root()[0][0];
@@ -116,7 +112,6 @@ alsglance.charts = alsglance.charts || {
             alsglance.charts.resize(chart);
         }
         dc.renderAll();
-        alsglance.charts.addXAxis(alsglance.charts.timeOfDayChart, alsglance.resources.measurements);
         for (i = 0; i < dc.chartRegistry.list().length; i++) {
             chart = dc.chartRegistry.list()[i];
             chart.transitionDuration(500);
@@ -127,6 +122,18 @@ alsglance.charts = alsglance.charts || {
 };
 alsglance.presentation = alsglance.presentation || {
     makePanelsDraggable: function () {
+        //
+        // Swap 2 elements on page. Used by makePanelsDraggable function
+        //
+        jQuery.fn.swap = function (b) {
+            b = jQuery(b)[0];
+            var a = this[0];
+            var t = a.parentNode.insertBefore(document.createTextNode(''), a);
+            b.parentNode.insertBefore(a, b);
+            t.parentNode.insertBefore(b, t);
+            t.parentNode.removeChild(t);
+            return this;
+        };
         //
         //  Function maked all .box selector is draggable, to disable for concrete element add class .no-drop
         //
@@ -143,8 +150,6 @@ alsglance.presentation = alsglance.presentation || {
                 drop: function (event, ui) {
                     var draggable = ui.draggable;
                     var droppable = $(this);
-                    var dragPos = draggable.position();
-                    var dropPos = droppable.position();
                     draggable.swap(droppable);
                     setTimeout(function () {
                         var dropmap = droppable.find('[id^=map-]');
@@ -187,7 +192,7 @@ alsglance.presentation = alsglance.presentation || {
             var id = $(value).attr('id');
             $(value).click(id, function () {
                 alsglance.dashboard.patient.filterMuscle(id);
-                alsglance.charts.redrawAll();
+                dc.redrawAll();
                 analytics.logUiEvent("filterMuscle", "Patient", "dashboard");
             });
         });
@@ -332,15 +337,12 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
             .y(d3.scale.linear().domain([-100, 100]))
             .r(d3.scale.linear().domain([0, 4000]))
             .elasticY(true)
-            //.elasticX(true)
             .yAxisPadding(20)
             .xAxisPadding(50)
             .renderHorizontalGridLines(true) // (optional) render horizontal grid lines, :default=false
             .renderVerticalGridLines(true) // (optional) render vertical grid lines, :default=false
             .xAxisLabel(alsglance.resources.patientsXAxisLabel) // (optional) render an axis label below the x axis
             .yAxisLabel(alsglance.resources.patientsYAxisLabel) // (optional) render a vertical axis lable left of the y axis
-            //#### Labels and  Titles
-            //Labels are displaed on the chart for each bubble. Titles displayed on mouseover.
             .renderLabel(true) // (optional) whether chart should render labels, :default = true
             .label(function (p) {
                 return p.key;
@@ -451,13 +453,14 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             }
 
         }
-        alsglance.charts.redrawAll();
+        dc.redrawAll();
     },
     reset: function () {
         dc.filterAll();
         alsglance.dashboard.patient.datePicker();
         alsglance.dashboard.patient.filterMuscle("AT");
-        alsglance.charts.redrawAll();
+        alsglance.dashboard.patient.timeOfDay = null;
+        dc.redrawAll();
         if (alsglance.charts.emgChart != null) {
             alsglance.charts.emgChart.resetZoom();
         }
@@ -498,7 +501,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                         DateMonthName: startDate.format("MMMM"),
                         DateYear: parseInt(startDate.format("YYYY")),
                         DateQuarter: startDate.quarter(),
-                        PatientName: "Prediction",
+                        PatientName: alsglance.resources.prediction,
                         DateDayOfWeek: startDate.format("dddd"),
                         TimeTimeOfDay: timeOfDay,
                         TimeHour: 24, //invalid hour so it will be excluded from hour chart
@@ -511,20 +514,29 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         return data;
     },
     loadEmg: function () {
+        var timeOfDayFilter = function (timeOfDay) {
+            var filter = null;
+            for (var i = 0; i < timeOfDay.length; i++) {
+                filter = (!filter ? "" : filter + " or ") + "TimeTimeOfDay eq '" + timeOfDay[i] + "'";
+            }
+            return " and (" + filter + ")";
+        };
         var url = "Facts?$top=1&$select=DateDate,EMG&$filter=PatientId%20eq%20" + alsglance.dashboard.patientId + " and EMG ne null " +
-            //  (alsglance.dashboard.patient.timeOfDay != null ? " and TimeTimeOfDay eq '" + alsglance.dashboard.patient.timeOfDay + "' " : "") +
-            (alsglance.dashboard.patient.muscle != null ? " and MuscleAbbreviation eq '" + alsglance.dashboard.patient.muscle + "' " : "") +
-            (alsglance.dashboard.patient.endDate != null ? " and DateDate le " + alsglance.dashboard.patient.endDate.format('YYYY-MM-DDTHH:mm') + "%2B00:00&$orderby=DateDate desc" : "");
+        (alsglance.dashboard.patient.timeOfDay != null ? timeOfDayFilter(alsglance.dashboard.patient.timeOfDay) : "") +
+        (alsglance.dashboard.patient.muscle != null ? " and MuscleAbbreviation eq '" + alsglance.dashboard.patient.muscle + "' " : "") +
+        (alsglance.dashboard.patient.endDate != null ? " and DateDate le " + alsglance.dashboard.patient.endDate.format('YYYY-MM-DDTHH:mm') + "%2B00:00&$orderby=DateDate desc" : "");
         if (url == alsglance.dashboard.patient.lastUrl) {
             return;
         }
         $.when(alsglance.apiClient.get(url))
             .then(function (facts) {
-                alsglance.dashboard.patient.lastUrl = url;
-                var emg = facts.value;
-                if (emg == null || emg.length == 0)
-                    return;
-                alsglance.dashboard.patient.renderEmg(JSON.parse(emg[0].EMG));
+                var value = facts.value;
+                var emg = null;
+                if (value != null && value.length > 0) {
+                    emg = JSON.parse(value[0].EMG);
+                    alsglance.dashboard.patient.lastUrl = url;
+                }
+                alsglance.dashboard.patient.renderEmg(emg);
             });
     },
     renderEmg: function (data) {
@@ -539,9 +551,6 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             }
             //,showRangeSelector: true
         });
-        emgChart.anchorName = function () {
-            return "emgChart";
-        };
     },
     load: function (data) {
         alsglance.charts.muscleChart = alsglance.charts.muscleChart || dc.pieChart('#muscleChart');
@@ -556,6 +565,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         alsglance.dashboard.patient.datePicker = function () {
             var minDate = moment("01-01-" + alsglance.dashboard.patient.yearMin, "MM-DD-YYYY");
             var maxDate = moment("12-31-" + (alsglance.dashboard.patient.yearMax + 1), "MM-DD-YYYY");
+            alsglance.dashboard.patient.endDate = maxDate;
             $('#reportrange span').html(minDate.format('MMMM D, YYYY') + ' - ' + maxDate.format('MMMM D, YYYY'));
             $('#reportrange').daterangepicker({
                 format: 'MM/DD/YYYY',
@@ -595,7 +605,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                 $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
                 alsglance.charts.dateRangeChart.filterAll();
                 alsglance.charts.dateRangeChart.filter(dc.filters.RangedFilter(start.valueOf(), end.valueOf()));
-                alsglance.charts.redrawAll();
+                dc.redrawAll();
                 analytics.logUiEvent("filterDates", "Patient", "dashboard");
             });
         };
@@ -682,12 +692,15 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
 
         //#### Row Chart
         alsglance.charts.timeOfDayChart.width(180)
-          //  .height(180)
+            //  .height(180)
             //.margins({ top: 20, left: 30, right: 10, bottom: 20 })
             .group(dayOfWeekGroup)
             .dimension(timeOfDayDimension)
             .label(function (d) {
                 return d.key;
+            })
+            .on("renderlet.axis", function (chart) {
+                alsglance.charts.addXAxis(chart, alsglance.resources.measurements);
             })
             .on("filtered", function (chart) {
                 var filters = chart.filters();
@@ -700,28 +713,28 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             .xAxis().ticks(4);
 
         //#### Bar Chart
-        alsglance.charts.timeHourChart//.width(420)
-           //.height(180)
-           //.margins({ top: 10, right: 50, bottom: 30, left: 40 })
-           .dimension(timeHourDimension)
-           .group(timeHourGroup)
-           .elasticY(true)
-           // (optional) whether bar should be center to its x value. Not needed for ordinal chart, :default=false
-           .centerBar(true)
-           // (optional) set gap between bars manually in px, :default=2
-           .gap(1)
-           // (optional) set filter brush rounding
-           .round(dc.round.floor)
-           .alwaysUseRounding(true)
-           .x(d3.scale.linear().domain([0, 23]))
-             .yAxisLabel(alsglance.resources.measurements)
-           .renderHorizontalGridLines(true)
-           // customize the filter displayed in the control span
-           .filterPrinter(function (filters) {
-               var filter = filters[0], s = '';
-               s += hourFormat(filter[0]) + 'h -> ' + hourFormat(filter[1]) + 'h';
-               return s;
-           });
+        alsglance.charts.timeHourChart
+              .dimension(timeHourDimension)
+            .group(timeHourGroup)
+            .elasticY(true)
+            // (optional) whether bar should be center to its x value. Not needed for ordinal chart, :default=false
+            .centerBar(true)
+            // (optional) set gap between bars manually in px, :default=2
+            .gap(1)
+            // (optional) set filter brush rounding
+            .round(dc.round.floor)
+            .alwaysUseRounding(true)
+            .x(d3.scale.linear().domain([0, 23]))
+            .yAxisLabel(alsglance.resources.measurements)
+            .renderHorizontalGridLines(true)
+            .on("renderlet.axis", function (chart) {
+                alsglance.charts.removeOverlapedAxisTicks($("#timeHourChart .axis.x").find(".tick"));
+            }) // customize the filter displayed in the control span
+            .filterPrinter(function (filters) {
+                var filter = filters[0], s = '';
+                s += hourFormat(filter[0]) + 'h -> ' + hourFormat(filter[1]) + 'h';
+                return s;
+            });
 
 
         // Customize axis

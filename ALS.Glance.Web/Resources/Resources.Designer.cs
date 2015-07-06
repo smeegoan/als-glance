@@ -187,6 +187,15 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Prediction.
+        /// </summary>
+        public static string PatientPrediction {
+            get {
+                return ResourceManager.GetString("PatientPrediction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quarter.
         /// </summary>
         public static string PatientQuarter {

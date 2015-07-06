@@ -181,7 +181,7 @@
     <value>Clique aqui para filtrar os pacientes por nome.</value>
   </data>
   <data name="PatientsXAxisLabel" xml:space="preserve">
-    <value>Idade Media</value>
+    <value>Idade Média</value>
   </data>
   <data name="PatientsYAxisLabel" xml:space="preserve">
     <value># Pacientes</value>
@@ -226,7 +226,7 @@
     <value>Pacientes</value>
   </data>
   <data name="PatientMeasurements" xml:space="preserve">
-    <value># Medicoes</value>
+    <value># Medições</value>
   </data>
   <data name="PatientQuarterPrefix" xml:space="preserve">
     <value>T</value>
@@ -266,5 +266,8 @@
   </data>
   <data name="PatientTime" xml:space="preserve">
     <value>Tempo</value>
+  </data>
+  <data name="PatientPrediction" xml:space="preserve">
+    <value>Predição</value>
   </data>
 </root>

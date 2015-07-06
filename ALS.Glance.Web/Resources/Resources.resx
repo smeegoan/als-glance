@@ -270,4 +270,7 @@
   <data name="PatientTime" xml:space="preserve">
     <value>Time</value>
   </data>
+  <data name="PatientPrediction" xml:space="preserve">
+    <value>Prediction</value>
+  </data>
 </root>

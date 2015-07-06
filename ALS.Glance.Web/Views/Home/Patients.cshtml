@@ -57,8 +57,8 @@
         });
         alsglance.resources = alsglance.resources || {
             loadingMessage: '@Resources.PatientLoading',
-            patientsXAxisLabel: '@Resources.PatientsXAxisLabel',
-            patientsYAxisLabel: '@Resources.PatientsYAxisLabel',
+            patientsXAxisLabel: '@Html.Raw(Resources.PatientsXAxisLabel)',
+            patientsYAxisLabel: '@Html.Raw(Resources.PatientsYAxisLabel)',
             help: '@Resources.Help',
             patientsTip2:'@Resources.PatientsTip2',
             patientsTip3:'@Resources.PatientsTip3',
