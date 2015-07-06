@@ -292,21 +292,7 @@
                 time: '@Resources.PatientTime',
                 prediction: '@Html.Raw(Resources.PatientPrediction)'
             };
-            alsglance.dashboard.settings = alsglance.dashboard.settings || JSON.parse(decodeURIComponent('@Html.Raw(Model.Settings)'));
-            alsglance.dashboard.settings.layout = alsglance.dashboard.settings.layout || [];
-
-            if (alsglance.dashboard.settings.showPredictions == null) {
-                alsglance.dashboard.settings.showPredictions = true;
-            }
-            if (alsglance.dashboard.settings.predictionBackLog == 999)
-                $('#all').prop('checked', true);
-            else if (alsglance.dashboard.settings.predictionBackLog == 12)
-                $('#year').prop('checked', true);
-            else {
-                alsglance.dashboard.settings.predictionBackLog = 6;
-                $('#6months').prop('checked', true);
-            }
-            alsglance.dashboard.patientId = @Model.Id;
+            alsglance.dashboard.patient.id = @Model.Id;
             alsglance.dashboard.patient.yearMin = @Model.YearMin;
             alsglance.dashboard.patient.yearMax = @Model.YearMax;
             alsglance.dashboard.patient.loadFacts();
@@ -314,7 +300,7 @@
             alsglance.presentation.showPatientHelpButton();
             alsglance.presentation.bindButtonEvents();
             alsglance.presentation.makePanelsDraggable();
-            alsglance.presentation.arrangePanels(alsglance.dashboard.settings.layout);
+            alsglance.dashboard.patient.loadSettings(JSON.parse(decodeURIComponent('@Html.Raw(Model.Settings)')));
         });
     </script>
 }

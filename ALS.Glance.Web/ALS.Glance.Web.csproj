@@ -391,9 +391,6 @@
     <Content Include="Global.asax" />
     <Content Include="Content\alsglance.css" />
     <Content Include="Scripts\alsglance.js" />
-    <Content Include="Scripts\alsglance.dashboard.min.js">
-      <DependentUpon>alsglance.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\alsglance.min.js">
       <DependentUpon>alsglance.js</DependentUpon>
     </Content>
@@ -470,9 +467,6 @@
     </Content>
     <Content Include="Scripts\apiclient.min.js.map">
       <DependentUpon>apiclient.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\alsglance.dashboard.min.js.map">
-      <DependentUpon>alsglance.dashboard.min.js</DependentUpon>
     </Content>
     <EmbeddedResource Include="Resources\Resources.pt-PT.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -392,9 +392,26 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
 };
 
 alsglance.dashboard.patient = alsglance.dashboard.patient || {
+    loadSettings: function(settings) {
+        alsglance.dashboard.settings = alsglance.dashboard.settings || settings;
+        alsglance.dashboard.settings.layout = alsglance.dashboard.settings.layout || [];
+
+        if (alsglance.dashboard.settings.showPredictions == null) {
+            alsglance.dashboard.settings.showPredictions = true;
+        }
+        if (alsglance.dashboard.settings.predictionBackLog == 999)
+            $('#all').prop('checked', true);
+        else if (alsglance.dashboard.settings.predictionBackLog == 12)
+            $('#year').prop('checked', true);
+        else {
+            alsglance.dashboard.settings.predictionBackLog = 6;
+            $('#6months').prop('checked', true);
+        }
+        alsglance.presentation.arrangePanels(alsglance.dashboard.settings.layout);
+    },
     loadFacts: function () {
-        //$.when(apiClient.get("Fact?$select=AUC&$expand=Time($select=Hour,TimeOfDay),Date($select=DayOfWeek,Weekday,Date,Year,MonthName,Quarter),Patient,Muscle($select=Name,Abbreviation)&$filter=Patient/Id eq " + alsglance.dashboard.patientId))
-        $.when(alsglance.apiClient.get("Facts?$select=AUC,TimeHour,TimeTimeOfDay,DateDayOfWeek,DateWeekday,DateDate,DateYear,DateMonthName,DateQuarter,MuscleName,MuscleAbbreviation,PatientName&$filter=PatientId eq " + alsglance.dashboard.patientId))
+        //$.when(apiClient.get("Fact?$select=AUC&$expand=Time($select=Hour,TimeOfDay),Date($select=DayOfWeek,Weekday,Date,Year,MonthName,Quarter),Patient,Muscle($select=Name,Abbreviation)&$filter=Patient/Id eq " + alsglance.dashboard.patient.id))
+        $.when(alsglance.apiClient.get("Facts?$select=AUC,TimeHour,TimeTimeOfDay,DateDayOfWeek,DateWeekday,DateDate,DateYear,DateMonthName,DateQuarter,MuscleName,MuscleAbbreviation,PatientName&$filter=PatientId eq " + alsglance.dashboard.patient.id))
             .then(function (data) {
                 data = data.value;
                 if (alsglance.dashboard.settings.showPredictions) {
@@ -405,7 +422,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                 colorbrewer.showColorSchemeButton(alsglance.dashboard.settings.colorScheme);
                 alsglance.charts.setBehaviour();
                 alsglance.dashboard.patient.reset();
-                alsglance.dashboard.patient.applyFilters(alsglance.dashboard.settings["P" + alsglance.dashboard.patientId]);
+                alsglance.dashboard.patient.applyFilters(alsglance.dashboard.settings["P" + alsglance.dashboard.patient.id]);
             });
     },
     saveSettings: function () {
@@ -416,7 +433,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                 filters.push({ ChartID: chart.chartID(), Filter: chart.filters()[j] });
             }
         }
-        alsglance.dashboard.settings["P" + alsglance.dashboard.patientId] = filters;
+        alsglance.dashboard.settings["P" + alsglance.dashboard.patient.id] = filters;
         alsglance.dashboard.settings.layout = alsglance.presentation.getPanelsPosition();
         alsglance.dashboard.settings.colorScheme = selectedScheme;
         var entity = {};
@@ -539,7 +556,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             }
             return " and (" + filter + ")";
         };
-        var url = "Facts?$top=1&$select=DateDate,EMG&$filter=PatientId%20eq%20" + alsglance.dashboard.patientId + " and EMG ne null " +
+        var url = "Facts?$top=1&$select=DateDate,EMG&$filter=PatientId%20eq%20" + alsglance.dashboard.patient.id + " and EMG ne null " +
         (alsglance.dashboard.patient.timeOfDay != null ? timeOfDayFilter(alsglance.dashboard.patient.timeOfDay) : "") +
         (alsglance.dashboard.patient.muscle != null ? " and MuscleAbbreviation eq '" + alsglance.dashboard.patient.muscle + "' " : "") +
         (alsglance.dashboard.patient.endDate != null ? " and DateDate le " + alsglance.dashboard.patient.endDate.format('YYYY-MM-DDTHH:mm') + "%2B00:00&$orderby=DateDate desc" : "");
@@ -772,7 +789,6 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
 
         alsglance.charts.aucSeriesChart
                .margins({ top: 20, right: 30, bottom: 20, left: 60 })
-       //.width(460)
             .height(160)
             //.chart(function(c) { return dc.lineChart(c).interpolate('basis'); })
             .x(d3.time.scale().domain([new Date(alsglance.dashboard.patient.yearMin, 0, 1), new Date(alsglance.dashboard.patient.yearMax + 1, 11, 31)]))
@@ -794,7 +810,6 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             .valueAccessor(function (d) {
                 return +d.value;
             })
-
             .legend(dc.legend().x(80).y(25).itemHeight(13).gap(5).legendWidth(170).itemWidth(170)).title(function (d) {
                 return dateFormat(d.key[1]) + ':\n' + d.value;
             });
