@@ -121,6 +121,21 @@ alsglance.charts = alsglance.charts || {
     },
 };
 alsglance.presentation = alsglance.presentation || {
+    arrangePanels: function (position) {
+        var source = alsglance.presentation.getPanelsPosition();
+        for (var i = 0; i < position.length; i++) {
+            var target = position[i];
+            if (target != source[i]) {
+                $("#" + source[i]).swap($("#" + target));
+                i = 0;
+                source = alsglance.presentation.getPanelsPosition();
+            }
+        }
+    },
+    getPanelsPosition: function () {
+        return $("div.box").not('.no-drop').map(function () { return this.id; }) // convert to set of IDs
+            .get();
+    },
     makePanelsDraggable: function () {
         //
         // Swap 2 elements on page. Used by makePanelsDraggable function
@@ -137,7 +152,9 @@ alsglance.presentation = alsglance.presentation || {
         //
         //  Function maked all .box selector is draggable, to disable for concrete element add class .no-drop
         //
-        $("div.box").not('.no-drop')
+        $("div.box").not('.no-drop').attr("id", function (i) {
+            return "draggable_" + i;
+        })
             .draggable({
                 revert: true,
                 zIndex: 2000,
@@ -174,6 +191,8 @@ alsglance.presentation = alsglance.presentation || {
     bindButtonEvents: function () {
         $("#reset").click(function () {
             alsglance.dashboard.patient.reset();
+            alsglance.presentation.arrangePanels(["draggable_0", "draggable_1", "draggable_2", "draggable_3", "draggable_4"]);
+            alsglance.charts.resizeAll();
             analytics.logUiEvent("reset", "Patient", "dashboard");
         });
         $("#save").click(function () {
@@ -374,7 +393,6 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
 
 alsglance.dashboard.patient = alsglance.dashboard.patient || {
     loadFacts: function () {
-        var then = moment();
         //$.when(apiClient.get("Fact?$select=AUC&$expand=Time($select=Hour,TimeOfDay),Date($select=DayOfWeek,Weekday,Date,Year,MonthName,Quarter),Patient,Muscle($select=Name,Abbreviation)&$filter=Patient/Id eq " + alsglance.dashboard.patientId))
         $.when(alsglance.apiClient.get("Facts?$select=AUC,TimeHour,TimeTimeOfDay,DateDayOfWeek,DateWeekday,DateDate,DateYear,DateMonthName,DateQuarter,MuscleName,MuscleAbbreviation,PatientName&$filter=PatientId eq " + alsglance.dashboard.patientId))
             .then(function (data) {
@@ -388,7 +406,6 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                 alsglance.charts.setBehaviour();
                 alsglance.dashboard.patient.reset();
                 alsglance.dashboard.patient.applyFilters(alsglance.dashboard.settings["P" + alsglance.dashboard.patientId]);
-                analytics.logActionLoad(then, "Patient");
             });
     },
     saveSettings: function () {
@@ -400,6 +417,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             }
         }
         alsglance.dashboard.settings["P" + alsglance.dashboard.patientId] = filters;
+        alsglance.dashboard.settings.layout = alsglance.presentation.getPanelsPosition();
         alsglance.dashboard.settings.colorScheme = selectedScheme;
         var entity = {};
         entity.UserId = alsglance.dashboardUserId;

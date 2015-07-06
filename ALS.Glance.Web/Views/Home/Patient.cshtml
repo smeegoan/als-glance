@@ -293,6 +293,8 @@
                 prediction: '@Html.Raw(Resources.PatientPrediction)'
             };
             alsglance.dashboard.settings = alsglance.dashboard.settings || JSON.parse(decodeURIComponent('@Html.Raw(Model.Settings)'));
+            alsglance.dashboard.settings.layout = alsglance.dashboard.settings.layout || [];
+
             if (alsglance.dashboard.settings.showPredictions == null) {
                 alsglance.dashboard.settings.showPredictions = true;
             }
@@ -312,6 +314,7 @@
             alsglance.presentation.showPatientHelpButton();
             alsglance.presentation.bindButtonEvents();
             alsglance.presentation.makePanelsDraggable();
+            alsglance.presentation.arrangePanels(alsglance.dashboard.settings.layout);
         });
     </script>
 }

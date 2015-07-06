@@ -47,8 +47,7 @@
 
     <script>
     $(function () {
-        var then = moment();
-        var apiClient = new alsglance.ApiClient({
+         var apiClient = new alsglance.ApiClient({
             baseUri: alsglance.baseUri,
             authToken: alsglance.authToken,
             onAuthFail: function () {
@@ -87,7 +86,6 @@
                     });
                     alsglance.charts.setBehaviour();
                     alsglance.presentation.showPatientsHelpButton();
-                    analytics.logActionLoad(then,"Patients");
                 });
 
     });
