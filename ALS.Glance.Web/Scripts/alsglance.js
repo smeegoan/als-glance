@@ -504,10 +504,11 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         dc.redrawAll();
     },
     reset: function () {
+        alsglance.dashboard.patient.timeOfDay = null;
+        alsglance.dashboard.patient.lastUrl = null;
         dc.filterAll();
         alsglance.dashboard.patient.datePicker();
         alsglance.dashboard.patient.filterMuscle("AT");
-        alsglance.dashboard.patient.timeOfDay = null;
         dc.redrawAll();
         if (alsglance.charts.emgChart != null) {
             alsglance.charts.emgChart.resetZoom();
