@@ -273,4 +273,7 @@
   <data name="PatientPrediction" xml:space="preserve">
     <value>Prediction</value>
   </data>
+  <data name="PatientMuscleFailure" xml:space="preserve">
+    <value>Muscle failure threshold</value>
+  </data>
 </root>

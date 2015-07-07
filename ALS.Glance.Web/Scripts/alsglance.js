@@ -85,14 +85,17 @@ alsglance.charts = alsglance.charts || {
         if (width == null) {
             return;
         }
-        var height = parent.height();
+        var height;
         if (chart.hasOwnProperty("rangeChart")) {
             var range = chart.rangeChart();
             if (range != null) {
-                height -= range.height();
-                $("#" + chart.anchorName()).height(height); //fix for ranged charts
+                height = $("#" + chart.anchorName()).parent().parent().height() - range.height();
+                chart.height(height + 40);
+                $("#" + chart.anchorName()).height(height);
+                $("#" + chart.anchorName()).parent().height(height); //required to fix div size or else drag drop will have some issues
             }
         }
+        height = parent.height();
         var children = parent.children().size();
         chart.width(width);
         if (children == 1) {
@@ -401,11 +404,13 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
 
         if (alsglance.dashboard.settings.showPredictions == null) {
             alsglance.dashboard.settings.showPredictions = true;
-        } else {
-            $("#AT_Threshold").val(alsglance.dashboard.settings.atThreshold);
-            $("#FCR_Threshold").val(alsglance.dashboard.settings.fcrThreshold);
-            $("#SCM_Threshold").val(alsglance.dashboard.settings.scmThreshold);
+            alsglance.dashboard.settings.atThreshold = alsglance.dashboard.settings.fcrThreshold = 0.018;
+            alsglance.dashboard.settings.scmThreshold = 0.013;
         }
+        $("#AT_Threshold").val(alsglance.dashboard.settings.atThreshold);
+        $("#FCR_Threshold").val(alsglance.dashboard.settings.fcrThreshold);
+        $("#SCM_Threshold").val(alsglance.dashboard.settings.scmThreshold);
+
         if (alsglance.dashboard.settings.predictionBackLog == 999)
             $('#all').prop('checked', true);
         else if (alsglance.dashboard.settings.predictionBackLog == 12)
@@ -545,7 +550,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                 for (var i = 1; i < 36; i++) {
                     startDate = startDate.add(1, "months");
                     var ticks = startDate.valueOf();
-                    data.push({
+                    var prediction = {
                         DateDate: startDate.format("YYYY-MM-DD HH:mm"),
                         AUC: equation[0] * ticks + equation[1],
                         DateMonthName: startDate.format("MMMM"),
@@ -557,20 +562,12 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                         TimeHour: 24, //invalid hour so it will be excluded from hour chart
                         MuscleName: muscle,
                         MuscleAbbreviation: muscle
-                    });
-                    data.push({
-                        DateDate: startDate.format("YYYY-MM-DD HH:mm"),
-                        AUC: auc,
-                        DateMonthName: startDate.format("MMMM"),
-                        DateYear: parseInt(startDate.format("YYYY")),
-                        DateQuarter: startDate.quarter(),
-                        PatientName: "Failure Threshold",
-                        DateDayOfWeek: startDate.format("dddd"),
-                        TimeTimeOfDay: timeOfDay,
-                        TimeHour: 24, //invalid hour so it will be excluded from hour chart
-                        MuscleName: muscle,
-                        MuscleAbbreviation: muscle
-                    });
+                    };
+                    var failureThreshold = jQuery.extend({}, prediction);
+                    data.push(prediction);
+                    failureThreshold.PatientName = alsglance.resources.muscleFailure;
+                    failureThreshold.AUC = auc;
+                    data.push(failureThreshold);
                 }
             };
         };
@@ -817,7 +814,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
 
         alsglance.charts.aucSeriesChart
                .margins({ top: 20, right: 30, bottom: 20, left: 60 })
-            .height(160)
+            //.height(160)
             //.chart(function(c) { return dc.lineChart(c).interpolate('basis'); })
             .x(d3.time.scale().domain([new Date(alsglance.dashboard.patient.yearMin, 0, 1), new Date(alsglance.dashboard.patient.yearMax + 1, 11, 31)]))
             .y(d3.scale.linear().domain([0.009, 0.03]))
@@ -846,7 +843,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             // .width(460)
             .height(100)
             .mouseZoomable(true)
-            .margins({ top: 20, right: 50, bottom: 20, left: 60 })
+            .margins({ top: 0, right: 50, bottom: 20, left: 60 })
             .dimension(dateMonthInYearDimension)
             .group(volumeByMonthGroup)
             .centerBar(true)

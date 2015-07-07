@@ -187,6 +187,15 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Muscle failure threshold.
+        /// </summary>
+        public static string PatientMuscleFailure {
+            get {
+                return ResourceManager.GetString("PatientMuscleFailure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Prediction.
         /// </summary>
         public static string PatientPrediction {
