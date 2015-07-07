@@ -1,7 +1,15 @@
 ﻿'use strict';
 var alsglance = alsglance || {};
 alsglance.charts = alsglance.charts || {
-    removeOverlapedAxisTicks: function (ticks) {
+    removeInvalidBins: function (sourceGroup) {
+        return {
+            all: function () {
+                return sourceGroup.all().filter(function (d) {
+                    return d.value > 0.0001 && d.value < 0.03;
+                });
+            }
+        };
+    }, removeOverlapedAxisTicks: function (ticks) {
         for (var j = 0; j < ticks.length; j++) {
             var c = ticks[j],
                 n = ticks[j + 1];
@@ -90,7 +98,7 @@ alsglance.charts = alsglance.charts || {
             var range = chart.rangeChart();
             if (range != null) {
                 height = $("#" + chart.anchorName()).parent().parent().height() - range.height();
-                chart.height(height + 35);
+                chart.height(height );
                 $("#" + chart.anchorName()).height(height);
                 $("#" + chart.anchorName()).parent().height(height); //required to fix div size or else drag drop will have some issues
             }
@@ -549,7 +557,8 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                 var measurements = muscles[muscle][timeOfDay];
                 var equation = regression('linear', measurements).equation;
                 var startDate = moment(measurements[0][0]);
-                for (var i = 1; i < 36; i++) {
+                var predictionMonths = moment(alsglance.dashboard.patient.maxDate()).diff(startDate, 'months');
+                for (var i = 1; i < predictionMonths; i++) {
                     startDate = startDate.add(1, "months");
                     var ticks = startDate.valueOf();
                     var prediction = {
@@ -560,10 +569,9 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                         DateQuarter: startDate.quarter(),
                         PatientName: alsglance.resources.prediction,
                         DateDayOfWeek: startDate.format("dddd"),
-                        TimeTimeOfDay: timeOfDay,
-                        TimeHour: 24, //invalid hour so it will be excluded from hour chart
                         MuscleName: muscle,
-                        MuscleAbbreviation: muscle
+                        MuscleAbbreviation: muscle,
+                        TimeTimeOfDay: timeOfDay
                     };
                     var failureThreshold = jQuery.extend({}, prediction);
                     data.push(prediction);
@@ -774,7 +782,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
 
         //#### Bar Chart
         alsglance.charts.timeHourChart
-              .dimension(timeHourDimension)
+            .dimension(timeHourDimension)
             .group(timeHourGroup)
             .elasticY(true)
             // (optional) whether bar should be center to its x value. Not needed for ordinal chart, :default=false
@@ -824,13 +832,13 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             //.clipPadding(10)
             // .elasticY(true)
             .dimension(predictionDimension)
-            .group(predictionGroup)
+            .group(alsglance.charts.removeInvalidBins(predictionGroup))
             .rangeChart(alsglance.charts.dateRangeChart)
             .seriesAccessor(function (d) {
                 return d.key[0];
             })
             .keyAccessor(function (d) {
-                return +d.key[1];
+                return d.key[1];
             })
             .valueAccessor(function (d) {
                 return +d.value;
@@ -840,7 +848,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             });
 
         alsglance.charts.dateRangeChart
-            .height(100)
+            .height(50)
             .mouseZoomable(true)
             .margins({ top: 0, right: 50, bottom: 20, left: 60 })
             .dimension(dateMonthInYearDimension)
@@ -848,6 +856,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             .centerBar(true)
             .gap(1)
             .x(d3.time.scale().domain([new Date(alsglance.dashboard.patient.yearMin, 0, 1), alsglance.dashboard.patient.maxDate()]))
+            .elasticY(true)
             .round(d3.time.month.round)
             .alwaysUseRounding(true)
             .xUnits(d3.time.months)
