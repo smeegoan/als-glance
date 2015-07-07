@@ -90,7 +90,7 @@ alsglance.charts = alsglance.charts || {
             var range = chart.rangeChart();
             if (range != null) {
                 height = $("#" + chart.anchorName()).parent().parent().height() - range.height();
-                chart.height(height + 40);
+                chart.height(height + 35);
                 $("#" + chart.anchorName()).height(height);
                 $("#" + chart.anchorName()).parent().height(height); //required to fix div size or else drag drop will have some issues
             }

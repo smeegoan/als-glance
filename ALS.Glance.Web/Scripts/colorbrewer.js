@@ -246,7 +246,7 @@ var colorbrewer = colorbrewer || {
             + '        </li>'
             + '    </ul>'
             + '</li>');
-        var scheme = defaultColor || "Blues";
+        var scheme = defaultColor || "YlGnBu";
         var n = 5;
         $("#num-classes").val(n);
         colorbrewer.setSchemeType("sequential");
