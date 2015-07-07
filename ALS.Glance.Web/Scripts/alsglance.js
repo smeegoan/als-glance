@@ -125,17 +125,17 @@ alsglance.charts = alsglance.charts || {
 };
 alsglance.presentation = alsglance.presentation || {
     arrangePanels: function (position) {
-        var source = alsglance.presentation.getPanelsPosition();
+        var source = alsglance.presentation.panelsPosition();
         for (var i = 0; i < position.length; i++) {
             var target = position[i];
             if (target != source[i]) {
                 $("#" + source[i]).swap($("#" + target));
                 i = 0;
-                source = alsglance.presentation.getPanelsPosition();
+                source = alsglance.presentation.panelsPosition();
             }
         }
     },
-    getPanelsPosition: function () {
+    panelsPosition: function () {
         return $("div.box").not('.no-drop').map(function () { return this.id; }) // convert to set of IDs
             .get();
     },
@@ -303,8 +303,6 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
             d.Resume = '<a id="resume" href="javascript:void(0);" onclick="javascript:alsglance.presentation.showLoadingDialog.show(\'' + d.Name + '\');window.location=\'Patients/' + d.Id + '\'" data-step="3" data-intro="' + alsglance.resources.patientsTip3 + '" data-position=\'left\'> <span id="resume" class="fa fa-eye"></span></a>';
         });
 
-        //### Create Crossfilter Dimensions and Groups
-        //See the [crossfilter API](https://github.com/square/crossfilter/wiki/API-Reference) for reference.
         var ndx = crossfilter(data);
 
         alsglance.dashboard.patients.sexDimension = ndx.dimension(function (d) {
@@ -398,6 +396,9 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
 };
 
 alsglance.dashboard.patient = alsglance.dashboard.patient || {
+    maxDate: function () {
+        return new Date(alsglance.dashboard.patient.yearMax + (alsglance.dashboard.settings.showPredictions ? 1 : 0), 11, 31);
+    },
     loadSettings: function (settings) {
         alsglance.dashboard.settings = alsglance.dashboard.settings || settings;
         alsglance.dashboard.settings.layout = alsglance.dashboard.settings.layout || [];
@@ -446,8 +447,8 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             }
         }
         alsglance.dashboard.settings["P" + alsglance.dashboard.patient.id] = filters;
-        alsglance.dashboard.settings.layout = alsglance.presentation.getPanelsPosition();
-        alsglance.dashboard.settings.colorScheme = selectedScheme;
+        alsglance.dashboard.settings.layout = alsglance.presentation.panelsPosition();
+        alsglance.dashboard.settings.colorScheme = colorbrewer.selectedScheme;
         var entity = {};
         entity.UserId = alsglance.dashboardUserId;
         entity.ApplicationId = alsglance.applicationId;
@@ -605,7 +606,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             xlabel: alsglance.resources.time,
             // ylabel: 'EMG',
             legend: 'true',
-            colors: [colorbrewer.schemes[selectedScheme][numClasses][3]],
+            colors: [colorbrewer.schemes[colorbrewer.selectedScheme][numClasses][3]],
             labelsDivStyles: {
                 'textAlign': 'right'
             }
@@ -624,7 +625,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
 
         alsglance.dashboard.patient.datePicker = function () {
             var minDate = moment("01-01-" + alsglance.dashboard.patient.yearMin, "MM-DD-YYYY");
-            var maxDate = moment("12-31-" + (alsglance.dashboard.patient.yearMax + 1), "MM-DD-YYYY");
+            var maxDate = moment(alsglance.dashboard.patient.maxDate());
             alsglance.dashboard.patient.endDate = maxDate;
             $('#reportrange span').html(minDate.format('MMMM D, YYYY') + ' - ' + maxDate.format('MMMM D, YYYY'));
             $('#reportrange').daterangepicker({
@@ -752,8 +753,6 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
 
         //#### Row Chart
         alsglance.charts.timeOfDayChart.width(180)
-            //  .height(180)
-            //.margins({ top: 20, left: 30, right: 10, bottom: 20 })
             .group(dayOfWeekGroup)
             .dimension(timeOfDayDimension)
             .label(function (d) {
@@ -816,7 +815,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                .margins({ top: 20, right: 30, bottom: 20, left: 60 })
             //.height(160)
             //.chart(function(c) { return dc.lineChart(c).interpolate('basis'); })
-            .x(d3.time.scale().domain([new Date(alsglance.dashboard.patient.yearMin, 0, 1), new Date(alsglance.dashboard.patient.yearMax + 1, 11, 31)]))
+            .x(d3.time.scale().domain([new Date(alsglance.dashboard.patient.yearMin, 0, 1), alsglance.dashboard.patient.maxDate()]))
             .y(d3.scale.linear().domain([0.009, 0.03]))
             .brushOn(false)
             //.yAxisLabel("")
@@ -840,7 +839,6 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             });
 
         alsglance.charts.dateRangeChart
-            // .width(460)
             .height(100)
             .mouseZoomable(true)
             .margins({ top: 0, right: 50, bottom: 20, left: 60 })
@@ -848,7 +846,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             .group(volumeByMonthGroup)
             .centerBar(true)
             .gap(1)
-            .x(d3.time.scale().domain([new Date(alsglance.dashboard.patient.yearMin, 0, 1), new Date(alsglance.dashboard.patient.yearMax + 1, 11, 31)]))
+            .x(d3.time.scale().domain([new Date(alsglance.dashboard.patient.yearMin, 0, 1), alsglance.dashboard.patient.maxDate()]))
             .round(d3.time.month.round)
             .alwaysUseRounding(true)
             .xUnits(d3.time.months)
@@ -864,7 +862,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                     alsglance.dashboard.patient.endDate = moment(range[1]);
                     $('#reportrange span').html(moment(range[0]).format('MMMM D, YYYY') + ' - ' + alsglance.dashboard.patient.endDate.format('MMMM D, YYYY'));
                 } else {
-                    alsglance.dashboard.patient.endDate = moment(new Date(alsglance.dashboard.patient.yearMax + 1, 11, 31));
+                    alsglance.dashboard.patient.endDate = moment(alsglance.dashboard.patient.maxDate());
                 }
                 alsglance.dashboard.patient.loadEmg();
             });

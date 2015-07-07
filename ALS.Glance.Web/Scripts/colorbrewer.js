@@ -1,7 +1,6 @@
 'use strict';
 
-var visibleMap,
-	selectedScheme,
+var visibleMap,	
 	numClasses = 7;
 
 var selectedSchemeType;
@@ -85,8 +84,8 @@ var colorbrewer = colorbrewer || {
 
         $(".score-icon").show();
         $("#color-system").show();
-        if ($(".ramp." + selectedScheme)[0]) {
-            colorbrewer.setScheme(selectedScheme);
+        if ($(".ramp." + colorbrewer.selectedScheme)[0]) {
+            colorbrewer.setScheme(colorbrewer.selectedScheme);
         } else if ($("#ramps").children().length) {
             colorbrewer.setScheme($("#ramps .ramp:first-child").attr("class").substr(5));
         } else {
@@ -105,35 +104,35 @@ var colorbrewer = colorbrewer || {
     },
     setScheme: function (s) {
         $(".ramp.selected").removeClass("selected");
-        selectedScheme = s;
-        $(".ramp." + selectedScheme).addClass("selected");
-        $("#scheme-name").html(numClasses + "-class " + selectedScheme);
+        colorbrewer.selectedScheme = s;
+        $(".ramp." + colorbrewer.selectedScheme).addClass("selected");
+        $("#scheme-name").html(numClasses + "-class " + colorbrewer.selectedScheme);
         colorbrewer.applyColors();
         colorbrewer.drawColorChips();
 
         var jsonString = "[";
         for (var i = 0; i < numClasses; i++) {
-            jsonString += "'" + colorbrewer.schemes[selectedScheme][numClasses][i] + "'";
+            jsonString += "'" + colorbrewer.schemes[colorbrewer.selectedScheme][numClasses][i] + "'";
             if (i < numClasses - 1) jsonString += ",";
         }
         jsonString += "]";
         $("#copy-json input").val(jsonString);
         var cssString = "";
         for (var i = 0; i < numClasses; i++) {
-            cssString += "." + selectedScheme + " .q" + i + "-" + numClasses + "{fill:" + colorbrewer.schemes[selectedScheme][numClasses][i] + "}";
+            cssString += "." + colorbrewer.selectedScheme + " .q" + i + "-" + numClasses + "{fill:" + colorbrewer.schemes[colorbrewer.selectedScheme][numClasses][i] + "}";
             if (i < numClasses - 1) cssString += " ";
         }
         $("#copy-css input").val(cssString);
 
         $(".score-icon").attr("class", "score-icon");
         var f = colorbrewer.checkColorblind(s);
-        $("#blind-icon").addClass(!f ? "bad" : (f == 1 ? "ok" : "maybe")).attr("title", numClasses + "-class " + selectedScheme + " is " + getWord(f) + "color blind friendly");
+        $("#blind-icon").addClass(!f ? "bad" : (f == 1 ? "ok" : "maybe")).attr("title", numClasses + "-class " + colorbrewer.selectedScheme + " is " + getWord(f) + "color blind friendly");
         f = 1;
-        $("#copy-icon").addClass(!f ? "bad" : (f == 1 ? "ok" : "maybe")).attr("title", numClasses + "-class " + selectedScheme + " is " + getWord(f) + "photocopy friendly");
+        $("#copy-icon").addClass(!f ? "bad" : (f == 1 ? "ok" : "maybe")).attr("title", numClasses + "-class " + colorbrewer.selectedScheme + " is " + getWord(f) + "photocopy friendly");
         f = colorbrewer.checkScreen(s);
-        $("#screen-icon").addClass(!f ? "bad" : (f == 1 ? "ok" : "maybe")).attr("title", numClasses + "-class " + selectedScheme + " is " + getWord(f) + "LCD friendly");
+        $("#screen-icon").addClass(!f ? "bad" : (f == 1 ? "ok" : "maybe")).attr("title", numClasses + "-class " + colorbrewer.selectedScheme + " is " + getWord(f) + "LCD friendly");
         f = colorbrewer.checkPrint(s);
-        $("#print-icon").addClass(!f ? "bad" : (f == 1 ? "ok" : "maybe")).attr("title", numClasses + "-class " + selectedScheme + " is " + getWord(f) + "print friendly");
+        $("#print-icon").addClass(!f ? "bad" : (f == 1 ? "ok" : "maybe")).attr("title", numClasses + "-class " + colorbrewer.selectedScheme + " is " + getWord(f) + "print friendly");
 
         function getWord(w) {
             if (!w) return "not ";
@@ -163,7 +162,7 @@ var colorbrewer = colorbrewer || {
     drawColorChips: function () {
         var svg = "<svg width='24' height='270'>";
         for (var i = 0; i < numClasses; i++) {
-            svg += "<rect fill=" + colorbrewer.schemes[selectedScheme][numClasses][i] + " width='24' height='" + Math.min(24, parseInt(265 / numClasses)) + "' y='" + i * Math.min(24, parseInt(265 / numClasses)) + "'/>";
+            svg += "<rect fill=" + colorbrewer.schemes[colorbrewer.selectedScheme][numClasses][i] + " width='24' height='" + Math.min(24, parseInt(265 / numClasses)) + "' y='" + i * Math.min(24, parseInt(265 / numClasses)) + "'/>";
         }
         $("#color-chips").empty().append(svg);
     },
@@ -256,15 +255,15 @@ var colorbrewer = colorbrewer || {
         colorbrewer.showSchemes();
     },
     applyColors: function () {
-        if (!colorbrewer.schemes[selectedScheme][numClasses]) {
+        if (!colorbrewer.schemes[colorbrewer.selectedScheme][numClasses]) {
             return;
         }
-        var colors = colorbrewer.schemes[selectedScheme][numClasses].slice(0); //clone the array
+        var colors = colorbrewer.schemes[colorbrewer.selectedScheme][numClasses].slice(0); //clone the array
         colors.shift(); //skip the first color because it's to faint
-        var colorsDiferential = d3.scale.ordinal().range([colorbrewer.schemes[selectedScheme][numClasses][1], colorbrewer.schemes[selectedScheme][numClasses][2], colorbrewer.schemes[selectedScheme][numClasses][3]]);
+        var colorsDiferential = d3.scale.ordinal().range([colorbrewer.schemes[colorbrewer.selectedScheme][numClasses][1], colorbrewer.schemes[colorbrewer.selectedScheme][numClasses][2], colorbrewer.schemes[colorbrewer.selectedScheme][numClasses][3]]);
         var colorRange = d3.scale.ordinal().range(colors);
-        var color2 = colorbrewer.schemes[selectedScheme][numClasses][2];
-        var color3 = colorbrewer.schemes[selectedScheme][numClasses][3];
+        var color2 = colorbrewer.schemes[colorbrewer.selectedScheme][numClasses][2];
+        var color3 = colorbrewer.schemes[colorbrewer.selectedScheme][numClasses][3];
         alsglance.charts.timeOfDayChart.ordinalColors(colors).redraw();
         alsglance.charts.timeHourChart.colors(color2).redraw();
         alsglance.charts.quarterChart.colors(colorRange).redraw();
