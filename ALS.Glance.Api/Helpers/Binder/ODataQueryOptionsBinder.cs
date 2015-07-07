@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.OData.Query;
 using Microsoft.OData.Core.UriParser.Semantic;
 using Microsoft.OData.Core.UriParser.TreeNodeKinds;
@@ -10,19 +11,16 @@ namespace ALS.Glance.Api.Helpers.Binder
 {
     public class ODataQueryOptionsBinder : IODataQueryOptionsBinder
     {
-        private readonly List<object> _positionalParmeters = new List<object>();
-        private readonly ICollection<BinderNode> _parameters =
-            new HashSet<BinderNode>();
 
         public ICollection<BinderNode> BindFilter(FilterQueryOption filterQuery, Action<Exception> exceptionHandler)
         {
-            _parameters.Clear();
-            _positionalParmeters.Clear();
+            var positionalParmeters = new List<object>();
+            var nodes = new HashSet<BinderNode>();
             if (filterQuery != null)
             {
                 try
                 {
-                    Bind(filterQuery.FilterClause.Expression);
+                    Bind(filterQuery.FilterClause.Expression, nodes);
                 }
                 catch (Exception ex)
                 {
@@ -30,10 +28,10 @@ namespace ALS.Glance.Api.Helpers.Binder
                 }
             }
 
-            return _parameters;
+            return nodes;
         }
 
-        protected string Bind(QueryNode node)
+        protected string Bind(QueryNode node, ICollection<BinderNode> nodes)
         {
             var collectionNode = node as CollectionNode;
             var singleValueNode = node as SingleValueNode;
@@ -44,10 +42,10 @@ namespace ALS.Glance.Api.Helpers.Binder
                 {
                     case QueryNodeKind.CollectionNavigationNode:
                         var navigationNode = node as CollectionNavigationNode;
-                        return BindNavigationPropertyNode(navigationNode.Source, navigationNode.NavigationProperty);
+                        return BindNavigationPropertyNode(navigationNode.Source, navigationNode.NavigationProperty, nodes);
 
                     case QueryNodeKind.CollectionPropertyAccess:
-                        return BindCollectionPropertyAccessNode(node as CollectionPropertyAccessNode);
+                        return BindCollectionPropertyAccessNode(node as CollectionPropertyAccessNode, nodes);
                 }
             }
             else if (singleValueNode != null)
@@ -55,13 +53,13 @@ namespace ALS.Glance.Api.Helpers.Binder
                 switch (node.Kind)
                 {
                     case QueryNodeKind.BinaryOperator:
-                        return BindBinaryOperatorNode(node as BinaryOperatorNode);
+                        return BindBinaryOperatorNode(node as BinaryOperatorNode, nodes);
 
                     case QueryNodeKind.Constant:
                         return BindConstantNode(node as ConstantNode);
 
                     case QueryNodeKind.Convert:
-                        return BindConvertNode(node as ConvertNode);
+                        return BindConvertNode(node as ConvertNode, nodes);
 
                     case QueryNodeKind.EntityRangeVariableReference:
                         return string.Empty;
@@ -70,23 +68,23 @@ namespace ALS.Glance.Api.Helpers.Binder
                         return BindRangeVariable((node as NonentityRangeVariableReferenceNode).RangeVariable);
 
                     case QueryNodeKind.SingleValuePropertyAccess:
-                        return BindPropertyAccessQueryNode(node as SingleValuePropertyAccessNode);
+                        return BindPropertyAccessQueryNode(node as SingleValuePropertyAccessNode, nodes);
 
                     case QueryNodeKind.UnaryOperator:
-                        return BindUnaryOperatorNode(node as UnaryOperatorNode);
+                        return BindUnaryOperatorNode(node as UnaryOperatorNode, nodes);
 
                     case QueryNodeKind.SingleValueFunctionCall:
-                        return BindSingleValueFunctionCallNode(node as SingleValueFunctionCallNode);
+                        return BindSingleValueFunctionCallNode(node as SingleValueFunctionCallNode, nodes);
 
                     case QueryNodeKind.SingleNavigationNode:
                         var navigationNode = node as SingleNavigationNode;
-                        return BindNavigationPropertyNode(navigationNode.Source, navigationNode.NavigationProperty);
+                        return BindNavigationPropertyNode(navigationNode.Source, navigationNode.NavigationProperty, nodes);
 
                     case QueryNodeKind.Any:
-                        return BindAnyNode(node as AnyNode);
+                        return BindAnyNode(node as AnyNode, nodes);
 
                     case QueryNodeKind.All:
-                        return BindAllNode(node as AllNode);
+                        return BindAllNode(node as AllNode, nodes);
                 }
             }
 
@@ -95,56 +93,71 @@ namespace ALS.Glance.Api.Helpers.Binder
 
         #region Private Methods
 
-        private string BindCollectionPropertyAccessNode(CollectionPropertyAccessNode collectionPropertyAccessNode)
+        private string BindCollectionPropertyAccessNode(CollectionPropertyAccessNode collectionPropertyAccessNode, ICollection<BinderNode> nodes)
         {
-            return Bind(collectionPropertyAccessNode.Source) + "." + collectionPropertyAccessNode.Property.Name;
+            return Bind(collectionPropertyAccessNode.Source, nodes) + "." + collectionPropertyAccessNode.Property.Name;
         }
 
-        private string BindNavigationPropertyNode(SingleValueNode singleValueNode, IEdmNavigationProperty edmNavigationProperty)
+        private string BindNavigationPropertyNode(SingleValueNode singleValueNode, IEdmNavigationProperty edmNavigationProperty, ICollection<BinderNode> nodes)
         {
-            var bindedNode = Bind(singleValueNode);
+            var bindedNode = Bind(singleValueNode, nodes);
             if (!string.IsNullOrEmpty(bindedNode))
                 bindedNode += "/";
             return bindedNode + edmNavigationProperty.Name;
         }
 
-        private string BindAllNode(AllNode allNode)
+        private string BindAllNode(AllNode allNode, ICollection<BinderNode> nodes)
         {
-            string innerQuery = "not exists ( from " + Bind(allNode.Source) + " " + allNode.RangeVariables.First().Name;
-            innerQuery += " where NOT(" + Bind(allNode.Body) + ")";
+            string innerQuery = "not exists ( from " + Bind(allNode.Source, nodes) + " " + allNode.RangeVariables.First().Name;
+            innerQuery += " where NOT(" + Bind(allNode.Body, nodes) + ")";
             return innerQuery + ")";
         }
 
-        private string BindAnyNode(AnyNode anyNode)
+        private string BindAnyNode(AnyNode anyNode, ICollection<BinderNode> nodes)
         {
-            string innerQuery = "exists ( from " + Bind(anyNode.Source) + " " + anyNode.RangeVariables.First().Name;
+            const string pattern = @"^\.";
+            var rgx = new Regex(pattern);
+
+            var source = rgx.Replace(Bind(anyNode.Source, nodes), String.Empty);
+            string body = null;
+
+            var innerQuery = "exists ( from " + source + " " + anyNode.RangeVariables.First().Name;
             if (anyNode.Body != null)
             {
-                innerQuery += " where " + Bind(anyNode.Body);
+                body = Bind(anyNode.Body, nodes);
+                innerQuery += " where " + body;
             }
+
+            nodes.Add(new BinderNode
+            {
+                Left = source,
+                OperatorKind = BinaryOperatorKind.Equal,
+                Right = body,
+            });
+
             return innerQuery + ")";
         }
 
-        private string BindSingleValueFunctionCallNode(SingleValueFunctionCallNode singleValueFunctionCallNode)
+        private string BindSingleValueFunctionCallNode(SingleValueFunctionCallNode singleValueFunctionCallNode, ICollection<BinderNode> nodes)
         {
             var arguments = singleValueFunctionCallNode.Parameters.ToList();
             switch (singleValueFunctionCallNode.Name)
             {
                 case "concat":
-                    return singleValueFunctionCallNode.Name + "(" + Bind(arguments[0]) + "," + Bind(arguments[1]) + ")";
+                    return singleValueFunctionCallNode.Name + "(" + Bind(arguments[0], nodes) + "," + Bind(arguments[1], nodes) + ")";
                 default:
-                    return singleValueFunctionCallNode.Name + "(" + Bind(arguments[0]) + ")";
+                    return singleValueFunctionCallNode.Name + "(" + Bind(arguments[0], nodes) + ")";
             }
         }
 
-        private string BindUnaryOperatorNode(UnaryOperatorNode unaryOperatorNode)
+        private string BindUnaryOperatorNode(UnaryOperatorNode unaryOperatorNode, ICollection<BinderNode> nodes)
         {
-            return ToString(unaryOperatorNode.OperatorKind) + "(" + Bind(unaryOperatorNode.Operand) + ")";
+            return ToString(unaryOperatorNode.OperatorKind) + "(" + Bind(unaryOperatorNode.Operand, nodes) + ")";
         }
 
-        private string BindPropertyAccessQueryNode(SingleValuePropertyAccessNode singleValuePropertyAccessNode)
+        private string BindPropertyAccessQueryNode(SingleValuePropertyAccessNode singleValuePropertyAccessNode, ICollection<BinderNode> nodes)
         {
-            var bindedNode = Bind(singleValuePropertyAccessNode.Source);
+            var bindedNode = Bind(singleValuePropertyAccessNode.Source, nodes);
             if (!string.IsNullOrEmpty(bindedNode))
                 bindedNode += "/";
             return bindedNode + singleValuePropertyAccessNode.Property.Name;
@@ -157,23 +170,29 @@ namespace ALS.Glance.Api.Helpers.Binder
 
 
 
-        private string BindConvertNode(ConvertNode convertNode)
+        private string BindConvertNode(ConvertNode convertNode, ICollection<BinderNode> nodes)
         {
-            return Bind(convertNode.Source);
+            return Bind(convertNode.Source, nodes);
         }
 
         private string BindConstantNode(ConstantNode constantNode)
         {
-            _positionalParmeters.Add(constantNode.Value);
+            //MR# sem este if o valor de qualquer enum tinha o valor "Microsoft.OData.Core.ODataEnumValue"
+            if (Convert.ToString(constantNode.Value) == "Microsoft.OData.Core.ODataEnumValue")
+            {
+                var enumType = (Microsoft.OData.Core.ODataEnumValue)constantNode.Value;
+
+                return Convert.ToString(enumType.Value);
+            }
             return Convert.ToString(constantNode.Value);
         }
 
-        private string BindBinaryOperatorNode(BinaryOperatorNode binaryOperatorNode)
+        private string BindBinaryOperatorNode(BinaryOperatorNode binaryOperatorNode, ICollection<BinderNode> nodes)
         {
-            var left = Bind(binaryOperatorNode.Left);
-            var right = Bind(binaryOperatorNode.Right);
+            var left = Bind(binaryOperatorNode.Left, nodes);
+            var right = Bind(binaryOperatorNode.Right, nodes);
 
-            _parameters.Add(new BinderNode
+            nodes.Add(new BinderNode
             {
                 Left = left,
                 OperatorKind = binaryOperatorNode.OperatorKind,
