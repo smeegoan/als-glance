@@ -284,6 +284,10 @@
     <Content Include="Content\introjs.min.css">
       <DependentUpon>introjs.css</DependentUpon>
     </Content>
+    <Content Include="Content\jquery.bootstrap-touchspin.css" />
+    <Content Include="Content\jquery.bootstrap-touchspin.min.css">
+      <DependentUpon>jquery.bootstrap-touchspin.css</DependentUpon>
+    </Content>
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\accordion.min.css">
       <DependentUpon>accordion.css</DependentUpon>
@@ -508,6 +512,10 @@
     <Content Include="Scripts\jquery-ui-1.11.4.min.js">
       <DependentUpon>jquery-ui-1.11.4.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\jquery.bootstrap-touchspin.js" />
+    <Content Include="Scripts\jquery.bootstrap-touchspin.min.js">
+      <DependentUpon>jquery.bootstrap-touchspin.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery.dataTables.min.js">
       <DependentUpon>jquery.dataTables.js</DependentUpon>
     </Content>
@@ -543,6 +551,9 @@
     </Content>
     <Content Include="Scripts\jquery.dataTables.min.js.map">
       <DependentUpon>jquery.dataTables.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.bootstrap-touchspin.min.js.map">
+      <DependentUpon>jquery.bootstrap-touchspin.min.js</DependentUpon>
     </Content>
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />

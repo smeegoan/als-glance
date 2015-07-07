@@ -8247,7 +8247,6 @@ input[type=number],
 [type=email].form-control,
 [type=tel].form-control,
 [contenteditable].form-control {
-    padding: 0;
     border: none;
     border-radius: 0;
     -webkit-appearance: none;

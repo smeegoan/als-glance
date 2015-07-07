@@ -38,6 +38,7 @@ namespace ALS.Glance.Web
                 "~/Scripts/daterangepicker.js",
                 "~/Scripts/colorbrewer.js",
                 "~/Scripts/colorbrewer_schemes.js",
+                "~/Scripts/jquery.bootstrap-touchspin.js",
                  "~/Scripts/Charts/dygraph-combined.js",
                 "~/Scripts/devoops.js"));
 
@@ -54,6 +55,7 @@ namespace ALS.Glance.Web
                 "~/Content/introjs.css",
                 "~/Content/devoops.css",
                 "~/Content/daterangepicker-bs3.css",
+                "~/Content/jquery.bootstrap-touchspin.css",
                 "~/Content/colorbrewer.css",
                 "~/Content/toastr.css",
                 "~/Content/bootstrap.css",

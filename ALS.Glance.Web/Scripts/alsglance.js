@@ -203,6 +203,9 @@ alsglance.presentation = alsglance.presentation || {
             alsglance.dashboard.settings.showPredictions = $("#showPredictions").is(':checked');
             alsglance.dashboard.settings.predictionBackLog = parseInt($('input[name=predictionBacklog]:checked', '#aucForm').val());
             $('#aucOptions').modal('hide');
+            alsglance.dashboard.settings.atThreshold = parseFloat($("#AT_Threshold").val());
+            alsglance.dashboard.settings.scmThreshold = parseFloat($("#SCM_Threshold").val());
+            alsglance.dashboard.settings.fcrThreshold = parseFloat($("#FCR_Threshold").val());
             alsglance.dashboard.patient.saveSettings();
             alsglance.dashboard.patient.loadFacts();
         });
@@ -392,12 +395,16 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
 };
 
 alsglance.dashboard.patient = alsglance.dashboard.patient || {
-    loadSettings: function(settings) {
+    loadSettings: function (settings) {
         alsglance.dashboard.settings = alsglance.dashboard.settings || settings;
         alsglance.dashboard.settings.layout = alsglance.dashboard.settings.layout || [];
 
         if (alsglance.dashboard.settings.showPredictions == null) {
             alsglance.dashboard.settings.showPredictions = true;
+        } else {
+            $("#AT_Threshold").val(alsglance.dashboard.settings.atThreshold);
+            $("#FCR_Threshold").val(alsglance.dashboard.settings.fcrThreshold);
+            $("#SCM_Threshold").val(alsglance.dashboard.settings.scmThreshold);
         }
         if (alsglance.dashboard.settings.predictionBackLog == 999)
             $('#all').prop('checked', true);
@@ -523,6 +530,14 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             }
         });
         for (var muscle in muscles) {
+            var auc;
+            if (muscle == "FCR")
+                auc = alsglance.dashboard.settings.fcrThreshold;
+            else if (muscle == "SCM") {
+                auc = alsglance.dashboard.settings.scmThreshold;
+            } else {
+                auc = alsglance.dashboard.settings.atThreshold;
+            }
             for (var timeOfDay in muscles[muscle]) {
                 var measurements = muscles[muscle][timeOfDay];
                 var equation = regression('linear', measurements).equation;
@@ -537,6 +552,19 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                         DateYear: parseInt(startDate.format("YYYY")),
                         DateQuarter: startDate.quarter(),
                         PatientName: alsglance.resources.prediction,
+                        DateDayOfWeek: startDate.format("dddd"),
+                        TimeTimeOfDay: timeOfDay,
+                        TimeHour: 24, //invalid hour so it will be excluded from hour chart
+                        MuscleName: muscle,
+                        MuscleAbbreviation: muscle
+                    });
+                    data.push({
+                        DateDate: startDate.format("YYYY-MM-DD HH:mm"),
+                        AUC: auc,
+                        DateMonthName: startDate.format("MMMM"),
+                        DateYear: parseInt(startDate.format("YYYY")),
+                        DateQuarter: startDate.quarter(),
+                        PatientName: "Failure Threshold",
                         DateDayOfWeek: startDate.format("dddd"),
                         TimeTimeOfDay: timeOfDay,
                         TimeHour: 24, //invalid hour so it will be excluded from hour chart
@@ -810,7 +838,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             .valueAccessor(function (d) {
                 return +d.value;
             })
-            .legend(dc.legend().x(80).y(25).itemHeight(13).gap(5).legendWidth(170).itemWidth(170)).title(function (d) {
+            .legend(dc.legend().x(80).y(10).itemHeight(13).gap(5).legendWidth(170).itemWidth(170)).title(function (d) {
                 return dateFormat(d.key[1]) + ':\n' + d.value;
             });
 

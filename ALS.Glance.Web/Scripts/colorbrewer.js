@@ -261,7 +261,7 @@ var colorbrewer = colorbrewer || {
         }
         var colors = colorbrewer.schemes[selectedScheme][numClasses].slice(0); //clone the array
         colors.shift(); //skip the first color because it's to faint
-        var colorsDiferential = d3.scale.ordinal().range([colorbrewer.schemes[selectedScheme][numClasses][1], colorbrewer.schemes[selectedScheme][numClasses][3]]);
+        var colorsDiferential = d3.scale.ordinal().range([colorbrewer.schemes[selectedScheme][numClasses][1], colorbrewer.schemes[selectedScheme][numClasses][2], colorbrewer.schemes[selectedScheme][numClasses][3]]);
         var colorRange = d3.scale.ordinal().range(colors);
         var color2 = colorbrewer.schemes[selectedScheme][numClasses][2];
         var color3 = colorbrewer.schemes[selectedScheme][numClasses][3];
