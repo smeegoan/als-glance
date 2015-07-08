@@ -47,7 +47,7 @@
 
     <script>
     $(function () {
-         var apiClient = new alsglance.ApiClient({
+        var apiClient = new alsglance.ApiClient({
             baseUri: alsglance.baseUri,
             authToken: alsglance.authToken,
             onAuthFail: function () {
@@ -61,6 +61,7 @@
             help: '@Resources.Help',
             patientsTip2:'@Resources.PatientsTip2',
             patientsTip3:'@Resources.PatientsTip3',
+            patientLink: '@Url.Action("Patients", "Home")/'
         };
         $.when(apiClient.get("DPatient?$select=Id,PatientId,BornOn,DiagnosedOn,Name,Sex"))
                 .then(function (data) {
