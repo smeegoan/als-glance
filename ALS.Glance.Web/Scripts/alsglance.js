@@ -805,28 +805,28 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             .elasticX(true)
             .xAxis().ticks(4);
 
-         alsglance.charts.timeHourChart
-            .dimension(timeHourDimension)
-            .group(timeHourGroup)
-            .elasticY(true)
-            // (optional) whether bar should be center to its x value. Not needed for ordinal chart, :default=false
-            .centerBar(true)
-            // (optional) set gap between bars manually in px, :default=2
-            .gap(2)
-            // (optional) set filter brush rounding
-            .round(dc.round.floor)
-            .alwaysUseRounding(true)
-            .x(d3.scale.linear().domain([0, 23]))
-            .yAxisLabel(alsglance.resources.measurements)
-            .renderHorizontalGridLines(true)
-            .on("renderlet.axis", function (chart) {
-                alsglance.charts.removeOverlapedAxisTicks($("#timeHourChart .axis.x").find(".tick"));
-            }) // customize the filter displayed in the control span
-            .filterPrinter(function (filters) {
-                var filter = filters[0], s = '';
-                s += hourFormat(filter[0]) + 'h -> ' + hourFormat(filter[1]) + 'h';
-                return s;
-            });
+        alsglance.charts.timeHourChart
+           .dimension(timeHourDimension)
+           .group(timeHourGroup)
+           .elasticY(true)
+           // (optional) whether bar should be center to its x value. Not needed for ordinal chart, :default=false
+           .centerBar(true)
+           // (optional) set gap between bars manually in px, :default=2
+           .gap(2)
+           // (optional) set filter brush rounding
+           .round(dc.round.floor)
+           .alwaysUseRounding(true)
+           .x(d3.scale.linear().domain([0, 23]))
+           .yAxisLabel(alsglance.resources.measurements)
+           .renderHorizontalGridLines(true)
+           .on("renderlet.axis", function (chart) {
+               alsglance.charts.removeOverlapedAxisTicks($("#timeHourChart .axis.x").find(".tick"));
+           }) // customize the filter displayed in the control span
+           .filterPrinter(function (filters) {
+               var filter = filters[0], s = '';
+               s += hourFormat(filter[0]) + 'h -> ' + hourFormat(filter[1]) + 'h';
+               return s;
+           });
 
 
         // Customize axis
@@ -1000,5 +1000,5 @@ $(function () {
             offset: { top: 100 }
         });
     }
-    $('#version').text("(crossfilter: " + crossfilter.version + ", d3: " + d3.version + ", dc: " + dc.version + ", moment: " + moment.version + ")");
+    $('#version').text("(crossfilter: " + crossfilter.version + ", d3: " + d3.version + ", dc: " + dc.version + (window.Dygraph != null ? ", dygraph: " + Dygraph.VERSION : "") + ", moment: " + moment.version + ")");
 });
