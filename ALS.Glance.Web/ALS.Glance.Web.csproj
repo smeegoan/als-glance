@@ -258,6 +258,7 @@
     </Content>
     <Content Include="Content\images\Flexor-carpi-radialis.png" />
     <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\poster.png" />
     <Content Include="Content\images\Sternocleidomastoideus.png" />
     <Content Include="Content\images\Tibialis_anterior.png" />
     <Content Include="Content\introjs-dark.css" />
