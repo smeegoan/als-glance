@@ -1,15 +1,17 @@
 ﻿'use strict';
 var alsglance = alsglance || {};
 alsglance.charts = alsglance.charts || {
+    muscleChartId: 1,
     removeInvalidBins: function (sourceGroup) {
         return {
             all: function () {
                 return sourceGroup.all().filter(function (d) {
-                    return d.value > 0.0001 && d.value < 0.03;
+                    return d.value > 0;
                 });
             }
         };
-    }, removeOverlapedAxisTicks: function (ticks) {
+    },
+    removeOverlapedAxisTicks: function (ticks) {
         for (var j = 0; j < ticks.length; j++) {
             var c = ticks[j],
                 n = ticks[j + 1];
@@ -36,7 +38,6 @@ alsglance.charts = alsglance.charts || {
             //window hasn't changed size in 500ms
             alsglance.charts.resizeAll();
         });
-        alsglance.charts.resizeAll();
     },
     addXAxis: function (chartToUpdate, displayText) {
         if (chartToUpdate == null)
@@ -299,16 +300,44 @@ alsglance.presentation = alsglance.presentation || {
 };
 alsglance.dashboard = alsglance.dashboard || {};
 alsglance.dashboard.patients = alsglance.dashboard.patients || {
+    loadFacts: function (ageMin, ageMax) {
+        $.when(alsglance.apiClient.get("DPatient?$select=Id,PatientId,BornOn,DiagnosedOn,Name,Sex"))
+        .then(function (data) {
+            alsglance.dashboard.patients.load(data, ageMin, ageMax);
+            alsglance.dashboard.patients.dataTable = $('#patients').dataTable({
+                "language": alsglance.resources.dataTables,
+                "order": [[3, "asc"]],
+                "aaData": alsglance.dashboard.patients.sexDimension.top(Infinity),
+                "dom": '<"top"f<"clear">>rt<"col-sm-offset-4"p>',
+                "bLengthChange": false,
+                "bSort": true,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "bDeferRender": true,
+                "bDestroy": true,
+                "aoColumns": [
+                    { "mData": "PatientId", "sDefaultContent": "" },
+                    { "mData": "BornOn", "sDefaultContent": "" },
+                    { "mData": "DiagnosedOn", "sDefaultContent": "" },
+                    { "mData": "Name", "sDefaultContent": "" },
+                    { "mData": "Sex", "sDefaultContent": "" },
+                    { "mData": "Resume", "sDefaultContent": "" }
+                ]
+            });
+            alsglance.charts.setBehaviour();
+            alsglance.charts.resizeAll();
+            alsglance.charts.aucBubbleChart.render();//to show the transition effect
+        });
+    },
     load: function (data, min, max) {
         alsglance.charts.aucBubbleChart = alsglance.charts.aucBubbleChart || dc.bubbleChart('#aucBubbleChart');
 
         var numberFormat = d3.format('.5f');
         data = data["value"];
         data.forEach(function (d) {
-            var date = new Date();
-            date.setISO8601(d.BornOn);
+            var date = new Date(d.BornOn);
             d.Age = moment().diff(date, 'years');
-            d.Resume = '<a id="resume" href="javascript:void(0);" onclick="javascript:alsglance.presentation.showLoadingDialog.show(\'' + d.Name + '\');window.location=\'' + alsglance.resources.patientLink  + d.Id + '\'" data-step="3" data-intro="' + alsglance.resources.patientsTip3 + '" data-position=\'left\'> <span id="resume" class="fa fa-eye"></span></a>';
+            d.Resume = '<a id="resume" href="javascript:void(0);" onclick="javascript:alsglance.presentation.showLoadingDialog.show(\'' + d.Name + '\');window.location=\'' + alsglance.resources.patientLink + d.Id + '\'" data-step="3" data-intro="' + alsglance.resources.patientsTip3 + '" data-position=\'left\'> <span id="resume" class="fa fa-eye"></span></a>';
         });
 
         var ndx = crossfilter(data);
@@ -346,8 +375,6 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
             .transitionDuration(1500) // (optional) define chart transition duration, :default = 750
             .margins({ top: 10, right: 50, bottom: 40, left: 50 })
             .dimension(alsglance.dashboard.patients.sexDimension)
-            //Bubble chart expect the groups are reduced to multiple values which would then be used
-            //to generate x, y, and radius for each key (bubble) in the group
             .group(ageGroup)
             .colors(['rgb(49,130,189)', 'rgb(247,104,161)']) // (optional) define color function or array for bubbles
             .colorAccessor(function (d) {
@@ -416,6 +443,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             alsglance.dashboard.settings.atThreshold = alsglance.dashboard.settings.fcrThreshold = 0.018;
             alsglance.dashboard.settings.scmThreshold = 0.013;
         }
+        $('#showPredictions').prop('checked', alsglance.dashboard.settings.showPredictions);
         $("#AT_Threshold").val(alsglance.dashboard.settings.atThreshold);
         $("#FCR_Threshold").val(alsglance.dashboard.settings.fcrThreshold);
         $("#SCM_Threshold").val(alsglance.dashboard.settings.scmThreshold);
@@ -436,12 +464,12 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             .then(function (data) {
                 data = data.value;
                 if (alsglance.dashboard.settings.showPredictions) {
-                    $('#showPredictions').prop('checked', true);
                     data = alsglance.dashboard.patient.addPredictions(data);
                 }
                 alsglance.dashboard.patient.load(data);
-                colorbrewer.showColorSchemeButton(alsglance.dashboard.settings.colorScheme);
-                alsglance.charts.setBehaviour();
+                colorbrewer.showColorSchemeButton(alsglance.dashboard.settings.colorScheme); //has to be called after the charts have been created
+                alsglance.charts.setBehaviour(); //has to be called before the filters are applied
+                alsglance.charts.resizeAll();
                 alsglance.dashboard.patient.reset();
                 alsglance.dashboard.patient.applyFilters(alsglance.dashboard.settings["P" + alsglance.dashboard.patient.id]);
             });
@@ -484,7 +512,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         for (var j = 0; j < filterObjects.length; j++) {
             id = filterObjects[j].ChartID;
             filter = filterObjects[j].Filter;
-            if (id == 1)
+            if (id == alsglance.charts.muscleChartId)
                 alsglance.dashboard.patient.filterMuscle(filter[0]);
             else if (id == 6) { //dateRangeChart must be handled in a different way
                 dc.chartRegistry.list()[id - 1].filterAll();
@@ -497,7 +525,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         }
         for (var i = 0; i < filterObjects.length; i++) {
             id = filterObjects[i].ChartID;
-            if (id == 1 || id == 3 || id == 6) {
+            if (id == alsglance.charts.muscleChartId || id == 3 || id == 6) {
             }
             else {
                 filter = filterObjects[i].Filter;
@@ -629,8 +657,6 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         alsglance.charts.timeOfDayChart = alsglance.charts.timeOfDayChart || dc.rowChart('#timeOfDayChart');
         alsglance.charts.aucSeriesChart = alsglance.charts.aucSeriesChart || dc.seriesChart('#predictionSeriesChart');
         alsglance.charts.dateRangeChart = alsglance.charts.dateRangeChart || dc.barChart('#dateRangeChart');
-        var dateDimension;
-        var predictionDimension;
 
         alsglance.dashboard.patient.datePicker = function () {
             var minDate = moment("01-01-" + alsglance.dashboard.patient.yearMin, "MM-DD-YYYY");
@@ -685,8 +711,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         var hourFormat = d3.format('.0f');
 
         data.forEach(function (d) {
-            var date = new Date();
-            date.setISO8601(d.DateDate);
+            var date = new Date(d.DateDate);
             d.DateDate = date;
             d.DateMonthInYear = d3.time.month(d.DateDate); // pre-calculate month for better performance
 
@@ -697,7 +722,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         var all = ndx.groupAll();
 
         // dimension by full date
-        dateDimension = ndx.dimension(function (d) {
+        var dateDimension = ndx.dimension(function (d) {
             return d.DateDate;
         });
 
@@ -706,7 +731,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             return d.DateMonthInYear;
         });
         // group by total volume within move, and scale down result
-        var volumeByMonthGroup = dateMonthInYearDimension.group().reduceSum(function (d) {
+        var monthGroup = dateMonthInYearDimension.group().reduceSum(function (d) {
             return d.AUC;
         });
 
@@ -761,7 +786,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         //#endregion
 
         //#### Row Chart
-        alsglance.charts.timeOfDayChart.width(180)
+        alsglance.charts.timeOfDayChart
             .group(dayOfWeekGroup)
             .dimension(timeOfDayDimension)
             .label(function (d) {
@@ -780,15 +805,14 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             .elasticX(true)
             .xAxis().ticks(4);
 
-        //#### Bar Chart
-        alsglance.charts.timeHourChart
+         alsglance.charts.timeHourChart
             .dimension(timeHourDimension)
             .group(timeHourGroup)
             .elasticY(true)
             // (optional) whether bar should be center to its x value. Not needed for ordinal chart, :default=false
             .centerBar(true)
             // (optional) set gap between bars manually in px, :default=2
-            .gap(1)
+            .gap(2)
             // (optional) set filter brush rounding
             .round(dc.round.floor)
             .alwaysUseRounding(true)
@@ -812,8 +836,8 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
 
 
         //#region Prediction Chart
-        predictionDimension = ndx.dimension(function (d) {
-            return [d.PatientName, d.DateDate, d.DateYear];
+        var predictionDimension = ndx.dimension(function (d) {
+            return [d.PatientName, d.DateDate, d.MuscleAbbreviation, d.TimeTimeOfDay];
         });
 
         var predictionGroup = predictionDimension.group().reduceSum(function (d) {
@@ -845,6 +869,8 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             })
             .legend(dc.legend().x(80).y(10).itemHeight(13).gap(5).legendWidth(170).itemWidth(170)).title(function (d) {
                 return dateFormat(d.key[1]) + ':\n' + d.value;
+            }).on("renderlet.axis", function (chart) {
+                alsglance.charts.removeOverlapedAxisTicks($("#predictionSeriesChart .axis.x").find(".tick"));
             });
 
         alsglance.charts.dateRangeChart
@@ -852,7 +878,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             .mouseZoomable(true)
             .margins({ top: 0, right: 50, bottom: 20, left: 60 })
             .dimension(dateMonthInYearDimension)
-            .group(volumeByMonthGroup)
+            .group(alsglance.charts.removeInvalidBins(monthGroup))
             .centerBar(true)
             .gap(1)
             .x(d3.time.scale().domain([new Date(alsglance.dashboard.patient.yearMin, 0, 1), alsglance.dashboard.patient.maxDate()]))
@@ -861,7 +887,6 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             .alwaysUseRounding(true)
             .xUnits(d3.time.months)
             .on("renderlet.axis", function (chart) {
-                alsglance.charts.removeOverlapedAxisTicks($("#predictionSeriesChart .axis.x").find(".tick"));
                 alsglance.charts.removeOverlapedAxisTicks($("#dateRangeChart .axis.x").find(".tick"));
             })
             .on("filtered", function (chart) {
@@ -898,8 +923,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             // .html replaces everything in the anchor with the html given using the following function.
             // %filter-count and %total-count are replaced with the values obtained.
             .html({
-                some: '<strong>%filter-count</strong> selected out of <strong>%total-count</strong> records' +
-                    ' | <a href=\'javascript:alsglance.dashboard.patient.reset();\'\'>' + alsglance.resources.reset + '</a>',
+                some: '<strong>%filter-count</strong> selected out of <strong>%total-count</strong> records',
                 all: alsglance.resources.allSelectedMessage
             });
 
@@ -915,13 +939,13 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             // This code demonstrates generating the column header automatically based on the columns.
             .columns([
                 {
-                    label: 'Date',
+                    label: alsglance.resources.date,
                     format: function (d) {
                         return moment(d.DateDate).format("YYYY-MM-DD");
                     }
                 },
                 {
-                    label: 'Patient',
+                    label: alsglance.resources.name,
                     format: function (d) {
                         return d.PatientName;
                     }
@@ -976,40 +1000,5 @@ $(function () {
             offset: { top: 100 }
         });
     }
+    $('#version').text("(crossfilter: " + crossfilter.version + ", d3: " + d3.version + ", dc: " + dc.version + ", moment: " + moment.version + ")");
 });
-Date.prototype.setISO8601 = function (string) {
-    var regexp = "([0-9]{4})(-([0-9]{2})(-([0-9]{2})" +
-        "(T([0-9]{2}):([0-9]{2})(:([0-9]{2})(\.([0-9]+))?)?" +
-        "(Z|(([-+])([0-9]{2}):([0-9]{2})))?)?)?)?";
-    var d = string.match(new RegExp(regexp));
-
-    var offset = 0;
-    var date = new Date(d[1], 0, 1);
-
-    if (d[3]) {
-        date.setMonth(d[3] - 1);
-    }
-    if (d[5]) {
-        date.setDate(d[5]);
-    }
-    if (d[7]) {
-        date.setHours(d[7]);
-    }
-    if (d[8]) {
-        date.setMinutes(d[8]);
-    }
-    if (d[10]) {
-        date.setSeconds(d[10]);
-    }
-    if (d[12]) {
-        date.setMilliseconds(Number("0." + d[12]) * 1000);
-    }
-    if (d[14]) {
-        offset = (Number(d[16]) * 60) + Number(d[17]);
-        offset *= ((d[15] == '-') ? 1 : -1);
-    }
-
-    offset -= date.getTimezoneOffset();
-    var time = (Number(date) + (offset * 60 * 1000));
-    this.setTime(Number(time));
-};

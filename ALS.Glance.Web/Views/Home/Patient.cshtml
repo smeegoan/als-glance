@@ -251,7 +251,7 @@
                         </div>
 
                         <div class="box-content" style="height: 250px; position: relative;">
-                            <div style="height: 250px; position: relative;" id='emgChart' data-step="6" data-intro="@Resources.PatientTip3" data-position='top'>
+                            <div style="height: 230px; position: relative;" id='emgChart' data-step="6" data-intro="@Resources.PatientTip3" data-position='top'>
                                 <div class="clearfix"></div>
                                 <div class="loading">@Resources.PatientLoading</div>
 
@@ -285,49 +285,50 @@
     @Scripts.Render("~/bundles/commonjs")
     @Scripts.Render("~/bundles/patientjs")
     <script>
-        $(function() {
-            alsglance.apiClient = new alsglance.ApiClient({
-                baseUri: alsglance.baseUri,
-                authToken: alsglance.authToken,
-                onAuthFail: function() {
-                    toastr.error("Error authenticating!", 'ALS Glance');
-                }
-            });
-            alsglance.resources = alsglance.resources || {
-                hour: '@Resources.PatientHour',
-                timeOfDay: '@Resources.PatientTimeOfDay',
-                muscle: '@Resources.PatientMuscle',
-                allSelectedMessage: '@Resources.PatientAllSelected',
-                loadingMessage: '@Resources.PatientLoading',
-                saveMessage: '@Resources.PatientSaveMessage',
-                quarterPrefix: '@Resources.PatientQuarterPrefix',
-                measurements: '@Html.Raw(Resources.PatientMeasurements)',
-                help: '@Resources.Help',
-                colorSchemes: '@Resources.PatientColorSchemes',
-                time: '@Resources.PatientTime',
-                muscleFailure: '@Resources.PatientMuscleFailure',
-                reset: '@Resources.PatientReset',
-                prediction: '@Html.Raw(Resources.PatientPrediction)'
-            };
-            alsglance.dashboard.patient.id = @Model.Id;
-            alsglance.dashboard.patient.yearMin = @Model.YearMin;
-            alsglance.dashboard.patient.yearMax = @Model.YearMax;
-            alsglance.dashboard.patient.loadFacts();
-            $('[data-toggle="tooltip"]').tooltip();
-            alsglance.presentation.showPatientHelpButton();
-            alsglance.presentation.bindButtonEvents();
-            alsglance.presentation.makePanelsDraggable();
-            alsglance.dashboard.patient.loadSettings(JSON.parse(decodeURIComponent('@Html.Raw(Model.Settings)')));
-            $("input[name='muscleThreshold']").TouchSpin({
-                min: 0,
-                max: 0.030,
-                step: 0.001,
-                decimals: 3,
-                boostat: 5,
-                maxboostedstep: 10
-            });
+    $(function() {
+        alsglance.apiClient = new alsglance.ApiClient({
+            baseUri: alsglance.baseUri,
+            authToken: alsglance.authToken,
+            onAuthFail: function() {
+                toastr.error("Error authenticating!", 'ALS Glance');
+            }
         });
-    </script>
+        alsglance.resources = alsglance.resources || {
+            hour: '@Resources.PatientHour',
+            timeOfDay: '@Resources.PatientTimeOfDay',
+            muscle: '@Resources.PatientMuscle',
+            allSelectedMessage: '@Resources.PatientAllSelected',
+            loadingMessage: '@Resources.PatientLoading',
+            saveMessage: '@Resources.PatientSaveMessage',
+            quarterPrefix: '@Resources.PatientQuarterPrefix',
+            measurements: '@Html.Raw(Resources.PatientMeasurements)',
+            name: '@Resources.SharedName',
+            date: '@Resources.SharedDate',
+            help: '@Resources.Help',
+            colorSchemes: '@Resources.PatientColorSchemes',
+            time: '@Resources.PatientTime',
+            muscleFailure: '@Resources.PatientMuscleFailure',
+            prediction: '@Html.Raw(Resources.PatientPrediction)'
+        };
+        alsglance.dashboard.patient.id = @Model.Id;
+        alsglance.dashboard.patient.yearMin = @Model.YearMin;
+        alsglance.dashboard.patient.yearMax = @Model.YearMax;
+        alsglance.presentation.showPatientHelpButton();
+        alsglance.presentation.makePanelsDraggable(); //has to be before trying to set panels position
+        alsglance.dashboard.patient.loadSettings(JSON.parse(decodeURIComponent('@Html.Raw(Model.Settings)')));
+        alsglance.dashboard.patient.loadFacts();
+        alsglance.presentation.bindButtonEvents();
+        $('[data-toggle="tooltip"]').tooltip();
+        $("input[name='muscleThreshold']").TouchSpin({
+            min: 0,
+            max: 0.030,
+            step: 0.001,
+            decimals: 3,
+            boostat: 5,
+            maxboostedstep: 10
+        });
+    });
+</script>
 }
 
 

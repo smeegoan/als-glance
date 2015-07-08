@@ -168,7 +168,7 @@
   <data name="PatientsDiagnosedOn" xml:space="preserve">
     <value>Diagnosticado Em</value>
   </data>
-  <data name="PatientsName" xml:space="preserve">
+  <data name="SharedName" xml:space="preserve">
     <value>Nome</value>
   </data>
   <data name="PatientsPatientId" xml:space="preserve">
@@ -291,5 +291,8 @@
         "sLast":     "Último"
     }
 }</value>
+  </data>
+  <data name="SharedDate" xml:space="preserve">
+    <value>Data</value>
   </data>
 </root>

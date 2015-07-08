@@ -313,15 +313,6 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name.
-        /// </summary>
-        public static string PatientsName {
-            get {
-                return ResourceManager.GetString("PatientsName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Patient Id.
         /// </summary>
         public static string PatientsPatientId {
@@ -511,6 +502,15 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string SharedDate {
+            get {
+                return ResourceManager.GetString("SharedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log in.
         /// </summary>
         public static string SharedLogin {
@@ -534,6 +534,15 @@ namespace ALS.Glance.Web.Resources {
         public static string SharedManage {
             get {
                 return ResourceManager.GetString("SharedManage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string SharedName {
+            get {
+                return ResourceManager.GetString("SharedName", resourceCulture);
             }
         }
         
