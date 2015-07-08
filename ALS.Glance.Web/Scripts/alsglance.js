@@ -308,7 +308,7 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
             var date = new Date();
             date.setISO8601(d.BornOn);
             d.Age = moment().diff(date, 'years');
-            d.Resume = '<a id="resume" href="javascript:void(0);" onclick="javascript:alsglance.presentation.showLoadingDialog.show(\'' + d.Name + '\');window.location=\'Patients/' + d.Id + '\'" data-step="3" data-intro="' + alsglance.resources.patientsTip3 + '" data-position=\'left\'> <span id="resume" class="fa fa-eye"></span></a>';
+            d.Resume = '<a id="resume" href="javascript:void(0);" onclick="javascript:alsglance.presentation.showLoadingDialog.show(\'' + d.Name + '\');window.location=\'/Home/Patients/' + d.Id + '\'" data-step="3" data-intro="' + alsglance.resources.patientsTip3 + '" data-position=\'left\'> <span id="resume" class="fa fa-eye"></span></a>';
         });
 
         var ndx = crossfilter(data);
@@ -899,7 +899,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             // %filter-count and %total-count are replaced with the values obtained.
             .html({
                 some: '<strong>%filter-count</strong> selected out of <strong>%total-count</strong> records' +
-                    ' | <a href=\'javascript:alsglance.dashboard.patient.reset();\'\'>Reset All</a>',
+                    ' | <a href=\'javascript:alsglance.dashboard.patient.reset();\'\'>'+alsglance.resources.reset+ '</a>',
                 all: alsglance.resources.allSelectedMessage
             });
 

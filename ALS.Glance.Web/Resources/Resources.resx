@@ -276,4 +276,7 @@
   <data name="PatientMuscleFailure" xml:space="preserve">
     <value>Muscle failure threshold</value>
   </data>
+  <data name="SharedDataTables" xml:space="preserve">
+    <value>{}</value>
+  </data>
 </root>

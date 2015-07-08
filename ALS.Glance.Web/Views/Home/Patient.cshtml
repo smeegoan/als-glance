@@ -51,15 +51,15 @@
                             </div>
 
                             <div class="form-group">
-                                    <label class="col-md-offset-1 col-md-3 control-label">@Resources.PatientMuscleFailure:</label>
-                                    <div class="col-md-7 input-group bootstrap-touchspin">
-                                        @foreach (var item in muscles)
-                                        {
-                                            <label>
-                                                <span class="col-md-2">@item.Abbreviation</span>
-                                                <input class="col-md-2" id="@(item.Abbreviation)_Threshold" type="text" value="0" name="muscleThreshold">
-                                            </label>
-                                        }
+                                <label class="col-md-offset-1 col-md-3 control-label">@Resources.PatientMuscleFailure:</label>
+                                <div class="col-md-7 input-group bootstrap-touchspin">
+                                    @foreach (var item in muscles)
+                                    {
+                                        <label>
+                                            <span class="col-md-2">@item.Abbreviation</span>
+                                            <input class="col-md-2" id="@(item.Abbreviation)_Threshold" type="text" value="0" name="muscleThreshold">
+                                        </label>
+                                    }
                                 </div>
 
 
@@ -216,7 +216,7 @@
                             <div class="no-move"></div>
                         </div>
                         <div class="box-content" style="height: 250px; position: relative;">
-                            <div style="width:100%;height: 100%">
+                            <div style="height: 250px; position: relative;">
                                 <div id="predictionSeriesChart" class="dc-chart">
                                     <div class="clearfix"></div>
                                     <div class="loading">@Resources.PatientLoading</div>
@@ -251,7 +251,7 @@
                         </div>
 
                         <div class="box-content" style="height: 250px; position: relative;">
-                            <div style="width:100%;height: 100%" id='emgChart' data-step="6" data-intro="@Resources.PatientTip3" data-position='top'>
+                            <div style="height: 250px; position: relative;" id='emgChart' data-step="6" data-intro="@Resources.PatientTip3" data-position='top'>
                                 <div class="clearfix"></div>
                                 <div class="loading">@Resources.PatientLoading</div>
 
@@ -306,6 +306,7 @@
                 colorSchemes: '@Resources.PatientColorSchemes',
                 time: '@Resources.PatientTime',
                 muscleFailure: '@Resources.PatientMuscleFailure',
+                reset: '@Resources.PatientReset',
                 prediction: '@Html.Raw(Resources.PatientPrediction)'
             };
             alsglance.dashboard.patient.id = @Model.Id;

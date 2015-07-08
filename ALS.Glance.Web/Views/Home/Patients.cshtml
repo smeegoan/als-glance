@@ -66,6 +66,7 @@
                 .then(function (data) {
                     alsglance.dashboard.patients.load(data,@Model.AgeMin,@Model.AgeMax);
                     alsglance.dashboard.patients.dataTable= $('#patients').dataTable({
+                        "language": @Html.Raw(Resources.SharedDataTables),
                         "order": [[3, "asc"]],
                         "aaData": alsglance.dashboard.patients.sexDimension.top(Infinity),
                         "dom": '<"top"f<"clear">>rt<"col-sm-offset-4"p>',

@@ -502,6 +502,15 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {}.
+        /// </summary>
+        public static string SharedDataTables {
+            get {
+                return ResourceManager.GetString("SharedDataTables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log in.
         /// </summary>
         public static string SharedLogin {
