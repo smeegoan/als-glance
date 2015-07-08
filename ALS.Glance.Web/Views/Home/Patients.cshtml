@@ -64,7 +64,6 @@
                 dataTables: @Html.Raw(Resources.SharedDataTables),
                 patientLink: '@Url.Action("Patients", "Home")/'
             };
-            alsglance.presentation.showPatientsHelpButton();
             alsglance.dashboard.patients.loadFacts(@Model.AgeMin,@Model.AgeMax);
         });
     </script>

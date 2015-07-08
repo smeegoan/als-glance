@@ -324,6 +324,7 @@ alsglance.dashboard.patients = alsglance.dashboard.patients || {
                     { "mData": "Resume", "sDefaultContent": "" }
                 ]
             });
+            alsglance.presentation.showPatientsHelpButton(); //has to be after datatables
             alsglance.charts.setBehaviour();
             alsglance.charts.resizeAll();
             alsglance.charts.aucBubbleChart.render();//to show the transition effect

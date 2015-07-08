@@ -6,3 +6,6 @@ In human kinesiological electromyography, electrical signals from surface electr
 To be able to compare EMG activity in the same muscle on different days or in different individuals or to compare EMG activity between muscles, the EMG must be normalised. By normalising to a reference EMG value collected using the same electrode configuration, factors that affect the EMG signals during the task and the reference contraction are the same. Subsequently, the integrated EMG (iEMG) is calculated. The iEMG is defined as the area under the curve (AUC) of the rectified EMG signal and the Maximum iEMG (in each timeslice) is easier to interpret visually and approximates the envelope of the iEMG signal.
 
 This application aims to facilitate the diagnosis of ALS patients by analysis the data collected from devices that collect electrical activity of different muscles.
+
+## Copyright and License
+Copyright 2015 Pedro Cardoso. Code released under the [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0) license.
