@@ -86,7 +86,7 @@ alsglance.charts = alsglance.charts || {
         }
     },
     resize: function (chart) {
-        if (chart == null) {
+         if (chart == null) {
             return;
         }
         var parent = $("#" + chart.anchorName()).parent();
@@ -891,6 +891,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             .xUnits(d3.time.months)
             .on("renderlet.axis", function (chart) {
                 alsglance.charts.removeOverlapedAxisTicks($("#dateRangeChart .axis.x").find(".tick"));
+                $("#dateRangeChart").height(50);
             })
             .on("filtered", function (chart) {
 
