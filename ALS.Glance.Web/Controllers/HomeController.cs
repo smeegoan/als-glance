@@ -33,7 +33,7 @@ namespace ALS.Glance.Web.Controllers
         }
 
 
-        [MvcAuthorize(Roles.AdminRole, Roles.UserRole)]
+//        [MvcAuthorize(Roles.AdminRole, Roles.UserRole)]
         public JavaScriptResult ApiAuth()
         {
             var token = _credentials.ApplicationToken;
@@ -50,7 +50,7 @@ namespace ALS.Glance.Web.Controllers
             return JavaScript(script);
         }
 
-        [MvcAuthorize(Roles.AdminRole, Roles.UserRole)]
+      //  [MvcAuthorize(Roles.AdminRole, Roles.UserRole)]
         public async Task<ActionResult> Patients(int? id, CancellationToken ct)
         {
             if (id == null)
