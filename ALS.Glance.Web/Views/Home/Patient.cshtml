@@ -236,14 +236,15 @@
                                 <span>@Resources.PatientEMG</span>
                             </div>
                             <div class="box-icons">
-                                <a class="reset" href="javascript:void(0);" onclick="javascript:alsglance.charts.emgChart.resetZoom();" data-step="7" data-intro="@Resources.PatientTip7" data-position='left'><i class="fa fa-undo"></i></a>
-                                <a class="collapse-link" data-step="8" data-intro="@Resources.PatientTip8" data-position='left'>
+                                <a class="envelope" href="javascript:void(0);" onclick="javascript:alsglance.dashboard.patient.toggleEmgEnvelope();alsglance.dashboard.patient.renderEmg();" data-step="7" data-intro="@Resources.PatientTip7" data-position='left'><i class="fa fa-exchange"></i></a>
+                                <a class="reset" href="javascript:void(0);" onclick="javascript:alsglance.charts.emgChart.resetZoom();" data-step="8" data-intro="@Resources.PatientTip8" data-position='left'><i class="fa fa-undo"></i></a>
+                                <a class="collapse-link" data-step="9" data-intro="@Resources.PatientTip9" data-position='left'>
                                     <i class="fa fa-chevron-up"></i>
                                 </a>
-                                <a class="expand-link" data-step="9" data-intro="@Resources.PatientTip9" data-position='left'>
+                                <a class="expand-link" data-step="10" data-intro="@Resources.PatientTip10" data-position='left'>
                                     <i class="fa fa-expand"></i>
                                 </a>
-                                <a class="close-link" data-step="10" data-intro="@Resources.PatientTip10" data-position='left'>
+                                <a class="close-link" data-step="11" data-intro="@Resources.PatientTip11" data-position='left'>
                                     <i class="fa fa-times"></i>
                                 </a>
                             </div>
@@ -285,58 +286,58 @@
     @Scripts.Render("~/bundles/commonjs")
     @Scripts.Render("~/bundles/patientjs")
     <script>
-    $(function() {
-        alsglance.apiClient = new alsglance.ApiClient({
-            baseUri: alsglance.baseUri,
-            authToken: alsglance.authToken,
-            onAuthFail: function() {
-                toastr.error("Error authenticating!", 'ALS Glance');
+        $(function() {
+            alsglance.apiClient = new alsglance.ApiClient({
+                baseUri: alsglance.baseUri,
+                authToken: alsglance.authToken,
+                onAuthFail: function() {
+                    toastr.error("Error authenticating!", 'ALS Glance');
+                }
+            });
+            alsglance.resources = alsglance.resources || {
+                hour: '@Resources.PatientHour',
+                timeOfDay: '@Resources.PatientTimeOfDay',
+                muscle: '@Resources.PatientMuscle',
+                allSelectedMessage: '@Resources.PatientAllSelected',
+                loadingMessage: '@Resources.PatientLoading',
+                saveMessage: '@Resources.PatientSaveMessage',
+                quarterPrefix: '@Resources.PatientQuarterPrefix',
+                measurements: '@Html.Raw(Resources.PatientMeasurements)',
+                name: '@Resources.SharedName',
+                date: '@Resources.SharedDate',
+                help: '@Resources.Help',
+                colorSchemes: '@Resources.PatientColorSchemes',
+                time: '@Resources.PatientTime',
+                muscleFailure: '@Resources.PatientMuscleFailure',
+                shortMonths: @Html.Raw(Resources.SharedShortMonths),
+                shortDays: @Html.Raw(Resources.SharedShortDays),
+                months: @Html.Raw(Resources.SharedMonths),
+                prediction: '@Html.Raw(Resources.PatientPrediction)',
+            };
+            alsglance.dashboard.patient.id = @Model.Id;
+            alsglance.dashboard.patient.yearMin = @Model.YearMin;
+            alsglance.dashboard.patient.yearMax = @Model.YearMax;
+            alsglance.presentation.showPatientHelpButton();
+            alsglance.presentation.makePanelsDraggable(); //has to be before trying to set panels position
+            var settings = {};
+            try {
+                settings = JSON.parse(decodeURIComponent('@Html.Raw(Model.Settings)'));
+            } catch (err) {
             }
+            alsglance.dashboard.patient.loadSettings(settings);
+            alsglance.dashboard.patient.loadFacts();
+            alsglance.presentation.bindButtonEvents();
+            $('[data-toggle="tooltip"]').tooltip();
+            $("input[name='muscleThreshold']").TouchSpin({
+                min: 0,
+                max: 0.030,
+                step: 0.001,
+                decimals: 3,
+                boostat: 5,
+                maxboostedstep: 10
+            });
         });
-        alsglance.resources = alsglance.resources || {
-            hour: '@Resources.PatientHour',
-            timeOfDay: '@Resources.PatientTimeOfDay',
-            muscle: '@Resources.PatientMuscle',
-            allSelectedMessage: '@Resources.PatientAllSelected',
-            loadingMessage: '@Resources.PatientLoading',
-            saveMessage: '@Resources.PatientSaveMessage',
-            quarterPrefix: '@Resources.PatientQuarterPrefix',
-            measurements: '@Html.Raw(Resources.PatientMeasurements)',
-            name: '@Resources.SharedName',
-            date: '@Resources.SharedDate',
-            help: '@Resources.Help',
-            colorSchemes: '@Resources.PatientColorSchemes',
-            time: '@Resources.PatientTime',
-            muscleFailure: '@Resources.PatientMuscleFailure',
-            shortMonths: @Html.Raw(Resources.SharedShortMonths),
-            shortDays: @Html.Raw(Resources.SharedShortDays),
-            months: @Html.Raw(Resources.SharedMonths),
-            prediction: '@Html.Raw(Resources.PatientPrediction)',
-        };
-        alsglance.dashboard.patient.id = @Model.Id;
-        alsglance.dashboard.patient.yearMin = @Model.YearMin;
-        alsglance.dashboard.patient.yearMax = @Model.YearMax;
-        alsglance.presentation.showPatientHelpButton();
-        alsglance.presentation.makePanelsDraggable(); //has to be before trying to set panels position
-        var settings = {};
-        try {
-            settings = JSON.parse(decodeURIComponent('@Html.Raw(Model.Settings)'));
-        } catch (err) {
-        }
-        alsglance.dashboard.patient.loadSettings(settings);
-        alsglance.dashboard.patient.loadFacts();
-        alsglance.presentation.bindButtonEvents();
-        $('[data-toggle="tooltip"]').tooltip();
-        $("input[name='muscleThreshold']").TouchSpin({
-            min: 0,
-            max: 0.030,
-            step: 0.001,
-            decimals: 3,
-            boostat: 5,
-            maxboostedstep: 10
-        });
-    });
-</script>
+    </script>
 }
 
 

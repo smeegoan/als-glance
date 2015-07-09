@@ -178,7 +178,7 @@
     <value>Sexo</value>
   </data>
   <data name="PatientsTip2" xml:space="preserve">
-    <value>Clique aqui para filtrar os pacientes por nome.</value>
+    <value>Escreva aqui para filtrar os pacientes por nome.</value>
   </data>
   <data name="PatientsXAxisLabel" xml:space="preserve">
     <value>Idade Média</value>
@@ -201,16 +201,16 @@
   <data name="PatientTip5" xml:space="preserve">
     <value>Arraste e largue ou use a roda do rato para fazer zoom.</value>
   </data>
-  <data name="PatientTip7" xml:space="preserve">
+  <data name="PatientTip8" xml:space="preserve">
     <value>Clique aqui para repor os filtros aplicados ao gráfico.</value>
   </data>
-  <data name="PatientTip8" xml:space="preserve">
+  <data name="PatientTip9" xml:space="preserve">
     <value>Clique aqui para minimizar o painel.</value>
   </data>
-  <data name="PatientTip9" xml:space="preserve">
+  <data name="PatientTip10" xml:space="preserve">
     <value>Clique aqui para expandir o painel.</value>
   </data>
-  <data name="PatientTip10" xml:space="preserve">
+  <data name="PatientTip11" xml:space="preserve">
     <value>Clique aqui para fechar o painel.</value>
   </data>
   <data name="SharedLogin" xml:space="preserve">
@@ -256,7 +256,7 @@
     <value>Esquemas de Cores</value>
   </data>
   <data name="PatientsTip1" xml:space="preserve">
-    <value>Clique aqui para filtrar os pacientes por sexo.</value>
+    <value>Clique nas bolas para filtrar os pacientes por sexo.</value>
   </data>
   <data name="PatientsTip3" xml:space="preserve">
     <value>Clique aqui para ver o resumo do paciente.</value>
@@ -300,6 +300,9 @@
   </data>
   <data name="SharedShortMonths" xml:space="preserve">
     <value>[ "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez" ]</value>
+  </data>
+  <data name="PatientTip7" xml:space="preserve">
+    <value>Clique aqui para alternar entre a vista normal e a vista envelopada.</value>
   </data>
   <data name="SharedShortDays" xml:space="preserve">
     <value>[ "Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb" ]</value>

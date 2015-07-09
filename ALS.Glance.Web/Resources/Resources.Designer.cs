@@ -331,7 +331,7 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click here to filter patients by sex..
+        ///   Looks up a localized string similar to Click on the bubbles to filter patients by sex..
         /// </summary>
         public static string PatientsTip1 {
             get {
@@ -340,7 +340,7 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click here to filter patients by name..
+        ///   Looks up a localized string similar to Type here to filter patients by name..
         /// </summary>
         public static string PatientsTip2 {
             get {
@@ -403,11 +403,20 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click here to close the panel..
+        ///   Looks up a localized string similar to Click here to expand the panel..
         /// </summary>
         public static string PatientTip10 {
             get {
                 return ResourceManager.GetString("PatientTip10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click here to close the panel..
+        /// </summary>
+        public static string PatientTip11 {
+            get {
+                return ResourceManager.GetString("PatientTip11", resourceCulture);
             }
         }
         
@@ -448,7 +457,7 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click here to reset the filters applied to the chart..
+        ///   Looks up a localized string similar to Click here to toggle between normal and envelope view..
         /// </summary>
         public static string PatientTip7 {
             get {
@@ -457,7 +466,7 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click here to collapse the panel..
+        ///   Looks up a localized string similar to Click here to reset the filters applied to the chart..
         /// </summary>
         public static string PatientTip8 {
             get {
@@ -466,7 +475,7 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click here to expand the panel..
+        ///   Looks up a localized string similar to Click here to collapse the panel..
         /// </summary>
         public static string PatientTip9 {
             get {

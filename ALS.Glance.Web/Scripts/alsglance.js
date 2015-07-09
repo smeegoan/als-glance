@@ -86,7 +86,7 @@ alsglance.charts = alsglance.charts || {
         }
     },
     resize: function (chart) {
-         if (chart == null) {
+        if (chart == null) {
             return;
         }
         var parent = $("#" + chart.anchorName()).parent();
@@ -530,8 +530,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         for (var i = 0; i < filterObjects.length; i++) {
             id = filterObjects[i].ChartID;
             if (id == alsglance.charts.muscleChartId || id == 3 || id == 6) {
-            }
-            else {
+            } else {
                 filter = filterObjects[i].Filter;
                 var chart = dc.chartRegistry.list()[id - 1];
                 if (chart == null) {
@@ -633,15 +632,27 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         $.when(alsglance.apiClient.get(url))
             .then(function (facts) {
                 var value = facts.value;
-                var emg = null;
+                alsglance.charts.emgData = null;
                 if (value != null && value.length > 0) {
-                    emg = JSON.parse(value[0].EMG);
+                    alsglance.charts.emgData = JSON.parse(value[0].EMG);
                     alsglance.dashboard.patient.lastUrl = url;
                 }
-                alsglance.dashboard.patient.renderEmg(emg);
+                alsglance.dashboard.patient.renderEmg();
             });
     },
-    renderEmg: function (data) {
+    toggleEmgEnvelope: function () {
+        alsglance.dashboard.settings.envelopeEmg = !alsglance.dashboard.settings.envelopeEmg;
+    },
+    renderEmg: function () {
+        var envelope = function (arr) {
+            return arr.map(function (value) {
+                return [value[0], Math.abs(value[1])];
+            });
+        };
+        var data = alsglance.charts.emgData;
+        if (alsglance.dashboard.settings.envelopeEmg) {
+            data = envelope(data);
+        }
         alsglance.charts.emgChart = new Dygraph(document.getElementById("emgChart"), data, {
             labels: [alsglance.resources.time, 'µV'],
             xlabel: alsglance.resources.time,
@@ -857,8 +868,8 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             "date": "%d-%m-%Y",
             "time": "%H:%M:%S",
             "periods": ["AM", "PM"],
-            "days": [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ],
-            "shortDays": alsglance.resources.shortDays, 
+            "days": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "shortDays": alsglance.resources.shortDays,
             "months": alsglance.resources.months,
             "shortMonths": alsglance.resources.shortMonths
         });

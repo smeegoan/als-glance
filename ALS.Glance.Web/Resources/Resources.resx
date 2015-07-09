@@ -187,7 +187,7 @@
     <value>Sex</value>
   </data>
   <data name="PatientsTip2" xml:space="preserve">
-    <value>Click here to filter patients by name.</value>
+    <value>Type here to filter patients by name.</value>
   </data>
   <data name="PatientsXAxisLabel" xml:space="preserve">
     <value>Average Age</value>
@@ -210,16 +210,16 @@
   <data name="PatientTip5" xml:space="preserve">
     <value>Drag and drop or use mouse wheel to zoom in.</value>
   </data>
-  <data name="PatientTip7" xml:space="preserve">
+  <data name="PatientTip8" xml:space="preserve">
     <value>Click here to reset the filters applied to the chart.</value>
   </data>
-  <data name="PatientTip8" xml:space="preserve">
+  <data name="PatientTip9" xml:space="preserve">
     <value>Click here to collapse the panel.</value>
   </data>
-  <data name="PatientTip9" xml:space="preserve">
+  <data name="PatientTip10" xml:space="preserve">
     <value>Click here to expand the panel.</value>
   </data>
-  <data name="PatientTip10" xml:space="preserve">
+  <data name="PatientTip11" xml:space="preserve">
     <value>Click here to close the panel.</value>
   </data>
   <data name="SharedLogin" xml:space="preserve">
@@ -259,7 +259,7 @@
     <value>Use regression to predict future results</value>
   </data>
   <data name="PatientsTip1" xml:space="preserve">
-    <value>Click here to filter patients by sex.</value>
+    <value>Click on the bubbles to filter patients by sex.</value>
   </data>
   <data name="PatientsTip3" xml:space="preserve">
     <value>Click here to view the patient summary.</value>
@@ -287,6 +287,9 @@
   </data>
   <data name="SharedShortMonths" xml:space="preserve">
     <value>[ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]</value>
+  </data>
+  <data name="PatientTip7" xml:space="preserve">
+    <value>Click here to toggle between normal and envelope view.</value>
   </data>
   <data name="SharedShortDays" xml:space="preserve">
     <value>[ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ]</value>
