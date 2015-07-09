@@ -103,7 +103,7 @@ namespace ALS.Glance.Api
             builder.EntitySet<Fact, long>(type =>
             {
                 type.Property(e => e.AUC);
-                type.Property(e => e.EMG);
+                type.HasRequired(e => e.EMG);
                 type.HasRequired(e => e.Patient);
                 type.HasRequired(e => e.Muscle);
                 type.HasRequired(e => e.Date);
@@ -153,6 +153,7 @@ namespace ALS.Glance.Api
                 type.Collection.Function("GetAgeBounds").Returns<AgeBounds>();
                 type.Function("GetYearBounds").Returns<YearBounds>();
             });
+            builder.EntitySet<DEmg, long>(type => type.Property(e => e.Data)); 
             builder.EntitySet<DTime, long>(type =>
             {
                 type.Property(e => e.Hour);

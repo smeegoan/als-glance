@@ -15,9 +15,9 @@ namespace ALS.Glance.Models
 
         public long PatientId { get; set; }
 
-        public string EMG { get; set; }
+        public long EmgId { get; set; }
         public long TimeId { get; set; }
-
+        public virtual DEmg EMG { get; set; }
         public virtual DDate Date { get; set; }
         public virtual DMuscle Muscle { get; set; }
         public virtual DPatient Patient { get; set; }

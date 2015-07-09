@@ -43,71 +43,11 @@ namespace ALS.Glance.Api.Controllers
         }
 
         [EnableQuery, AllowAnonymous]
-        public async Task<IHttpActionResult> Get(
+        public Task<IHttpActionResult> Get(
             [FromODataUri] string applicationId, [FromODataUri] string userName, 
             [FromODataUri] string password, CancellationToken ct)
         {
-            var applicationIdDecoded = applicationId.DecodeFromBase64ASCII();
-
-            await _uow.BeginAsync(ct);
-
-            var user = await GetUserAsync(userName.Trim().ToLowerInvariant(), password, ct);
-            if (user == null)
-                return Request.CreateConflictResponse(Resources.Conflict_Authorizations_InvalidCredentials);
-            if (!user.EmailConfirmed)
-                return Request.CreateConflictResponse(Resources.Conflict_Authorizations_MissingEmailConfirmation);
-
-            //  Try to find an existing token for the application
-            var authenticationToken = await GetApiAuthenticationTokenAsync(user.Id, applicationIdDecoded, ct);
-            if (authenticationToken == null)
-            {
-                //  Searches if the application exists
-                var application = await GetApiApplicationUserAsync(applicationIdDecoded, ct);
-                if (application == null)
-                {
-                    ModelState.AddModelError(
-                        "request.ApplicationId", Resources.Conflict_Authorizations_ApiApplicationNotFoundScoped);
-                    return Request.CreateConflictResponse(Resources.Conflict_Shared_GenericMessage, ModelState);
-                }
-
-                //  Create a new global refresh token without any access tokens
-                authenticationToken =
-                    await AddApiAuthenticationTokenAsync(user, application, ct);
-            }
-            //  Always create a new access token with a TTL of 1h
-            var authenticationAccessToken =
-                new ApiAuthenticationAccessToken
-                {
-                    AccessToken = Guid.NewGuid(),
-                    ExpirationDate = DateTime.Now.AddHours(1)
-                };
-            authenticationToken.ApiAuthenticationAccessTokens.Add(authenticationAccessToken);
-
-            await _uow.CommitAsync(ct);
-
-            var entity =
-                new AuthorizationRequest
-                {
-                    ApplicationId = applicationId,
-                    UserName = userName,
-                    Password = password,
-                    Authorization =
-                        new Authorization
-                        {
-                            AccessToken =
-                                authenticationAccessToken.AccessToken.ToString()
-                                .EncodeToBase64ASCII(),
-                            RefreshToken =
-                                authenticationToken.RefreshToken.ToString().EncodeToBase64ASCII(),
-                            ExpiresIn =
-                                (int)
-                                authenticationAccessToken.ExpirationDate.Subtract(DateTime.Now)
-                                .TotalMinutes,
-                            UserName = user.UserName
-                        }
-                };
-
-            return Ok(entity);
+            throw new HttpResponseException(Request.CreateNotImplementedResponse());    
 
         }
 
@@ -124,7 +64,6 @@ namespace ALS.Glance.Api.Controllers
                 return Request.CreateBadRequestResult(Resources.BadRequestErrorMessage, ModelState);
             }
 
-            var applicationIdDecoded = entity.ApplicationId.DecodeFromBase64ASCII();
 
             await _uow.BeginAsync(ct);
 
@@ -135,11 +74,11 @@ namespace ALS.Glance.Api.Controllers
                 return Request.CreateConflictResponse(Resources.Conflict_Authorizations_MissingEmailConfirmation);
 
             //  Try to find an existing token for the application
-            var authenticationToken = await GetApiAuthenticationTokenAsync(user.Id, applicationIdDecoded, ct);
+            var authenticationToken = await GetApiAuthenticationTokenAsync(user.Id, entity.ApplicationId, ct);
             if (authenticationToken == null)
             {
                 //  Searches if the application exists
-                var application = await GetApiApplicationUserAsync(applicationIdDecoded, ct);
+                var application = await GetApiApplicationUserAsync(entity.ApplicationId, ct);
                 if (application == null)
                 {
                     ModelState.AddModelError(

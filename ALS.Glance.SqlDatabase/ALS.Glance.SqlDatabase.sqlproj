@@ -78,12 +78,14 @@
     <Build Include="dbo\Tables\AspNetExtApiAuthenticationAccessTokens.sql" />
     <Build Include="dbo\Tables\ApplicationSettings.sql" />
     <Build Include="dbo\Views\Facts.sql" />
-    <None Include="Scripts\Script.Facts.sql" />
+    <None Include="Scripts\Script.Fact.sql" />
+    <Build Include="dbo\Tables\D_Emg.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
+    <None Include="Scripts\Script.Emg.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Scripts\Script.Dates.sql" />
+    <None Include="Scripts\Script.Date.sql" />
   </ItemGroup>
 </Project>
