@@ -282,4 +282,13 @@
   <data name="SharedDate" xml:space="preserve">
     <value>Date</value>
   </data>
+  <data name="SharedMonths" xml:space="preserve">
+    <value>[ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]</value>
+  </data>
+  <data name="SharedShortMonths" xml:space="preserve">
+    <value>[ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]</value>
+  </data>
+  <data name="SharedShortDays" xml:space="preserve">
+    <value>[ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ]</value>
+  </data>
 </root>

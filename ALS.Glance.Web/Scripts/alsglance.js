@@ -474,6 +474,8 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                 alsglance.charts.resizeAll();
                 alsglance.dashboard.patient.reset();
                 alsglance.dashboard.patient.applyFilters(alsglance.dashboard.settings["P" + alsglance.dashboard.patient.id]);
+
+
             });
     },
     saveSettings: function () {
@@ -846,7 +848,29 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         var predictionGroup = predictionDimension.group().reduceSum(function (d) {
             return +d.AUC;
         });
+        var localeFormatter = d3.locale({
+            "decimal": ",",
+            "thousands": ".",
+            "grouping": [3],
+            "currency": ["€", ""],
+            "dateTime": "%a %b %e %X %Y",
+            "date": "%d-%m-%Y",
+            "time": "%H:%M:%S",
+            "periods": ["AM", "PM"],
+            "days": [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ],
+            "shortDays": alsglance.resources.shortDays, 
+            "months": alsglance.resources.months,
+            "shortMonths": alsglance.resources.shortMonths
+        });
 
+        var tickFormat = localeFormatter.timeFormat.multi([
+            ["%H:%M", function (d) { return d.getMinutes(); }],
+            ["%H:%M", function (d) { return d.getHours(); }],
+            ["%a %d", function (d) { return d.getDay() && d.getDate() != 1; }],
+            ["%b %d", function (d) { return d.getDate() != 1; }],
+            ["%B", function (d) { return d.getMonth(); }],
+            ["%Y", function () { return true; }]
+        ]);
         alsglance.charts.aucSeriesChart
                .margins({ top: 20, right: 30, bottom: 20, left: 60 })
             //.height(160)
@@ -875,6 +899,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             }).on("renderlet.axis", function (chart) {
                 alsglance.charts.removeOverlapedAxisTicks($("#predictionSeriesChart .axis.x").find(".tick"));
             });
+        alsglance.charts.aucSeriesChart.xAxis().tickFormat(tickFormat);
 
         alsglance.charts.dateRangeChart
             .height(50)
@@ -905,6 +930,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                 }
                 alsglance.dashboard.patient.loadEmg();
             });
+        alsglance.charts.dateRangeChart.xAxis().tickFormat(tickFormat);
 
         //#endregion
 

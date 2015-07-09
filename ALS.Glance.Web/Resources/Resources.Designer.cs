@@ -538,6 +538,15 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to [ &quot;January&quot;, &quot;February&quot;, &quot;March&quot;, &quot;April&quot;, &quot;May&quot;, &quot;June&quot;, &quot;July&quot;, &quot;August&quot;, &quot;September&quot;, &quot;October&quot;, &quot;November&quot;, &quot;December&quot; ].
+        /// </summary>
+        public static string SharedMonths {
+            get {
+                return ResourceManager.GetString("SharedMonths", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string SharedName {
@@ -552,6 +561,24 @@ namespace ALS.Glance.Web.Resources {
         public static string SharedPatients {
             get {
                 return ResourceManager.GetString("SharedPatients", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [ &quot;Sun&quot;, &quot;Mon&quot;, &quot;Tue&quot;, &quot;Wed&quot;, &quot;Thu&quot;, &quot;Fri&quot;, &quot;Sat&quot; ].
+        /// </summary>
+        public static string SharedShortDays {
+            get {
+                return ResourceManager.GetString("SharedShortDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [ &quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, &quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;, &quot;Dec&quot; ].
+        /// </summary>
+        public static string SharedShortMonths {
+            get {
+                return ResourceManager.GetString("SharedShortMonths", resourceCulture);
             }
         }
     }
