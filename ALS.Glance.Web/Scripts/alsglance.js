@@ -213,6 +213,7 @@ alsglance.presentation = alsglance.presentation || {
         });
         $("#saveOptions").click(function () {
             alsglance.dashboard.settings.showPredictions = $("#showPredictions").is(':checked');
+            alsglance.dashboard.settings.showFailureThresHold = $("#showFailureThresHold").is(':checked');
             alsglance.dashboard.settings.predictionBackLog = parseInt($('input[name=predictionBacklog]:checked', '#aucForm').val());
             $('#aucOptions').modal('hide');
             alsglance.dashboard.settings.atThreshold = parseFloat($("#AT_Threshold").val());
@@ -441,11 +442,12 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         alsglance.dashboard.settings.layout = alsglance.dashboard.settings.layout || [];
 
         if (alsglance.dashboard.settings.showPredictions == null) {
-            alsglance.dashboard.settings.showPredictions = true;
+            alsglance.dashboard.settings.showPredictions = alsglance.dashboard.settings.showFailureThresHold = true;
             alsglance.dashboard.settings.atThreshold = alsglance.dashboard.settings.fcrThreshold = 0.018;
             alsglance.dashboard.settings.scmThreshold = 0.013;
         }
         $('#showPredictions').prop('checked', alsglance.dashboard.settings.showPredictions);
+        $('#showFailureThresHold').prop('checked', alsglance.dashboard.settings.showFailureThresHold);
         $("#AT_Threshold").val(alsglance.dashboard.settings.atThreshold);
         $("#FCR_Threshold").val(alsglance.dashboard.settings.fcrThreshold);
         $("#SCM_Threshold").val(alsglance.dashboard.settings.scmThreshold);
@@ -464,10 +466,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         //$.when(apiClient.get("Fact?$select=AUC&$expand=Time($select=Hour,TimeOfDay),Date($select=DayOfWeek,Weekday,Date,Year,MonthName,Quarter),Patient,Muscle($select=Name,Abbreviation)&$filter=Patient/Id eq " + alsglance.dashboard.patient.id))
         $.when(alsglance.apiClient.get("Facts?$select=AUC,TimeHour,TimeTimeOfDay,DateDayOfWeek,DateWeekday,DateDate,DateYear,DateMonthName,DateQuarter,MuscleName,MuscleAbbreviation,PatientName&$filter=PatientId eq " + alsglance.dashboard.patient.id))
             .then(function (data) {
-                data = data.value;
-                if (alsglance.dashboard.settings.showPredictions) {
-                    data = alsglance.dashboard.patient.addPredictions(data);
-                }
+                data = alsglance.dashboard.patient.addPredictions(data.value);
                 alsglance.dashboard.patient.load(data);
                 colorbrewer.showColorSchemeButton(alsglance.dashboard.settings.colorScheme); //has to be called after the charts have been created
                 alsglance.charts.setBehaviour(); //has to be called before the filters are applied
@@ -562,6 +561,10 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         alsglance.charts.muscleChart.filter([muscle]);
     },
     addPredictions: function (data) {
+        if (!alsglance.dashboard.settings.showFailureThresHold && !alsglance.dashboard.settings.showPredictions) {
+            return data;
+        }
+
         var muscles = [];
         var lastDate = moment(data[data.length - 1].DateDate);
         //data =JSON.flatten(data);
@@ -604,11 +607,15 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                         MuscleAbbreviation: muscle,
                         TimeTimeOfDay: timeOfDay
                     };
-                    var failureThreshold = jQuery.extend({}, prediction);
-                    data.push(prediction);
-                    failureThreshold.PatientName = alsglance.resources.muscleFailure;
-                    failureThreshold.AUC = auc;
-                    data.push(failureThreshold);
+                    if (alsglance.dashboard.settings.showFailureThresHold) {
+                        var failureThreshold = jQuery.extend({}, prediction);
+                        failureThreshold.PatientName = alsglance.resources.muscleFailure;
+                        failureThreshold.AUC = auc;
+                        data.push(failureThreshold);
+                    }
+                    if (alsglance.dashboard.settings.showPredictions) {
+                        data.push(prediction);
+                    }
                 }
             };
         };
