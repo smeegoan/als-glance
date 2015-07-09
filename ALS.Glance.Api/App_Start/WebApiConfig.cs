@@ -94,7 +94,7 @@ namespace ALS.Glance.Api
                     es.Property(e => e.ApplicationId).IsRequired();
                     es.HasRequired(e => e.User);
                     es.ComplexProperty(e => e.Application).IsRequired();
-                    es.Property(e => e.Value);
+                    es.HasDynamicProperties(e => e.Values);
 
                     es.Property(e => e.CreatedOn).IsRequired();
                     es.Property(e => e.UpdatedOn).IsRequired();

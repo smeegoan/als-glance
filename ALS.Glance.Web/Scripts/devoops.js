@@ -46,7 +46,6 @@ $(document).ready(function () {
         }
     });
     var height = $(window).height() - 300;
-    console.log(height);
     $('#main').css('min-height', height)
 		.on('click', '.expand-link', function (e) {
 		    var body = $('body');

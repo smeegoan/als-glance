@@ -55,6 +55,7 @@ namespace ALS.Glance.Api.Controllers
             if (entity == null)
                 return (IHttpActionResult)NotFound();
 
+            entity.Values = JsonConvert.DeserializeObject<Dictionary<string, object>>(entity.Value);
             return Ok(entity.ToSingleResult());
         }
 
@@ -93,6 +94,9 @@ namespace ALS.Glance.Api.Controllers
                 return NotFound();
 
             entity.CreatedOn = entity.UpdatedOn = DateTimeOffset.Now;
+            if (entity.Values == null)
+                entity.Values = new Dictionary<string, object>();
+            entity.Value = JsonConvert.SerializeObject(entity.Values);
             entity = await _uow.ApplicationSettings.AddAsync(entity, ct);
 
             await _uow.CommitAsync(ct);
@@ -139,7 +143,8 @@ namespace ALS.Glance.Api.Controllers
                 else
                 {
                     entityToUpdate.UpdatedOn = DateTimeOffset.Now;
-                    entityToUpdate.Value = update.Value;
+                    entityToUpdate.Values = update.Values ?? new Dictionary<string, object>();
+                    entityToUpdate.Value = JsonConvert.SerializeObject(entityToUpdate.Values);
                 }
 
                 await _uow.CommitAsync(ct);
@@ -178,6 +183,10 @@ namespace ALS.Glance.Api.Controllers
                     return NotFound();
 
                 entity.Patch(dbEntity);
+
+                if (dbEntity.Values == null)
+                    dbEntity.Values = new Dictionary<string, object>();
+                dbEntity.Value = JsonConvert.SerializeObject(dbEntity.Values);
                 dbEntity.UpdatedOn = DateTimeOffset.Now;
                 dbEntity = await _uow.ApplicationSettings.UpdateAsync(dbEntity, ct);
                 await _uow.CommitAsync(ct);

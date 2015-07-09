@@ -15,6 +15,7 @@ namespace ALS.Glance.Models
         public virtual ApplicationUser Application { get; set; }
 
         public virtual string Value { get; set; }
+        public IDictionary<string, object> Values { get; set; }
 
     }
 }
