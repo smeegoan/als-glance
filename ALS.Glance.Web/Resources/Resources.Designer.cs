@@ -313,6 +313,15 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show failure threshold.
+        /// </summary>
+        public static string PatientShowFailureThresHold {
+            get {
+                return ResourceManager.GetString("PatientShowFailureThresHold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Patient Id.
         /// </summary>
         public static string PatientsPatientId {

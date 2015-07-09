@@ -270,9 +270,6 @@
   <data name="PatientPrediction" xml:space="preserve">
     <value>Predição</value>
   </data>
-  <data name="PatientMuscleFailure" xml:space="preserve">
-    <value>Limite para falha muscular</value>
-  </data>
   <data name="SharedDataTables" xml:space="preserve">
     <value>{
     "sProcessing":   "A processar...",
@@ -306,5 +303,11 @@
   </data>
   <data name="SharedShortDays" xml:space="preserve">
     <value>[ "Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb" ]</value>
+  </data>
+  <data name="PatientMuscleFailure" xml:space="preserve">
+    <value>Limite para falha muscular</value>
+  </data>
+  <data name="PatientShowFailureThresHold" xml:space="preserve">
+    <value>Mostrar limite para falhas</value>
   </data>
 </root>

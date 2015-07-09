@@ -273,9 +273,6 @@
   <data name="PatientPrediction" xml:space="preserve">
     <value>Prediction</value>
   </data>
-  <data name="PatientMuscleFailure" xml:space="preserve">
-    <value>Muscle failure threshold</value>
-  </data>
   <data name="SharedDataTables" xml:space="preserve">
     <value>{}</value>
   </data>
@@ -293,5 +290,11 @@
   </data>
   <data name="SharedShortDays" xml:space="preserve">
     <value>[ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ]</value>
+  </data>
+  <data name="PatientMuscleFailure" xml:space="preserve">
+    <value>Muscle failure threshold</value>
+  </data>
+  <data name="PatientShowFailureThresHold" xml:space="preserve">
+    <value>Show failure threshold</value>
   </data>
 </root>
