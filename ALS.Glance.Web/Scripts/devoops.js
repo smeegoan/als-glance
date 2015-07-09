@@ -56,7 +56,7 @@ $(document).ready(function () {
 		    box.toggleClass('expanded');
 		    var currentHeight = box.find('.box-content')
 	            .height();
-		    var maxHeight = $(window).height()-100;
+		    var maxHeight = Math.min($(window).width(),$(window).height()-160);
 		    if (maxHeight == currentHeight)
 		        maxHeight = "220px";
 		    box.find('.box-content')
