@@ -52,9 +52,8 @@ namespace ALS.Glance.Api.Controllers
         /// <param name="ct"></param>
         /// <returns></returns>
         [EnableQuery,
-        ApiAuthorize(Roles.Admin, Roles.User, Roles.Application),
-        Permission(Role = Roles.User, ClaimType = ClaimTypes.Name, MustOwn = "key"),
-        Permission(Role = Roles.Application, ClaimType = ClaimTypes.Name, MustOwn = "key")]
+        ApiAuthorize(Roles.Admin, Roles.User),
+        Permission(Role = Roles.User, ClaimType = ClaimTypes.Name, MustOwn = "key")]
         public async Task<IHttpActionResult> Get([FromODataUri] string key, CancellationToken ct)
         {
             ct.ThrowIfCancellationRequested();
@@ -64,9 +63,8 @@ namespace ALS.Glance.Api.Controllers
             return Ok(user);
         }
 
-        [ApiAuthorize(Roles.Admin, Roles.User, Roles.Application),
-        Permission(Role = Roles.User, ClaimType = ClaimTypes.Name, MustOwn = "key"),
-        Permission(Role = Roles.Application, ClaimType = ClaimTypes.Name, MustOwn = "key")]
+        [ApiAuthorize(Roles.Admin, Roles.User),
+        Permission(Role = Roles.User, ClaimType = ClaimTypes.Name, MustOwn = "key")]
         public async Task<IHttpActionResult> ChangePassword([FromODataUri] string key, ODataActionParameters parameters, CancellationToken ct)
         {
             if (!ModelState.IsValid)

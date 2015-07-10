@@ -23,13 +23,13 @@ namespace ALS.Glance.Api.Controllers
             _uow = unitOfWorkFactory.Get<IALSUnitOfWork>(); 
         }
 
-        [EnableQuery, ApiAuthorize(Roles.Admin, Roles.Application, Roles.User)]
+        [EnableQuery, ApiAuthorize(Roles.Admin, Roles.User)]
         public IQueryable<DDate> Get()
         {
             return _uow.Dates.GetAll();
         }
 
-        [EnableQuery, ApiAuthorize(Roles.Admin, Roles.Application, Roles.User)]
+        [EnableQuery, ApiAuthorize(Roles.Admin, Roles.User)]
         public async Task<IHttpActionResult> Get([FromODataUri] long key, CancellationToken ct)
         {
             var entity = await _uow.Dates.GetByIdAsync(key, ct);

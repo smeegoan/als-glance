@@ -41,8 +41,7 @@ namespace ALS.Glance.Api.Controllers
         }
 
         [EnableQuery,
-        EnableCors, ApiAuthorize(Roles.Admin, Roles.Application, Roles.User), 
-        Permission(Role = Roles.User, ClaimType = ClaimTypes.Name, MustOwn = "UserId")]
+        EnableCors, ApiAuthorize(Roles.Admin, Roles.User)]
         public async Task<IHttpActionResult> Get(
             [FromODataUri] string userId, [FromODataUri] string applicationId, CancellationToken ct)
         {
@@ -60,7 +59,7 @@ namespace ALS.Glance.Api.Controllers
 
         #region ODataPost
 
-        [EnableCors, ApiAuthorize(Roles.Admin, Roles.Application, Roles.User)]
+        [EnableCors, ApiAuthorize(Roles.Admin, Roles.User)]
         public async Task<IHttpActionResult> Post(ApplicationSettings entity, CancellationToken ct)
         {
             if (!ModelState.IsValid)

@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using ALS.Glance.DataAgents;
 using Microsoft.AspNet.Identity;
 using ALS.Glance.DataAgents.Interfaces;
 using ALS.Glance.Models.Core;
@@ -34,15 +35,16 @@ namespace ALS.Glance.Web.Controllers
 
 
         [MvcAuthorize(Roles.AdminRole, Roles.UserRole)]
-        public JavaScriptResult ApiAuth()
+        public async Task<JavaScriptResult> ApiAuth(CancellationToken ct)
         {
-            var token = _credentials.ApplicationToken;
+            var auth = await WebApiODataContainer.Using(_apiUrl, _credentials)
+                .AuthenticateAsync(ct);
             var script = string.Format(@"var alsglance = alsglance || {{}}; " +
                                        "alsglance.authToken = '{0}'; " +
                                        "alsglance.baseUri = '{1}';" +
                                        "alsglance.applicationId='{2}';" +
                                        "alsglance.dashboardUserId='{3}';" +
-                                       "alsglance.userId='{4}';", token,
+                                       "alsglance.userId='{4}';", auth.Authorization.AccessToken,
                                        _apiUrl,
                                        Settings.Default.ApplicationId,
                                        User.Identity.GetUserId(),

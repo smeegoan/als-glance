@@ -22,7 +22,7 @@ namespace ALS.Glance.Api.Controllers
             _uow = unitOfWorkFactory.Get<IALSUnitOfWork>();
         }
 
-        [EnableQuery, EnableCors, ApiAuthorize(Roles.Admin, Roles.Application, Roles.User)]
+        [EnableQuery, EnableCors, ApiAuthorize(Roles.Admin, Roles.User)]
         public IQueryable<DMuscle> Get()
         {
             var cache = new ResponseCache<IEnumerable<DMuscle>>(false, DefaultCacheTime.Long);
@@ -35,7 +35,7 @@ namespace ALS.Glance.Api.Controllers
             return muscles.AsQueryable();
         }
 
-        [EnableQuery, ApiAuthorize(Roles.Admin, Roles.Application, Roles.User)]
+        [EnableQuery, ApiAuthorize(Roles.Admin, Roles.User)]
         public async Task<IHttpActionResult> Get([FromODataUri] long key, CancellationToken ct)
         {
             var muscle = await _uow.Muscles.GetByIdAsync(key, ct);

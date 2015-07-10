@@ -9,8 +9,8 @@ namespace ALS.Glance.Web.Security
     {
         public static readonly string[] AuthorizedRoles = { AdminRole, UserRole };
 
-        public const string AdminRole = "Admin";
-        public const string UserRole = "User";
+        public const string AdminRole = "admin";
+        public const string UserRole = "user";
 
         public static bool IsRoleAuthorized(this string role)
         {

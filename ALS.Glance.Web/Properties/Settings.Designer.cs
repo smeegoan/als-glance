@@ -25,7 +25,7 @@ namespace ALS.Glance.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ALS Glance")]
+        [global::System.Configuration.DefaultSettingValueAttribute("als.glance.web")]
         public string User {
             get {
                 return ((string)(this["User"]));

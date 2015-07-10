@@ -31,7 +31,7 @@ namespace ALS.Glance.Api.Controllers
 
         #region ODataGet
 
-        [EnableQuery, EnableCors, ApiAuthorize(Roles.Admin, Roles.Application,Roles.User)]
+        [EnableQuery, EnableCors, ApiAuthorize(Roles.Admin,Roles.User)]
         public IQueryable<Facts> Get(ODataQueryOptions<Facts> options)
         {
             var parameters = _binder.BindFilter(options.Filter, ex =>
@@ -59,7 +59,7 @@ namespace ALS.Glance.Api.Controllers
             return _uow.IndexedFacts.GetAll();
         }
 
-        [EnableQuery, ApiAuthorize(Roles.Admin, Roles.Application, Roles.User)]
+        [EnableQuery, ApiAuthorize(Roles.Admin, Roles.User)]
         public async Task<IHttpActionResult> Get([FromODataUri] long key, ODataQueryOptions<Facts> options, CancellationToken ct)
         {
             var entity = await _uow.IndexedFacts.GetByIdAsync(key, ct);

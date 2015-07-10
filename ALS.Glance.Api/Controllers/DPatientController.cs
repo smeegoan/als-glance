@@ -24,7 +24,7 @@ namespace ALS.Glance.Api.Controllers
             _uow = unitOfWorkFactory.Get<IALSUnitOfWork>();
         }
 
-        [EnableQuery, EnableCors, ApiAuthorize(Roles.Admin, Roles.Application, Roles.User)]
+        [EnableQuery, EnableCors, ApiAuthorize(Roles.Admin, Roles.User)]
         public IQueryable<DPatient> Get()
         {
             var cache = new ResponseCache<IEnumerable<DPatient>>(false, DefaultCacheTime.Long);
@@ -37,7 +37,7 @@ namespace ALS.Glance.Api.Controllers
             return patients.AsQueryable();
         }
 
-        [EnableQuery, ApiAuthorize(Roles.Admin, Roles.Application, Roles.User)]
+        [EnableQuery, ApiAuthorize(Roles.Admin, Roles.User)]
         public async Task<IHttpActionResult> Get([FromODataUri] long key, CancellationToken ct)
         {
             var cache = new ResponseCache<DPatient>(false, DefaultCacheTime.Long);
@@ -52,7 +52,7 @@ namespace ALS.Glance.Api.Controllers
             return Ok(SingleResult.Create(new[] { entity }.AsQueryable()));
         }
 
-        [HttpGet, ApiAuthorize(Roles.Admin, Roles.Application, Roles.User)]
+        [HttpGet, ApiAuthorize(Roles.Admin, Roles.User)]
         public IHttpActionResult GetYearBounds([FromODataUri] long key)
         {
             var cache = new ResponseCache<YearBounds>(false, DefaultCacheTime.Long);
@@ -74,7 +74,7 @@ namespace ALS.Glance.Api.Controllers
             return Ok(bounds);
         }
 
-        [HttpGet, ApiAuthorize(Roles.Admin, Roles.Application, Roles.User)]
+        [HttpGet, ApiAuthorize(Roles.Admin, Roles.User)]
         public IHttpActionResult GetAgeBounds()
         {
             var cache = new ResponseCache<AgeBounds>(false, DefaultCacheTime.Long);

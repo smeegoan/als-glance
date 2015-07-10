@@ -426,12 +426,12 @@ namespace ALS.Glance.DataAgents
                 });
         }
 
-        private async Task<AuthorizationInfo> AuthenticateAsync(CancellationToken ct)
+        public async Task<AuthorizationInfo> AuthenticateAsync(CancellationToken ct)
         {
             return await Task<AuthorizationInfo>.Factory.StartNew(Authenticate, ct);
         }
 
-        private class AuthorizationInfo
+        public class AuthorizationInfo
         {
             private readonly Authorization _authorization;
 

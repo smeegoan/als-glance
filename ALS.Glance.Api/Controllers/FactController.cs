@@ -26,13 +26,13 @@ namespace ALS.Glance.Api.Controllers
 
         #region ODataGet
 
-        [EnableQuery, EnableCors, ApiAuthorize(Roles.Admin, Roles.Application, Roles.User)]
+        [EnableQuery, EnableCors, ApiAuthorize(Roles.Admin, Roles.User)]
         public IQueryable<Fact> Get()
         {
             return _uow.Facts.GetAll();
         }
 
-        [EnableQuery, ApiAuthorize(Roles.Admin, Roles.Application, Roles.User)]
+        [EnableQuery, ApiAuthorize(Roles.Admin, Roles.User)]
         public async Task<IHttpActionResult> Get([FromODataUri] long key, CancellationToken ct)
         {
             var entity = await _uow.Facts.GetByIdAsync(key, ct);
