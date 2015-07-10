@@ -464,7 +464,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
     },
     loadFacts: function () {
         //$.when(apiClient.get("Fact?$select=AUC&$expand=Time($select=Hour,TimeOfDay),Date($select=DayOfWeek,Weekday,Date,Year,MonthName,Quarter),Patient,Muscle($select=Name,Abbreviation)&$filter=Patient/Id eq " + alsglance.dashboard.patient.id))
-        $.when(alsglance.apiClient.get("Facts?$select=AUC,TimeHour,TimeTimeOfDay,DateDayOfWeek,DateWeekday,DateDate,DateYear,DateMonthName,DateQuarter,MuscleName,MuscleAbbreviation,PatientName&$filter=PatientId eq " + alsglance.dashboard.patient.id))
+        $.when(alsglance.apiClient.get("Facts?$select=AUC,TimeHour,TimeTimeOfDay,DateDate,DateYear,DateMonthName,DateQuarter,MuscleAbbreviation,PatientName&$filter=PatientId eq " + alsglance.dashboard.patient.id))
             .then(function (data) {
                 data = alsglance.dashboard.patient.addPredictions(data.value);
                 alsglance.dashboard.patient.load(data);
@@ -602,8 +602,6 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                         DateYear: parseInt(startDate.format("YYYY")),
                         DateQuarter: startDate.quarter(),
                         PatientName: alsglance.resources.prediction,
-                        DateDayOfWeek: startDate.format("dddd"),
-                        MuscleName: muscle,
                         MuscleAbbreviation: muscle,
                         TimeTimeOfDay: timeOfDay
                     };
@@ -622,6 +620,9 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         return data;
     },
     loadEmg: function () {
+        if (alsglance.dashboard.patient.muscle == null) {
+            return;
+        }
         var timeOfDayFilter = function (timeOfDay) {
             var filter = null;
             for (var i = 0; i < timeOfDay.length; i++) {
@@ -629,7 +630,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             }
             return " and (" + filter + ")";
         };
-        var url = "Facts?$top=1&$select=DateDate,EMG&$filter=PatientId%20eq%20" + alsglance.dashboard.patient.id + " and EMG ne null " +
+        var url = "Facts?$top=1&$select=EMG&$filter=PatientId%20eq%20" + alsglance.dashboard.patient.id + " and EMG ne null " +
         (alsglance.dashboard.patient.timeOfDay != null ? timeOfDayFilter(alsglance.dashboard.patient.timeOfDay) : "") +
         (alsglance.dashboard.patient.muscle != null ? " and MuscleAbbreviation eq '" + alsglance.dashboard.patient.muscle + "' " : "") +
         (alsglance.dashboard.patient.endDate != null ? " and DateDate le " + alsglance.dashboard.patient.endDate.format('YYYY-MM-DDTHH:mm') + "%2B00:00&$orderby=DateDate desc" : "");
