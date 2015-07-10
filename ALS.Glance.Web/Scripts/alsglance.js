@@ -284,7 +284,7 @@ alsglance.presentation = alsglance.presentation || {
                 if (settings.progressType) {
                     $dialog.find('.progress-bar').addClass('progress-bar-' + settings.progressType);
                 }
-                $dialog.find('h6').html(alsglance.resources.loadingMessage + '...<br/><br/><b>' + message + '</b>');
+                $dialog.find('h6').html(alsglance.resources.loadingMessage + '<br/><br/><b>' + message + '</b>');
                 // Opening dialog
                 $dialog.modal();
                 analytics.logUiEvent("viewResume", "Patient", "dashboard");
@@ -473,8 +473,6 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                 alsglance.charts.resizeAll();
                 alsglance.dashboard.patient.reset();
                 alsglance.dashboard.patient.applyFilters(alsglance.dashboard.settings["P" + alsglance.dashboard.patient.id]);
-
-
             });
     },
     saveSettings: function () {
@@ -492,21 +490,10 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         entity.UserId = alsglance.dashboardUserId;
         entity.ApplicationId = alsglance.applicationId;
         entity.Value = JSON.stringify(alsglance.dashboard.settings);
-        $.ajax({
-            type: "POST",
-            url: alsglance.baseUri + "ApplicationSettings",
-            data: JSON.stringify(
-                entity
-            ),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (data) {
+        $.when(alsglance.apiClient.post("ApplicationSettings", JSON.stringify(entity)))
+            .then(function(data) {
                 toastr.success(alsglance.resources.saveMessage, 'ALS Glance');
-            },
-            failure: function (errMsg) {
-                toastr.error(errMsg, 'ALS Glance');
-            }
-        });
+            });
     },
     applyFilters: function (filterObjects) {
         if (filterObjects == null || filterObjects.length == 0)

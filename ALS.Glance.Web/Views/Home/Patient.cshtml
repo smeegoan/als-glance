@@ -332,6 +332,7 @@
             try {
                 settings = JSON.parse(decodeURIComponent('@Html.Raw(Model.Settings)'));
             } catch (err) {
+                toastr.error(err.message, 'ALS Glance');
             }
             alsglance.dashboard.patient.loadSettings(settings);
             alsglance.dashboard.patient.loadFacts();
