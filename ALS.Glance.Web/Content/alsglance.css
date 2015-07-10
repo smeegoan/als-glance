@@ -72,7 +72,7 @@ textarea {
     margin-top: 150px;
 }
 
-.loading {
+.loading, .loadingEmg {
     text-align: center;
     padding-top: 30px;
     padding-bottom: 30px;
@@ -131,9 +131,10 @@ textarea {
     padding-bottom: 50px;
     text-align: center;
 }
-.intro-header img {
-    padding-top: 150px;
-}
+
+    .intro-header img {
+        padding-top: 150px;
+    }
 
 
 .intro-message {
@@ -141,11 +142,12 @@ textarea {
     text-align: justify;
     padding-right: 30px;
 }
-.intro-message h4,  p {
-    position: relative;
-    text-align: justify;
-    padding-left: 20px;
-}
+
+    .intro-message h4, p {
+        position: relative;
+        text-align: justify;
+        padding-left: 20px;
+    }
 
     .intro-message > h1 {
         margin: 0;

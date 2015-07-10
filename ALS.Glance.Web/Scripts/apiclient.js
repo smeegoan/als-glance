@@ -1,4 +1,5 @@
-﻿alsglance.ApiClient = function (config) {
+﻿'use strict';
+alsglance.ApiClient = function (config) {
     var authToken = config.authToken,
         baseUri = config.baseUri,
         configureRequest = function (xhr) {

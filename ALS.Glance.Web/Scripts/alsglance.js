@@ -633,6 +633,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                     alsglance.dashboard.patient.lastUrl = url;
                 }
                 alsglance.dashboard.patient.renderEmg();
+                $(".loadingEmg").remove();
             });
     },
     toggleEmgEnvelope: function () {
