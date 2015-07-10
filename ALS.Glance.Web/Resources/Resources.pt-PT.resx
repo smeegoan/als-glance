@@ -124,7 +124,7 @@
     <value>&lt;h4&gt;Flexor radial do carpo&lt;/h4&gt;&lt;p&gt;O músculo flexor radial do carpo tem origem no tendão flexor comum no epicôndilo medial do úmero e se insere na base do 2 e 3 metacarpos. Suas ações são: Flexão e abdução (Desvio Radial) da mão.&lt;/p&gt;&lt;p&gt;&lt;a class="btn btn-default" href="https://pt.wikipedia.org/wiki/M%C3%BAsculo_flexor_radial_do_carpo"&gt;Saber mais &amp;raquo;&lt;/a&gt;&lt;/p&gt;</value>
   </data>
   <data name="HomeIntroduction" xml:space="preserve">
-    <value>&lt;p&gt;&lt;br /&gt;A electromiografia (EMG) é uma técnica experimental dedicada á monitorização e gravação da atividade elétrica das membranas excitáveis. Estes sinais são formados por mudanças fisiológicas no estado das membranas fibrosas dos músculos.&lt;/p&gt;&lt;p&gt;A electromiografia cinesiológica além de funcionar como um instrumento padrão para a avaliação neuromuscular pode ser um auxiliar extremamente útil no diagnóstico de pacientes com esclerose múltipla.&lt;/p&gt;&lt;p&gt;Para se analisar e comparar sinais EMGs de diferentes pacientes, músculos e aquisições são usadas técnicas de normalização e posteriormente é calculado o sinal EMG integrado (IEMG) usado para avaliar o nível de atividade dos diferentes músculos. O IEMG é a área sobre a curva retificada (AUC).&lt;/p&gt;&lt;p&gt;Este site pretende facilitar o diagnóstico de pacientes com esclerose lateral amiotrófica (ALS) através da análise dos dados recolhidos por dispositivos que recolhem atividade elétrica de diferentes músculos.&lt;/p&gt;</value>
+    <value>&lt;p&gt;&lt;br /&gt;A eletromiografia (EMG) é uma técnica experimental dedicada á monitorização e gravação da atividade elétrica das membranas excitáveis. Estes sinais são formados por mudanças fisiológicas no estado das membranas fibrosas dos músculos.&lt;/p&gt;&lt;p&gt;A eletromiografia cinesiológica além de funcionar como um instrumento padrão para a avaliação neuromuscular pode ser um auxiliar extremamente útil no diagnóstico de pacientes com esclerose múltipla.&lt;/p&gt;&lt;p&gt;Para se analisar e comparar sinais EMGs de diferentes pacientes, músculos e aquisições são usadas técnicas de normalização e posteriormente é calculado o sinal EMG integrado (IEMG) usado para avaliar o nível de atividade dos diferentes músculos. O IEMG é a área sobre a curva retificada (AUC).&lt;/p&gt;&lt;p&gt;Este site pretende facilitar o diagnóstico de pacientes com esclerose lateral amiotrófica (ALS) através da análise dos dados recolhidos por dispositivos que recolhem atividade elétrica de diferentes músculos.&lt;/p&gt;</value>
   </data>
   <data name="HomeSternocleidomastoid" xml:space="preserve">
     <value>&lt;h4&gt;Esternocleidomastoideu&lt;/h4&gt;&lt;p&gt;Na anatomia humana, o esternocleidomastoideu é um músculo da face lateral do pescoço, na região anterolateral. É o principal flexor do pescoço. Largo e robusto, é constituído, no tramo torácico, por duas “cabeças”: a esternal e a clavicular.&lt;/p&gt;&lt;p&gt;&lt;a class="btn btn-default" href="https://pt.wikipedia.org/wiki/M%C3%BAsculo_esternocleidomastoideo"&gt;Saber mais  &amp;raquo;&lt;/a&gt;&lt;/p&gt;</value>
@@ -175,7 +175,7 @@
     <value>Id Paciente</value>
   </data>
   <data name="PatientsSex" xml:space="preserve">
-    <value>Sexo</value>
+    <value>Género</value>
   </data>
   <data name="PatientsTip2" xml:space="preserve">
     <value>Escreva aqui para filtrar os pacientes por nome.</value>
@@ -256,7 +256,7 @@
     <value>Esquemas de Cores</value>
   </data>
   <data name="PatientsTip1" xml:space="preserve">
-    <value>Clique nas bolas para filtrar os pacientes por sexo.</value>
+    <value>Clique nas bolas para filtrar os pacientes por género.</value>
   </data>
   <data name="PatientsTip3" xml:space="preserve">
     <value>Clique aqui para ver o resumo do paciente.</value>
@@ -296,7 +296,7 @@
     <value>[ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ]</value>
   </data>
   <data name="SharedShortMonths" xml:space="preserve">
-    <value>[ "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez" ]</value>
+    <value>[ "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]</value>
   </data>
   <data name="PatientTip7" xml:space="preserve">
     <value>Clique aqui para alternar entre a vista normal e a vista envelopada.</value>
