@@ -299,7 +299,7 @@
     <value>[ "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]</value>
   </data>
   <data name="PatientTip7" xml:space="preserve">
-    <value>Clique aqui para alternar entre a vista normal e a vista envelopada.</value>
+    <value>Clique aqui para alternar entre a vista normal e a vista envolvente.</value>
   </data>
   <data name="SharedShortDays" xml:space="preserve">
     <value>[ "Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb" ]</value>

@@ -192,6 +192,8 @@ alsglance.presentation = alsglance.presentation || {
                             droppable.resize();
                             draggable.css("width",''); //required for Firefox
                             droppable.css("width", '');//required for Firefox
+                            draggable.css("height", ''); //required for Firefox
+                            droppable.css("height", '');//required for Firefox
                             alsglance.charts.resizeAll();
                         }
                     }, 50);
@@ -642,14 +644,25 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         alsglance.dashboard.settings.envelopeEmg = !alsglance.dashboard.settings.envelopeEmg;
     },
     renderEmg: function () {
-        var envelope = function (arr) {
-            return arr.map(function (value) {
-                return [value[0], Math.abs(value[1])];
-            });
+        var averageAbs = function (arr,start,end) {
+            var sum = 0;
+            end = Math.min(end, arr.length);
+            for (var i = start; i < end; i++) {
+                sum += parseInt(Math.abs(arr[i][1]), 10); //don't forget to add the base
+            }
+            return sum / arr.length;
         };
+
         var data = alsglance.charts.emgData;
         if (alsglance.dashboard.settings.envelopeEmg) {
-            data = envelope(data);
+            var windowSize = 15;
+            var smoothEnvelope = [];
+            var size;
+            for (var i = 0; i < data.length; i++) {
+                size = Math.min(windowSize, data.length - windowSize, Math.abs(windowSize - i));
+                smoothEnvelope.push([i, averageAbs(data, i, i + size - 1)]);
+            }
+            data = smoothEnvelope;
         }
         alsglance.charts.emgChart = new Dygraph(document.getElementById("emgChart"), data, {
             labels: [alsglance.resources.time, 'µV'],
