@@ -15,7 +15,7 @@ namespace ALS.Glance.Api
             _container = IoCManager.NewContainer();
 
             GlobalConfiguration.Configure(WebApiConfig.Register);
-
+            GlobalConfiguration.Configuration.Filters.RegisterGlobalFilters();
             GlobalConfiguration.Configuration.Services.Replace(
                 typeof(IHttpControllerActivator),
                 new WindsorApiControllerFactory(_container));

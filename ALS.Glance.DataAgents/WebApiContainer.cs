@@ -189,7 +189,7 @@ namespace ALS.Glance.DataAgents
             try
             {
                 client.BaseAddress = BaseUri;
-              //  client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session.Authorization.AccessToken);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session.Authorization.AccessToken);
 
                 var result = await funcToExecute(client);
 
@@ -378,7 +378,6 @@ namespace ALS.Glance.DataAgents
 
         private AuthorizationInfo Authenticate()
         {
-            return null;
             return AuthorizationsBag.AddOrUpdate(_userName,
                 s =>
                 {

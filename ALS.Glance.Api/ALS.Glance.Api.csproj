@@ -145,6 +145,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\ModelBuilderExtensions.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ApiUserController.cs" />
@@ -195,12 +196,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Security\Base64StringManipulationExtensions.cs" />
+    <Compile Include="Security\Extensions\Base64StringManipulationExtensions.cs" />
+    <Compile Include="Security\Results\AuthenticationFailureResult.cs" />
+    <Compile Include="Security\Extensions\HttpAuthenticationChallengeContextExtensions.cs" />
+    <Compile Include="Security\Results\AddChallengeOnUnauthorizedResult.cs" />
     <Compile Include="Security\EnableCorsAttribute.cs" />
+    <Compile Include="Security\Exceptions\ApiAuthorizationExpiredException.cs" />
+    <Compile Include="Security\Exceptions\TokenNotFoundException.cs" />
+    <Compile Include="Security\Exceptions\InvalidTokenFormatException.cs" />
+    <Compile Include="Security\Exceptions\ApiSecurityBusinessException.cs" />
+    <Compile Include="Security\Filters\IdentityBearerAuthenticationAttribute.cs" />
+    <Compile Include="Security\Filters\BearerAuthenticationAttribute.cs" />
+    <Compile Include="Security\Filters\ApiAuthenticationAttribute.cs" />
     <Compile Include="Security\SmtpEmailService.cs" />
     <Compile Include="Security\Filters\ApiAuthorizeAttribute.cs" />
     <Compile Include="Security\Filters\PermissionAttribute.cs" />
-    <Compile Include="Security\ServiceRoles.cs" />
+    <Compile Include="Security\Roles.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

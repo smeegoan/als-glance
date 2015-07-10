@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace ALS.Glance.Api.Security
+namespace ALS.Glance.Api.Security.Extensions
 {
     /// <summary>
     /// Class with extension methods for Base64 encode/decode operations

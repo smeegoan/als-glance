@@ -9,6 +9,7 @@ using ALS.Glance.Api.Helpers.ODataInterfaces;
 using ALS.Glance.Api.Models;
 using ALS.Glance.Api.Properties;
 using ALS.Glance.Api.Security;
+using ALS.Glance.Api.Security.Extensions;
 using ALS.Glance.Models.Security.Implementations;
 using ALS.Glance.UoW;
 using ALS.Glance.UoW.Core;
@@ -141,7 +142,7 @@ namespace ALS.Glance.Api.Controllers
             user.EmailConfirmed = false;
             user.CreatedOn = user.UpdatedOn = DateTimeOffset.Now;
             user.CreatedBy = user.UpdatedBy = "web.api";
-            foreach (var roleId in ServiceRoles.DefaultRoles)
+            foreach (var roleId in Roles.DefaultRoles)
                 user.Roles.Add(new IdentityUserRole { UserId = user.Id, RoleId = roleId });
 
             ct.ThrowIfCancellationRequested();
@@ -171,7 +172,7 @@ namespace ALS.Glance.Api.Controllers
              user.EmailConfirmed = false;
             user.UpdatedOn = DateTimeOffset.Now;
             user.UpdatedBy = "web.api";
-            foreach (var roleId in ServiceRoles.DefaultRoles
+            foreach (var roleId in Roles.DefaultRoles
                 .Where(roleId => user.Roles.All(e => e.RoleId != roleId)))
                 user.Roles.Add(new IdentityUserRole { UserId = user.Id, RoleId = roleId });
 

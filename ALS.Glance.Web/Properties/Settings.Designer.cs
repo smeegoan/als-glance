@@ -34,7 +34,7 @@ namespace ALS.Glance.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("--P>5-F(5dNhymT=%!")]
+        [global::System.Configuration.DefaultSettingValueAttribute("P>5-F(5dNhymT=%!")]
         public string Password {
             get {
                 return ((string)(this["Password"]));

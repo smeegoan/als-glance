@@ -9,6 +9,7 @@ using ALS.Glance.Api.Helpers.ODataInterfaces;
 using ALS.Glance.Api.Models;
 using ALS.Glance.Api.Properties;
 using ALS.Glance.Api.Security;
+using ALS.Glance.Api.Security.Extensions;
 using ALS.Glance.Models.Security;
 using ALS.Glance.Models.Security.Implementations;
 using ALS.Glance.UoW;
@@ -21,8 +22,7 @@ namespace ALS.Glance.Api.Controllers
     /// 
     /// </summary>
     [AllowAnonymous]
-    public class AuthorizationRequestController : ODataController, ODataGet<AuthorizationRequest>.WithKey<string, string, string>, 
-        ODataPost<AuthorizationRequest>
+    public class AuthorizationRequestController : ODataController, ODataPost<AuthorizationRequest>
     {
         private readonly IALSUnitOfWork _uow;
 
@@ -33,25 +33,6 @@ namespace ALS.Glance.Api.Controllers
         {
             _uow = unitOfWorkFactory.Get<IALSUnitOfWork>();
         }
-
-        #region ODataGet<AuthorizationRequest>.WithKey<string, string, string>
-
-        [EnableQuery, AllowAnonymous]
-        public IQueryable<AuthorizationRequest> Get()
-        {
-            throw new HttpResponseException(Request.CreateNotImplementedResponse());
-        }
-
-        [EnableQuery, AllowAnonymous]
-        public Task<IHttpActionResult> Get(
-            [FromODataUri] string applicationId, [FromODataUri] string userName, 
-            [FromODataUri] string password, CancellationToken ct)
-        {
-            throw new HttpResponseException(Request.CreateNotImplementedResponse());    
-
-        }
-
-        #endregion
 
         #region ODataPost<AuthorizationRequest>
 

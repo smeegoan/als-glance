@@ -5,6 +5,7 @@ using ALS.Glance.Api.Helpers;
 using ALS.Glance.Api.Helpers.Binder;
 using ALS.Glance.Api.Helpers.Cache;
 using ALS.Glance.Api.Security;
+using ALS.Glance.Api.Security.Filters;
 using ALS.Glance.Models;
 using ALS.Glance.UoW;
 using ALS.Glance.UoW.Core;
@@ -30,7 +31,7 @@ namespace ALS.Glance.Api.Controllers
 
         #region ODataGet
 
-        [EnableQuery, EnableCors]
+        [EnableQuery, EnableCors, ApiAuthorize(Roles.Admin, Roles.Application,Roles.User)]
         public IQueryable<Facts> Get(ODataQueryOptions<Facts> options)
         {
             var parameters = _binder.BindFilter(options.Filter, ex =>
@@ -58,7 +59,7 @@ namespace ALS.Glance.Api.Controllers
             return _uow.IndexedFacts.GetAll();
         }
 
-        [EnableQuery]
+        [EnableQuery, ApiAuthorize(Roles.Admin, Roles.Application, Roles.User)]
         public async Task<IHttpActionResult> Get([FromODataUri] long key, ODataQueryOptions<Facts> options, CancellationToken ct)
         {
             var entity = await _uow.IndexedFacts.GetByIdAsync(key, ct);

@@ -9,6 +9,8 @@ using ALS.Glance.Api.Helpers.ODataInterfaces;
 using ALS.Glance.Api.Models;
 using ALS.Glance.Api.Properties;
 using ALS.Glance.Api.Security;
+using ALS.Glance.Api.Security.Extensions;
+using ALS.Glance.Api.Security.Filters;
 using ALS.Glance.Models.Security.Implementations;
 using ALS.Glance.UoW;
 using ALS.Glance.UoW.Core;
@@ -34,7 +36,7 @@ namespace ALS.Glance.Api.Controllers
 
         #region ODataGet<AuthorizationRefresh>.WithKey<string, string>
 
-        [EnableQuery]
+        [EnableQuery, ApiAuthorize(Roles.Admin)]
         public IQueryable<AuthorizationRefresh> Get()
         {
             throw new HttpResponseException(Request.CreateNotImplementedResponse());

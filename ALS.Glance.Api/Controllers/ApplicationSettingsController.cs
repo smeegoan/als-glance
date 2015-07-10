@@ -33,8 +33,7 @@ namespace ALS.Glance.Api.Controllers
 
         #region ODataGet
 
-        [EnableQuery
-            //, ApiAuthorize(ServiceRoles.Admin)
+        [EnableQuery, ApiAuthorize(Roles.Admin)
         ]
         public IQueryable<ApplicationSettings> Get()
         {
@@ -42,10 +41,8 @@ namespace ALS.Glance.Api.Controllers
         }
 
         [EnableQuery,
-        EnableCors,
-            //ApiAuthorize(ServiceRoles.Admin, ServiceRoles.User),
-            //Permission(Role = ServiceRoles.User, ClaimType = ClaimTypes.Name, MustOwn = "UserId")
-        ]
+        EnableCors, ApiAuthorize(Roles.Admin, Roles.Application, Roles.User), 
+        Permission(Role = Roles.User, ClaimType = ClaimTypes.Name, MustOwn = "UserId")]
         public async Task<IHttpActionResult> Get(
             [FromODataUri] string userId, [FromODataUri] string applicationId, CancellationToken ct)
         {
@@ -63,14 +60,13 @@ namespace ALS.Glance.Api.Controllers
 
         #region ODataPost
 
-        //        [ApiAuthorize(ServiceRoles.Admin, ServiceRoles.User)]
-        [EnableCors]
+        [EnableCors, ApiAuthorize(Roles.Admin, Roles.Application, Roles.User)]
         public async Task<IHttpActionResult> Post(ApplicationSettings entity, CancellationToken ct)
         {
             if (!ModelState.IsValid)
                 return Request.CreateBadRequestResult(Resources.BadRequestErrorMessage, ModelState);
 
-          
+
             var dbEntity =
                 await _uow.ApplicationSettings.GetByUserIdAndApplicationIdAsync(
                     entity.UserId, entity.ApplicationId, ct);
@@ -108,9 +104,9 @@ namespace ALS.Glance.Api.Controllers
 
         #region ODataPut
 
-        //[ApiAuthorize(ServiceRoles.Admin, ServiceRoles.User),
-        //Permission(Role = ServiceRoles.User, ClaimType = ClaimTypes.Name, MustOwn = "UserId")]
-        [EnableCors,
+        [ApiAuthorize(Roles.Admin, Roles.User),
+        Permission(Role =Roles.User, ClaimType = ClaimTypes.Name, MustOwn = "UserId"),
+        EnableCors,
         EnableQuery]
         public async Task<IHttpActionResult> Put(
             [FromODataUri] string userId, [FromODataUri] string applicationId, ApplicationSettings update, CancellationToken ct)
@@ -164,8 +160,8 @@ namespace ALS.Glance.Api.Controllers
 
         #region ODataPatch
 
-        [ApiAuthorize(ServiceRoles.Admin, ServiceRoles.User),
-        Permission(Role = ServiceRoles.User, ClaimType = ClaimTypes.Name, MustOwn = "UserId")]
+        [ApiAuthorize(Roles.Admin, Roles.User),
+        Permission(Role = Roles.User, ClaimType = ClaimTypes.Name, MustOwn = "UserId")]
         public async Task<IHttpActionResult> Patch(
             [FromODataUri] string userId, [FromODataUri] string applicationId, Delta<ApplicationSettings> entity, CancellationToken ct)
         {
@@ -206,9 +202,7 @@ namespace ALS.Glance.Api.Controllers
 
         #region ODataDelete
 
-#warning Desactivar delete dos utilizadores normais
-
-        [ApiAuthorize(ServiceRoles.Admin, ServiceRoles.User)]
+        [ApiAuthorize(Roles.Admin)]
         public async Task<IHttpActionResult> Delete(
             [FromODataUri] string userId, [FromODataUri] string applicationId, CancellationToken ct)
         {

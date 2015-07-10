@@ -6,7 +6,7 @@
       <Value Profile="(Default)">ALS Glance</Value>
     </Setting>
     <Setting Name="Password" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">--P&gt;5-F(5dNhymT=%!</Value>
+      <Value Profile="(Default)">P&gt;5-F(5dNhymT=%!</Value>
     </Setting>
     <Setting Name="ApiUrl" Type="System.String" Scope="Application">
       <Value Profile="(Default)">http://localhost/ALS.Glance.Api/odata/</Value>

@@ -8,6 +8,7 @@ using ALS.Glance.Api.Helpers;
 using ALS.Glance.Api.Models;
 using ALS.Glance.Api.Properties;
 using ALS.Glance.Api.Security;
+using ALS.Glance.Api.Security.Extensions;
 using ALS.Glance.Api.Security.Filters;
 using ALS.Glance.Models.Security.Implementations;
 using ALS.Glance.UoW;
@@ -38,7 +39,7 @@ namespace ALS.Glance.Api.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [EnableQuery, ApiAuthorize(ServiceRoles.Admin)]
+        [EnableQuery, ApiAuthorize(Roles.Admin)]
         public IQueryable<IdentityUser> Get()
         {
             return _uow.Security.BaseIdentities.GetAll();
@@ -51,9 +52,9 @@ namespace ALS.Glance.Api.Controllers
         /// <param name="ct"></param>
         /// <returns></returns>
         [EnableQuery,
-        ApiAuthorize(ServiceRoles.Admin, ServiceRoles.User, ServiceRoles.Application),
-        Permission(Role = ServiceRoles.User, ClaimType = ClaimTypes.Name, MustOwn = "key"),
-        Permission(Role = ServiceRoles.Application, ClaimType = ClaimTypes.Name, MustOwn = "key")]
+        ApiAuthorize(Roles.Admin, Roles.User, Roles.Application),
+        Permission(Role = Roles.User, ClaimType = ClaimTypes.Name, MustOwn = "key"),
+        Permission(Role = Roles.Application, ClaimType = ClaimTypes.Name, MustOwn = "key")]
         public async Task<IHttpActionResult> Get([FromODataUri] string key, CancellationToken ct)
         {
             ct.ThrowIfCancellationRequested();
@@ -63,9 +64,9 @@ namespace ALS.Glance.Api.Controllers
             return Ok(user);
         }
 
-        [ApiAuthorize(ServiceRoles.Admin, ServiceRoles.User, ServiceRoles.Application),
-        Permission(Role = ServiceRoles.User, ClaimType = ClaimTypes.Name, MustOwn = "key"),
-        Permission(Role = ServiceRoles.Application, ClaimType = ClaimTypes.Name, MustOwn = "key")]
+        [ApiAuthorize(Roles.Admin, Roles.User, Roles.Application),
+        Permission(Role = Roles.User, ClaimType = ClaimTypes.Name, MustOwn = "key"),
+        Permission(Role = Roles.Application, ClaimType = ClaimTypes.Name, MustOwn = "key")]
         public async Task<IHttpActionResult> ChangePassword([FromODataUri] string key, ODataActionParameters parameters, CancellationToken ct)
         {
             if (!ModelState.IsValid)

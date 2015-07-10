@@ -1,6 +1,6 @@
 ﻿namespace ALS.Glance.Api.Security
 {
-    public class ServiceRoles
+    public class Roles
     {
         public static readonly string[] DefaultRoles = { User };
 

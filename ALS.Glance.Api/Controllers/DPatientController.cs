@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 using System.Web.OData;
-using ALS.Glance.Api.Helpers;
 using ALS.Glance.Api.Helpers.Cache;
 using ALS.Glance.Api.Models;
 using ALS.Glance.Api.Security;
+using ALS.Glance.Api.Security.Filters;
 using ALS.Glance.Models;
 using ALS.Glance.UoW;
 using ALS.Glance.UoW.Core;
@@ -25,7 +24,7 @@ namespace ALS.Glance.Api.Controllers
             _uow = unitOfWorkFactory.Get<IALSUnitOfWork>();
         }
 
-        [EnableQuery, EnableCors]
+        [EnableQuery, EnableCors, ApiAuthorize(Roles.Admin, Roles.Application, Roles.User)]
         public IQueryable<DPatient> Get()
         {
             var cache = new ResponseCache<IEnumerable<DPatient>>(false, DefaultCacheTime.Long);
@@ -38,7 +37,7 @@ namespace ALS.Glance.Api.Controllers
             return patients.AsQueryable();
         }
 
-        [EnableQuery]
+        [EnableQuery, ApiAuthorize(Roles.Admin, Roles.Application, Roles.User)]
         public async Task<IHttpActionResult> Get([FromODataUri] long key, CancellationToken ct)
         {
             var cache = new ResponseCache<DPatient>(false, DefaultCacheTime.Long);
@@ -53,7 +52,7 @@ namespace ALS.Glance.Api.Controllers
             return Ok(SingleResult.Create(new[] { entity }.AsQueryable()));
         }
 
-        [HttpGet]
+        [HttpGet, ApiAuthorize(Roles.Admin, Roles.Application, Roles.User)]
         public IHttpActionResult GetYearBounds([FromODataUri] long key)
         {
             var cache = new ResponseCache<YearBounds>(false, DefaultCacheTime.Long);
@@ -75,7 +74,7 @@ namespace ALS.Glance.Api.Controllers
             return Ok(bounds);
         }
 
-        [HttpGet]
+        [HttpGet, ApiAuthorize(Roles.Admin, Roles.Application, Roles.User)]
         public IHttpActionResult GetAgeBounds()
         {
             var cache = new ResponseCache<AgeBounds>(false, DefaultCacheTime.Long);
