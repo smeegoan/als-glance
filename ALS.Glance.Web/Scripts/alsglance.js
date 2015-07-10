@@ -190,6 +190,8 @@ alsglance.presentation = alsglance.presentation || {
                         else {
                             draggable.resize();
                             droppable.resize();
+                            draggable.css("width",''); //required for Firefox
+                            droppable.css("width", '');//required for Firefox
                             alsglance.charts.resizeAll();
                         }
                     }, 50);
