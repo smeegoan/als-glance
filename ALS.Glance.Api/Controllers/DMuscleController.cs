@@ -4,9 +4,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.OData;
-using ALS.Glance.Api.Helpers.Cache;
+using ALS.Glance.Api.Properties;
 using ALS.Glance.Api.Security;
 using ALS.Glance.Api.Security.Filters;
+using ALS.Glance.Core.Cache;
+using ALS.Glance.Core.Security;
 using ALS.Glance.Models;
 using ALS.Glance.UoW;
 using ALS.Glance.UoW.Core;
@@ -16,17 +18,19 @@ namespace ALS.Glance.Api.Controllers
     public class DMuscleController : ODataController,
         ODataGet<DMuscle>.WithKey<long>
     {
+        private readonly Settings _settings;
         private readonly IALSUnitOfWork _uow;
-        public DMuscleController(IUnitOfWorkFactory unitOfWorkFactory)
+        public DMuscleController(IUnitOfWorkFactory unitOfWorkFactory, Settings settings)
         {
+            _settings = settings;
             _uow = unitOfWorkFactory.Get<IALSUnitOfWork>();
         }
 
         [EnableQuery, EnableCors, ApiAuthorize(Roles.Admin, Roles.User)]
         public IQueryable<DMuscle> Get()
         {
-            var cache = new ResponseCache<IEnumerable<DMuscle>>(false, DefaultCacheTime.Long);
-            var muscles = cache.GetValue(Request) ;
+            var cache = new ResponseCache<IEnumerable<DMuscle>>(false, DefaultCacheTime.Long, _settings.ResponseCacheEnabled, _settings.ResponseCacheDefaultShortTimeInMinutes, _settings.ResponseCacheDefaultLongTimeInMinutes);
+            var muscles = cache.GetValue(Request);
             if (muscles == null)
             {
                 muscles = _uow.Muscles.GetAll().ToArray();

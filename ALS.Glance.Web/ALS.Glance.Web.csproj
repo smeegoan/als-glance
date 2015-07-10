@@ -225,7 +225,6 @@
       <DependentUpon>Resources.pt-PT.resx</DependentUpon>
     </Compile>
     <Compile Include="Security\MvcAuthorizeAttribute.cs" />
-    <Compile Include="Security\Roles.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -658,6 +657,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ALS.Glance.Core\ALS.Glance.Core.csproj">
+      <Project>{45abcafa-f6a1-434e-9f3e-7840d44c9c38}</Project>
+      <Name>ALS.Glance.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ALS.Glance.DataAgents.Core\ALS.Glance.DataAgents.Core.csproj">
       <Project>{94a45480-3790-43cb-b0b8-d24fdf37e8f7}</Project>
       <Name>ALS.Glance.DataAgents.Core</Name>

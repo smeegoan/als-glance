@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Web.OData.Query;
 using ALS.Glance.Api.Helpers;
 using ALS.Glance.Api.Helpers.Binder;
-using ALS.Glance.Api.Helpers.Cache;
+using ALS.Glance.Api.Properties;
+using ALS.Glance.Core.Cache;
 using ALS.Glance.Api.Security;
 using ALS.Glance.Api.Security.Filters;
+using ALS.Glance.Core.Security;
 using ALS.Glance.Models;
 using ALS.Glance.UoW;
 using ALS.Glance.UoW.Core;
@@ -21,11 +23,13 @@ namespace ALS.Glance.Api.Controllers
         ODataGet<Facts>.WithKeyAndOptions<long>
     {
         private readonly IODataQueryOptionsBinder _binder;
+        private readonly Settings _settings;
         private readonly IALSUnitOfWork _uow;
 
-        public FactsController(IUnitOfWorkFactory unitOfWorkFactory, IODataQueryOptionsBinder binder)
+        public FactsController(IUnitOfWorkFactory unitOfWorkFactory, IODataQueryOptionsBinder binder,Settings settings)
         {
             _binder = binder;
+            _settings = settings;
             _uow = unitOfWorkFactory.Get<IALSUnitOfWork>();
         }
 
@@ -46,7 +50,7 @@ namespace ALS.Glance.Api.Controllers
 
             if (!string.IsNullOrEmpty(patientId))
             {
-                var cache = new ResponseCache<IEnumerable<Facts>>(false, DefaultCacheTime.Long);
+                var cache = new ResponseCache<IEnumerable<Facts>>(false, DefaultCacheTime.Long, _settings.ResponseCacheEnabled, _settings.ResponseCacheDefaultShortTimeInMinutes, _settings.ResponseCacheDefaultLongTimeInMinutes);
                 var facts = cache.GetValue(Request);
                 if (facts == null)
                 {

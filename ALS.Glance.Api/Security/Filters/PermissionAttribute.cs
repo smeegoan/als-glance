@@ -22,7 +22,7 @@ namespace ALS.Glance.Api.Security.Filters
             if (user == null || !user.Identity.IsAuthenticated)
                 return false;
 
-            if (user.IsInRole(Security.Roles.Admin) || !user.IsInRole(Role))
+            if (user.IsInRole(Core.Security.Roles.Admin) || !user.IsInRole(Role))
                 return true;
 
             var routeData = actionContext.Request.GetRouteData();

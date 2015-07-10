@@ -58,5 +58,32 @@ namespace ALS.Glance.Web.Properties {
                 return ((string)(this["ApplicationId"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int ResponseCacheDefaultShortTimeInMinutes {
+            get {
+                return ((int)(this["ResponseCacheDefaultShortTimeInMinutes"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public int ResponseCacheDefaultLongTimeInMinutes {
+            get {
+                return ((int)(this["ResponseCacheDefaultLongTimeInMinutes"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ResponseCacheEnabled {
+            get {
+                return ((bool)(this["ResponseCacheEnabled"]));
+            }
+        }
     }
 }

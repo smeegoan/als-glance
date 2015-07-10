@@ -3,7 +3,6 @@
 
 @{
     ViewBag.Title = Model.Name + " " + Resources.PatientResume;
-    var muscles = Model.Muscles.ToArray();
 }
 <ul class="nav nav-tabs">
     <li class="active"><a href="#results" data-toggle="tab">@Resources.PatientResume</a></li>
@@ -62,7 +61,7 @@
                             <div class="form-group">
                                 <label class="col-md-offset-1 col-md-3 control-label">@Resources.PatientMuscle:</label>
                                 <div class="col-md-7 input-group bootstrap-touchspin">
-                                    @foreach (var item in muscles)
+                                    @foreach (var item in Model.Muscles)
                                     {
                                         <label>
                                             <span class="col-md-2">@item.Abbreviation</span>
@@ -90,7 +89,7 @@
                 </div>
                 <div id="muscles" class="btn-group col-md-4 btn-vert-block" data-toggle="buttons">
                     <label style="float:left;margin-right:5px; padding-top:7px; font-weight: normal;">@Resources.PatientMuscle </label>
-                    @foreach (var item in muscles)
+                    @foreach (var item in Model.Muscles)
                     {
                         <div id="@item.Abbreviation" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="@item.Name">
                             <label>

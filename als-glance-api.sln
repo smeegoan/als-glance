@@ -40,6 +40,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 Database", "5 Database", 
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ALS.Glance.SqlDatabase", "ALS.Glance.SqlDatabase\ALS.Glance.SqlDatabase.sqlproj", "{E4B572DA-BF74-4187-AF98-D90D3EDF5B58}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALS.Glance.Core", "ALS.Glance.Core\ALS.Glance.Core.csproj", "{45ABCAFA-F6A1-434E-9F3E-7840D44C9C38}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -88,6 +90,10 @@ Global
 		{E4B572DA-BF74-4187-AF98-D90D3EDF5B58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4B572DA-BF74-4187-AF98-D90D3EDF5B58}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E4B572DA-BF74-4187-AF98-D90D3EDF5B58}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{45ABCAFA-F6A1-434E-9F3E-7840D44C9C38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45ABCAFA-F6A1-434E-9F3E-7840D44C9C38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45ABCAFA-F6A1-434E-9F3E-7840D44C9C38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45ABCAFA-F6A1-434E-9F3E-7840D44C9C38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,5 +109,6 @@ Global
 		{B2301A90-9A98-4C32-A5A3-A09EDE74C328} = {C774E83E-3EAB-4853-88C7-068CCFFBA1A2}
 		{DBD1A5A3-672C-41B5-A303-C833CA1A2C21} = {C63D0489-0AB2-4673-9EC7-2D8AD2C7B43C}
 		{E4B572DA-BF74-4187-AF98-D90D3EDF5B58} = {3BC17F91-D8C0-41A9-B0D7-33E835860DAD}
+		{45ABCAFA-F6A1-434E-9F3E-7840D44C9C38} = {C774E83E-3EAB-4853-88C7-068CCFFBA1A2}
 	EndGlobalSection
 EndGlobal

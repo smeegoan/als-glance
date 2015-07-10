@@ -1,4 +1,4 @@
-﻿namespace ALS.Glance.Api.Security
+﻿namespace ALS.Glance.Core.Security
 {
     public class Roles
     {

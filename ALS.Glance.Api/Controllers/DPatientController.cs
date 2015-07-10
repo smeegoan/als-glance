@@ -5,10 +5,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.OData;
-using ALS.Glance.Api.Helpers.Cache;
+using ALS.Glance.Api.Properties;
+using ALS.Glance.Core.Cache;
 using ALS.Glance.Api.Models;
 using ALS.Glance.Api.Security;
 using ALS.Glance.Api.Security.Filters;
+using ALS.Glance.Core.Security;
 using ALS.Glance.Models;
 using ALS.Glance.UoW;
 using ALS.Glance.UoW.Core;
@@ -18,16 +20,18 @@ namespace ALS.Glance.Api.Controllers
     public class DPatientController : ODataController,
         ODataGet<DPatient>.WithKey<long>
     {
+        private readonly Settings _settings;
         private readonly IALSUnitOfWork _uow;
-        public DPatientController(IUnitOfWorkFactory unitOfWorkFactory)
+        public DPatientController(IUnitOfWorkFactory unitOfWorkFactory,Settings settings)
         {
+            _settings = settings;
             _uow = unitOfWorkFactory.Get<IALSUnitOfWork>();
         }
 
         [EnableQuery, EnableCors, ApiAuthorize(Roles.Admin, Roles.User)]
         public IQueryable<DPatient> Get()
         {
-            var cache = new ResponseCache<IEnumerable<DPatient>>(false, DefaultCacheTime.Long);
+            var cache = new ResponseCache<IEnumerable<DPatient>>(false, DefaultCacheTime.Long, _settings.ResponseCacheEnabled, _settings.ResponseCacheDefaultShortTimeInMinutes, _settings.ResponseCacheDefaultLongTimeInMinutes);
             var patients = cache.GetValue(Request) ;
             if (patients == null)
             {
@@ -40,7 +44,7 @@ namespace ALS.Glance.Api.Controllers
         [EnableQuery, ApiAuthorize(Roles.Admin, Roles.User)]
         public async Task<IHttpActionResult> Get([FromODataUri] long key, CancellationToken ct)
         {
-            var cache = new ResponseCache<DPatient>(false, DefaultCacheTime.Long);
+            var cache = new ResponseCache<DPatient>(false, DefaultCacheTime.Long, _settings.ResponseCacheEnabled, _settings.ResponseCacheDefaultShortTimeInMinutes, _settings.ResponseCacheDefaultLongTimeInMinutes);
             var entity = cache.GetValue(Request);
             if (entity == null)
             {
@@ -55,7 +59,7 @@ namespace ALS.Glance.Api.Controllers
         [HttpGet, ApiAuthorize(Roles.Admin, Roles.User)]
         public IHttpActionResult GetYearBounds([FromODataUri] long key)
         {
-            var cache = new ResponseCache<YearBounds>(false, DefaultCacheTime.Long);
+            var cache = new ResponseCache<YearBounds>(false, DefaultCacheTime.Long, _settings.ResponseCacheEnabled, _settings.ResponseCacheDefaultShortTimeInMinutes, _settings.ResponseCacheDefaultLongTimeInMinutes);
             var bounds = cache.GetValue(Request) ;
             if (bounds == null)
             {
@@ -77,7 +81,7 @@ namespace ALS.Glance.Api.Controllers
         [HttpGet, ApiAuthorize(Roles.Admin, Roles.User)]
         public IHttpActionResult GetAgeBounds()
         {
-            var cache = new ResponseCache<AgeBounds>(false, DefaultCacheTime.Long);
+            var cache = new ResponseCache<AgeBounds>(false, DefaultCacheTime.Long, _settings.ResponseCacheEnabled, _settings.ResponseCacheDefaultShortTimeInMinutes, _settings.ResponseCacheDefaultLongTimeInMinutes);
             var bounds = cache.GetValue(Request);
             if (bounds == null)
             {

@@ -8,6 +8,7 @@ using System.Web.Http;
 using System.Web.OData;
 using ALS.Glance.Api.Security;
 using ALS.Glance.Api.Security.Filters;
+using ALS.Glance.Core.Security;
 using ALS.Glance.Models;
 using ALS.Glance.UoW;
 using ALS.Glance.UoW.Core;

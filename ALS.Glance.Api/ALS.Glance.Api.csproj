@@ -164,9 +164,6 @@
     <Compile Include="Helpers\Binder\BinderNode.cs" />
     <Compile Include="Helpers\Binder\IODataQueryOptionsBinder.cs" />
     <Compile Include="Helpers\Binder\ODataQueryOptionsBinder.cs" />
-    <Compile Include="Helpers\Cache\BaseCache.cs" />
-    <Compile Include="Helpers\Cache\ResponseCache.cs" />
-    <Compile Include="Helpers\Cache\DefaultCacheTime.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -211,7 +208,6 @@
     <Compile Include="Security\SmtpEmailService.cs" />
     <Compile Include="Security\Filters\ApiAuthorizeAttribute.cs" />
     <Compile Include="Security\Filters\PermissionAttribute.cs" />
-    <Compile Include="Security\Roles.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -222,7 +218,7 @@
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\Producao.pubxml" />
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Web.Debug.config">
@@ -236,6 +232,10 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ALS.Glance.Core\ALS.Glance.Core.csproj">
+      <Project>{45abcafa-f6a1-434e-9f3e-7840d44c9c38}</Project>
+      <Name>ALS.Glance.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ALS.Glance.Models.Core\ALS.Glance.Models.Core.csproj">
       <Project>{92267138-BA91-46D9-B917-5553904E993E}</Project>
       <Name>ALS.Glance.Models.Core</Name>

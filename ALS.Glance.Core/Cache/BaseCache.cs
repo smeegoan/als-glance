@@ -1,6 +1,6 @@
 using System.Web;
 
-namespace ALS.Glance.Api.Helpers.Cache
+namespace ALS.Glance.Core.Cache
 {
     public abstract class BaseCache
     {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Web;
+﻿using System.Configuration;
 using ALS.Glance.Api.Helpers.Binder;
 using ALS.Glance.Api.Properties;
 using ALS.Glance.Models.Core.Connection;

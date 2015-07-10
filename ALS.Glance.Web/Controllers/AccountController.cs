@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using ALS.Glance.Core.Security;
 using ALS.Glance.Web.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -117,7 +118,10 @@ namespace ALS.Glance.Web.Controllers
             
                 if (result.Succeeded)
                 {
-                    UserManager.AddToRole(user.Id, Roles.UserRole);
+                    foreach (var defaultRole in Roles.DefaultRoles)
+                    {
+                        UserManager.AddToRole(user.Id, defaultRole);                        
+                    }
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

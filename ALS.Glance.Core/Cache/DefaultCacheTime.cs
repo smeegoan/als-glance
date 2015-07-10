@@ -1,4 +1,4 @@
-﻿namespace ALS.Glance.Api.Helpers.Cache
+﻿namespace ALS.Glance.Core.Cache
 {
     public enum DefaultCacheTime
     {

@@ -10,6 +10,7 @@ using ALS.Glance.Api.Models;
 using ALS.Glance.Api.Properties;
 using ALS.Glance.Api.Security;
 using ALS.Glance.Api.Security.Extensions;
+using ALS.Glance.Core.Security;
 using ALS.Glance.Models.Security.Implementations;
 using ALS.Glance.UoW;
 using ALS.Glance.UoW.Core;

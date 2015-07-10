@@ -11,6 +11,7 @@ using ALS.Glance.Api.Helpers.ODataInterfaces;
 using ALS.Glance.Api.Properties;
 using ALS.Glance.Api.Security;
 using ALS.Glance.Api.Security.Filters;
+using ALS.Glance.Core.Security;
 using ALS.Glance.Models;
 using ALS.Glance.Models.Security.Implementations;
 using ALS.Glance.UoW;

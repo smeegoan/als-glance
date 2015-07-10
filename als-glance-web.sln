@@ -36,6 +36,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALS.Glance.DataAgents", "AL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALS.Glance.DataAgents.Core", "ALS.Glance.DataAgents.Core\ALS.Glance.DataAgents.Core.csproj", "{94A45480-3790-43CB-B0B8-D24FDF37E8F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALS.Glance.Core", "ALS.Glance.Core\ALS.Glance.Core.csproj", "{45ABCAFA-F6A1-434E-9F3E-7840D44C9C38}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -78,6 +80,10 @@ Global
 		{94A45480-3790-43CB-B0B8-D24FDF37E8F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94A45480-3790-43CB-B0B8-D24FDF37E8F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94A45480-3790-43CB-B0B8-D24FDF37E8F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45ABCAFA-F6A1-434E-9F3E-7840D44C9C38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45ABCAFA-F6A1-434E-9F3E-7840D44C9C38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45ABCAFA-F6A1-434E-9F3E-7840D44C9C38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45ABCAFA-F6A1-434E-9F3E-7840D44C9C38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,5 +98,6 @@ Global
 		{D0351D8B-CFBD-4131-8AF4-A92E4F0EAA7B} = {C63D0489-0AB2-4673-9EC7-2D8AD2C7B43C}
 		{CE7D995D-8B58-47D4-B56E-3F400D20A9C5} = {C63D0489-0AB2-4673-9EC7-2D8AD2C7B43C}
 		{94A45480-3790-43CB-B0B8-D24FDF37E8F7} = {C63D0489-0AB2-4673-9EC7-2D8AD2C7B43C}
+		{45ABCAFA-F6A1-434E-9F3E-7840D44C9C38} = {C774E83E-3EAB-4853-88C7-068CCFFBA1A2}
 	EndGlobalSection
 EndGlobal
