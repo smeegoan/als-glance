@@ -56,7 +56,8 @@ $(document).ready(function () {
 		    box.toggleClass('expanded');
 		    var currentHeight = box.find('.box-content')
 	            .height();
-		    var maxHeight = Math.min($(window).width(),$(window).height()-160);
+		    var maxHeight = Math.min($(window).width(), $(window).height() - 160) ;
+		    maxHeight = (top === self ? maxHeight : maxHeight / 2); //check if running inside UsabilityForm
 		    if (maxHeight == currentHeight)
 		        maxHeight = "220px";
 		    box.find('.box-content')
