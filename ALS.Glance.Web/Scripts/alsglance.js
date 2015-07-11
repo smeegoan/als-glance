@@ -978,7 +978,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             // .html replaces everything in the anchor with the html given using the following function.
             // %filter-count and %total-count are replaced with the values obtained.
             .html({
-                some: '<strong>%filter-count</strong> selected out of <strong>%total-count</strong> records',
+                some: alsglance.resources.someSelectedMessage,
                 all: alsglance.resources.allSelectedMessage
             });
 

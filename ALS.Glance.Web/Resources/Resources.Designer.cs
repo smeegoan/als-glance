@@ -322,6 +322,15 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;strong&gt;%filter-count&lt;/strong&gt; selected out of &lt;strong&gt;%total-count&lt;/strong&gt; records..
+        /// </summary>
+        public static string PatientSomeSelected {
+            get {
+                return ResourceManager.GetString("PatientSomeSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Patient Id.
         /// </summary>
         public static string PatientsPatientId {

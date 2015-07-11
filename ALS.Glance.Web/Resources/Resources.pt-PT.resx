@@ -310,4 +310,7 @@
   <data name="PatientShowFailureThresHold" xml:space="preserve">
     <value>Mostrar limite para falhas</value>
   </data>
+  <data name="PatientSomeSelected" xml:space="preserve">
+    <value>&lt;strong&gt;%filter-count&lt;/strong&gt; selecionados de &lt;strong&gt;%total-count&lt;/strong&gt; registos.</value>
+  </data>
 </root>

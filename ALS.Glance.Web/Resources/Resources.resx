@@ -297,4 +297,7 @@
   <data name="PatientShowFailureThresHold" xml:space="preserve">
     <value>Show failure threshold</value>
   </data>
+  <data name="PatientSomeSelected" xml:space="preserve">
+    <value>&lt;strong&gt;%filter-count&lt;/strong&gt; selected out of &lt;strong&gt;%total-count&lt;/strong&gt; records.</value>
+  </data>
 </root>
