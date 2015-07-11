@@ -622,19 +622,19 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             return " and (" + filter + ")";
         };
         var url = "Facts?$top=1&$select=EMG&$filter=PatientId%20eq%20" + alsglance.dashboard.patient.id + " and EMG ne null " +
+        " and MuscleAbbreviation eq '" + alsglance.dashboard.patient.muscle + "' " +
         (alsglance.dashboard.patient.timeOfDay != null ? timeOfDayFilter(alsglance.dashboard.patient.timeOfDay) : "") +
-        (alsglance.dashboard.patient.muscle != null ? " and MuscleAbbreviation eq '" + alsglance.dashboard.patient.muscle + "' " : "") +
         (alsglance.dashboard.patient.endDate != null ? " and DateDate le " + alsglance.dashboard.patient.endDate.format('YYYY-MM-DDTHH:mm') + "%2B00:00&$orderby=DateDate desc" : "");
         if (url == alsglance.dashboard.patient.lastUrl) {
             return;
         }
+        alsglance.dashboard.patient.lastUrl = url;
         $.when(alsglance.apiClient.get(url))
             .then(function (facts) {
                 var value = facts.value;
                 alsglance.charts.emgData = null;
                 if (value != null && value.length > 0) {
                     alsglance.charts.emgData = JSON.parse(value[0].EMG);
-                    alsglance.dashboard.patient.lastUrl = url;
                 }
                 alsglance.dashboard.patient.renderEmg();
                 $(".loadingEmg").remove();
@@ -654,7 +654,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         };
 
         var data = alsglance.charts.emgData;
-        if (alsglance.dashboard.settings.envelopeEmg) {
+        if (alsglance.dashboard.settings.envelopeEmg && data!=null) {
             var windowSize = 15;
             var smoothEnvelope = [];
             var size;
@@ -664,6 +664,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             }
             data = smoothEnvelope;
         }
+
         alsglance.charts.emgChart = new Dygraph(document.getElementById("emgChart"), data, {
             labels: [alsglance.resources.time, 'µV'],
             xlabel: alsglance.resources.time,
@@ -794,7 +795,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         var timeOfDayDimension = ndx.dimension(function (d) {
             return d.TimeTimeOfDay;
         });
-        var dayOfWeekGroup = timeOfDayDimension.group();
+        var timeOfDayGroup = timeOfDayDimension.group();
 
 
         //#region Quarter Chart
@@ -814,7 +815,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
 
         //#### Row Chart
         alsglance.charts.timeOfDayChart
-            .group(dayOfWeekGroup)
+            .group(timeOfDayGroup)
             .dimension(timeOfDayDimension)
             .label(function (d) {
                 return d.key;
@@ -826,8 +827,10 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                 var filters = chart.filters();
                 if (filters.length > 0) {
                     alsglance.dashboard.patient.timeOfDay = filters;
-                    alsglance.dashboard.patient.loadEmg();
+                } else {
+                    alsglance.dashboard.patient.timeOfDay = null;
                 }
+                alsglance.dashboard.patient.loadEmg();
             })
             .elasticX(true)
             .xAxis().ticks(4);
