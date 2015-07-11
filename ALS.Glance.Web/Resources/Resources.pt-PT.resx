@@ -314,6 +314,6 @@
     <value>&lt;strong&gt;%filter-count&lt;/strong&gt; selecionados de &lt;strong&gt;%total-count&lt;/strong&gt; registos.</value>
   </data>
   <data name="PatientEnvelopeWindowSize" xml:space="preserve">
-    <value>Envelope window size:</value>
+    <value>Tamanho da janela da envolvente:</value>
   </data>
 </root>
