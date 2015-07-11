@@ -156,7 +156,7 @@
   <data name="PatientResume" xml:space="preserve">
     <value>Resumo</value>
   </data>
-  <data name="PatientSave" xml:space="preserve">
+  <data name="SharedSave" xml:space="preserve">
     <value>Guardar</value>
   </data>
   <data name="PatientSaveMessage" xml:space="preserve">
@@ -312,5 +312,8 @@
   </data>
   <data name="PatientSomeSelected" xml:space="preserve">
     <value>&lt;strong&gt;%filter-count&lt;/strong&gt; selecionados de &lt;strong&gt;%total-count&lt;/strong&gt; registos.</value>
+  </data>
+  <data name="PatientEnvelopeWindowSize" xml:space="preserve">
+    <value>Envelope window size:</value>
   </data>
 </root>

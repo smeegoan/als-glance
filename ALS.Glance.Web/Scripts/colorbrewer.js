@@ -1,10 +1,7 @@
 'use strict';
 
-var visibleMap,	
-	numClasses = 7;
-
-var selectedSchemeType;
 var colorbrewer = colorbrewer || {
+    numClasses: 7,
     schemeNames: {
         sequential: ["BuGn", "BuPu", "GnBu", "OrRd", "PuBu", "PuBuGn", "PuRd", "RdPu", "YlGn", "YlGnBu", "YlOrBr", "YlOrRd"],
         singlehue: ["Blues", "Greens", "Greys", "Oranges", "Purples", "Reds"],
@@ -12,25 +9,25 @@ var colorbrewer = colorbrewer || {
         qualitative: ["Accent", "Dark2", "Paired", "Pastel1", "Pastel2", "Set1", "Set2", "Set3"]
     },
     setNumClasses: function (n) {
-        numClasses = n;
+        colorbrewer.numClasses = n;
         colorbrewer.showSchemes();
     },
     setSchemeType: function (type) {
-        selectedSchemeType = type;
+        colorbrewer.selectedSchemeType = type;
 
         $("#num-classes option").removeAttr("disabled");
-        switch (selectedSchemeType) {
+        switch (colorbrewer.selectedSchemeType) {
             case "sequential":
                 if ($("#num-classes").val() >= 10) {
                     $("#num-classes").val(9);
-                    numClasses = 9;
+                    colorbrewer.numClasses = 9;
                 }
                 $("#num-classes option[name=10], #num-classes option[name=11], #num-classes option[name=12]").attr("disabled", "disabled");
                 break;
             case "diverging":
                 if ($("#num-classes").val() >= 12) {
                     $("#num-classes").val(11);
-                    numClasses = 11;
+                    colorbrewer.numClasses = 11;
                 }
                 $("#num-classes option[name=12]").attr("disabled", "disabled");
                 break;
@@ -40,12 +37,12 @@ var colorbrewer = colorbrewer || {
     showSchemes: function () {
         $("#ramps").empty();
         var ramp, svg;
-        for (var i in colorbrewer.schemeNames[selectedSchemeType]) {
-            if (colorbrewer.checkFilters(colorbrewer.schemeNames[selectedSchemeType][i]) == false) continue;
-            ramp = $("<div class='ramp " + colorbrewer.schemeNames[selectedSchemeType][i] + "'></div>"),
+        for (var i in colorbrewer.schemeNames[colorbrewer.selectedSchemeType]) {
+            if (colorbrewer.checkFilters(colorbrewer.schemeNames[colorbrewer.selectedSchemeType][i]) == false) continue;
+            ramp = $("<div class='ramp " + colorbrewer.schemeNames[colorbrewer.selectedSchemeType][i] + "'></div>"),
                 svg = "<svg width='15' height='75'>";
             for (var n = 0; n < 5; n++) {
-                svg += "<rect fill=" + colorbrewer.schemes[colorbrewer.schemeNames[selectedSchemeType][i]][5][n] + " width='15' height='15' y='" + n * 15 + "'/>";
+                svg += "<rect fill=" + colorbrewer.schemes[colorbrewer.schemeNames[colorbrewer.selectedSchemeType][i]][5][n] + " width='15' height='15' y='" + n * 15 + "'/>";
             }
             svg += "</svg>";
             $("#ramps").append(ramp.append(svg).click(function () {
@@ -54,7 +51,7 @@ var colorbrewer = colorbrewer || {
                 analytics.logUiEvent("changeColor", "Patient", "dashboard");
             }));
         }
-        if (selectedSchemeType == "sequential") {
+        if (colorbrewer.selectedSchemeType == "sequential") {
             $("#scheme1").css("width", "160px");
             $("#multi").show().text("Multi-hue");
             $("#scheme2").css("width", "90px");
@@ -106,33 +103,33 @@ var colorbrewer = colorbrewer || {
         $(".ramp.selected").removeClass("selected");
         colorbrewer.selectedScheme = s;
         $(".ramp." + colorbrewer.selectedScheme).addClass("selected");
-        $("#scheme-name").html(numClasses + "-class " + colorbrewer.selectedScheme);
+        $("#scheme-name").html(colorbrewer.numClasses + "-class " + colorbrewer.selectedScheme);
         colorbrewer.applyColors();
         colorbrewer.drawColorChips();
 
         var jsonString = "[";
-        for (var i = 0; i < numClasses; i++) {
-            jsonString += "'" + colorbrewer.schemes[colorbrewer.selectedScheme][numClasses][i] + "'";
-            if (i < numClasses - 1) jsonString += ",";
+        for (var i = 0; i < colorbrewer.numClasses; i++) {
+            jsonString += "'" + colorbrewer.schemes[colorbrewer.selectedScheme][colorbrewer.numClasses][i] + "'";
+            if (i < colorbrewer.numClasses - 1) jsonString += ",";
         }
         jsonString += "]";
         $("#copy-json input").val(jsonString);
         var cssString = "";
-        for (var i = 0; i < numClasses; i++) {
-            cssString += "." + colorbrewer.selectedScheme + " .q" + i + "-" + numClasses + "{fill:" + colorbrewer.schemes[colorbrewer.selectedScheme][numClasses][i] + "}";
-            if (i < numClasses - 1) cssString += " ";
+        for (var i = 0; i < colorbrewer.numClasses; i++) {
+            cssString += "." + colorbrewer.selectedScheme + " .q" + i + "-" + colorbrewer.numClasses + "{fill:" + colorbrewer.schemes[colorbrewer.selectedScheme][colorbrewer.numClasses][i] + "}";
+            if (i < colorbrewer.numClasses - 1) cssString += " ";
         }
         $("#copy-css input").val(cssString);
 
         $(".score-icon").attr("class", "score-icon");
         var f = colorbrewer.checkColorblind(s);
-        $("#blind-icon").addClass(!f ? "bad" : (f == 1 ? "ok" : "maybe")).attr("title", numClasses + "-class " + colorbrewer.selectedScheme + " is " + getWord(f) + "color blind friendly");
+        $("#blind-icon").addClass(!f ? "bad" : (f == 1 ? "ok" : "maybe")).attr("title", colorbrewer.numClasses + "-class " + colorbrewer.selectedScheme + " is " + getWord(f) + "color blind friendly");
         f = 1;
-        $("#copy-icon").addClass(!f ? "bad" : (f == 1 ? "ok" : "maybe")).attr("title", numClasses + "-class " + colorbrewer.selectedScheme + " is " + getWord(f) + "photocopy friendly");
+        $("#copy-icon").addClass(!f ? "bad" : (f == 1 ? "ok" : "maybe")).attr("title", colorbrewer.numClasses + "-class " + colorbrewer.selectedScheme + " is " + getWord(f) + "photocopy friendly");
         f = colorbrewer.checkScreen(s);
-        $("#screen-icon").addClass(!f ? "bad" : (f == 1 ? "ok" : "maybe")).attr("title", numClasses + "-class " + colorbrewer.selectedScheme + " is " + getWord(f) + "LCD friendly");
+        $("#screen-icon").addClass(!f ? "bad" : (f == 1 ? "ok" : "maybe")).attr("title", colorbrewer.numClasses + "-class " + colorbrewer.selectedScheme + " is " + getWord(f) + "LCD friendly");
         f = colorbrewer.checkPrint(s);
-        $("#print-icon").addClass(!f ? "bad" : (f == 1 ? "ok" : "maybe")).attr("title", numClasses + "-class " + colorbrewer.selectedScheme + " is " + getWord(f) + "print friendly");
+        $("#print-icon").addClass(!f ? "bad" : (f == 1 ? "ok" : "maybe")).attr("title", colorbrewer.numClasses + "-class " + colorbrewer.selectedScheme + " is " + getWord(f) + "print friendly");
 
         function getWord(w) {
             if (!w) return "not ";
@@ -143,26 +140,26 @@ var colorbrewer = colorbrewer || {
 
     },
     checkFilters: function (scheme, f) {
-        if (!colorbrewer.schemes[scheme][numClasses]) return false;
+        if (!colorbrewer.schemes[scheme][colorbrewer.numClasses]) return false;
         if (colorbrewer.checkColorblind(scheme) != 1) return false;
         //if (checkPrint(scheme) != 1) return false;
         return true;
     },
     checkColorblind: function (scheme) {
-        return colorbrewer.schemes[scheme].properties.blind.length > 1 ? colorbrewer.schemes[scheme].properties.blind[numClasses - 3] : colorbrewer.schemes[scheme].properties.blind[0];
+        return colorbrewer.schemes[scheme].properties.blind.length > 1 ? colorbrewer.schemes[scheme].properties.blind[colorbrewer.numClasses - 3] : colorbrewer.schemes[scheme].properties.blind[0];
     },
     checkPrint: function (scheme) {
-        return colorbrewer.schemes[scheme].properties.print.length > 1 ? colorbrewer.schemes[scheme].properties.print[numClasses - 3] : colorbrewer.schemes[scheme].properties.print[0];
+        return colorbrewer.schemes[scheme].properties.print.length > 1 ? colorbrewer.schemes[scheme].properties.print[colorbrewer.numClasses - 3] : colorbrewer.schemes[scheme].properties.print[0];
     },
     checkScreen:
     function (scheme) {
-        return colorbrewer.schemes[scheme].properties.screen.length > 1 ? colorbrewer.schemes[scheme].properties.screen[numClasses - 3] : colorbrewer.schemes[scheme].properties.screen[0];
+        return colorbrewer.schemes[scheme].properties.screen.length > 1 ? colorbrewer.schemes[scheme].properties.screen[colorbrewer.numClasses - 3] : colorbrewer.schemes[scheme].properties.screen[0];
     }
     ,
     drawColorChips: function () {
         var svg = "<svg width='24' height='270'>";
-        for (var i = 0; i < numClasses; i++) {
-            svg += "<rect fill=" + colorbrewer.schemes[colorbrewer.selectedScheme][numClasses][i] + " width='24' height='" + Math.min(24, parseInt(265 / numClasses)) + "' y='" + i * Math.min(24, parseInt(265 / numClasses)) + "'/>";
+        for (var i = 0; i < colorbrewer.numClasses; i++) {
+            svg += "<rect fill=" + colorbrewer.schemes[colorbrewer.selectedScheme][colorbrewer.numClasses][i] + " width='24' height='" + Math.min(24, parseInt(265 / colorbrewer.numClasses)) + "' y='" + i * Math.min(24, parseInt(265 / colorbrewer.numClasses)) + "'/>";
         }
         $("#color-chips").empty().append(svg);
     },
@@ -255,15 +252,15 @@ var colorbrewer = colorbrewer || {
         colorbrewer.showSchemes();
     },
     applyColors: function () {
-        if (!colorbrewer.schemes[colorbrewer.selectedScheme][numClasses]) {
+        if (!colorbrewer.schemes[colorbrewer.selectedScheme][colorbrewer.numClasses]) {
             return;
         }
-        var colors = colorbrewer.schemes[colorbrewer.selectedScheme][numClasses].slice(0); //clone the array
+        var colors = colorbrewer.schemes[colorbrewer.selectedScheme][colorbrewer.numClasses].slice(0); //clone the array
         colors.shift(); //skip the first color because it's to faint
-        var colorsDiferential = d3.scale.ordinal().range([colorbrewer.schemes[colorbrewer.selectedScheme][numClasses][1], colorbrewer.schemes[colorbrewer.selectedScheme][numClasses][2], colorbrewer.schemes[colorbrewer.selectedScheme][numClasses][3]]);
+        var colorsDiferential = d3.scale.ordinal().range([colorbrewer.schemes[colorbrewer.selectedScheme][colorbrewer.numClasses][1], colorbrewer.schemes[colorbrewer.selectedScheme][colorbrewer.numClasses][2], colorbrewer.schemes[colorbrewer.selectedScheme][colorbrewer.numClasses][3]]);
         var colorRange = d3.scale.ordinal().range(colors);
-        var color2 = colorbrewer.schemes[colorbrewer.selectedScheme][numClasses][2];
-        var color3 = colorbrewer.schemes[colorbrewer.selectedScheme][numClasses][3];
+        var color2 = colorbrewer.schemes[colorbrewer.selectedScheme][colorbrewer.numClasses][2];
+        var color3 = colorbrewer.schemes[colorbrewer.selectedScheme][colorbrewer.numClasses][3];
         alsglance.charts.timeOfDayChart.ordinalColors(colors).redraw();
         alsglance.charts.timeHourChart.colors(color2).redraw();
         alsglance.charts.quarterChart.colors(colorRange).redraw();

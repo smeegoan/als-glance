@@ -63,10 +63,10 @@
                                 <div class="col-md-7 input-group bootstrap-touchspin">
                                     @foreach (var item in Model.Muscles)
                                     {
-                                        <label>
-                                            <span class="col-md-2">@item.Abbreviation</span>
-                                            <input class="col-md-2" id="@(item.Abbreviation)_Threshold" type="text" value="0" name="muscleThreshold">
-                                        </label>
+                                    <label>
+                                        <span class="col-md-2">@item.Abbreviation</span>
+                                        <input class="col-md-2" id="@(item.Abbreviation)_Threshold" type="text" value="0" name="muscleThreshold">
+                                    </label>
                                     }
                                 </div>
 
@@ -76,7 +76,35 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">@Resources.SharedClose</button>
-                        <button id="saveOptions" type="button" class="btn btn-primary">@Resources.PatientSave</button>
+                        <button id="saveOptions" type="button" class="btn btn-primary">@Resources.SharedSave</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="emgOptions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">@Resources.PatientEMG</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="emgForm" class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="col-md-offset-1 col-md-4 control-label">@Resources.PatientEnvelopeWindowSize</label>
+                                <div class="col-md-6 input-group bootstrap-touchspin">
+                                    <label>
+                                        <input id="envelopeWindowSize" type="text" value="0" name="envelopeWindowSize">
+                                    </label>
+                                </div>
+
+
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">@Resources.SharedClose</button>
+                        <button id="saveEMGOptions" type="button" class="btn btn-primary">@Resources.SharedSave</button>
                     </div>
                 </div>
             </div>
@@ -85,7 +113,7 @@
             <div class="row">
                 <div class="btn-group col-md-3 btn-vert-block">
                     <div id="reset" class="btn btn-default"><i class="fa fa-undo"></i>&nbsp;@Resources.PatientReset</div>
-                    <div id="save" class="btn btn-default"><i class="fa fa-save"></i>&nbsp;@Resources.PatientSave</div>
+                    <div id="save" class="btn btn-default"><i class="fa fa-save"></i>&nbsp;@Resources.SharedSave</div>
                 </div>
                 <div id="muscles" class="btn-group col-md-4 btn-vert-block" data-toggle="buttons">
                     <label style="float:left;margin-right:5px; padding-top:7px; font-weight: normal;">@Resources.PatientMuscle </label>
@@ -245,6 +273,9 @@
                             </div>
                             <div class="box-icons">
                                 <a class="envelope" href="javascript:void(0);" onclick="javascript:alsglance.dashboard.patient.toggleEmgEnvelope();alsglance.dashboard.patient.renderEmg();" data-step="7" data-intro="@Resources.PatientTip7" data-position='left'><i class="fa fa-exchange"></i></a>
+                                <a data-toggle="modal" data-target="#emgOptions">
+                                    <i class="fa fa-gears"></i>
+                                </a>
                                 <a class="reset" href="javascript:void(0);" onclick="javascript:alsglance.charts.emgChart.resetZoom();" data-step="8" data-intro="@Resources.PatientTip8" data-position='left'><i class="fa fa-undo"></i></a>
                                 <a class="collapse-link" data-step="9" data-intro="@Resources.PatientTip9" data-position='left'>
                                     <i class="fa fa-chevron-up"></i>
@@ -294,59 +325,67 @@
     @Scripts.Render("~/bundles/commonjs")
     @Scripts.Render("~/bundles/patientjs")
     <script>
-    $(function() {
-        alsglance.apiClient = new alsglance.ApiClient({
-            baseUri: alsglance.baseUri,
-            authToken: alsglance.authToken,
-            onAuthFail: function() {
-                toastr.error("Error authenticating!", 'ALS Glance');
+        $(function() {
+            alsglance.apiClient = new alsglance.ApiClient({
+                baseUri: alsglance.baseUri,
+                authToken: alsglance.authToken,
+                onAuthFail: function() {
+                    toastr.error("Error authenticating!", 'ALS Glance');
+                }
+            });
+            alsglance.resources = alsglance.resources || {
+                hour: '@Resources.PatientHour',
+                timeOfDay: '@Resources.PatientTimeOfDay',
+                muscle: '@Resources.PatientMuscle',
+                someSelectedMessage: '@Html.Raw(Resources.PatientSomeSelected)',
+                allSelectedMessage: '@Resources.PatientAllSelected',
+                loadingMessage: '@Resources.PatientLoading',
+                saveMessage: '@Resources.PatientSaveMessage',
+                quarterPrefix: '@Resources.PatientQuarterPrefix',
+                measurements: '@Html.Raw(Resources.PatientMeasurements)',
+                name: '@Resources.SharedName',
+                date: '@Resources.SharedDate',
+                help: '@Resources.Help',
+                colorSchemes: '@Resources.PatientColorSchemes',
+                time: '@Resources.PatientTime',
+                muscleFailure: '@Resources.PatientMuscleFailure',
+                shortMonths: @Html.Raw(Resources.SharedShortMonths),
+                shortDays: @Html.Raw(Resources.SharedShortDays),
+                months: @Html.Raw(Resources.SharedMonths),
+                prediction: '@Html.Raw(Resources.PatientPrediction)',
+            };
+            alsglance.dashboard.patient.id = @Model.Id;
+            alsglance.dashboard.patient.yearMin = @Model.YearMin;
+            alsglance.dashboard.patient.yearMax = @Model.YearMax;
+            alsglance.presentation.showPatientHelpButton();
+            alsglance.presentation.makePanelsDraggable(); //has to be before trying to set panels position
+            var settings = {};
+            try {
+                settings = JSON.parse(decodeURIComponent('@Html.Raw(Model.Settings)'));
+            } catch (err) {
+                toastr.error(err.message, 'ALS Glance');
             }
+            alsglance.dashboard.patient.loadSettings(settings);
+            alsglance.dashboard.patient.loadFacts();
+            alsglance.presentation.bindButtonEvents();
+            $('[data-toggle="tooltip"]').tooltip();
+            $("input[name='muscleThreshold']").TouchSpin({
+                min: 0,
+                max: 0.030,
+                step: 0.001,
+                decimals: 3,
+                boostat: 5,
+                maxboostedstep: 10
+            });
+            $("input[name='envelopeWindowSize']").TouchSpin({
+                min: 2,
+                max: 100,
+                step: 1,
+                decimals: 0,
+                boostat: 5,
+                maxboostedstep: 10
+            });
         });
-        alsglance.resources = alsglance.resources || {
-            hour: '@Resources.PatientHour',
-            timeOfDay: '@Resources.PatientTimeOfDay',
-            muscle: '@Resources.PatientMuscle',
-            someSelectedMessage: '@Html.Raw(Resources.PatientSomeSelected)',
-            allSelectedMessage: '@Resources.PatientAllSelected',
-            loadingMessage: '@Resources.PatientLoading',
-            saveMessage: '@Resources.PatientSaveMessage',
-            quarterPrefix: '@Resources.PatientQuarterPrefix',
-            measurements: '@Html.Raw(Resources.PatientMeasurements)',
-            name: '@Resources.SharedName',
-            date: '@Resources.SharedDate',
-            help: '@Resources.Help',
-            colorSchemes: '@Resources.PatientColorSchemes',
-            time: '@Resources.PatientTime',
-            muscleFailure: '@Resources.PatientMuscleFailure',
-            shortMonths: @Html.Raw(Resources.SharedShortMonths),
-            shortDays: @Html.Raw(Resources.SharedShortDays),
-            months: @Html.Raw(Resources.SharedMonths),
-            prediction: '@Html.Raw(Resources.PatientPrediction)',
-        };
-        alsglance.dashboard.patient.id = @Model.Id;
-        alsglance.dashboard.patient.yearMin = @Model.YearMin;
-        alsglance.dashboard.patient.yearMax = @Model.YearMax;
-        alsglance.presentation.showPatientHelpButton();
-        alsglance.presentation.makePanelsDraggable(); //has to be before trying to set panels position
-        var settings = {};
-        try {
-            settings = JSON.parse(decodeURIComponent('@Html.Raw(Model.Settings)'));
-        } catch (err) {
-            toastr.error(err.message, 'ALS Glance');
-        }
-        alsglance.dashboard.patient.loadSettings(settings);
-        alsglance.dashboard.patient.loadFacts();
-        alsglance.presentation.bindButtonEvents();
-        $('[data-toggle="tooltip"]').tooltip();
-        $("input[name='muscleThreshold']").TouchSpin({
-            min: 0,
-            max: 0.030,
-            step: 0.001,
-            decimals: 3,
-            boostat: 5,
-            maxboostedstep: 10
-        });
-    });
     </script>
 }
 

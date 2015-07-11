@@ -223,10 +223,16 @@ alsglance.presentation = alsglance.presentation || {
             alsglance.dashboard.settings.atThreshold = parseFloat($("#AT_Threshold").val());
             alsglance.dashboard.settings.scmThreshold = parseFloat($("#SCM_Threshold").val());
             alsglance.dashboard.settings.fcrThreshold = parseFloat($("#FCR_Threshold").val());
+            alsglance.dashboard.settings.envelopeWindowSize = parseInt($("#envelopeWindowSize").val());
             alsglance.dashboard.patient.saveSettings();
             alsglance.dashboard.patient.loadFacts();
         });
-
+        $("#saveEMGOptions").click(function () {
+            $('#emgOptions').modal('hide');
+            alsglance.dashboard.settings.envelopeWindowSize = parseInt($("#envelopeWindowSize").val());
+            alsglance.dashboard.patient.saveSettings();
+            alsglance.dashboard.patient.renderEmg();
+        });
         $.each($('#muscles .btn'), function (index, value) {
             var id = $(value).attr('id');
             $(value).click(id, function () {
@@ -445,17 +451,18 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         alsglance.dashboard.settings = alsglance.dashboard.settings || settings;
         alsglance.dashboard.settings.layout = alsglance.dashboard.settings.layout || [];
 
-        if (alsglance.dashboard.settings.showPredictions == null) {
+        if (alsglance.dashboard.settings.envelopeWindowSize == null) {
             alsglance.dashboard.settings.showPredictions = alsglance.dashboard.settings.showFailureThresHold = true;
             alsglance.dashboard.settings.atThreshold = alsglance.dashboard.settings.fcrThreshold = 0.018;
             alsglance.dashboard.settings.scmThreshold = 0.013;
+            alsglance.dashboard.settings.envelopeWindowSize = 15;
         }
         $('#showPredictions').prop('checked', alsglance.dashboard.settings.showPredictions);
         $('#showFailureThresHold').prop('checked', alsglance.dashboard.settings.showFailureThresHold);
         $("#AT_Threshold").val(alsglance.dashboard.settings.atThreshold);
         $("#FCR_Threshold").val(alsglance.dashboard.settings.fcrThreshold);
         $("#SCM_Threshold").val(alsglance.dashboard.settings.scmThreshold);
-
+        $("#envelopeWindowSize").val(alsglance.dashboard.settings.envelopeWindowSize);
         if (alsglance.dashboard.settings.predictionBackLog == 999)
             $('#all').prop('checked', true);
         else if (alsglance.dashboard.settings.predictionBackLog == 12)
@@ -650,16 +657,15 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             for (var i = start; i < end; i++) {
                 sum += parseInt(Math.abs(arr[i][1]), 10); //don't forget to add the base
             }
-            return sum / arr.length;
+            return sum / (end-start);
         };
 
         var data = alsglance.charts.emgData;
         if (alsglance.dashboard.settings.envelopeEmg && data!=null) {
-            var windowSize = 15;
             var smoothEnvelope = [];
             var size;
             for (var i = 0; i < data.length; i++) {
-                size = Math.min(windowSize, data.length - windowSize, Math.abs(windowSize - i));
+                size = Math.min(alsglance.dashboard.settings.envelopeWindowSize, data.length - alsglance.dashboard.settings.envelopeWindowSize, Math.abs(alsglance.dashboard.settings.envelopeWindowSize - i));
                 smoothEnvelope.push([i, averageAbs(data, i, i + size - 1)]);
             }
             data = smoothEnvelope;
@@ -670,7 +676,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             xlabel: alsglance.resources.time,
             // ylabel: 'EMG',
             legend: 'true',
-            colors: [colorbrewer.schemes[colorbrewer.selectedScheme][numClasses][3]],
+            colors: [colorbrewer.schemes[colorbrewer.selectedScheme][colorbrewer.numClasses][3]],
             labelsDivStyles: {
                 'textAlign': 'right'
             }

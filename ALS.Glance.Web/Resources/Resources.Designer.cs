@@ -151,6 +151,15 @@ namespace ALS.Glance.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Envelope window size:.
+        /// </summary>
+        public static string PatientEnvelopeWindowSize {
+            get {
+                return ResourceManager.GetString("PatientEnvelopeWindowSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hour.
         /// </summary>
         public static string PatientHour {
@@ -273,15 +282,6 @@ namespace ALS.Glance.Web.Resources {
         public static string PatientResume {
             get {
                 return ResourceManager.GetString("PatientResume", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save.
-        /// </summary>
-        public static string PatientSave {
-            get {
-                return ResourceManager.GetString("PatientSave", resourceCulture);
             }
         }
         
@@ -588,6 +588,15 @@ namespace ALS.Glance.Web.Resources {
         public static string SharedPatients {
             get {
                 return ResourceManager.GetString("SharedPatients", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string SharedSave {
+            get {
+                return ResourceManager.GetString("SharedSave", resourceCulture);
             }
         }
         
