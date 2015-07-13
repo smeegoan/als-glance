@@ -10,7 +10,7 @@ using Castle.Windsor;
 
 namespace ALS.Glance.Web.Ioc.Installers
 {
-    public class BusinessInstaller : IWindsorInstaller
+    public class ConfigurationInstaller : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {

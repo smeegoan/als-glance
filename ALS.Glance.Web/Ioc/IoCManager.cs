@@ -8,8 +8,7 @@ namespace ALS.Glance.Web.Ioc
         public static void RegisterDependenciesInto(IWindsorContainer container)
         {
             container.Install(new ControllerInstaller(),
-                            new UnitOfWorkInstaller(),
-                            new BusinessInstaller());
+                            new ConfigurationInstaller());
         }
 
         public static IWindsorContainer NewContainer()

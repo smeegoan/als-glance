@@ -199,8 +199,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Ioc\Factories\WindsorControllerFactory.cs" />
-    <Compile Include="Ioc\Installers\BusinessInstaller.cs" />
-    <Compile Include="Ioc\Installers\UnitOfWorkInstaller.cs" />
+    <Compile Include="Ioc\Installers\ConfigurationInstaller.cs" />
     <Compile Include="Ioc\Installers\ControllerInstaller.cs" />
     <Compile Include="Ioc\IoCManager.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -672,26 +671,6 @@
     <ProjectReference Include="..\ALS.Glance.Models.Core\ALS.Glance.Models.Core.csproj">
       <Project>{92267138-ba91-46d9-b917-5553904e993e}</Project>
       <Name>ALS.Glance.Models.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ALS.Glance.Models.Security\ALS.Glance.Models.Security.csproj">
-      <Project>{61011dc2-531b-45a5-88bc-f49e661b2aa9}</Project>
-      <Name>ALS.Glance.Models.Security</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ALS.Glance.UoW.Core\ALS.Glance.UoW.Core.csproj">
-      <Project>{34314686-ddd0-412d-bdc2-2e22206726da}</Project>
-      <Name>ALS.Glance.UoW.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ALS.Glance.UoW.EF\ALS.Glance.UoW.EF.csproj">
-      <Project>{a6f2f429-d426-482f-a167-b50b5b605123}</Project>
-      <Name>ALS.Glance.UoW.EF</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ALS.Glance.UoW.IoC\ALS.Glance.UoW.IoC.csproj">
-      <Project>{C74C0E18-A36A-467B-8F39-C7D12C326212}</Project>
-      <Name>ALS.Glance.UoW.IoC</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ALS.Glance.UoW.Security\ALS.Glance.UoW.Security.csproj">
-      <Project>{D0351D8B-CFBD-4131-8AF4-A92E4F0EAA7B}</Project>
-      <Name>ALS.Glance.UoW.Security</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
