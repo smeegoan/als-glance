@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using ALS.Glance.Api.Properties;
 using ALS.Glance.Api.Security;
 using ALS.Glance.Models.Security.Implementations;
 using Castle.MicroKernel.Registration;
@@ -35,7 +33,7 @@ namespace ALS.Glance.Api.IoC.Installers
                     .DynamicParameters(
                         (k, d) =>
                         {
-                            d["from"] = "";// k.Resolve<Settings>().EmailFrom;
+                            d["from"] = k.Resolve<Settings>().EmailFrom;
                         }));
         }
     }

@@ -180,6 +180,7 @@
     <Compile Include="IoC\Installers\ControllerInstaller.cs" />
     <Compile Include="IoC\IoCManager.cs" />
     <Compile Include="IoC\Installers\UnitOfWorkInstaller.cs" />
+    <Compile Include="IoC\UnitOfWorkSelector.cs" />
     <Compile Include="Models\YearBounds.cs" />
     <Compile Include="Models\AgeBounds.cs" />
     <Compile Include="Models\ApiUserRegistration.cs" />
@@ -255,10 +256,6 @@
     <ProjectReference Include="..\ALS.Glance.UoW.EF\ALS.Glance.UoW.EF.csproj">
       <Project>{a6f2f429-d426-482f-a167-b50b5b605123}</Project>
       <Name>ALS.Glance.UoW.EF</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ALS.Glance.UoW.IoC\ALS.Glance.UoW.IoC.csproj">
-      <Project>{C74C0E18-A36A-467B-8F39-C7D12C326212}</Project>
-      <Name>ALS.Glance.UoW.IoC</Name>
     </ProjectReference>
     <ProjectReference Include="..\ALS.Glance.UoW.Security\ALS.Glance.UoW.Security.csproj">
       <Project>{d0351d8b-cfbd-4131-8af4-a92e4f0eaa7b}</Project>

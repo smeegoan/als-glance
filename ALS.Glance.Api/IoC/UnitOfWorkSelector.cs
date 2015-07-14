@@ -2,7 +2,7 @@ using System;
 using System.Reflection;
 using Castle.Facilities.TypedFactory;
 
-namespace ALS.Glance.UoW.IoC
+namespace ALS.Glance.Api.IoC
 {
     public class UnitOfWorkSelector : DefaultTypedFactoryComponentSelector
     {

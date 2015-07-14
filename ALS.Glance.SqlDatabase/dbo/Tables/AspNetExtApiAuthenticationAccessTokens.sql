@@ -5,8 +5,11 @@
     [AccessToken]      UNIQUEIDENTIFIER NOT NULL,
     [ExpirationDate]   DATETIME2 (7)    NOT NULL,
     CONSTRAINT [PK_dbo.AspNetExtApiAuthenticationAccessTokens] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_dbo.AspNetExtApiAuthenticationAccessTokens_dbo.AspNetExtApiApplications_ApplicationId] FOREIGN KEY ([ApiApplicationId]) REFERENCES [dbo].[AspNetExtApplications] ([Id]),
     CONSTRAINT [FK_dbo.AspNetExtApiAuthenticationAccessTokens_dbo.AspNetExtApiAuthenticationTokens_ApiApplicationId_BaseApiUserId] FOREIGN KEY ([ApiApplicationId], [BaseApiUserId]) REFERENCES [dbo].[AspNetExtApiAuthenticationTokens] ([ApiApplicationId], [BaseApiUserId]) ON DELETE CASCADE
 );
+
+
 
 
 GO
