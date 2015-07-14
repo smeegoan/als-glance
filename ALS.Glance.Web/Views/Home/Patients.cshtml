@@ -41,19 +41,12 @@
     </div>
 </div>
 @section Scripts {
-    @Scripts.Render("~/Home/ApiAuth")
     @Scripts.Render("~/bundles/datatablejs")
     @Scripts.Render("~/bundles/commonjs")
+    @Scripts.Render("~/Home/ApiAuth")
 
     <script>
         $(function () {
-            alsglance.apiClient = new alsglance.ApiClient({
-                baseUri: alsglance.baseUri,
-                authToken: alsglance.authToken,
-                onAuthFail: function () {
-                    toastr.error("Error authenticating!", 'ALS Glance');
-                }
-            });
             alsglance.resources = alsglance.resources || {
                 loadingMessage: '@Resources.PatientLoading',
                 patientsXAxisLabel: '@Html.Raw(Resources.PatientsXAxisLabel)',

@@ -45,16 +45,13 @@ namespace ALS.Glance.Web.Controllers
         {
             var auth = await WebApiODataContainer.Using(_apiUrl, _credentials)
                 .AuthenticateAsync(ct);
-            var script = string.Format(@"var alsglance = alsglance || {{}}; " +
-                                       "alsglance.authToken = '{0}'; " +
-                                       "alsglance.baseUri = '{1}';" +
+            var script = string.Format(@"var alsglance = alsglance || {{}}; alsglance.dashboard = alsglance.dashboard || {{}}; alsglance.apiClient =alsglance.apiClient|| new alsglance.ApiClientImpl({{baseUri: '{1}',authToken: '{0}'}});" +
                                        "alsglance.applicationId='{2}';" +
-                                       "alsglance.dashboardUserId='{3}';" +
-                                       "alsglance.userId='{4}';", auth.Authorization.AccessToken,
+                                       "alsglance.dashboard.userId='{3}';" , 
+                                       auth.Authorization.AccessToken,
                                        _apiUrl,
                                        Settings.Default.ApplicationId,
-                                       User.Identity.GetUserId(),
-                _credentials.UserName);
+                                       User.Identity.GetUserId());
             return JavaScript(script);
         }
 

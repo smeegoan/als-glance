@@ -1,5 +1,6 @@
 ﻿'use strict';
-alsglance.ApiClient = function (config) {
+var alsglance = alsglance || {};
+alsglance.ApiClientImpl = function (config) {
     var authToken = config.authToken,
         baseUri = config.baseUri,
         configureRequest = function (xhr) {
@@ -17,8 +18,8 @@ alsglance.ApiClient = function (config) {
             beforeSend: configureRequest,
             error: function (err) {
                 toastr.error(err.statusText, 'ALS Glance');
-        }
-    });
+            }
+        });
     };
 
     this.post = function (path, data) {
@@ -49,7 +50,7 @@ alsglance.ApiClient = function (config) {
         });
     };
 
-    this.delete = function(path) {
+    this.delete = function (path) {
         return $.ajax({
             url: this.createUri(path),
             type: "DELETE",

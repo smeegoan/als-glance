@@ -63,10 +63,10 @@
                                 <div class="col-md-7 input-group bootstrap-touchspin">
                                     @foreach (var item in Model.Muscles)
                                     {
-                                    <label>
-                                        <span class="col-md-2">@item.Abbreviation</span>
-                                        <input class="col-md-2" id="@(item.Abbreviation)_Threshold" type="text" value="0" name="muscleThreshold">
-                                    </label>
+                                        <label>
+                                            <span class="col-md-2">@item.Abbreviation</span>
+                                            <input class="col-md-2" id="@(item.Abbreviation)_Threshold" type="text" value="0" name="muscleThreshold">
+                                        </label>
                                     }
                                 </div>
 
@@ -321,18 +321,11 @@
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/Home/ApiAuth")
     @Scripts.Render("~/bundles/commonjs")
     @Scripts.Render("~/bundles/patientjs")
+    @Scripts.Render("~/Home/ApiAuth")
     <script>
         $(function() {
-            alsglance.apiClient = new alsglance.ApiClient({
-                baseUri: alsglance.baseUri,
-                authToken: alsglance.authToken,
-                onAuthFail: function() {
-                    toastr.error("Error authenticating!", 'ALS Glance');
-                }
-            });
             alsglance.resources = alsglance.resources || {
                 hour: '@Resources.PatientHour',
                 timeOfDay: '@Resources.PatientTimeOfDay',

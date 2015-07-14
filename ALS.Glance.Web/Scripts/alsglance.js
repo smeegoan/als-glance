@@ -498,7 +498,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         alsglance.dashboard.settings.layout = alsglance.presentation.panelsPosition();
         alsglance.dashboard.settings.colorScheme = colorbrewer.selectedScheme;
         var entity = {};
-        entity.UserId = alsglance.dashboardUserId;
+        entity.UserId = alsglance.dashboard.userId;
         entity.ApplicationId = alsglance.applicationId;
         entity.Value = JSON.stringify(alsglance.dashboard.settings);
         $.when(alsglance.apiClient.post("ApplicationSettings", JSON.stringify(entity)))
