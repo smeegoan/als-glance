@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
@@ -12,7 +11,6 @@ using System.Threading.Tasks;
 using ALS.Glance.DataAgents.ALS.Glance.Api.Models;
 using ALS.Glance.DataAgents.Core;
 using ALS.Glance.DataAgents.Default;
-using ALS.Glance.Models;
 using ALS.Glance.Models.Core;
 using Microsoft.OData.Client;
 using Newtonsoft.Json.Converters;
@@ -29,18 +27,20 @@ namespace ALS.Glance.DataAgents
         private readonly string _applicationId;
         private readonly string _userName;
         private readonly string _password;
+        private readonly string _onBehalfOf;
 
-        private WebApiODataContainer(Uri serviceRoot, string applicationId, string userName, string password)
+        private WebApiODataContainer(Uri serviceRoot, string applicationId, string userName, string password,string onBehalfOf)
             : base(serviceRoot)
         {
             _applicationId = applicationId;
             _userName = userName;
             _password = password;
+            _onBehalfOf = onBehalfOf;
 
             SendingRequest2 += (o, requestEventArgs) =>
             {
                 AuthorizationInfo authorizationInfo;
-                if (AuthorizationsBag.TryGetValue(_userName, out authorizationInfo) &&
+                if (AuthorizationsBag.TryGetValue(onBehalfOf, out authorizationInfo) &&
                     !requestEventArgs.RequestMessage.Url.ToString().Contains("Authorization"))
                 {
                     requestEventArgs.RequestMessage.SetHeader(
@@ -56,7 +56,8 @@ namespace ALS.Glance.DataAgents
                  new Uri(url),
                  servicesWebApiCredentials.ApplicationId,
                  servicesWebApiCredentials.UserName,
-                 servicesWebApiCredentials.Password) { IgnoreResourceNotFoundException = true };
+                 servicesWebApiCredentials.Password,
+                 servicesWebApiCredentials.OnBehalfOf) { IgnoreResourceNotFoundException = true };
         }
 
         public void Dispose()
@@ -378,7 +379,7 @@ namespace ALS.Glance.DataAgents
 
         private AuthorizationInfo Authenticate()
         {
-            return AuthorizationsBag.AddOrUpdate(_userName,
+            return AuthorizationsBag.AddOrUpdate(_onBehalfOf,
                 s =>
                 {
                     var authorizationRequest = new AuthorizationRequest

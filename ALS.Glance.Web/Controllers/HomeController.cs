@@ -43,6 +43,7 @@ namespace ALS.Glance.Web.Controllers
         [MvcAuthorize(Roles.Admin, Roles.User)]
         public async Task<JavaScriptResult> ApiAuth(CancellationToken ct)
         {
+            _credentials.OnBehalfOf = User.Identity.GetUserId();
             var auth = await WebApiODataContainer.Using(_apiUrl, _credentials)
                 .AuthenticateAsync(ct);
             var script = string.Format(@"var alsglance = alsglance || {{}}; alsglance.dashboard = alsglance.dashboard || {{}}; alsglance.apiClient =alsglance.apiClient|| new alsglance.ApiClientImpl({{baseUri: '{1}',authToken: '{0}'}});" +
@@ -58,6 +59,7 @@ namespace ALS.Glance.Web.Controllers
         [MvcAuthorize(Roles.Admin, Roles.User)]
         public async Task<ActionResult> Patients(int? id, CancellationToken ct)
         {
+            _credentials.OnBehalfOf = User.Identity.GetUserId();
             if (id == null)
             {
                 return await ViewPatients(ct);

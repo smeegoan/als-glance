@@ -1,4 +1,6 @@
-﻿namespace ALS.Glance.Api.Security.Exceptions
+﻿using ALS.Glance.Api.Properties;
+
+namespace ALS.Glance.Api.Security.Exceptions
 {
     public class ApiAuthorizationExpiredException : ApiSecurityBusinessException
     {
@@ -6,7 +8,7 @@
         /// Creates a new instance with default message
         /// </summary>
         public ApiAuthorizationExpiredException()
-            : base("The authorization has expired. Please refresh you access.") { }
+            : base(Resources.TokenExpiredErrorMessage) { }
 
 
     }

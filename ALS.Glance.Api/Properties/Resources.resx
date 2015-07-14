@@ -170,10 +170,16 @@ ALS Glance</value>
   <data name="EmailSubjectPasswordResetConfirmation" xml:space="preserve">
     <value>ALS Glance – Recuperação de Palavra-chave</value>
   </data>
+  <data name="EmptyCredentialsErrorMessage" xml:space="preserve">
+    <value>Credentials can not be null or empty</value>
+  </data>
   <data name="ModelValidation_RequiredScoped" xml:space="preserve">
     <value>Required</value>
   </data>
   <data name="NotImplementedErrorMessage" xml:space="preserve">
     <value>Not Implemented</value>
+  </data>
+  <data name="TokenExpiredErrorMessage" xml:space="preserve">
+    <value>The authorization has expired. Please refresh your access.</value>
   </data>
 </root>

@@ -4,6 +4,7 @@ using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Filters;
+using ALS.Glance.Api.Properties;
 using ALS.Glance.Api.Security.Extensions;
 using ALS.Glance.Api.Security.Results;
 
@@ -59,7 +60,7 @@ namespace ALS.Glance.Api.Security.Filters
 
             if (String.IsNullOrEmpty(authorization.Parameter))
             {
-                context.ErrorResult = new AuthenticationFailureResult("Credentials can not be null or empty", request);
+                context.ErrorResult = new AuthenticationFailureResult(Resources.EmptyCredentialsErrorMessage, request);
                 return;
             }
 

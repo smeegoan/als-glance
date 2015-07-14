@@ -169,7 +169,7 @@ namespace ALS.Glance.Api.Properties {
         ///&lt;p&gt;Este e-mail foi enviado automaticamente, em resposta ao seu pedido de recuperação de palavra-chave na &lt;b&gt;Aplicação ALS Glance.&lt;/b&gt;&lt;/p&gt;
         ///&lt;p&gt;Este procedimento é efetuado para sua segurança, sendo que apenas você, o destinatário deste e-mail, poderá efetuar o próximo passo no processo de recuperação de palavra-chave.&lt;/p&gt;
         ///&lt;p&gt;Para recuperar a sua palavra-chave e assim aceder à sua conta, visite o seguinte &lt;a href=&quot;{0}&quot;&gt;link&lt;/a&gt;.&lt;/p&gt;
-        ///&lt;p&gt;Se não solicitou a recuperação de palavra-chave [rest of string was truncated]&quot;;.
+        ///&lt;p&gt;Se não solicitou a recuperação de palavra-chave na  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string EmailBodyPasswordResetConfirmation {
             get {
@@ -196,6 +196,15 @@ namespace ALS.Glance.Api.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Credentials can not be null or empty.
+        /// </summary>
+        internal static string EmptyCredentialsErrorMessage {
+            get {
+                return ResourceManager.GetString("EmptyCredentialsErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Required.
         /// </summary>
         internal static string ModelValidation_RequiredScoped {
@@ -210,6 +219,15 @@ namespace ALS.Glance.Api.Properties {
         internal static string NotImplementedErrorMessage {
             get {
                 return ResourceManager.GetString("NotImplementedErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The authorization has expired. Please refresh your access..
+        /// </summary>
+        internal static string TokenExpiredErrorMessage {
+            get {
+                return ResourceManager.GetString("TokenExpiredErrorMessage", resourceCulture);
             }
         }
     }
