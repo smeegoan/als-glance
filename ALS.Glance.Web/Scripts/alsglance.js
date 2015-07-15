@@ -475,16 +475,16 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
     },
     loadFacts: function () {
         //$.when(apiClient.get("Fact?$select=AUC&$expand=Time($select=Hour,TimeOfDay),Date($select=DayOfWeek,Weekday,Date,Year,MonthName,Quarter),Patient,Muscle($select=Name,Abbreviation)&$filter=Patient/Id eq " + alsglance.dashboard.patient.id))
-        $.when(alsglance.apiClient.get("Facts?$select=AUC,TimeHour,TimeTimeOfDay,DateDate,DateYear,DateMonthName,DateQuarter,MuscleAbbreviation,PatientName&$filter=PatientId eq " + alsglance.dashboard.patient.id))
-            .then(function (data) {
-                data = alsglance.dashboard.patient.addPredictions(data.value);
-                alsglance.dashboard.patient.load(data);
-                colorbrewer.showColorSchemeButton(alsglance.dashboard.settings.colorScheme); //has to be called after the charts have been created
-                alsglance.charts.setBehaviour(); //has to be called before the filters are applied
-                alsglance.charts.resizeAll();
-                alsglance.dashboard.patient.reset();
-                alsglance.dashboard.patient.applyFilters(alsglance.dashboard.settings["P" + alsglance.dashboard.patient.id]);
-            });
+    $.when(alsglance.apiClient.get("Facts?$select=AUC,TimeHour,TimeTimeOfDay,DateDate,DateYear,DateMonthName,DateQuarter,MuscleAbbreviation,PatientName&$filter=PatientId eq " + alsglance.dashboard.patient.id))
+        .then(function (data) {
+            data = alsglance.dashboard.patient.addPredictions(data.value);
+            alsglance.dashboard.patient.load(data);
+            colorbrewer.showColorSchemeButton(alsglance.dashboard.settings.colorScheme); //has to be called after the charts have been created
+            alsglance.charts.setBehaviour(); //has to be called before the filters are applied
+            alsglance.charts.resizeAll();
+            alsglance.dashboard.patient.reset();
+            alsglance.dashboard.patient.applyFilters(alsglance.dashboard.settings["P" + alsglance.dashboard.patient.id]);
+        });
     },
     saveSettings: function () {
         var filters = [];
@@ -748,7 +748,6 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             date.setISO8601(d.DateDate);
             d.DateDate = date;
             d.DateMonthInYear = d3.time.month(d.DateDate); // pre-calculate month for better performance
-
         });
 
         //### Create Crossfilter Dimensions and Groups
@@ -764,7 +763,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         var dateMonthInYearDimension = ndx.dimension(function (d) {
             return d.DateMonthInYear;
         });
-        // group by total volume within move, and scale down result
+
         var monthGroup = dateMonthInYearDimension.group().reduceSum(function (d) {
             return d.AUC;
         });
@@ -797,7 +796,6 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
 
         var timeHourGroup = timeHourDimension.group();
 
-        // counts per weekday
         var timeOfDayDimension = ndx.dimension(function (d) {
             return d.TimeTimeOfDay;
         });
@@ -809,7 +807,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         var quarter = ndx.dimension(function (d) {
             return alsglance.resources.quarterPrefix + d.DateQuarter;
         });
-        var quarterGroup = quarter.group().reduceCount();
+        var quarterGroup = quarter.group();
 
         alsglance.charts.quarterChart
             .radius(90)

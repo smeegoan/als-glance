@@ -117,7 +117,7 @@ namespace ALS.Glance.Api.Controllers
                 return Request.CreateBadRequestResult(Resources.BadRequestErrorMessage, ModelState);
             }
 
-            var applicationIdDecoded = entity.ApplicationId.DecodeFromBase64ASCII();
+            var applicationIdDecoded = entity.ApplicationId;
             var refreshTokenDecoded = Guid.Parse(entity.RefreshToken.DecodeFromBase64ASCII());
 
             await _uow.BeginAsync(ct);
