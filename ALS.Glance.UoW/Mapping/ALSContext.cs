@@ -138,6 +138,7 @@ namespace ALS.Glance.UoW.Mapping
                               IsUnique = true
                           }));
                   cfg.Property(e => e.Value).HasMaxLength(4000);
+                  cfg.Property(e => e.Version).IsConcurrencyToken().IsRowVersion();
                   cfg.Ignore(e => e.Values);
                   cfg.Map();
               });

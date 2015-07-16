@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.OData;
+using ALS.Glance.Api.Helpers.ODataInterfaces;
 using ALS.Glance.Api.Properties;
 using ALS.Glance.Api.Security;
 using ALS.Glance.Api.Security.Filters;

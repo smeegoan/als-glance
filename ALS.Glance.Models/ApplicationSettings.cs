@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using ALS.Glance.Models.Core;
+using ALS.Glance.Models.Core.Interfaces;
 using ALS.Glance.Models.Security.Implementations;
 
 namespace ALS.Glance.Models
 {
-    public class ApplicationSettings : ModelWithAllMeta<long>
+    public class ApplicationSettings : ModelWithAllMeta<long>,IHaveVersionAsByteArray
     {
         public virtual string UserId { get; set; }
 
@@ -17,5 +18,6 @@ namespace ALS.Glance.Models
         public virtual string Value { get; set; }
         public IDictionary<string, object> Values { get; set; }
 
+        public byte[] Version { get; set; }
     }
 }

@@ -95,7 +95,7 @@ namespace ALS.Glance.Api
                     es.HasRequired(e => e.User);
                     es.ComplexProperty(e => e.Application).IsRequired();
                     es.HasDynamicProperties(e => e.Values);
-
+                    es.Property(e => e.Version).IsConcurrencyToken();
                     es.Property(e => e.CreatedOn).IsRequired();
                     es.Property(e => e.UpdatedOn).IsRequired();
                 }).HasEditLinkForKey(true, e => e.UserId, e => e.ApplicationId);

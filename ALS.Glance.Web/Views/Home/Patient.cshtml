@@ -354,11 +354,12 @@
             alsglance.presentation.makePanelsDraggable(); //has to be before trying to set panels position
             var settings = {};
             try {
-                settings = JSON.parse(decodeURIComponent('@Html.Raw(Model.Settings)'));
+                settings = JSON.parse(decodeURIComponent('@Html.Raw(Model.VersionedSettings.Item2)'));
             } catch (err) {
                 toastr.error(err.message, 'ALS Glance');
             }
             alsglance.dashboard.patient.loadSettings(settings);
+            alsglance.dashboard.patient.etag = '@Html.Raw(Model.VersionedSettings.Item1)';
             alsglance.dashboard.patient.loadFacts();
             alsglance.presentation.bindButtonEvents();
             $('[data-toggle="tooltip"]').tooltip();

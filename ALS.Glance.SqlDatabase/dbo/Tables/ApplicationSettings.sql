@@ -5,10 +5,13 @@
     [Value]         NVARCHAR (4000)    NULL,
     [CreatedOn]     DATETIMEOFFSET (7) NOT NULL,
     [UpdatedOn]     DATETIMEOFFSET (7) NOT NULL,
+    [Version]       ROWVERSION         NOT NULL,
     CONSTRAINT [PK_dbo.ApplicationSettings] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_dbo.ApplicationSettings_dbo.AspNetExtApiApplications_ApplicationId] FOREIGN KEY ([ApplicationId]) REFERENCES [dbo].[AspNetExtApplications] ([Id]),
     CONSTRAINT [FK_dbo.ApplicationSettings_dbo.AspNetExtApiUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id])
 );
+
+
 
 
 

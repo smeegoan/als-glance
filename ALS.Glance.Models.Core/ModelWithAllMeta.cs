@@ -1,4 +1,5 @@
 ﻿using System;
+using ALS.Glance.Models.Core.Interfaces;
 
 namespace ALS.Glance.Models.Core
 {

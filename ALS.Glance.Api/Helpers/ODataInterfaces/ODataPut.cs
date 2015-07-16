@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.OData;
+using System.Web.OData.Query;
 
 namespace ALS.Glance.Api.Helpers.ODataInterfaces
 {
@@ -42,6 +43,12 @@ namespace ALS.Glance.Api.Helpers.ODataInterfaces
             /// <param name="ct"></param>
             /// <returns></returns>
             Task<IHttpActionResult> Put([FromODataUri] TKey1 key01, [FromODataUri] TKey2 key02, TEntity update, CancellationToken ct);
+        }
+
+        // ReSharper disable once InconsistentNaming
+        public interface WithKeyAndOptions<in TKey1, in TKey2>
+        {
+            Task<IHttpActionResult> Put([FromODataUri] TKey1 key1, [FromODataUri] TKey2 key2, TEntity update, ODataQueryOptions<TEntity> options, CancellationToken ct);
         }
     }
 }

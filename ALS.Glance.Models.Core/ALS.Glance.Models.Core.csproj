@@ -38,9 +38,12 @@
     <Compile Include="Connection\ALSConnectionString.cs" />
     <Compile Include="Credentials.cs" />
     <Compile Include="Connection\IConnectionString.cs" />
-    <Compile Include="IHaveCreatedMeta.cs" />
-    <Compile Include="IHaveUpdatedMeta.cs" />
-    <Compile Include="IModel.cs" />
+    <Compile Include="Interfaces\IHaveCreatedMeta.cs" />
+    <Compile Include="Interfaces\IHaveUpdatedMeta.cs" />
+    <Compile Include="Interfaces\IModel.cs" />
+    <Compile Include="Interfaces\IHaveVersion.cs" />
+    <Compile Include="Interfaces\IHaveVersionAsByteArray.cs" />
+    <Compile Include="Interfaces\IHaveVersionAsLong.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="ModelWithAllMeta.cs" />
     <Compile Include="ModelWithCreatedMeta.cs" />

@@ -190,7 +190,7 @@ alsglance.presentation = alsglance.presentation || {
                         else {
                             draggable.resize();
                             droppable.resize();
-                            draggable.css("width",''); //required for Firefox
+                            draggable.css("width", ''); //required for Firefox
                             droppable.css("width", '');//required for Firefox
                             draggable.css("height", ''); //required for Firefox
                             droppable.css("height", '');//required for Firefox
@@ -217,7 +217,7 @@ alsglance.presentation = alsglance.presentation || {
         });
         $("#saveOptions").click(function () {
             alsglance.dashboard.settings.showPredictions = $("#showPredictions").is(':checked');
-            alsglance.dashboard.settings.showFailureThresHold = $("#showFailureThresHold").is(':checked');
+            alsglance.dashboard.settings.showFailureThreshold = $("#showFailureThresHold").is(':checked');
             alsglance.dashboard.settings.predictionBackLog = parseInt($('input[name=predictionBacklog]:checked', '#aucForm').val());
             $('#aucOptions').modal('hide');
             alsglance.dashboard.settings.atThreshold = parseFloat($("#AT_Threshold").val());
@@ -452,13 +452,13 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         alsglance.dashboard.settings.layout = alsglance.dashboard.settings.layout || [];
 
         if (alsglance.dashboard.settings.envelopeWindowSize == null) {
-            alsglance.dashboard.settings.showPredictions = alsglance.dashboard.settings.showFailureThresHold = true;
+            alsglance.dashboard.settings.showPredictions = alsglance.dashboard.settings.showFailureThreshold = true;
             alsglance.dashboard.settings.atThreshold = alsglance.dashboard.settings.fcrThreshold = 0.018;
             alsglance.dashboard.settings.scmThreshold = 0.013;
             alsglance.dashboard.settings.envelopeWindowSize = 15;
         }
         $('#showPredictions').prop('checked', alsglance.dashboard.settings.showPredictions);
-        $('#showFailureThresHold').prop('checked', alsglance.dashboard.settings.showFailureThresHold);
+        $('#showFailureThresHold').prop('checked', alsglance.dashboard.settings.showFailureThreshold);
         $("#AT_Threshold").val(alsglance.dashboard.settings.atThreshold);
         $("#FCR_Threshold").val(alsglance.dashboard.settings.fcrThreshold);
         $("#SCM_Threshold").val(alsglance.dashboard.settings.scmThreshold);
@@ -475,16 +475,16 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
     },
     loadFacts: function () {
         //$.when(apiClient.get("Fact?$select=AUC&$expand=Time($select=Hour,TimeOfDay),Date($select=DayOfWeek,Weekday,Date,Year,MonthName,Quarter),Patient,Muscle($select=Name,Abbreviation)&$filter=Patient/Id eq " + alsglance.dashboard.patient.id))
-    $.when(alsglance.apiClient.get("Facts?$select=AUC,TimeHour,TimeTimeOfDay,DateDate,DateYear,DateMonthName,DateQuarter,MuscleAbbreviation,PatientName&$filter=PatientId eq " + alsglance.dashboard.patient.id))
-        .then(function (data) {
-            data = alsglance.dashboard.patient.addPredictions(data.value);
-            alsglance.dashboard.patient.load(data);
-            colorbrewer.showColorSchemeButton(alsglance.dashboard.settings.colorScheme); //has to be called after the charts have been created
-            alsglance.charts.setBehaviour(); //has to be called before the filters are applied
-            alsglance.charts.resizeAll();
-            alsglance.dashboard.patient.reset();
-            alsglance.dashboard.patient.applyFilters(alsglance.dashboard.settings["P" + alsglance.dashboard.patient.id]);
-        });
+        $.when(alsglance.apiClient.get("Facts?$select=AUC,TimeHour,TimeTimeOfDay,DateDate,DateYear,DateMonthName,DateQuarter,MuscleAbbreviation,PatientName&$filter=PatientId eq " + alsglance.dashboard.patient.id))
+            .then(function (data) {
+                data = alsglance.dashboard.patient.addPredictions(data.value);
+                alsglance.dashboard.patient.load(data);
+                colorbrewer.showColorSchemeButton(alsglance.dashboard.settings.colorScheme); //has to be called after the charts have been created
+                alsglance.charts.setBehaviour(); //has to be called before the filters are applied
+                alsglance.charts.resizeAll();
+                alsglance.dashboard.patient.reset();
+                alsglance.dashboard.patient.applyFilters(alsglance.dashboard.settings["P" + alsglance.dashboard.patient.id]);
+            });
     },
     saveSettings: function () {
         var filters = [];
@@ -501,8 +501,9 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         entity.UserId = alsglance.dashboard.userId;
         entity.ApplicationId = alsglance.applicationId;
         entity.Value = JSON.stringify(alsglance.dashboard.settings);
+        //$.when(alsglance.apiClient.put("ApplicationSettings", JSON.stringify(entity), alsglance.dashboard.patient.etag)) not supported by Esoterica
         $.when(alsglance.apiClient.post("ApplicationSettings", JSON.stringify(entity)))
-            .then(function(data) {
+            .then(function (data) {
                 toastr.success(alsglance.resources.saveMessage, 'ALS Glance');
             });
     },
@@ -559,7 +560,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         alsglance.charts.muscleChart.filter([muscle]);
     },
     addPredictions: function (data) {
-        if (!alsglance.dashboard.settings.showFailureThresHold && !alsglance.dashboard.settings.showPredictions) {
+        if (!alsglance.dashboard.settings.showFailureThreshold && !alsglance.dashboard.settings.showPredictions) {
             return data;
         }
 
@@ -603,7 +604,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                         MuscleAbbreviation: muscle,
                         TimeTimeOfDay: timeOfDay
                     };
-                    if (alsglance.dashboard.settings.showFailureThresHold) {
+                    if (alsglance.dashboard.settings.showFailureThreshold) {
                         var failureThreshold = jQuery.extend({}, prediction);
                         failureThreshold.PatientName = alsglance.resources.muscleFailure;
                         failureThreshold.AUC = auc;
@@ -651,17 +652,17 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         alsglance.dashboard.settings.envelopeEmg = !alsglance.dashboard.settings.envelopeEmg;
     },
     renderEmg: function () {
-        var averageAbs = function (arr,start,end) {
+        var averageAbs = function (arr, start, end) {
             var sum = 0;
             end = Math.min(end, arr.length);
             for (var i = start; i < end; i++) {
                 sum += parseInt(Math.abs(arr[i][1]), 10); //don't forget to add the base
             }
-            return sum / (end-start);
+            return sum / (end - start);
         };
 
         var data = alsglance.charts.emgData;
-        if (alsglance.dashboard.settings.envelopeEmg && data!=null) {
+        if (alsglance.dashboard.settings.envelopeEmg && data != null) {
             var smoothEnvelope = [];
             var size;
             for (var i = 0; i < data.length; i++) {

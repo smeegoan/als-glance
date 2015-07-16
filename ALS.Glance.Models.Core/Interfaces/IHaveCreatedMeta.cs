@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ALS.Glance.Models.Core
+namespace ALS.Glance.Models.Core.Interfaces
 {
     /// <summary>
     /// Model interface containing metadata about the creation

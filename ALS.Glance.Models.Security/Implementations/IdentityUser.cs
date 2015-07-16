@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ALS.Glance.Models.Core;
+using ALS.Glance.Models.Core.Interfaces;
 using ALS.Glance.Models.Security.Interfaces;
 using Microsoft.AspNet.Identity;
 

@@ -1,4 +1,4 @@
-﻿namespace ALS.Glance.Models.Core
+﻿namespace ALS.Glance.Models.Core.Interfaces
 {
     /// <summary>
     /// The model interface with an associated unique identifier

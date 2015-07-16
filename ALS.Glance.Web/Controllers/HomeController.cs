@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -39,7 +41,7 @@ namespace ALS.Glance.Web.Controllers
             return View();
         }
 
-    
+
         [MvcAuthorize(Roles.Admin, Roles.User)]
         public async Task<JavaScriptResult> ApiAuth(CancellationToken ct)
         {
@@ -48,7 +50,7 @@ namespace ALS.Glance.Web.Controllers
                 .AuthenticateAsync(ct);
             var script = string.Format(@"var alsglance = alsglance || {{}}; alsglance.dashboard = alsglance.dashboard || {{}}; alsglance.apiClient =new alsglance.ApiClientImpl({{baseUri: '{1}',authToken: '{0}'}});" +
                                        "alsglance.applicationId='{2}';" +
-                                       "alsglance.dashboard.userId='{3}';" , 
+                                       "alsglance.dashboard.userId='{3}';",
                                        auth.Authorization.AccessToken,
                                        _apiUrl,
                                        Settings.Default.ApplicationId,
@@ -82,11 +84,29 @@ namespace ALS.Glance.Web.Controllers
                };
                 cache.SetValue(Request, patientModel);
             }
-            var settings = await _glanceDa.GetSettingsAsync(_credentials, User.Identity.GetUserId(), ct);
-            patientModel.Settings = settings != null ? settings.Value : "{}";
+             var settings = await _glanceDa.GetSettingsAsync(_credentials, User.Identity.GetUserId(), ct);
+            if (settings != null)
+            {
+                var etag = "W/\"" + EncodeInBase64(string.Format("binary'{0}'", 
+                    Convert.ToBase64String(settings.Version,0,settings.Version.Length))) + "\"";
+                patientModel.VersionedSettings = new Tuple<string, string>(etag, settings.Value);
+            }
+            else
+            {
+                patientModel.VersionedSettings = new Tuple<string, string>(string.Empty, "{}");
+            }
             return View("Patient", patientModel);
         }
         #region Private Methods
+
+        public static string EncodeInBase64(string valueToEncode)
+        {
+            var encoding = (Encoding)Encoding.UTF8.Clone();
+            encoding.EncoderFallback = EncoderFallback.ExceptionFallback;
+
+            return Convert.ToBase64String(encoding.GetBytes(valueToEncode));
+        }
+
         private async Task<ActionResult> ViewPatients(CancellationToken ct)
         {
             var cache = new ResponseCache<AgeBounds>(false, DefaultCacheTime.Long, _settings.ResponseCacheEnabled,

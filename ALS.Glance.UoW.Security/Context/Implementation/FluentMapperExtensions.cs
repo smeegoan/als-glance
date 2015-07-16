@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity.ModelConfiguration;
 using ALS.Glance.Models.Core;
+using ALS.Glance.Models.Core.Interfaces;
 
 namespace ALS.Glance.UoW.Security.Context.Implementation
 {

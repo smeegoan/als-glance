@@ -7,6 +7,7 @@ using System.Web.OData.Builder;
 using System.Web.OData.Extensions;
 using System.Web.OData.Routing;
 using ALS.Glance.Models.Core;
+using ALS.Glance.Models.Core.Interfaces;
 
 namespace ALS.Glance.Api
 {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.OData.Query;
 using ALS.Glance.Api.Helpers;
 using ALS.Glance.Api.Helpers.Binder;
+using ALS.Glance.Api.Helpers.ODataInterfaces;
 using ALS.Glance.Api.Properties;
 using ALS.Glance.Core.Cache;
 using ALS.Glance.Api.Security;

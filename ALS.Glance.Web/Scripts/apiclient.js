@@ -5,6 +5,12 @@ alsglance.ApiClientImpl = function (config) {
         baseUri = config.baseUri,
         configureRequest = function (xhr) {
             xhr.setRequestHeader("Authorization", "Bearer " + authToken);
+        },
+        configureETagRequest = function (etag) {
+            return function(xhr) {
+                configureRequest(xhr);
+                xhr.setRequestHeader("If-Match", etag);
+            };
         };
 
     this.createUri = function (path) {
@@ -23,6 +29,7 @@ alsglance.ApiClientImpl = function (config) {
     };
 
     this.post = function (path, data) {
+
         return $.ajax({
             url: this.createUri(path),
             type: "POST",
@@ -36,14 +43,14 @@ alsglance.ApiClientImpl = function (config) {
         });
     };
 
-    this.put = function (path, data) {
+    this.put = function (path, data, etag) {
         return $.ajax({
             url: this.createUri(path),
             type: "PUT",
             contentType: "application/json",
             dataType: "json",
             data: data,
-            beforeSend: configureRequest,
+            beforeSend: etag != null ? configureETagRequest(etag) : configureRequest,
             error: function (err) {
                 toastr.error(err.statusText, 'ALS Glance');
             }

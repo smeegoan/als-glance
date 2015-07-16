@@ -41,7 +41,7 @@ namespace ALS.Glance.Api.Helpers.ODataInterfaces
             /// <param name="update"></param>
             /// <param name="ct"></param>
             /// <returns></returns>
-            Task<IHttpActionResult> Put([FromODataUri] TKey1 key01, [FromODataUri] TKey2 key02, TEntity update, CancellationToken ct);
+            Task<IHttpActionResult> Patch([FromODataUri] TKey1 key01, [FromODataUri] TKey2 key02, Delta<TEntity> update, CancellationToken ct);
         }
     }
 }

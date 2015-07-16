@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.OData;
+using System.Web.OData.Query;
 using ALS.Glance.Api.Helpers;
 using ALS.Glance.Api.Helpers.ODataInterfaces;
 using ALS.Glance.Api.Properties;
@@ -21,9 +23,12 @@ using Newtonsoft.Json;
 
 namespace ALS.Glance.Api.Controllers
 {
-    //  [Authorize]
-    public class ApplicationSettingsController : ODataController, ODataGet<ApplicationSettings>.WithKey<string, string>,
-        ODataPost<ApplicationSettings>, ODataPut<ApplicationSettings>.WithKey<string, string>, ODataPatch<ApplicationSettings>.WithKey<string, string>, ODataDelete.WithKey<string, string>
+    public class ApplicationSettingsController : ODataController,
+        ODataGet<ApplicationSettings>.WithKeyAndOptions<string, string>,
+        ODataPost<ApplicationSettings>,
+        ODataPut<ApplicationSettings>.WithKeyAndOptions<string, string>,
+        ODataPatch<ApplicationSettings>.WithKey<string, string>,
+        ODataDelete.WithKey<string, string>
     {
         private readonly IALSUnitOfWork _uow;
 
@@ -34,26 +39,50 @@ namespace ALS.Glance.Api.Controllers
 
         #region ODataGet
 
-        [EnableQuery, ApiAuthorize(Roles.Admin)
-        ]
-        public IQueryable<ApplicationSettings> Get()
+        [EnableQuery, ApiAuthorize(Roles.Admin)]
+        public IQueryable<ApplicationSettings> Get(ODataQueryOptions<ApplicationSettings> options)
         {
             return _uow.ApplicationSettings.GetAll();
         }
 
         [EnableQuery,
-        EnableCors, ApiAuthorize(Roles.Admin, Roles.User)]
+         EnableCors, ApiAuthorize(Roles.Admin, Roles.User)]
         public async Task<IHttpActionResult> Get(
-            [FromODataUri] string userId, [FromODataUri] string applicationId, CancellationToken ct)
+            [FromODataUri] string userId, [FromODataUri] string applicationId,
+            ODataQueryOptions<ApplicationSettings> options, CancellationToken ct)
         {
-            var entity =
-                await _uow.ApplicationSettings.GetByUserIdAndApplicationIdAsync(
-                    userId, applicationId, ct);
-            if (entity == null)
-                return (IHttpActionResult)NotFound();
+            return await Task.Run(() =>
+            {
+                ApplicationSettings entity;
+                var byIdQuery =
+                    _uow.ApplicationSettings.GetAll().Where(c => c.ApplicationId == applicationId && c.UserId == userId);
+                if (options.IfNoneMatch != null)
+                {
+                    var settingsQuery =
+                        options.IfNoneMatch.ApplyTo(byIdQuery);
+                    if (!settingsQuery.Any())
+                    {
+                        // The entity has the same ETag as the one in the If-None-Match header of the request,
+                        // so it hasn't been modified since it was retrieved the first time.
+                        return StatusCode(HttpStatusCode.NotModified);
+                    }
+                    entity = byIdQuery.SingleOrDefault();
+                    if (entity == null)
+                        return (IHttpActionResult)NotFound();
 
-            entity.Values = JsonConvert.DeserializeObject<Dictionary<string, object>>(entity.Value);
-            return Ok(entity.ToSingleResult());
+                    entity.Values = JsonConvert.DeserializeObject<Dictionary<string, object>>(entity.Value);
+                    // The entity has a different ETag than the one specified in the If-None-Match header of the request,
+                    // so we return the entity.
+                    return Ok(entity.ToSingleResult());
+                }
+                entity = byIdQuery.SingleOrDefault();
+                if (entity == null)
+                    return (IHttpActionResult)NotFound();
+
+                entity.Values = JsonConvert.DeserializeObject<Dictionary<string, object>>(entity.Value);
+                // The request didn't contain any ETag, so we return the entity.
+                return Ok(entity.ToSingleResult());
+            }, ct);
         }
 
         #endregion
@@ -61,7 +90,7 @@ namespace ALS.Glance.Api.Controllers
         #region ODataPost
 
         [EnableCors, ApiAuthorize(Roles.Admin, Roles.User)]
-        public async Task<IHttpActionResult> Post(ApplicationSettings entity, CancellationToken ct)
+        public async Task<IHttpActionResult> Post(ApplicationSettings entity,CancellationToken ct)
         {
             if (!ModelState.IsValid)
                 return Request.CreateBadRequestResult(Resources.BadRequestErrorMessage, ModelState);
@@ -75,7 +104,7 @@ namespace ALS.Glance.Api.Controllers
                 //return Request.CreateConflictResponse("Duplicated"); 
                 //Esoterica host does not allow the verbs DELETE, PUT or PATCH so we update the entity here
 
-                return await Put(entity.UserId, entity.ApplicationId, entity, ct);
+                return await Put(entity.UserId, entity.ApplicationId, entity, null, ct);
             }
 
             await _uow.BeginAsync(ct);
@@ -105,11 +134,11 @@ namespace ALS.Glance.Api.Controllers
         #region ODataPut
 
         [ApiAuthorize(Roles.Admin, Roles.User),
-        Permission(Role =Roles.User, ClaimType = ClaimTypes.Name, MustOwn = "UserId"),
+        Permission(Role = Roles.User, ClaimType = ClaimTypes.Name, MustOwn = "UserId"),
         EnableCors,
         EnableQuery]
         public async Task<IHttpActionResult> Put(
-            [FromODataUri] string userId, [FromODataUri] string applicationId, ApplicationSettings update, CancellationToken ct)
+            [FromODataUri] string userId, [FromODataUri] string applicationId, ApplicationSettings update, ODataQueryOptions<ApplicationSettings> options, CancellationToken ct)
         {
             if (update == null)
             {
@@ -129,23 +158,45 @@ namespace ALS.Glance.Api.Controllers
                 await _uow.BeginAsync(ct);
 
                 var entityToUpdate =
-                    await _uow.ApplicationSettings.GetByUserIdAndApplicationIdAsync(
-                        userId, applicationId, ct);
-                if (entityToUpdate == null)
+                    await _uow.ApplicationSettings.GetByUserIdAndApplicationIdAsync(userId, applicationId, ct);
+                if (options.IfMatch != null)
                 {
-                    update.UpdatedOn = update.CreatedOn = DateTimeOffset.Now;
-                    update = await _uow.ApplicationSettings.AddAsync(update, ct);
-                }
-                else
-                {
+                    if (entityToUpdate == null)
+                    {
+                        // The entity doesn't exist on the database and as the request contains an If-Match header we don't
+                        // insert the entity instead (No UPSERT behavior if the If-Match header is present).
+                        return NotFound();
+                    }
+                    if (!options.IfMatch.ApplyTo(_uow.ApplicationSettings.GetAll().Where(c => c.ApplicationId == applicationId && c.UserId == userId)).Any())
+                    {
+                        // The ETag of the entity doesn't match the value sent on the If-Match header, so the entity has
+                        // been modified by a third party between the entity retrieval and update..
+                        return StatusCode(HttpStatusCode.PreconditionFailed);
+                    }
+                    // The entity exists in the database and the ETag of the entity matches the value on the If-Match 
+                    // header, so we update the entity.
                     entityToUpdate.UpdatedOn = DateTimeOffset.Now;
                     entityToUpdate.Values = update.Values ?? new Dictionary<string, object>();
                     entityToUpdate.Value = JsonConvert.SerializeObject(entityToUpdate.Values);
+                    await _uow.CommitAsync(ct);
+                    return Ok(update);
                 }
-
+                if (entityToUpdate == null)
+                {
+                    // The request didn't contain any If-Match header and the entity doesn't exist on the database, so
+                    // we create a new one. For more details see the section 11.4.4 of the OData v4.0 specification.
+                    update.UpdatedOn = update.CreatedOn = DateTimeOffset.Now;
+                    update = await _uow.ApplicationSettings.AddAsync(update, ct);
+                    await _uow.CommitAsync(ct);
+                    return Created(update);
+                }
+                // the request didn't contain any If-Match header and the entity exists on the database, so we
+                // update it's value.
+                entityToUpdate.UpdatedOn = DateTimeOffset.Now;
+                entityToUpdate.Values = update.Values ?? new Dictionary<string, object>();
+                entityToUpdate.Value = JsonConvert.SerializeObject(entityToUpdate.Values);
                 await _uow.CommitAsync(ct);
-
-                return Updated(entityToUpdate ?? update);
+                return Ok(entityToUpdate);
             }
             catch (ConcurrencyException)
             {
@@ -224,5 +275,6 @@ namespace ALS.Glance.Api.Controllers
         }
 
         #endregion
+
     }
 }

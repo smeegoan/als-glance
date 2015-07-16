@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generation date: 18/06/2015 00:09:35
+// Generation date: 17/07/2015 00:22:22
 namespace ALS.Glance.DataAgents.ALS.Glance.Api.Models
 {
     /// <summary>
@@ -1276,6 +1276,29 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
         partial void OnApplicationIdChanging(string value);
         partial void OnApplicationIdChanged();
         /// <summary>
+        /// There are no comments for Property Value in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Value")]
+        public string Value
+        {
+            get
+            {
+                return this._Value;
+            }
+            set
+            {
+                this.OnValueChanging(value);
+                this._Value = value;
+                this.OnValueChanged();
+                this.OnPropertyChanged("Value");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private string _Value;
+        partial void OnValueChanging(string value);
+        partial void OnValueChanged();
+        /// <summary>
         /// There are no comments for Property Application in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
@@ -1299,28 +1322,28 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
         partial void OnApplicationChanging(global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApplicationUser value);
         partial void OnApplicationChanged();
         /// <summary>
-        /// There are no comments for Property Value in the schema.
+        /// There are no comments for Property Version in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("Value")]
-        public string Value
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Version")]
+        public byte[] Version
         {
             get
             {
-                return this._Value;
+                return this._Version;
             }
             set
             {
-                this.OnValueChanging(value);
-                this._Value = value;
-                this.OnValueChanged();
-                this.OnPropertyChanged("Value");
+                this.OnVersionChanging(value);
+                this._Version = value;
+                this.OnVersionChanged();
+                this.OnPropertyChanged("Version");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        private string _Value;
-        partial void OnValueChanging(string value);
-        partial void OnValueChanged();
+        private byte[] _Version;
+        partial void OnVersionChanging(byte[] value);
+        partial void OnVersionChanged();
         /// <summary>
         /// There are no comments for Property CreatedOn in the schema.
         /// </summary>
@@ -1433,6 +1456,28 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
             : base(query) {}
 
         /// <summary>
+        /// There are no comments for EMG in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("EMG")]
+        public global::ALS.Glance.DataAgents.ALS.Glance.Models.DEmgSingle EMG
+        {
+            get
+            {
+                if (!this.IsComposable)
+                {
+                    throw new global::System.NotSupportedException("The previous function is not composable.");
+                }
+                if ((this._EMG == null))
+                {
+                    this._EMG = new global::ALS.Glance.DataAgents.ALS.Glance.Models.DEmgSingle(this.Context, GetPath("EMG"));
+                }
+                return this._EMG;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private global::ALS.Glance.DataAgents.ALS.Glance.Models.DEmgSingle _EMG;
+        /// <summary>
         /// There are no comments for Patient in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
@@ -1536,6 +1581,7 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
         /// </summary>
         /// <param name="ID">Initial value of Id.</param>
         /// <param name="aUC">Initial value of AUC.</param>
+        /// <param name="eMG">Initial value of EMG.</param>
         /// <param name="patient">Initial value of Patient.</param>
         /// <param name="muscle">Initial value of Muscle.</param>
         /// <param name="date">Initial value of Date.</param>
@@ -1543,6 +1589,7 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
         public static Fact CreateFact(long ID, 
                     decimal aUC, 
+                    global::ALS.Glance.DataAgents.ALS.Glance.Models.DEmg eMG, 
                     global::ALS.Glance.DataAgents.ALS.Glance.Models.DPatient patient, 
                     global::ALS.Glance.DataAgents.ALS.Glance.Models.DMuscle muscle, 
                     global::ALS.Glance.DataAgents.ALS.Glance.Models.DDate date, 
@@ -1551,6 +1598,11 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
             Fact fact = new Fact();
             fact.Id = ID;
             fact.AUC = aUC;
+            if ((eMG == null))
+            {
+                throw new global::System.ArgumentNullException("eMG");
+            }
+            fact.EMG = eMG;
             if ((patient == null))
             {
                 throw new global::System.ArgumentNullException("patient");
@@ -1619,6 +1671,29 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
         private decimal _AUC;
         partial void OnAUCChanging(decimal value);
         partial void OnAUCChanged();
+        /// <summary>
+        /// There are no comments for Property EMG in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("EMG")]
+        public global::ALS.Glance.DataAgents.ALS.Glance.Models.DEmg EMG
+        {
+            get
+            {
+                return this._EMG;
+            }
+            set
+            {
+                this.OnEMGChanging(value);
+                this._EMG = value;
+                this.OnEMGChanged();
+                this.OnPropertyChanged("EMG");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private global::ALS.Glance.DataAgents.ALS.Glance.Models.DEmg _EMG;
+        partial void OnEMGChanging(global::ALS.Glance.DataAgents.ALS.Glance.Models.DEmg value);
+        partial void OnEMGChanged();
         /// <summary>
         /// There are no comments for Property Patient in the schema.
         /// </summary>
@@ -1711,6 +1786,116 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
         private global::ALS.Glance.DataAgents.ALS.Glance.Models.DTime _Time;
         partial void OnTimeChanging(global::ALS.Glance.DataAgents.ALS.Glance.Models.DTime value);
         partial void OnTimeChanged();
+        /// <summary>
+        /// This event is raised when the value of the property is changed
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        /// <summary>
+        /// The value of the property is changed
+        /// </summary>
+        /// <param name="property">property name</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// There are no comments for DEmgSingle in the schema.
+    /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("DEmgSingle")]
+    public partial class DEmgSingle : global::Microsoft.OData.Client.DataServiceQuerySingle<DEmg>
+    {
+        /// <summary>
+        /// Initialize a new DEmgSingle object.
+        /// </summary>
+        public DEmgSingle(global::Microsoft.OData.Client.DataServiceContext context, string path)
+            : base(context, path) {}
+
+        /// <summary>
+        /// Initialize a new DEmgSingle object.
+        /// </summary>
+        public DEmgSingle(global::Microsoft.OData.Client.DataServiceContext context, string path, bool isComposable)
+            : base(context, path, isComposable) {}
+
+        /// <summary>
+        /// Initialize a new DEmgSingle object.
+        /// </summary>
+        public DEmgSingle(global::Microsoft.OData.Client.DataServiceQuerySingle<DEmg> query)
+            : base(query) {}
+
+    }
+    /// <summary>
+    /// There are no comments for DEmg in the schema.
+    /// </summary>
+    /// <KeyProperties>
+    /// Id
+    /// </KeyProperties>
+    [global::Microsoft.OData.Client.Key("Id")]
+    [global::Microsoft.OData.Client.OriginalNameAttribute("DEmg")]
+    public partial class DEmg : global::Microsoft.OData.Client.BaseEntityType, global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// Create a new DEmg object.
+        /// </summary>
+        /// <param name="ID">Initial value of Id.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        public static DEmg CreateDEmg(long ID)
+        {
+            DEmg dEmg = new DEmg();
+            dEmg.Id = ID;
+            return dEmg;
+        }
+        /// <summary>
+        /// There are no comments for Property Id in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Id")]
+        public long Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+                this.OnPropertyChanged("Id");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private long _Id;
+        partial void OnIdChanging(long value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// There are no comments for Property Data in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Data")]
+        public string Data
+        {
+            get
+            {
+                return this._Data;
+            }
+            set
+            {
+                this.OnDataChanging(value);
+                this._Data = value;
+                this.OnDataChanged();
+                this.OnPropertyChanged("Data");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private string _Data;
+        partial void OnDataChanging(string value);
+        partial void OnDataChanged();
         /// <summary>
         /// This event is raised when the value of the property is changed
         /// </summary>
@@ -2582,192 +2767,6 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
         }
     }
     /// <summary>
-    /// There are no comments for EMGSingle in the schema.
-    /// </summary>
-    [global::Microsoft.OData.Client.OriginalNameAttribute("EMGSingle")]
-    public partial class EMGSingle : global::Microsoft.OData.Client.DataServiceQuerySingle<EMG>
-    {
-        /// <summary>
-        /// Initialize a new EMGSingle object.
-        /// </summary>
-        public EMGSingle(global::Microsoft.OData.Client.DataServiceContext context, string path)
-            : base(context, path) {}
-
-        /// <summary>
-        /// Initialize a new EMGSingle object.
-        /// </summary>
-        public EMGSingle(global::Microsoft.OData.Client.DataServiceContext context, string path, bool isComposable)
-            : base(context, path, isComposable) {}
-
-        /// <summary>
-        /// Initialize a new EMGSingle object.
-        /// </summary>
-        public EMGSingle(global::Microsoft.OData.Client.DataServiceQuerySingle<EMG> query)
-            : base(query) {}
-
-        /// <summary>
-        /// There are no comments for Patient in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("Patient")]
-        public global::ALS.Glance.DataAgents.ALS.Glance.Models.DPatientSingle Patient
-        {
-            get
-            {
-                if (!this.IsComposable)
-                {
-                    throw new global::System.NotSupportedException("The previous function is not composable.");
-                }
-                if ((this._Patient == null))
-                {
-                    this._Patient = new global::ALS.Glance.DataAgents.ALS.Glance.Models.DPatientSingle(this.Context, GetPath("Patient"));
-                }
-                return this._Patient;
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        private global::ALS.Glance.DataAgents.ALS.Glance.Models.DPatientSingle _Patient;
-    }
-    /// <summary>
-    /// There are no comments for EMG in the schema.
-    /// </summary>
-    /// <KeyProperties>
-    /// Id
-    /// </KeyProperties>
-    [global::Microsoft.OData.Client.Key("Id")]
-    [global::Microsoft.OData.Client.OriginalNameAttribute("EMG")]
-    public partial class EMG : global::Microsoft.OData.Client.BaseEntityType, global::System.ComponentModel.INotifyPropertyChanged
-    {
-        /// <summary>
-        /// Create a new EMG object.
-        /// </summary>
-        /// <param name="ID">Initial value of Id.</param>
-        /// <param name="date">Initial value of Date.</param>
-        /// <param name="patient">Initial value of Patient.</param>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        public static EMG CreateEMG(long ID, global::System.DateTimeOffset date, global::ALS.Glance.DataAgents.ALS.Glance.Models.DPatient patient)
-        {
-            EMG eMG = new EMG();
-            eMG.Id = ID;
-            eMG.Date = date;
-            if ((patient == null))
-            {
-                throw new global::System.ArgumentNullException("patient");
-            }
-            eMG.Patient = patient;
-            return eMG;
-        }
-        /// <summary>
-        /// There are no comments for Property Id in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("Id")]
-        public long Id
-        {
-            get
-            {
-                return this._Id;
-            }
-            set
-            {
-                this.OnIdChanging(value);
-                this._Id = value;
-                this.OnIdChanged();
-                this.OnPropertyChanged("Id");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        private long _Id;
-        partial void OnIdChanging(long value);
-        partial void OnIdChanged();
-        /// <summary>
-        /// There are no comments for Property Data in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("Data")]
-        public string Data
-        {
-            get
-            {
-                return this._Data;
-            }
-            set
-            {
-                this.OnDataChanging(value);
-                this._Data = value;
-                this.OnDataChanged();
-                this.OnPropertyChanged("Data");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        private string _Data;
-        partial void OnDataChanging(string value);
-        partial void OnDataChanged();
-        /// <summary>
-        /// There are no comments for Property Date in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("Date")]
-        public global::System.DateTimeOffset Date
-        {
-            get
-            {
-                return this._Date;
-            }
-            set
-            {
-                this.OnDateChanging(value);
-                this._Date = value;
-                this.OnDateChanged();
-                this.OnPropertyChanged("Date");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        private global::System.DateTimeOffset _Date;
-        partial void OnDateChanging(global::System.DateTimeOffset value);
-        partial void OnDateChanged();
-        /// <summary>
-        /// There are no comments for Property Patient in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("Patient")]
-        public global::ALS.Glance.DataAgents.ALS.Glance.Models.DPatient Patient
-        {
-            get
-            {
-                return this._Patient;
-            }
-            set
-            {
-                this.OnPatientChanging(value);
-                this._Patient = value;
-                this.OnPatientChanged();
-                this.OnPropertyChanged("Patient");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        private global::ALS.Glance.DataAgents.ALS.Glance.Models.DPatient _Patient;
-        partial void OnPatientChanging(global::ALS.Glance.DataAgents.ALS.Glance.Models.DPatient value);
-        partial void OnPatientChanged();
-        /// <summary>
-        /// This event is raised when the value of the property is changed
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        /// <summary>
-        /// The value of the property is changed
-        /// </summary>
-        /// <param name="property">property name</param>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        protected virtual void OnPropertyChanged(string property)
-        {
-            if ((this.PropertyChanged != null))
-            {
-                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
-            }
-        }
-    }
-    /// <summary>
     /// There are no comments for FactsSingle in the schema.
     /// </summary>
     [global::Microsoft.OData.Client.OriginalNameAttribute("FactsSingle")]
@@ -2889,6 +2888,29 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
         private decimal _AUC;
         partial void OnAUCChanging(decimal value);
         partial void OnAUCChanged();
+        /// <summary>
+        /// There are no comments for Property EMG in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("EMG")]
+        public string EMG
+        {
+            get
+            {
+                return this._EMG;
+            }
+            set
+            {
+                this.OnEMGChanging(value);
+                this._EMG = value;
+                this.OnEMGChanged();
+                this.OnPropertyChanged("EMG");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private string _EMG;
+        partial void OnEMGChanging(string value);
+        partial void OnEMGChanged();
         /// <summary>
         /// There are no comments for Property DateDayOfWeek in the schema.
         /// </summary>
@@ -3468,6 +3490,29 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
             return new global::ALS.Glance.DataAgents.ALS.Glance.Models.FactSingle(source.Context, source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(source.Context, keys)));
         }
         /// <summary>
+        /// Get an entity of type global::ALS.Glance.DataAgents.ALS.Glance.Models.DEmg as global::ALS.Glance.DataAgents.ALS.Glance.Models.DEmgSingle specified by key from an entity set
+        /// </summary>
+        /// <param name="source">source entity set</param>
+        /// <param name="keys">dictionary with the names and values of keys</param>
+        public static global::ALS.Glance.DataAgents.ALS.Glance.Models.DEmgSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.DEmg> source, global::System.Collections.Generic.Dictionary<string, object> keys)
+        {
+            return new global::ALS.Glance.DataAgents.ALS.Glance.Models.DEmgSingle(source.Context, source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(source.Context, keys)));
+        }
+        /// <summary>
+        /// Get an entity of type global::ALS.Glance.DataAgents.ALS.Glance.Models.DEmg as global::ALS.Glance.DataAgents.ALS.Glance.Models.DEmgSingle specified by key from an entity set
+        /// </summary>
+        /// <param name="source">source entity set</param>
+        /// <param name="id">The value of id</param>
+        public static global::ALS.Glance.DataAgents.ALS.Glance.Models.DEmgSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.DEmg> source,
+            long id)
+        {
+            global::System.Collections.Generic.Dictionary<string, object> keys = new global::System.Collections.Generic.Dictionary<string, object>
+            {
+                { "Id", id }
+            };
+            return new global::ALS.Glance.DataAgents.ALS.Glance.Models.DEmgSingle(source.Context, source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(source.Context, keys)));
+        }
+        /// <summary>
         /// Get an entity of type global::ALS.Glance.DataAgents.ALS.Glance.Models.DPatient as global::ALS.Glance.DataAgents.ALS.Glance.Models.DPatientSingle specified by key from an entity set
         /// </summary>
         /// <param name="source">source entity set</param>
@@ -3558,29 +3603,6 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
                 { "Id", id }
             };
             return new global::ALS.Glance.DataAgents.ALS.Glance.Models.DTimeSingle(source.Context, source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(source.Context, keys)));
-        }
-        /// <summary>
-        /// Get an entity of type global::ALS.Glance.DataAgents.ALS.Glance.Models.EMG as global::ALS.Glance.DataAgents.ALS.Glance.Models.EMGSingle specified by key from an entity set
-        /// </summary>
-        /// <param name="source">source entity set</param>
-        /// <param name="keys">dictionary with the names and values of keys</param>
-        public static global::ALS.Glance.DataAgents.ALS.Glance.Models.EMGSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.EMG> source, global::System.Collections.Generic.Dictionary<string, object> keys)
-        {
-            return new global::ALS.Glance.DataAgents.ALS.Glance.Models.EMGSingle(source.Context, source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(source.Context, keys)));
-        }
-        /// <summary>
-        /// Get an entity of type global::ALS.Glance.DataAgents.ALS.Glance.Models.EMG as global::ALS.Glance.DataAgents.ALS.Glance.Models.EMGSingle specified by key from an entity set
-        /// </summary>
-        /// <param name="source">source entity set</param>
-        /// <param name="id">The value of id</param>
-        public static global::ALS.Glance.DataAgents.ALS.Glance.Models.EMGSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.EMG> source,
-            long id)
-        {
-            global::System.Collections.Generic.Dictionary<string, object> keys = new global::System.Collections.Generic.Dictionary<string, object>
-            {
-                { "Id", id }
-            };
-            return new global::ALS.Glance.DataAgents.ALS.Glance.Models.EMGSingle(source.Context, source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(source.Context, keys)));
         }
         /// <summary>
         /// Get an entity of type global::ALS.Glance.DataAgents.ALS.Glance.Models.Facts as global::ALS.Glance.DataAgents.ALS.Glance.Models.FactsSingle specified by key from an entity set
@@ -3811,24 +3833,6 @@ namespace ALS.Glance.DataAgents.Default
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
         private global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.Fact> _Fact;
         /// <summary>
-        /// There are no comments for EMG in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("EMG")]
-        public global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.EMG> EMG
-        {
-            get
-            {
-                if ((this._EMG == null))
-                {
-                    this._EMG = base.CreateQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.EMG>("EMG");
-                }
-                return this._EMG;
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        private global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.EMG> _EMG;
-        /// <summary>
         /// There are no comments for Facts in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
@@ -3882,6 +3886,24 @@ namespace ALS.Glance.DataAgents.Default
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
         private global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.DPatient> _DPatient;
+        /// <summary>
+        /// There are no comments for DEmg in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("DEmg")]
+        public global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.DEmg> DEmg
+        {
+            get
+            {
+                if ((this._DEmg == null))
+                {
+                    this._DEmg = base.CreateQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.DEmg>("DEmg");
+                }
+                return this._DEmg;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.DEmg> _DEmg;
         /// <summary>
         /// There are no comments for DTime in the schema.
         /// </summary>
@@ -3967,14 +3989,6 @@ namespace ALS.Glance.DataAgents.Default
             base.AddObject("Fact", fact);
         }
         /// <summary>
-        /// There are no comments for EMG in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        public void AddToEMG(global::ALS.Glance.DataAgents.ALS.Glance.Models.EMG eMG)
-        {
-            base.AddObject("EMG", eMG);
-        }
-        /// <summary>
         /// There are no comments for Facts in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
@@ -3997,6 +4011,14 @@ namespace ALS.Glance.DataAgents.Default
         public void AddToDPatient(global::ALS.Glance.DataAgents.ALS.Glance.Models.DPatient dPatient)
         {
             base.AddObject("DPatient", dPatient);
+        }
+        /// <summary>
+        /// There are no comments for DEmg in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        public void AddToDEmg(global::ALS.Glance.DataAgents.ALS.Glance.Models.DEmg dEmg)
+        {
+            base.AddObject("DEmg", dEmg);
         }
         /// <summary>
         /// There are no comments for DTime in the schema.
@@ -4083,15 +4105,16 @@ namespace ALS.Glance.DataAgents.Default
       </ComplexType>
     </Schema>
     <Schema Namespace=""ALS.Glance.Models"" xmlns=""http://docs.oasis-open.org/odata/ns/edm"">
-      <EntityType Name=""ApplicationSettings"">
+      <EntityType Name=""ApplicationSettings"" OpenType=""true"">
         <Key>
           <PropertyRef Name=""UserId"" />
           <PropertyRef Name=""ApplicationId"" />
         </Key>
         <Property Name=""UserId"" Type=""Edm.String"" Nullable=""false"" />
         <Property Name=""ApplicationId"" Type=""Edm.String"" Nullable=""false"" />
-        <Property Name=""Application"" Type=""ALS.Glance.Models.Security.Implementations.ApplicationUser"" Nullable=""false"" />
         <Property Name=""Value"" Type=""Edm.String"" />
+        <Property Name=""Application"" Type=""ALS.Glance.Models.Security.Implementations.ApplicationUser"" Nullable=""false"" />
+        <Property Name=""Version"" Type=""Edm.Binary"" ConcurrencyMode=""Fixed"" />
         <Property Name=""CreatedOn"" Type=""Edm.DateTimeOffset"" Nullable=""false"" />
         <Property Name=""UpdatedOn"" Type=""Edm.DateTimeOffset"" Nullable=""false"" />
         <NavigationProperty Name=""User"" Type=""ALS.Glance.Models.Security.Implementations.IdentityUser"" Nullable=""false"" />
@@ -4102,10 +4125,18 @@ namespace ALS.Glance.DataAgents.Default
         </Key>
         <Property Name=""Id"" Type=""Edm.Int64"" Nullable=""false"" />
         <Property Name=""AUC"" Type=""Edm.Decimal"" Nullable=""false"" />
+        <NavigationProperty Name=""EMG"" Type=""ALS.Glance.Models.DEmg"" Nullable=""false"" />
         <NavigationProperty Name=""Patient"" Type=""ALS.Glance.Models.DPatient"" Nullable=""false"" />
         <NavigationProperty Name=""Muscle"" Type=""ALS.Glance.Models.DMuscle"" Nullable=""false"" />
         <NavigationProperty Name=""Date"" Type=""ALS.Glance.Models.DDate"" Nullable=""false"" />
         <NavigationProperty Name=""Time"" Type=""ALS.Glance.Models.DTime"" Nullable=""false"" />
+      </EntityType>
+      <EntityType Name=""DEmg"">
+        <Key>
+          <PropertyRef Name=""Id"" />
+        </Key>
+        <Property Name=""Id"" Type=""Edm.Int64"" Nullable=""false"" />
+        <Property Name=""Data"" Type=""Edm.String"" />
       </EntityType>
       <EntityType Name=""DPatient"">
         <Key>
@@ -4152,21 +4183,13 @@ namespace ALS.Glance.DataAgents.Default
         <Property Name=""Hour"" Type=""Edm.Int16"" Nullable=""false"" />
         <Property Name=""TimeOfDay"" Type=""Edm.String"" />
       </EntityType>
-      <EntityType Name=""EMG"">
-        <Key>
-          <PropertyRef Name=""Id"" />
-        </Key>
-        <Property Name=""Id"" Type=""Edm.Int64"" Nullable=""false"" />
-        <Property Name=""Data"" Type=""Edm.String"" />
-        <Property Name=""Date"" Type=""Edm.DateTimeOffset"" Nullable=""false"" />
-        <NavigationProperty Name=""Patient"" Type=""ALS.Glance.Models.DPatient"" Nullable=""false"" />
-      </EntityType>
       <EntityType Name=""Facts"">
         <Key>
           <PropertyRef Name=""Id"" />
         </Key>
         <Property Name=""Id"" Type=""Edm.Int64"" Nullable=""false"" />
         <Property Name=""AUC"" Type=""Edm.Decimal"" Nullable=""false"" />
+        <Property Name=""EMG"" Type=""Edm.String"" />
         <Property Name=""DateDayOfWeek"" Type=""Edm.String"" />
         <Property Name=""DateMonth"" Type=""Edm.Byte"" Nullable=""false"" />
         <Property Name=""DateWeekday"" Type=""Edm.String"" />
@@ -4219,17 +4242,16 @@ namespace ALS.Glance.DataAgents.Default
           <NavigationPropertyBinding Path=""User"" Target=""IdentityUser"" />
         </EntitySet>
         <EntitySet Name=""Fact"" EntityType=""ALS.Glance.Models.Fact"">
+          <NavigationPropertyBinding Path=""EMG"" Target=""DEmg"" />
           <NavigationPropertyBinding Path=""Patient"" Target=""DPatient"" />
           <NavigationPropertyBinding Path=""Muscle"" Target=""DMuscle"" />
           <NavigationPropertyBinding Path=""Date"" Target=""DDate"" />
           <NavigationPropertyBinding Path=""Time"" Target=""DTime"" />
         </EntitySet>
-        <EntitySet Name=""EMG"" EntityType=""ALS.Glance.Models.EMG"">
-          <NavigationPropertyBinding Path=""Patient"" Target=""DPatient"" />
-        </EntitySet>
         <EntitySet Name=""Facts"" EntityType=""ALS.Glance.Models.Facts"" />
         <EntitySet Name=""DMuscle"" EntityType=""ALS.Glance.Models.DMuscle"" />
         <EntitySet Name=""DPatient"" EntityType=""ALS.Glance.Models.DPatient"" />
+        <EntitySet Name=""DEmg"" EntityType=""ALS.Glance.Models.DEmg"" />
         <EntitySet Name=""DTime"" EntityType=""ALS.Glance.Models.DTime"" />
         <EntitySet Name=""DDate"" EntityType=""ALS.Glance.Models.DDate"" />
       </EntityContainer>
