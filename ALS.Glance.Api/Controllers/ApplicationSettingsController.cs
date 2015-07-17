@@ -155,7 +155,7 @@ namespace ALS.Glance.Api.Controllers
 
                 var entityToUpdate =
                     await _uow.ApplicationSettings.GetByUserIdAndApplicationIdAsync(userId, applicationId, ct);
-                if (options.IfMatch != null)
+                if (options!=null && options.IfMatch != null)
                 {
                     if (entityToUpdate == null)
                     {
