@@ -114,10 +114,6 @@ namespace ALS.Glance.Api.Controllers
             if (entity.Application == null)
                 return NotFound();
 
-            entity.User = await _uow.Security.GetUserManager<IdentityUser>().FindByIdAsync(entity.UserId);
-            if (entity.User == null)
-                return NotFound();
-
             entity.CreatedOn = entity.UpdatedOn = DateTimeOffset.Now;
             if (entity.Values == null)
                 entity.Values = new Dictionary<string, object>();

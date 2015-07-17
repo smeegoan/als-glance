@@ -92,8 +92,7 @@ namespace ALS.Glance.Api
                     es.HasKey(e => e.UserId).HasKey(e => e.ApplicationId);
                     es.Property(e => e.UserId).IsRequired();
                     es.Property(e => e.ApplicationId).IsRequired();
-                    es.HasRequired(e => e.User);
-                    es.ComplexProperty(e => e.Application).IsRequired();
+                     es.ComplexProperty(e => e.Application).IsRequired();
                     es.HasDynamicProperties(e => e.Values);
                     es.Property(e => e.Version).IsConcurrencyToken();
                     es.Property(e => e.CreatedOn).IsRequired();

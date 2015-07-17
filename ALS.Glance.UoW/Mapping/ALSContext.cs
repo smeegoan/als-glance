@@ -121,8 +121,7 @@ namespace ALS.Glance.UoW.Mapping
             modelBuilder.Entity<ApplicationSettings>(
               cfg =>
               {
-                  cfg.HasRequired(e => e.User).WithMany().HasForeignKey(e => e.UserId);
-                  cfg.Property(e => e.UserId).HasColumnAnnotation(
+                   cfg.Property(e => e.UserId).HasColumnAnnotation(
                       IndexAnnotation.AnnotationName,
                       new IndexAnnotation(
                           new IndexAttribute("IX_dbo.ApplicationSettings_UserIdApplicationId", 1)
