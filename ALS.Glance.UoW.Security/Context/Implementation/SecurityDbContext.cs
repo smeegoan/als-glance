@@ -32,7 +32,7 @@ namespace ALS.Glance.UoW.Security.Context.Implementation
         public virtual DbSet<ApplicationUser> Applications { get; set; }
 
      
-        public virtual DbSet<IdentityUser> IdentityUsers { get; set; }
+        public virtual DbSet<ApiUser> IdentityUsers { get; set; }
 
         public virtual DbSet<IdentityRole> Roles { get; set; }
 
@@ -45,7 +45,7 @@ namespace ALS.Glance.UoW.Security.Context.Implementation
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<IdentityUser>(cfg =>
+            modelBuilder.Entity<ApiUser>(cfg =>
             {
                 cfg.ToTable("AspNetUsers");
                 cfg.HasMany(u => u.Roles).WithRequired().HasForeignKey(ur => ur.UserId);
@@ -129,7 +129,7 @@ namespace ALS.Glance.UoW.Security.Context.Implementation
             if (entityEntry != null && entityEntry.State == EntityState.Added)
             {
                 var errors = new List<DbValidationError>();
-                var user = entityEntry.Entity as IdentityUser;
+                var user = entityEntry.Entity as ApiUser;
                 //check for uniqueness of user name and email
                 if (user != null)
                 {

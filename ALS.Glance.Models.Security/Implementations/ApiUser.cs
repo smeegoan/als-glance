@@ -8,11 +8,11 @@ using Microsoft.AspNet.Identity;
 namespace ALS.Glance.Models.Security.Implementations
 {
 
-    public class IdentityUser : Model<string>, IIdentityUser<string, IdentityUserLogin, IdentityUserRole, IdentityUserClaim>, IUser,
+    public class ApiUser : Model<string>, IIdentityUser<string, IdentityUserLogin, IdentityUserRole, IdentityUserClaim>, IUser,
         IHaveCreatedMeta, IHaveUpdatedMeta
     {
 
-        public IdentityUser()
+        public ApiUser()
         {
             Id = Guid.NewGuid().ToString();
             Roles = new HashSet<IdentityUserRole>();

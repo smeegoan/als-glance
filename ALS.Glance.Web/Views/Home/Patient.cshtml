@@ -356,7 +356,6 @@
             try {
                 settings = JSON.parse(decodeURIComponent('@Html.Raw(Model.VersionedSettings.Item2)'));
             } catch (err) {
-                toastr.error(err.message, 'ALS Glance');
             }
             alsglance.dashboard.patient.loadSettings(settings);
             alsglance.dashboard.patient.etag = '@Html.Raw(Model.VersionedSettings.Item1)';

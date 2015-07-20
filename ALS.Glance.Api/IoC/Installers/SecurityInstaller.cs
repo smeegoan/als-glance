@@ -20,10 +20,10 @@ namespace ALS.Glance.Api.IoC.Installers
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(
-                Component.For<IUserTokenProvider<IdentityUser, string>>()
-                    .ImplementedBy<DataProtectorTokenProvider<IdentityUser>>().LifestyleSingleton()
+                Component.For<IUserTokenProvider<ApiUser, string>>()
+                    .ImplementedBy<DataProtectorTokenProvider<ApiUser>>().LifestyleSingleton()
                     .UsingFactoryMethod(
-                        k => new DataProtectorTokenProvider<IdentityUser>(
+                        k => new DataProtectorTokenProvider<ApiUser>(
                             k.Resolve<IDataProtectionProvider>().Create("EmailConfirmation"))
                         {
                             TokenLifespan = TimeSpan.FromHours(1)

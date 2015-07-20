@@ -53,35 +53,17 @@ namespace ALS.Glance.Api.Controllers
         {
             return await Task.Run(() =>
             {
-                ApplicationSettings entity;
                 var byIdQuery =
                     _uow.ApplicationSettings.GetAll().Where(c => c.ApplicationId == applicationId && c.UserId == userId);
                 if (options.IfNoneMatch != null)
                 {
-                    var settingsQuery =
-                        options.IfNoneMatch.ApplyTo(byIdQuery);
-                    if (!settingsQuery.Any())
-                    {
-                        // The entity has the same ETag as the one in the If-None-Match header of the request,
-                        // so it hasn't been modified since it was retrieved the first time.
-                        return StatusCode(HttpStatusCode.NotModified);
-                    }
-                    entity = byIdQuery.SingleOrDefault();
-                    if (entity == null)
-                        return (IHttpActionResult)NotFound();
-
-                    entity.Values = JsonConvert.DeserializeObject<Dictionary<string, object>>(entity.Value);
+                    var settingsQuery = options.IfNoneMatch.ApplyTo(byIdQuery);
+                    return !settingsQuery.Any() ? StatusCode(HttpStatusCode.NotModified) : GetEntity(byIdQuery);
                     // The entity has a different ETag than the one specified in the If-None-Match header of the request,
                     // so we return the entity.
-                    return Ok(entity.ToSingleResult());
                 }
-                entity = byIdQuery.SingleOrDefault();
-                if (entity == null)
-                    return (IHttpActionResult)NotFound();
-
-                entity.Values = JsonConvert.DeserializeObject<Dictionary<string, object>>(entity.Value);
                 // The request didn't contain any ETag, so we return the entity.
-                return Ok(entity.ToSingleResult());
+                return GetEntity(byIdQuery);
             }, ct);
         }
 
@@ -90,7 +72,7 @@ namespace ALS.Glance.Api.Controllers
         #region ODataPost
 
         [EnableCors, ApiAuthorize(Roles.Admin, Roles.User)]
-        public async Task<IHttpActionResult> Post(ApplicationSettings entity,CancellationToken ct)
+        public async Task<IHttpActionResult> Post(ApplicationSettings entity, CancellationToken ct)
         {
             if (!ModelState.IsValid)
                 return Request.CreateBadRequestResult(Resources.BadRequestErrorMessage, ModelState);
@@ -155,7 +137,7 @@ namespace ALS.Glance.Api.Controllers
 
                 var entityToUpdate =
                     await _uow.ApplicationSettings.GetByUserIdAndApplicationIdAsync(userId, applicationId, ct);
-                if (options!=null && options.IfMatch != null)
+                if (options != null && options.IfMatch != null)
                 {
                     if (entityToUpdate == null)
                     {
@@ -272,5 +254,18 @@ namespace ALS.Glance.Api.Controllers
 
         #endregion
 
+        #region Private Methods
+
+        private IHttpActionResult GetEntity(IQueryable<ApplicationSettings> byIdQuery)
+        {
+            var entity = byIdQuery.SingleOrDefault();
+            if (entity == null)
+                return NotFound();
+
+            entity.Values = JsonConvert.DeserializeObject<Dictionary<string, object>>(entity.Value);
+            return Ok(entity.ToSingleResult());
+        }
+
+        #endregion
     }
 }

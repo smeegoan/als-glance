@@ -474,10 +474,15 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         alsglance.presentation.arrangePanels(alsglance.dashboard.settings.layout);
     },
     loadFacts: function () {
-        //$.when(apiClient.get("Fact?$select=AUC&$expand=Time($select=Hour,TimeOfDay),Date($select=DayOfWeek,Weekday,Date,Year,MonthName,Quarter),Patient,Muscle($select=Name,Abbreviation)&$filter=Patient/Id eq " + alsglance.dashboard.patient.id))
+        //var then = moment();
+        //$.when(alsglance.apiClient.get("Fact?$select=AUC&$expand=Time($select=Hour,TimeOfDay),Date($select=Date,Year,MonthName,Quarter),Patient,Muscle($select=Name,Abbreviation)&$filter=Patient/Id eq " + alsglance.dashboard.patient.id))
         $.when(alsglance.apiClient.get("Facts?$select=AUC,TimeHour,TimeTimeOfDay,DateDate,DateYear,DateMonthName,DateQuarter,MuscleAbbreviation,PatientName&$filter=PatientId eq " + alsglance.dashboard.patient.id))
+        //$.when(alsglance.apiClient.get("Facts?$filter=PatientId eq " + alsglance.dashboard.patient.id))
             .then(function (data) {
+                //    data = alsglance.dashboard.patient.addPredictions(JSON.flatten(data));
                 data = alsglance.dashboard.patient.addPredictions(data.value);
+                //      console.log(moment.duration(moment().diff(then)));
+
                 alsglance.dashboard.patient.load(data);
                 colorbrewer.showColorSchemeButton(alsglance.dashboard.settings.colorScheme); //has to be called after the charts have been created
                 alsglance.charts.setBehaviour(); //has to be called before the filters are applied
@@ -566,7 +571,6 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
 
         var muscles = [];
         var lastDate = moment(data[data.length - 1].DateDate);
-        //data =JSON.flatten(data);
         data.forEach(function (entry) {
             if (lastDate.diff(entry.DateDate, 'months') <= alsglance.dashboard.settings.predictionBackLog) {
 

@@ -58,41 +58,26 @@ namespace ALS.Glance.Core.Cache
 
         private void SetValue(string key, object value)
         {
-            Cache.Add(
-                key,
-                value,
-                null,
-                _absoluteExpiration ? DateTime.Now.Add(_expireSpan) : System.Web.Caching.Cache.NoAbsoluteExpiration,
-                _absoluteExpiration ? System.Web.Caching.Cache.NoSlidingExpiration : _expireSpan,
-                CacheItemPriority.Default, null);
+            if (_enabled && value != null && key != null)
+            {
+                Cache.Add(
+                  key,
+                  value,
+                  null,
+                  _absoluteExpiration ? DateTime.Now.Add(_expireSpan) : System.Web.Caching.Cache.NoAbsoluteExpiration,
+                  _absoluteExpiration ? System.Web.Caching.Cache.NoSlidingExpiration : _expireSpan,
+                  CacheItemPriority.Default, null);
+            }
         }
 
         public void SetValue(HttpRequestBase requestMessage, object value)
         {
-            if (_enabled)
-            {
-                var key = HttpUtility.UrlDecode(requestMessage.RawUrl);
-                if (key == null)
-                {
-                    return;
-                }
-
-                SetValue(key, value);
-            }
+            SetValue(HttpUtility.UrlDecode(requestMessage.RawUrl), value);
         }
 
         public void SetValue(HttpRequestMessage requestMessage, object value)
         {
-            if (_enabled)
-            {
-                var key = HttpUtility.UrlDecode(requestMessage.RequestUri.AbsoluteUri);
-                if (key == null)
-                {
-                    return;
-                }
-
-                SetValue(key, value);
-            }
+            SetValue(HttpUtility.UrlDecode(requestMessage.RequestUri.AbsoluteUri), value);
         }
 
         public void Remove(string key)

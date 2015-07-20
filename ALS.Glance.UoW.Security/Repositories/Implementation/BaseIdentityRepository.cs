@@ -6,7 +6,7 @@ using ALS.Glance.UoW.Security.Repositories.Interfaces;
 
 namespace ALS.Glance.UoW.Security.Repositories.Implementation
 {
-    public class BaseIdentityRepository : EFRepository<IdentityUser, string>, IBaseIdentityRepository
+    public class BaseIdentityRepository : EFRepository<ApiUser, string>, IBaseIdentityRepository
     {
         public BaseIdentityRepository(DbContext context)
             : base(context)

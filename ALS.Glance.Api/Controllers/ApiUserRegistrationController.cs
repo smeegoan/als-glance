@@ -24,13 +24,13 @@ namespace ALS.Glance.Api.Controllers
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(ApiUserRegistrationController));
 
-        private readonly IUserTokenProvider<IdentityUser, string> _userTokenProvider;
+        private readonly IUserTokenProvider<ApiUser, string> _userTokenProvider;
         private readonly IIdentityMessageService _emailService;
         private readonly IALSUnitOfWork _uow;
 
         public ApiUserRegistrationController(
             IUnitOfWorkFactory unitOfWorkFactory,
-            IUserTokenProvider<IdentityUser, string> userTokenProvider,
+            IUserTokenProvider<ApiUser, string> userTokenProvider,
             IIdentityMessageService emailService)
         {
             _userTokenProvider = userTokenProvider;
@@ -65,7 +65,7 @@ namespace ALS.Glance.Api.Controllers
             {
                 //    cria novo utilizador
                 user = await AddNewUserAsync(
-                    new IdentityUser(), userManager, entity.Email, entity.Password,
+                    new ApiUser(), userManager, entity.Email, entity.Password,
                     entity.GivenName, entity.FamilyName, ct);
             }
             else if (user.EmailConfirmed)
@@ -119,10 +119,10 @@ namespace ALS.Glance.Api.Controllers
 
         #region Private methods
 
-        private UserManager<IdentityUser> GetConfiguredApiUserManager(IALSUnitOfWork uow)
+        private UserManager<ApiUser> GetConfiguredApiUserManager(IALSUnitOfWork uow)
         {
-            var userManager = uow.Security.GetUserManager<IdentityUser>(false);
-            ((UserValidator<IdentityUser, string>)userManager.UserValidator)
+            var userManager = uow.Security.GetUserManager<ApiUser>(false);
+            ((UserValidator<ApiUser, string>)userManager.UserValidator)
                 .AllowOnlyAlphanumericUserNames = false;
             userManager.UserTokenProvider = _userTokenProvider;
             userManager.EmailService = _emailService;
@@ -133,7 +133,7 @@ namespace ALS.Glance.Api.Controllers
         private static async Task<TApiUser> AddNewUserAsync<TApiUser>(
             TApiUser user, UserManager<TApiUser, string> userManager, string email, string password,
             string givenName, string familyName, CancellationToken ct)
-            where TApiUser : IdentityUser
+            where TApiUser : ApiUser
         {
             if (user == null) throw new ArgumentNullException("user");
             if (userManager == null) throw new ArgumentNullException("userManager");
@@ -156,7 +156,7 @@ namespace ALS.Glance.Api.Controllers
         private static async Task<TApiUser> UpdateUserAsync<TApiUser>(
             TApiUser user, UserManager<TApiUser, string> userManager, string email, string password,
             string givenName, string familyName, CancellationToken ct)
-            where TApiUser : IdentityUser
+            where TApiUser : ApiUser
         {
             if (user == null) throw new ArgumentNullException("user");
             if (userManager == null) throw new ArgumentNullException("userManager");
@@ -186,7 +186,7 @@ namespace ALS.Glance.Api.Controllers
 
         private async Task SendConfirmationEmailAsync<TApiUser>(
             TApiUser user, UserManager<TApiUser> userManager, CancellationToken ct)
-            where TApiUser : IdentityUser
+            where TApiUser : ApiUser
         {
             var token = await userManager.GenerateEmailConfirmationTokenAsync(user.Id);
             token = token.EncodeToBase64ASCII();

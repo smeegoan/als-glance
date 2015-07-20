@@ -34,7 +34,7 @@ namespace ALS.Glance.Api
                    es.Property(e => e.Min).IsRequired();
                });
 
-            builder.EntitySet<IdentityUser>(
+            builder.EntitySet<ApiUser>(
               es =>
               {
                   es.HasKey(e => e.UserName);

@@ -24,6 +24,6 @@ namespace ALS.Glance.Api.Models
 
         public bool AcceptsTermsAndConditions { get; set; }
 
-        public IdentityUser User { get; set; }
+        public ApiUser User { get; set; }
     }
 }

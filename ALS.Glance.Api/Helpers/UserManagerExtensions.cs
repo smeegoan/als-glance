@@ -11,7 +11,7 @@ namespace ALS.Glance.Api.Helpers
 
         public static async Task SendEmailConfirmationAsync<TApiUser>(
             this UserManager<TApiUser> userManager, string userId, string emailConfirmationUrl, CancellationToken ct)
-            where TApiUser : IdentityUser
+            where TApiUser : ApiUser
         {
             ct.ThrowIfCancellationRequested();
             await userManager.SendEmailAsync(
@@ -22,7 +22,7 @@ namespace ALS.Glance.Api.Helpers
 
         public static async Task SendEmailPasswordResetConfirmationAsync<TApiUser>(
             this UserManager<TApiUser> userManager, string userId, string emailConfirmationUrl, CancellationToken cancellationToken = default(CancellationToken))
-            where TApiUser : IdentityUser
+            where TApiUser : ApiUser
         {
             cancellationToken.ThrowIfCancellationRequested();
             await userManager.SendEmailAsync(

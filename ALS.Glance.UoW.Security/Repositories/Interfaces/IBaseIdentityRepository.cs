@@ -3,7 +3,7 @@ using ALS.Glance.UoW.Core;
 
 namespace ALS.Glance.UoW.Security.Repositories.Interfaces
 {
-    public interface IBaseIdentityRepository : IRepository<IdentityUser, string>
+    public interface IBaseIdentityRepository : IRepository<ApiUser, string>
     {
     }
 }

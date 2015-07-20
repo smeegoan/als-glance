@@ -23,7 +23,7 @@ namespace ALS.Glance.Api.Controllers
     {
         private readonly Settings _settings;
         private readonly IALSUnitOfWork _uow;
-        public DPatientController(IUnitOfWorkFactory unitOfWorkFactory,Settings settings)
+        public DPatientController(IUnitOfWorkFactory unitOfWorkFactory, Settings settings)
         {
             _settings = settings;
             _uow = unitOfWorkFactory.Get<IALSUnitOfWork>();
@@ -33,7 +33,7 @@ namespace ALS.Glance.Api.Controllers
         public IQueryable<DPatient> Get()
         {
             var cache = new ResponseCache<IEnumerable<DPatient>>(false, DefaultCacheTime.Long, _settings.ResponseCacheEnabled, _settings.ResponseCacheDefaultShortTimeInMinutes, _settings.ResponseCacheDefaultLongTimeInMinutes);
-            var patients = cache.GetValue(Request) ;
+            var patients = cache.GetValue(Request);
             if (patients == null)
             {
                 patients = _uow.Patients.GetAll().ToArray();
@@ -61,7 +61,7 @@ namespace ALS.Glance.Api.Controllers
         public IHttpActionResult GetYearBounds([FromODataUri] long key)
         {
             var cache = new ResponseCache<YearBounds>(false, DefaultCacheTime.Long, _settings.ResponseCacheEnabled, _settings.ResponseCacheDefaultShortTimeInMinutes, _settings.ResponseCacheDefaultLongTimeInMinutes);
-            var bounds = cache.GetValue(Request) ;
+            var bounds = cache.GetValue(Request);
             if (bounds == null)
             {
                 var years = _uow.Facts.GetAll()
@@ -69,11 +69,14 @@ namespace ALS.Glance.Api.Controllers
                    .Select(e => e.Date.Year)
                    .Distinct();
 
-                bounds = new YearBounds
+                if (years.Any())
                 {
-                    Min = years.Min(),
-                    Max = years.Max()
-                };
+                    bounds = new YearBounds
+                    {
+                        Min = years.Min(),
+                        Max = years.Max()
+                    };
+                }
                 cache.SetValue(Request, bounds);
             }
             return Ok(bounds);

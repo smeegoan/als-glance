@@ -42,8 +42,8 @@ namespace ALS.Glance.Api.Security.Filters
 
             ClaimsIdentity identity;
             using (var context = new SecurityDbContext("ALSContext"))
-            using (var userStore = new SecurityUserStore<IdentityUser>(context))
-            using (var userManager = new UserManager<IdentityUser>(userStore))
+            using (var userStore = new SecurityUserStore<ApiUser>(context))
+            using (var userManager = new UserManager<ApiUser>(userStore))
             {
                 var authenticationToken =
                     await context.ApiAuthenticationAccessToken.Include(e => e.ApiAuthenticationToken.BaseApiUser)
