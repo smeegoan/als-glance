@@ -682,6 +682,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
             // ylabel: 'EMG',
             legend: 'true',
             colors: [colorbrewer.schemes[colorbrewer.selectedScheme][colorbrewer.numClasses][3]],
+            gridLineColor: 'rgb(204, 204, 204)',
             labelsDivStyles: {
                 'textAlign': 'right'
             }
