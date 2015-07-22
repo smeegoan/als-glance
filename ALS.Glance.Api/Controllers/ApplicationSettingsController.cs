@@ -77,7 +77,6 @@ namespace ALS.Glance.Api.Controllers
             if (!ModelState.IsValid)
                 return Request.CreateBadRequestResult(Resources.BadRequestErrorMessage, ModelState);
 
-
             var dbEntity =
                 await _uow.ApplicationSettings.GetByUserIdAndApplicationIdAsync(
                     entity.UserId, entity.ApplicationId, ct);
@@ -131,6 +130,9 @@ namespace ALS.Glance.Api.Controllers
             try
             {
                 await _uow.BeginAsync(ct);
+                update.Application = await _uow.Security.Applications.GetByIdAsync(update.ApplicationId, ct);
+                if (update.Application == null)
+                    return NotFound();
 
                 var entityToUpdate =
                     await _uow.ApplicationSettings.GetByUserIdAndApplicationIdAsync(userId, applicationId, ct);
@@ -171,7 +173,7 @@ namespace ALS.Glance.Api.Controllers
                 entityToUpdate.Values = update.Values ?? new Dictionary<string, object>();
                 entityToUpdate.Value = JsonConvert.SerializeObject(entityToUpdate.Values);
                 await _uow.CommitAsync(ct);
-                return Ok(entityToUpdate);
+                return Updated(entityToUpdate);
             }
             catch (ConcurrencyException)
             {
