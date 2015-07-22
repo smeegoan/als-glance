@@ -20,6 +20,9 @@ namespace ALS.Glance.Api.IoC.Installers
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(
+                Component.For<IDataProtectionProvider>()
+                    .ImplementedBy<DpapiDataProtectionProvider>()
+                    .LifestyleSingleton(),
                 Component.For<IUserTokenProvider<ApiUser, string>>()
                     .ImplementedBy<DataProtectorTokenProvider<ApiUser>>().LifestyleSingleton()
                     .UsingFactoryMethod(
