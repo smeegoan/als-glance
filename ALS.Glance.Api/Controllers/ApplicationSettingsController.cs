@@ -111,10 +111,7 @@ namespace ALS.Glance.Api.Controllers
 
         #region ODataPut
 
-        [ApiAuthorize(Roles.Admin, Roles.User),
-        Permission(Role = Roles.User, ClaimType = ClaimTypes.Name, MustOwn = "UserId"),
-        EnableCors,
-        EnableQuery]
+        [ApiAuthorize(Roles.Admin, Roles.User), EnableCors, EnableQuery]
         public async Task<IHttpActionResult> Put(
             [FromODataUri] string userId, [FromODataUri] string applicationId, ApplicationSettings update, ODataQueryOptions<ApplicationSettings> options, CancellationToken ct)
         {

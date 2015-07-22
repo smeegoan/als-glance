@@ -18,7 +18,6 @@ namespace ALS.Glance.Api.IoC
             container.Install(
                        new ControllerInstaller(),
                        new ConfigurationInstaller(),
-                       new SecurityInstaller(),
                        new UnitOfWorkInstaller());
         }
 

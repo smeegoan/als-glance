@@ -124,6 +124,7 @@
     <Reference Include="System.Web.Http.Cors">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.OData">
       <HintPath>..\packages\Microsoft.AspNet.OData.5.4.0\lib\net45\System.Web.OData.dll</HintPath>
     </Reference>
@@ -149,7 +150,6 @@
     <Compile Include="App_Start\ModelBuilderExtensions.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ApiUserController.cs" />
-    <Compile Include="Controllers\ApiUserRegistrationController.cs" />
     <Compile Include="Controllers\ApplicationSettingsController.cs" />
     <Compile Include="Controllers\AuthorizationRefreshController.cs" />
     <Compile Include="Controllers\AuthorizationRequestController.cs" />
@@ -176,7 +176,6 @@
     <Compile Include="Helpers\UserManagerExtensions.cs" />
     <Compile Include="IoC\Factories\WindsorApiControllerFactory.cs" />
     <Compile Include="IoC\Installers\ConfigurationInstaller.cs" />
-    <Compile Include="IoC\Installers\SecurityInstaller.cs" />
     <Compile Include="IoC\Installers\ControllerInstaller.cs" />
     <Compile Include="IoC\IoCManager.cs" />
     <Compile Include="IoC\Installers\UnitOfWorkInstaller.cs" />
