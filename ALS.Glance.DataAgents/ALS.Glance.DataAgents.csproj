@@ -99,10 +99,6 @@
       <Project>{92267138-ba91-46d9-b917-5553904e993e}</Project>
       <Name>ALS.Glance.Models.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ALS.Glance.Models.Security\ALS.Glance.Models.Security.csproj">
-      <Project>{61011dc2-531b-45a5-88bc-f49e661b2aa9}</Project>
-      <Name>ALS.Glance.Models.Security</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
