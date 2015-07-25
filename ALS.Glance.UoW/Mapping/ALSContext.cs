@@ -87,7 +87,8 @@ namespace ALS.Glance.UoW.Mapping
                     cfg.HasRequired(a => a.Muscle).WithMany(b => b.Fact).HasForeignKey(c => c.MuscleId);
                     cfg.HasRequired(a => a.Patient).WithMany(b => b.Fact).HasForeignKey(c => c.PatientId);
                     cfg.HasRequired(a => a.Time).WithMany(b => b.Fact).HasForeignKey(c => c.TimeId);
-                    cfg.HasRequired(x => x.EMG).WithMany(b => b.Fact).HasForeignKey(c => c.EmgId);
+                    cfg.HasOptional(a => a.EMG).WithMany().HasForeignKey(b => b.EmgId);
+
                 });
 
             modelBuilder.Entity<DPatient>(
@@ -106,6 +107,18 @@ namespace ALS.Glance.UoW.Mapping
                     cfg.Map();
                 });
 
+            modelBuilder.Entity<DEmg>(
+             cfg =>
+             {
+                 cfg.ToTable("D_Emg");
+                 cfg.HasKey(x => x.Id);
+
+                 cfg.Property(x => x.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+                 cfg.Property(x => x.Data).IsRequired();
+                 cfg.HasRequired(x => x.Fact).WithMany().HasForeignKey(b => b.FactId);
+                 cfg.Map();
+             });
+
             modelBuilder.Entity<DTime>(
                 cfg =>
                 {
@@ -121,13 +134,13 @@ namespace ALS.Glance.UoW.Mapping
             modelBuilder.Entity<ApplicationSettings>(
               cfg =>
               {
-                   cfg.Property(e => e.UserId).HasColumnAnnotation(
-                      IndexAnnotation.AnnotationName,
-                      new IndexAnnotation(
-                          new IndexAttribute("IX_dbo.ApplicationSettings_UserIdApplicationId", 1)
-                          {
-                              IsUnique = true
-                          }));
+                  cfg.Property(e => e.UserId).HasColumnAnnotation(
+                     IndexAnnotation.AnnotationName,
+                     new IndexAnnotation(
+                         new IndexAttribute("IX_dbo.ApplicationSettings_UserIdApplicationId", 1)
+                         {
+                             IsUnique = true
+                         }));
                   cfg.HasRequired(e => e.Application).WithMany().HasForeignKey(e => e.ApplicationId);
                   cfg.Property(e => e.ApplicationId).HasColumnAnnotation(
                       IndexAnnotation.AnnotationName,
@@ -170,7 +183,6 @@ namespace ALS.Glance.UoW.Mapping
                     cfg.Property(x => x.PatientDiagnosedOn).IsRequired();
                     cfg.Property(x => x.TimeHour).IsRequired();
                     cfg.Property(x => x.TimeTimeOfDay).IsRequired().HasMaxLength(50);
-                    cfg.Property(x => x.EMG);
 
                 });
         }

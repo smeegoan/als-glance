@@ -15,7 +15,6 @@ namespace ALS.Glance.Models
 
             public byte DateDay { get; set; } // Day
 
-            public string EMG { get; set; }
             public string DateDayInMonth { get; set; } // DayInMonth
 
 

@@ -629,14 +629,15 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
         var timeOfDayFilter = function (timeOfDay) {
             var filter = null;
             for (var i = 0; i < timeOfDay.length; i++) {
-                filter = (!filter ? "" : filter + " or ") + "TimeTimeOfDay eq '" + timeOfDay[i] + "'";
+                filter = (!filter ? "" : filter + " or ") + "Time/TimeOfDay eq '" + timeOfDay[i] + "'";
             }
             return " and (" + filter + ")";
         };
-        var url = "Facts?$top=1&$select=EMG&$filter=PatientId%20eq%20" + alsglance.dashboard.patient.id + " and EMG ne null " +
-        " and MuscleAbbreviation eq '" + alsglance.dashboard.patient.muscle + "' " +
+        //var url = "Facts?$top=1&$select=EMG&$filter=PatientId%20eq%20" + alsglance.dashboard.patient.id + " and EMG ne null " +
+        var url = "Fact?$top=1&$select=EMG&$expand=EMG($select=Data)&$filter=Patient/Id%20eq%20" + alsglance.dashboard.patient.id + " and EMG ne null " +
+        " and Muscle/Abbreviation eq '" + alsglance.dashboard.patient.muscle + "' " +
         (alsglance.dashboard.patient.timeOfDay != null ? timeOfDayFilter(alsglance.dashboard.patient.timeOfDay) : "") +
-        (alsglance.dashboard.patient.endDate != null ? " and DateDate le " + alsglance.dashboard.patient.endDate.format('YYYY-MM-DDTHH:mm') + "%2B00:00&$orderby=DateDate desc" : "");
+        (alsglance.dashboard.patient.endDate != null ? " and Date/Date le " + alsglance.dashboard.patient.endDate.format('YYYY-MM-DDTHH:mm') + "%2B00:00&$orderby=Date/Date desc" : "");
         if (url == alsglance.dashboard.patient.lastUrl) {
             return;
         }
@@ -646,7 +647,7 @@ alsglance.dashboard.patient = alsglance.dashboard.patient || {
                 var value = facts.value;
                 alsglance.charts.emgData = null;
                 if (value != null && value.length > 0) {
-                    alsglance.charts.emgData = JSON.parse(value[0].EMG);
+                    alsglance.charts.emgData = JSON.parse(value[0].EMG.Data);
                 }
                 alsglance.dashboard.patient.renderEmg();
                 $(".loadingEmg").remove();

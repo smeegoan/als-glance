@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using ALS.Glance.Models.Core;
+﻿using ALS.Glance.Models.Core;
 
 namespace ALS.Glance.Models
 {
@@ -8,12 +7,7 @@ namespace ALS.Glance.Models
 
         public string Data { get; set; }
 
-        public virtual ICollection<Fact> Fact { get; set; }
-
-
-        public DEmg()
-        {
-            Fact = new List<Fact>();
-        }
+        public virtual Fact Fact { get; set; }
+        public virtual long FactId { get; set; }
     }
 }

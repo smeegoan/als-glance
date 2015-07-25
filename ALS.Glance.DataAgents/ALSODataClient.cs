@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generation date: 17/07/2015 00:22:22
+// Generation date: 25/07/2015 19:40:19
 namespace ALS.Glance.DataAgents.ALS.Glance.Api.Models
 {
     /// <summary>
@@ -637,7 +637,7 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Api.Models
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
         [global::Microsoft.OData.Client.OriginalNameAttribute("User")]
-        public global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUserSingle User
+        public global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUserSingle User
         {
             get
             {
@@ -647,13 +647,13 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Api.Models
                 }
                 if ((this._User == null))
                 {
-                    this._User = new global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUserSingle(this.Context, GetPath("User"));
+                    this._User = new global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUserSingle(this.Context, GetPath("User"));
                 }
                 return this._User;
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        private global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUserSingle _User;
+        private global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUserSingle _User;
     }
     /// <summary>
     /// There are no comments for ApiUserRegistration in the schema.
@@ -779,7 +779,7 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Api.Models
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
         [global::Microsoft.OData.Client.OriginalNameAttribute("User")]
-        public global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUser User
+        public global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUser User
         {
             get
             {
@@ -794,8 +794,8 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Api.Models
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        private global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUser _User;
-        partial void OnUserChanging(global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUser value);
+        private global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUser _User;
+        partial void OnUserChanging(global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUser value);
         partial void OnUserChanged();
         /// <summary>
         /// This event is raised when the value of the property is changed
@@ -903,50 +903,50 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Api.Models
 namespace ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations
 {
     /// <summary>
-    /// There are no comments for IdentityUserSingle in the schema.
+    /// There are no comments for ApiUserSingle in the schema.
     /// </summary>
-    [global::Microsoft.OData.Client.OriginalNameAttribute("IdentityUserSingle")]
-    public partial class IdentityUserSingle : global::Microsoft.OData.Client.DataServiceQuerySingle<IdentityUser>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("ApiUserSingle")]
+    public partial class ApiUserSingle : global::Microsoft.OData.Client.DataServiceQuerySingle<ApiUser>
     {
         /// <summary>
-        /// Initialize a new IdentityUserSingle object.
+        /// Initialize a new ApiUserSingle object.
         /// </summary>
-        public IdentityUserSingle(global::Microsoft.OData.Client.DataServiceContext context, string path)
+        public ApiUserSingle(global::Microsoft.OData.Client.DataServiceContext context, string path)
             : base(context, path) {}
 
         /// <summary>
-        /// Initialize a new IdentityUserSingle object.
+        /// Initialize a new ApiUserSingle object.
         /// </summary>
-        public IdentityUserSingle(global::Microsoft.OData.Client.DataServiceContext context, string path, bool isComposable)
+        public ApiUserSingle(global::Microsoft.OData.Client.DataServiceContext context, string path, bool isComposable)
             : base(context, path, isComposable) {}
 
         /// <summary>
-        /// Initialize a new IdentityUserSingle object.
+        /// Initialize a new ApiUserSingle object.
         /// </summary>
-        public IdentityUserSingle(global::Microsoft.OData.Client.DataServiceQuerySingle<IdentityUser> query)
+        public ApiUserSingle(global::Microsoft.OData.Client.DataServiceQuerySingle<ApiUser> query)
             : base(query) {}
 
     }
     /// <summary>
-    /// There are no comments for IdentityUser in the schema.
+    /// There are no comments for ApiUser in the schema.
     /// </summary>
     /// <KeyProperties>
     /// UserName
     /// </KeyProperties>
     [global::Microsoft.OData.Client.Key("UserName")]
-    [global::Microsoft.OData.Client.OriginalNameAttribute("IdentityUser")]
-    public partial class IdentityUser : global::Microsoft.OData.Client.BaseEntityType, global::System.ComponentModel.INotifyPropertyChanged
+    [global::Microsoft.OData.Client.OriginalNameAttribute("ApiUser")]
+    public partial class ApiUser : global::Microsoft.OData.Client.BaseEntityType, global::System.ComponentModel.INotifyPropertyChanged
     {
         /// <summary>
-        /// Create a new IdentityUser object.
+        /// Create a new ApiUser object.
         /// </summary>
         /// <param name="userName">Initial value of UserName.</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        public static IdentityUser CreateIdentityUser(string userName)
+        public static ApiUser CreateApiUser(string userName)
         {
-            IdentityUser identityUser = new IdentityUser();
-            identityUser.UserName = userName;
-            return identityUser;
+            ApiUser apiUser = new ApiUser();
+            apiUser.UserName = userName;
+            return apiUser;
         }
         /// <summary>
         /// There are no comments for Property UserName in the schema.
@@ -1111,27 +1111,27 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations
     public static class ExtensionMethods
     {
         /// <summary>
-        /// Get an entity of type global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUser as global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUserSingle specified by key from an entity set
+        /// Get an entity of type global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUser as global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUserSingle specified by key from an entity set
         /// </summary>
         /// <param name="source">source entity set</param>
         /// <param name="keys">dictionary with the names and values of keys</param>
-        public static global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUserSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUser> source, global::System.Collections.Generic.Dictionary<string, object> keys)
+        public static global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUserSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUser> source, global::System.Collections.Generic.Dictionary<string, object> keys)
         {
-            return new global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUserSingle(source.Context, source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(source.Context, keys)));
+            return new global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUserSingle(source.Context, source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(source.Context, keys)));
         }
         /// <summary>
-        /// Get an entity of type global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUser as global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUserSingle specified by key from an entity set
+        /// Get an entity of type global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUser as global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUserSingle specified by key from an entity set
         /// </summary>
         /// <param name="source">source entity set</param>
         /// <param name="userName">The value of userName</param>
-        public static global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUserSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUser> source,
+        public static global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUserSingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUser> source,
             string userName)
         {
             global::System.Collections.Generic.Dictionary<string, object> keys = new global::System.Collections.Generic.Dictionary<string, object>
             {
                 { "UserName", userName }
             };
-            return new global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUserSingle(source.Context, source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(source.Context, keys)));
+            return new global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUserSingle(source.Context, source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(source.Context, keys)));
         }
     }
 }
@@ -1161,28 +1161,6 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
         public ApplicationSettingsSingle(global::Microsoft.OData.Client.DataServiceQuerySingle<ApplicationSettings> query)
             : base(query) {}
 
-        /// <summary>
-        /// There are no comments for User in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("User")]
-        public global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUserSingle User
-        {
-            get
-            {
-                if (!this.IsComposable)
-                {
-                    throw new global::System.NotSupportedException("The previous function is not composable.");
-                }
-                if ((this._User == null))
-                {
-                    this._User = new global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUserSingle(this.Context, GetPath("User"));
-                }
-                return this._User;
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        private global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUserSingle _User;
     }
     /// <summary>
     /// There are no comments for ApplicationSettings in the schema.
@@ -1203,14 +1181,8 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
         /// <param name="application">Initial value of Application.</param>
         /// <param name="createdOn">Initial value of CreatedOn.</param>
         /// <param name="updatedOn">Initial value of UpdatedOn.</param>
-        /// <param name="user">Initial value of User.</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        public static ApplicationSettings CreateApplicationSettings(string userId, 
-                    string applicationId, 
-                    global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApplicationUser application, 
-                    global::System.DateTimeOffset createdOn, 
-                    global::System.DateTimeOffset updatedOn, 
-                    global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUser user)
+        public static ApplicationSettings CreateApplicationSettings(string userId, string applicationId, global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApplicationUser application, global::System.DateTimeOffset createdOn, global::System.DateTimeOffset updatedOn)
         {
             ApplicationSettings applicationSettings = new ApplicationSettings();
             applicationSettings.UserId = userId;
@@ -1222,11 +1194,6 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
             applicationSettings.Application = application;
             applicationSettings.CreatedOn = createdOn;
             applicationSettings.UpdatedOn = updatedOn;
-            if ((user == null))
-            {
-                throw new global::System.ArgumentNullException("user");
-            }
-            applicationSettings.User = user;
             return applicationSettings;
         }
         /// <summary>
@@ -1275,29 +1242,6 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
         private string _ApplicationId;
         partial void OnApplicationIdChanging(string value);
         partial void OnApplicationIdChanged();
-        /// <summary>
-        /// There are no comments for Property Value in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("Value")]
-        public string Value
-        {
-            get
-            {
-                return this._Value;
-            }
-            set
-            {
-                this.OnValueChanging(value);
-                this._Value = value;
-                this.OnValueChanged();
-                this.OnPropertyChanged("Value");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        private string _Value;
-        partial void OnValueChanging(string value);
-        partial void OnValueChanged();
         /// <summary>
         /// There are no comments for Property Application in the schema.
         /// </summary>
@@ -1391,28 +1335,28 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
         partial void OnUpdatedOnChanging(global::System.DateTimeOffset value);
         partial void OnUpdatedOnChanged();
         /// <summary>
-        /// There are no comments for Property User in the schema.
+        /// There are no comments for Property Value in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("User")]
-        public global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUser User
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Value")]
+        public string Value
         {
             get
             {
-                return this._User;
+                return this._Value;
             }
             set
             {
-                this.OnUserChanging(value);
-                this._User = value;
-                this.OnUserChanged();
-                this.OnPropertyChanged("User");
+                this.OnValueChanging(value);
+                this._Value = value;
+                this.OnValueChanged();
+                this.OnPropertyChanged("Value");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        private global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUser _User;
-        partial void OnUserChanging(global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUser value);
-        partial void OnUserChanged();
+        private string _Value;
+        partial void OnValueChanging(string value);
+        partial void OnValueChanged();
         /// <summary>
         /// This event is raised when the value of the property is changed
         /// </summary>
@@ -1581,7 +1525,6 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
         /// </summary>
         /// <param name="ID">Initial value of Id.</param>
         /// <param name="aUC">Initial value of AUC.</param>
-        /// <param name="eMG">Initial value of EMG.</param>
         /// <param name="patient">Initial value of Patient.</param>
         /// <param name="muscle">Initial value of Muscle.</param>
         /// <param name="date">Initial value of Date.</param>
@@ -1589,7 +1532,6 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
         public static Fact CreateFact(long ID, 
                     decimal aUC, 
-                    global::ALS.Glance.DataAgents.ALS.Glance.Models.DEmg eMG, 
                     global::ALS.Glance.DataAgents.ALS.Glance.Models.DPatient patient, 
                     global::ALS.Glance.DataAgents.ALS.Glance.Models.DMuscle muscle, 
                     global::ALS.Glance.DataAgents.ALS.Glance.Models.DDate date, 
@@ -1598,11 +1540,6 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
             Fact fact = new Fact();
             fact.Id = ID;
             fact.AUC = aUC;
-            if ((eMG == null))
-            {
-                throw new global::System.ArgumentNullException("eMG");
-            }
-            fact.EMG = eMG;
             if ((patient == null))
             {
                 throw new global::System.ArgumentNullException("patient");
@@ -1828,6 +1765,28 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
         public DEmgSingle(global::Microsoft.OData.Client.DataServiceQuerySingle<DEmg> query)
             : base(query) {}
 
+        /// <summary>
+        /// There are no comments for Fact in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Fact")]
+        public global::ALS.Glance.DataAgents.ALS.Glance.Models.FactSingle Fact
+        {
+            get
+            {
+                if (!this.IsComposable)
+                {
+                    throw new global::System.NotSupportedException("The previous function is not composable.");
+                }
+                if ((this._Fact == null))
+                {
+                    this._Fact = new global::ALS.Glance.DataAgents.ALS.Glance.Models.FactSingle(this.Context, GetPath("Fact"));
+                }
+                return this._Fact;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private global::ALS.Glance.DataAgents.ALS.Glance.Models.FactSingle _Fact;
     }
     /// <summary>
     /// There are no comments for DEmg in the schema.
@@ -1843,11 +1802,17 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
         /// Create a new DEmg object.
         /// </summary>
         /// <param name="ID">Initial value of Id.</param>
+        /// <param name="fact">Initial value of Fact.</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        public static DEmg CreateDEmg(long ID)
+        public static DEmg CreateDEmg(long ID, global::ALS.Glance.DataAgents.ALS.Glance.Models.Fact fact)
         {
             DEmg dEmg = new DEmg();
             dEmg.Id = ID;
+            if ((fact == null))
+            {
+                throw new global::System.ArgumentNullException("fact");
+            }
+            dEmg.Fact = fact;
             return dEmg;
         }
         /// <summary>
@@ -1896,6 +1861,29 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
         private string _Data;
         partial void OnDataChanging(string value);
         partial void OnDataChanged();
+        /// <summary>
+        /// There are no comments for Property Fact in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Fact")]
+        public global::ALS.Glance.DataAgents.ALS.Glance.Models.Fact Fact
+        {
+            get
+            {
+                return this._Fact;
+            }
+            set
+            {
+                this.OnFactChanging(value);
+                this._Fact = value;
+                this.OnFactChanged();
+                this.OnPropertyChanged("Fact");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
+        private global::ALS.Glance.DataAgents.ALS.Glance.Models.Fact _Fact;
+        partial void OnFactChanging(global::ALS.Glance.DataAgents.ALS.Glance.Models.Fact value);
+        partial void OnFactChanged();
         /// <summary>
         /// This event is raised when the value of the property is changed
         /// </summary>
@@ -2889,29 +2877,6 @@ namespace ALS.Glance.DataAgents.ALS.Glance.Models
         partial void OnAUCChanging(decimal value);
         partial void OnAUCChanged();
         /// <summary>
-        /// There are no comments for Property EMG in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("EMG")]
-        public string EMG
-        {
-            get
-            {
-                return this._EMG;
-            }
-            set
-            {
-                this.OnEMGChanging(value);
-                this._EMG = value;
-                this.OnEMGChanged();
-                this.OnPropertyChanged("EMG");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        private string _EMG;
-        partial void OnEMGChanging(string value);
-        partial void OnEMGChanged();
-        /// <summary>
         /// There are no comments for Property DateDayOfWeek in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
@@ -3725,23 +3690,23 @@ namespace ALS.Glance.DataAgents.Default
             return null;
         }
         /// <summary>
-        /// There are no comments for IdentityUser in the schema.
+        /// There are no comments for ApiUser in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("IdentityUser")]
-        public global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUser> IdentityUser
+        [global::Microsoft.OData.Client.OriginalNameAttribute("ApiUser")]
+        public global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUser> ApiUser
         {
             get
             {
-                if ((this._IdentityUser == null))
+                if ((this._ApiUser == null))
                 {
-                    this._IdentityUser = base.CreateQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUser>("IdentityUser");
+                    this._ApiUser = base.CreateQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUser>("ApiUser");
                 }
-                return this._IdentityUser;
+                return this._ApiUser;
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        private global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUser> _IdentityUser;
+        private global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUser> _ApiUser;
         /// <summary>
         /// There are no comments for AuthorizationRefresh in the schema.
         /// </summary>
@@ -3941,12 +3906,12 @@ namespace ALS.Glance.DataAgents.Default
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
         private global::Microsoft.OData.Client.DataServiceQuery<global::ALS.Glance.DataAgents.ALS.Glance.Models.DDate> _DDate;
         /// <summary>
-        /// There are no comments for IdentityUser in the schema.
+        /// There are no comments for ApiUser in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.3.0")]
-        public void AddToIdentityUser(global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUser identityUser)
+        public void AddToApiUser(global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUser apiUser)
         {
-            base.AddObject("IdentityUser", identityUser);
+            base.AddObject("ApiUser", apiUser);
         }
         /// <summary>
         /// There are no comments for AuthorizationRefresh in the schema.
@@ -4087,11 +4052,11 @@ namespace ALS.Glance.DataAgents.Default
         <Property Name=""Password"" Type=""Edm.String"" Nullable=""false"" />
         <Property Name=""PasswordConfirmation"" Type=""Edm.String"" Nullable=""false"" />
         <Property Name=""AcceptsTermsAndConditions"" Type=""Edm.Boolean"" Nullable=""false"" />
-        <NavigationProperty Name=""User"" Type=""ALS.Glance.Models.Security.Implementations.IdentityUser"" />
+        <NavigationProperty Name=""User"" Type=""ALS.Glance.Models.Security.Implementations.ApiUser"" />
       </EntityType>
     </Schema>
     <Schema Namespace=""ALS.Glance.Models.Security.Implementations"" xmlns=""http://docs.oasis-open.org/odata/ns/edm"">
-      <EntityType Name=""IdentityUser"">
+      <EntityType Name=""ApiUser"">
         <Key>
           <PropertyRef Name=""UserName"" />
         </Key>
@@ -4112,12 +4077,11 @@ namespace ALS.Glance.DataAgents.Default
         </Key>
         <Property Name=""UserId"" Type=""Edm.String"" Nullable=""false"" />
         <Property Name=""ApplicationId"" Type=""Edm.String"" Nullable=""false"" />
-        <Property Name=""Value"" Type=""Edm.String"" />
         <Property Name=""Application"" Type=""ALS.Glance.Models.Security.Implementations.ApplicationUser"" Nullable=""false"" />
         <Property Name=""Version"" Type=""Edm.Binary"" ConcurrencyMode=""Fixed"" />
         <Property Name=""CreatedOn"" Type=""Edm.DateTimeOffset"" Nullable=""false"" />
         <Property Name=""UpdatedOn"" Type=""Edm.DateTimeOffset"" Nullable=""false"" />
-        <NavigationProperty Name=""User"" Type=""ALS.Glance.Models.Security.Implementations.IdentityUser"" Nullable=""false"" />
+        <Property Name=""Value"" Type=""Edm.String"" />
       </EntityType>
       <EntityType Name=""Fact"">
         <Key>
@@ -4125,7 +4089,7 @@ namespace ALS.Glance.DataAgents.Default
         </Key>
         <Property Name=""Id"" Type=""Edm.Int64"" Nullable=""false"" />
         <Property Name=""AUC"" Type=""Edm.Decimal"" Nullable=""false"" />
-        <NavigationProperty Name=""EMG"" Type=""ALS.Glance.Models.DEmg"" Nullable=""false"" />
+        <NavigationProperty Name=""EMG"" Type=""ALS.Glance.Models.DEmg"" />
         <NavigationProperty Name=""Patient"" Type=""ALS.Glance.Models.DPatient"" Nullable=""false"" />
         <NavigationProperty Name=""Muscle"" Type=""ALS.Glance.Models.DMuscle"" Nullable=""false"" />
         <NavigationProperty Name=""Date"" Type=""ALS.Glance.Models.DDate"" Nullable=""false"" />
@@ -4137,6 +4101,7 @@ namespace ALS.Glance.DataAgents.Default
         </Key>
         <Property Name=""Id"" Type=""Edm.Int64"" Nullable=""false"" />
         <Property Name=""Data"" Type=""Edm.String"" />
+        <NavigationProperty Name=""Fact"" Type=""ALS.Glance.Models.Fact"" Nullable=""false"" />
       </EntityType>
       <EntityType Name=""DPatient"">
         <Key>
@@ -4189,7 +4154,6 @@ namespace ALS.Glance.DataAgents.Default
         </Key>
         <Property Name=""Id"" Type=""Edm.Int64"" Nullable=""false"" />
         <Property Name=""AUC"" Type=""Edm.Decimal"" Nullable=""false"" />
-        <Property Name=""EMG"" Type=""Edm.String"" />
         <Property Name=""DateDayOfWeek"" Type=""Edm.String"" />
         <Property Name=""DateMonth"" Type=""Edm.Byte"" Nullable=""false"" />
         <Property Name=""DateWeekday"" Type=""Edm.String"" />
@@ -4216,10 +4180,10 @@ namespace ALS.Glance.DataAgents.Default
     </Schema>
     <Schema xmlns=""http://docs.oasis-open.org/odata/ns/edm"">
       <Action Name=""ResetPassword"" IsBound=""true"">
-        <Parameter Name=""bindingParameter"" Type=""ALS.Glance.Models.Security.Implementations.IdentityUser"" />
+        <Parameter Name=""bindingParameter"" Type=""ALS.Glance.Models.Security.Implementations.ApiUser"" />
       </Action>
       <Action Name=""ChangePassword"" IsBound=""true"">
-        <Parameter Name=""bindingParameter"" Type=""ALS.Glance.Models.Security.Implementations.IdentityUser"" />
+        <Parameter Name=""bindingParameter"" Type=""ALS.Glance.Models.Security.Implementations.ApiUser"" />
         <Parameter Name=""NewPassword"" Type=""Edm.String"" Unicode=""false"" />
         <Parameter Name=""CurrentPassword"" Type=""Edm.String"" Unicode=""false"" />
       </Action>
@@ -4232,15 +4196,13 @@ namespace ALS.Glance.DataAgents.Default
         <ReturnType Type=""ALS.Glance.Api.Models.YearBounds"" />
       </Function>
       <EntityContainer Name=""Container"">
-        <EntitySet Name=""IdentityUser"" EntityType=""ALS.Glance.Models.Security.Implementations.IdentityUser"" />
+        <EntitySet Name=""ApiUser"" EntityType=""ALS.Glance.Models.Security.Implementations.ApiUser"" />
         <EntitySet Name=""AuthorizationRefresh"" EntityType=""ALS.Glance.Api.Models.AuthorizationRefresh"" />
         <EntitySet Name=""AuthorizationRequest"" EntityType=""ALS.Glance.Api.Models.AuthorizationRequest"" />
         <EntitySet Name=""ApiUserRegistration"" EntityType=""ALS.Glance.Api.Models.ApiUserRegistration"">
-          <NavigationPropertyBinding Path=""User"" Target=""IdentityUser"" />
+          <NavigationPropertyBinding Path=""User"" Target=""ApiUser"" />
         </EntitySet>
-        <EntitySet Name=""ApplicationSettings"" EntityType=""ALS.Glance.Models.ApplicationSettings"">
-          <NavigationPropertyBinding Path=""User"" Target=""IdentityUser"" />
-        </EntitySet>
+        <EntitySet Name=""ApplicationSettings"" EntityType=""ALS.Glance.Models.ApplicationSettings"" />
         <EntitySet Name=""Fact"" EntityType=""ALS.Glance.Models.Fact"">
           <NavigationPropertyBinding Path=""EMG"" Target=""DEmg"" />
           <NavigationPropertyBinding Path=""Patient"" Target=""DPatient"" />
@@ -4251,7 +4213,9 @@ namespace ALS.Glance.DataAgents.Default
         <EntitySet Name=""Facts"" EntityType=""ALS.Glance.Models.Facts"" />
         <EntitySet Name=""DMuscle"" EntityType=""ALS.Glance.Models.DMuscle"" />
         <EntitySet Name=""DPatient"" EntityType=""ALS.Glance.Models.DPatient"" />
-        <EntitySet Name=""DEmg"" EntityType=""ALS.Glance.Models.DEmg"" />
+        <EntitySet Name=""DEmg"" EntityType=""ALS.Glance.Models.DEmg"">
+          <NavigationPropertyBinding Path=""Fact"" Target=""Fact"" />
+        </EntitySet>
         <EntitySet Name=""DTime"" EntityType=""ALS.Glance.Models.DTime"" />
         <EntitySet Name=""DDate"" EntityType=""ALS.Glance.Models.DDate"" />
       </EntityContainer>
@@ -4318,7 +4282,7 @@ namespace ALS.Glance.DataAgents.Default
         /// There are no comments for ResetPassword in the schema.
         /// </summary>
         [global::Microsoft.OData.Client.OriginalNameAttribute("ResetPassword")]
-        public static global::Microsoft.OData.Client.DataServiceActionQuery ResetPassword(this global::Microsoft.OData.Client.DataServiceQuerySingle<global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUser> source)
+        public static global::Microsoft.OData.Client.DataServiceActionQuery ResetPassword(this global::Microsoft.OData.Client.DataServiceQuerySingle<global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUser> source)
         {
             if (!source.IsComposable)
             {
@@ -4331,7 +4295,7 @@ namespace ALS.Glance.DataAgents.Default
         /// There are no comments for ChangePassword in the schema.
         /// </summary>
         [global::Microsoft.OData.Client.OriginalNameAttribute("ChangePassword")]
-        public static global::Microsoft.OData.Client.DataServiceActionQuery ChangePassword(this global::Microsoft.OData.Client.DataServiceQuerySingle<global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.IdentityUser> source, string NewPassword, string CurrentPassword)
+        public static global::Microsoft.OData.Client.DataServiceActionQuery ChangePassword(this global::Microsoft.OData.Client.DataServiceQuerySingle<global::ALS.Glance.DataAgents.ALS.Glance.Models.Security.Implementations.ApiUser> source, string NewPassword, string CurrentPassword)
         {
             if (!source.IsComposable)
             {
