@@ -90,3 +90,5 @@ SET IDENTITY_INSERT [dbo].[D_Patient] OFF
 :r .\Script.Date.sql
 :r .\Script.Emg.sql
 :r .\Script.Fact.sql		
+
+ALTER TABLE [dbo].[D_Emg] ADD CONSTRAINT [FK_dbo.Emg_dbo.Fact_Id] FOREIGN KEY ([FactId]) REFERENCES [dbo].[Fact] ([Id])
