@@ -14,7 +14,6 @@ namespace ALS.Glance.Api.Helpers.Binder
 
         public ICollection<BinderNode> BindFilter(FilterQueryOption filterQuery, Action<Exception> exceptionHandler)
         {
-            var positionalParmeters = new List<object>();
             var nodes = new HashSet<BinderNode>();
             if (filterQuery != null)
             {

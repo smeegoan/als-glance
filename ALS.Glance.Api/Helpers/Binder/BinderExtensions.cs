@@ -16,7 +16,7 @@ namespace ALS.Glance.Api.Helpers.Binder
 
         public static bool IsValid(SelectExpandQueryOption selectExpandQueryOption)
         {
-            return selectExpandQueryOption != null && selectExpandQueryOption.SelectExpandClause != null && selectExpandQueryOption.SelectExpandClause.SelectedItems != null;
+            return selectExpandQueryOption?.SelectExpandClause?.SelectedItems != null;
         }
 
         public static DateTime? StartDate(this IEnumerable<BinderNode> parameters, string attributeName)
