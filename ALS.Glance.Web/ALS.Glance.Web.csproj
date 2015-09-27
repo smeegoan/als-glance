@@ -232,10 +232,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\Resources.pt-PT.Designer.cs">
+    <Compile Include="Resources\Resources.pt.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.pt-PT.resx</DependentUpon>
+      <DependentUpon>Resources.pt.resx</DependentUpon>
     </Compile>
     <Compile Include="Security\MvcAuthorizeAttribute.cs" />
     <Compile Include="Startup.cs" />
@@ -425,9 +425,9 @@
     <Content Include="Scripts\apiclient.min.js.map">
       <DependentUpon>apiclient.min.js</DependentUpon>
     </Content>
-    <EmbeddedResource Include="Resources\Resources.pt-PT.resx">
+    <EmbeddedResource Include="Resources\Resources.pt.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.pt-PT.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resources.pt.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="Scripts\alsglance.min.js.map">
